@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre Paginas</title>
+
+    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
+    <script th:src="@{/static/js/HeaderScript.js}"></script>
+
+</head>
+
+<body>
+    <div th:replace="~{fragments/header/header :: header}"></div>
+
+    <div>
+        <h2>Informações do Perfil</h2>
+
+        <form th:action="@{/user/image/{id}(id=${user.id})}" method="post" enctype="multipart/form-data">
+            <div class="forms-informacoes-groupFile">
+                <label for="imagem" class="forms-informacoes-groupFile-div_label">Foto de Perfil</label>
+                <input type="file" id="imagem" name="imagem" accept="image/*,.gif" />
+                <button type="submit" class="forms-informacoes_button">Salvar</button>
+            </div>
+        </form>
+
+        <br />
+
+        <form th:action="@{/user/edit/{id}(id=${user.id})}" th:object="${user}" method="post" class="forms-informacoes">
+            <div class="forms-informacoes-group">
+                <label for="nome" class="forms-informacoes-group-div_label">Nome</label>
+                <input type="text" id="nome" name="nome" th:field="${user.nome}" />
+            </div>
+
+            <div class="forms-informacoes-group">
+                <label for="email" class="forms-informacoes-group-div_label">Email</label>
+                <input type="email" id="email" name="email" th:field="${user.email}" />
+            </div>
+
+            <div class="forms-informacoes-group">
+                <label for="login" class="forms-informacoes-group-div_label">Login</label>
+                <input type="text" id="login" name="login" th:field="${user.login}" />
+            </div>
+
+            <div class="forms-novaSenha_principal">
+                <div class="forms-novaSenha_group">
+                    <label for="senha" class="forms-novaSenha_group-label">Senha</label>
+                    <input type="password" id="senha" name="senha" th:field="${user.senha}" />
+                </div>
+                <div class="forms-novaSenha_group">
+                    <label for="confirmar-senha" class="forms-novaSenha_group-label">Confirmar Senha</label>
+                    <input type="password" id="confirmarSenha" name="confirmarSenha" />
+                </div>
+            </div>
+
+            <button type="submit" class="forms-informacoes_button">Salvar</button>
+        </form>
+
+    </div>
+
+    <a th:href="@{/user/delete/{id}(id=${user.id})}">Delete user</a>
+
+</body>
+
+</html>

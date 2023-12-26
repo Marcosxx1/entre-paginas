@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre Paginas</title>
+
+    <link rel="stylesheet" th:href="@{/static/css/LoginStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
+    <script th:src="@{/static/js/HeaderScript.js}"></script>
+</head>
+
+<body>
+    <div th:replace="~{fragments/header/header :: header}"></div>
+
+    <div>
+        <h2>Formulário da Comunidade</h2>
+        <form th:action="@{/community/create/save/{id}(id=${idUsuario})}" th:object="${community}" method='post'
+            id="community-form">
+            <div>
+                <label for="title">Título:</label>
+                <input type="text" id="title" name="title" required th:field="*{title}"/>
+            </div>
+            <div>
+                <label for="content">Conteúdo:</label>
+                <textarea id="content" name="content" required th:field="*{content}"></textarea>
+            </div>
+            <div>
+                <label for="privado">Privado:</label>
+                <input type="checkbox" id="privado" name="privado" th:value="${privado}"/>
+            </div>
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre Paginas</title>
+
+    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
+    <script th:src="@{/static/js/HeaderScript.js}"></script>
+
+    <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
+
+    <style>
+        .configuracoes {
+            display: none;
+        }
+
+        .configuracoes.visible {
+            display: block;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div th:replace="~{fragments/header/header :: header}"></div>
+
+    <h1 th:text="${community.title}"></h1>
+
+    <img th:if="${community.icone == null}" src="/static/image/semImagem.png" alt="Icone da comunidade">
+    <img th:if="${community.icone != null}" th:src="${community.icone}" alt="Icone da comunidade">
+
+    <span class="perfil-principal__div-config">
+        <i class="fa-solid fa-gear"></i>
+    </span>
+
+    <div class="configuracoes" id="configuracoes">
+
+        <form method='post' encType='multipart/form-data' id="icone">
+            <div>
+                <div>
+                    <label htmlFor="icone" className="forms-informacoes-groupFile-div_label">
+                        Icone da Comunidade
+                    </label>
+                </div>
+                <input type="hidden" th:value="${community.id}" class="communityId">
+                <input type="file" id="icone" name="icone" accept="image/*" />
+            </div>
+            <button type="submit" className="forms-informacoes_button">
+                Salvar
+            </button>
+        </form>
+
+        <form>
+            <label>
+                Título:
+                <input type="text" name="title" value={community.title} required />
+            </label>
+            <label>
+                Conteúdo:
+                <textarea name="content" value={community.content} required></textarea>
+            </label>
+            <label>
+                Privado:
+                <input type="checkbox" name="privado" />
+            </label>
+            <button type="submit">Salvar Alterações</button>
+        </form>
+
+        <button>
+            <a th:href="@{/community/delete/{id}(id=${community.id})}">
+                Deletar Comunidade
+            </a>
+        </button>
+    </div>
+
+    <div>
+        <h1>Formulário de Post</h1>
+        <form th:action="@{/posts/create/{communityId}/{userId}(communityId=*{community.id},userId=*{user.id})}"
+            method="post" enctype="multipart/form-data">
+
+            <label for="title">Título:</label>
+            <input type="text" id="title" name="title" required>
+            <br>
+
+            <label for="content">Conteúdo:</label>
+            <textarea id="content" name="content" required></textarea>
+            <br>
+
+            <label for="image"></label>
+            <input type="file" id="imagem" name="imagem" accept="image/*">
+
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
+
+    <div th:if="posts != null" th:each="post : ${posts}">
+        <div th:if="${community.id == post.community.id}">
+            <h2 th:text="${post.title}"></h2>
+            <p th:text="${post.content}"></p>
+        </div>
+
+        <form th:action="@{/comments/create}" method="post">
+            <!-- <input type="hidden" th:field="*{post.id}" /> -->
+
+            <div class="form-group">
+                <label for="content">Conteúdo do Comentário:</label>
+                <textarea id="content" name="content" class="form-control" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Adicionar Comentário</button>
+        </form>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const configuracoesDiv = document.getElementById("configuracoes");
+            const perfilConfigSpan = document.querySelector(".perfil-principal__div-config");
+
+            perfilConfigSpan.addEventListener("click", function () {
+                configuracoesDiv.classList.toggle("visible");
+            });
+        });
+    </script>
+
+    <script>
+        const form = document.getElementById("icone");
+        const communityId = document.querySelector(".communityId").value;
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch(`/community/icone/${communityId}`, {
+                    method: "POST",
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    if (result === "Success") {
+                        window.location.reload();
+                    }
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        });
+    </script>
+
+</body>
+
+</html>

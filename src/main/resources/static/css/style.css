@@ -1,0 +1,37 @@
+@import url("https://fonts.cdnfonts.com/css/sf-pro-display");
+
+/* cores padrões do texto */
+:root {
+    --header-background: #85c1f1;
+    --footer-border: #aaaaaa;
+    --black: #302e2e;
+    --white: #fff;
+    --suport: #f7f7f7;
+    --modal-border: #e7e7e7;
+    --modal-item-hover: #96d3e7;
+    --button-left-right: #615f5f;
+    --button-left-right-hover: #999898;
+    --button-hover: #a9e1f3;
+    --gray: #e7e5e5;
+    --light-gray: #f3f1f1;
+    --azul-logo: #458ca5;
+    --azul-claro: #e8f3f7;
+    --botao-perfil: #f5f5f5;
+    --header-background-opacity: #74d1f049;
+    --black-opacity: #0000007a;
+    --verde-claro: #e3ffe3;
+    --vermelho: #ef4c48;
+}
+
+/* corpo do codigo */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'SF Pro Display', sans-serif;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    letter-spacing: 2px;
+}

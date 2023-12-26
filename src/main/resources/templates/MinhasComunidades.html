@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre Paginas</title>
+
+    <link rel="stylesheet" th:href="@{/static/css/LoginStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
+    <script th:src="@{/static/js/HeaderScript.js}"></script>
+</head>
+
+<body>
+    <div th:replace="~{fragments/header/header :: header}"></div>
+
+    <div>
+        <h2>Comunidades criadas por mim.</h2>
+        <div th:if="${adminCommunities.size() > 0}" th:each="community : ${adminCommunities}">
+            <a th:href="@{'/community/' + ${community.id}}">
+                <img th:if="${community.icone == null}" src="/static/image/semImagem.png" alt="Icone da comunidade">
+                <img th:if="${community.icone != null}" th:src="${community.icone}" alt="Icone da comunidade">
+                <p th:text="${community.title}"></p>
+            </a>
+        </div>
+    </div>
+
+    <div>
+        <h2>Comunidades em que participo como moderador.</h2>
+        <div th:if="${moderatorCommunities.size() > 0}" th:each="community : ${moderatorCommunities}">
+            <a th:href="@{'/community/' + ${community.id}}">
+                <img th:if="${community.icone == null}" src="/static/image/semImagem.png" alt="Icone da comunidade">
+                <img th:if="${community.icone != null}" th:src="${community.icone}" alt="Icone da comunidade">
+                <p th:text="${community.title}"></p>
+            </a>
+        </div>
+    </div>
+
+    <div>
+        <h2>Comunidades em que participo.</h2>
+        <div th:if="${userCommunities.size() > 0}" th:each="community : ${userCommunities}">
+            <a th:href="@{'/community/' + ${community.id}}">
+                <img th:if="${community.icone == null}" src="/static/image/semImagem.png" alt="Icone da comunidade">
+                <img th:if="${community.icone != null}" th:src="${community.icone}" alt="Icone da comunidade">
+                <p th:text="${community.title}"></p>
+            </a>
+        </div>
+    </div>
+
+</body>
+
+</html>

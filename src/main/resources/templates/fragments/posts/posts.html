@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre Paginas</title>
+
+    <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+    <div th:fragment="post" class="container-post">
+        <div th:each="post : ${listPost}" class="div-post">
+            <div class="post" data-id="${post.id}">
+                <span th:text="${post.id}" id="idPost" style="display: none;"></span>
+                <div class="post-header">
+                    <div class="usuario">
+                        <a href="">
+                            <img class="icone" th:if="${post.usuario.imagem == null}" src="/static/image/semImagem.png"
+                                alt="Icone do usuario">
+                            <img class="icone" th:if="${post.usuario.imagem != null}" th:src="${post.usuario.imagem}"
+                                alt="Icone do usuario">
+                        </a>
+
+                        <div class="infos-post">
+                            <a href="">
+                                <p class="usuario-nome" th:text="${post.usuario.nome}"></p>
+                            </a>
+
+                            <div class="post-infos">
+                                <p>Enviou em:</p>
+                                <a th:href="@{'/community/' + ${post.community.id}}" class="community">
+                                    <p th:text="${post.community.title}"></p>
+                                </a>
+                                <p class="post-date">-</p>
+                                <p class="post-date" th:text="${#dates.format(post.date, 'dd/MM/yyyy HH:mm')}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="post-content" th:if="${post.image != null}">
+                    <p class="title" th:text="${post.title}"></p>
+                    <p class="content" th:text="${post.content}"></p>
+                    <img class="content-img" th:src="${post.image.nome}" alt="Imagem do post">
+                </div> -->
+
+
+                <div class="post-content">
+                    <p class="title" th:text="${post.title}"></p>
+                    <p class="content" th:text="${post.content}"></p>
+                    <div th:block th:if="${post.image != null}">
+                        <img class="content-img" th:src="${post.image.nome}" alt="Imagem do post">
+                    </div>
+                </div>
+
+                <hr>
+                <div class="post-footer">
+                    <span class="novo-comentario"><i class="fa-regular fa-comment-dots"></i> comentários</span>
+                    <span class="up">
+                        <div>
+                            <i class="fa-solid fa-caret-up" style="color: #85c1f1;"></i>
+                            <p>0</p>
+                            <i class="fa-solid fa-caret-down" style="color: #85c1f1;"></i>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:fragment="modalPost" id="myModal" class="modalIndex">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="post" data-id="123">
+            </div>
+            <div>
+                <form method="post">
+                    <input type="text" name="content" id="content">
+                    <input type="submit" value="comentar" name="comentar" id="comentar">
+                </form>
+            </div>
+            <div class="comentarios" data-post-id="123">
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

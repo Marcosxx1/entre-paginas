@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre Paginas</title>
+
+    <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/static/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/IndexStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/PerfilStyle.css}" />
+    <script th:src="@{/static/js/HeaderScript.js}"></script>
+    <script th:src="@{/static/js/ModalScript.js}"></script>
+    <script th:src="@{/static/js/SearchScript.js}"></script>
+
+</head>
+
+<body>
+    <div th:replace="~{fragments/header/header :: header}"></div>
+
+    <span sec:authentication="name" style="display: none;" id="userLogin"></span>
+
+    <div class="perfil">
+        <div class="perfil-principal">
+            <div class="perfil-principal__div">
+                <div class="perfil-principal__div-image">
+                    <img th:src="${user.imagem}" alt="Imagem do Usuário" />
+                </div>
+                <span class="perfil-principal__div-config">
+                    <a th:href="@{/infos/{id}(id=${user.id})}">
+                        <i class="fa-solid fa-gear"></i>
+                    </a>
+                </span>
+            </div>
+            <div class="perfil-principal__left">
+                <ul class="perfil-principal__left-menu">
+                    <li>
+                        <a th:href="@{/book/create/{id}(id=${user.id})}">
+                            Trocar Livro
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/book/exchanges/{id}(id=${user.id})}">
+                            Minhas Trocas
+                        </a>
+                    </li>
+                    <li>
+                        Livros Favoritos
+                    </li>
+                    <li>
+                        <a th:href="@{/community/create/{id}(id=${user.id})}">
+                            Criar Comunidade
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/community/mycommunities/{id}(id=${user.id})}">
+                            Minhas Comunidades
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="perfil-right">
+            <div>
+                <h1>Livros para troca</h1>
+            </div>
+            <div th:replace="~{fragments/posts/posts :: post}"></div>
+        </div>
+    </div>
+
+    <div th:replace="~{fragments/posts/posts :: modalPost}"></div>
+
+</body>
+
+</html>

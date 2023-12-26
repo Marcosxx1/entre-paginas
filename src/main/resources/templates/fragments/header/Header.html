@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre Paginas</title>
+</head>
+
+<body>
+    <header th:fragment="header" class="header-menu">
+        <div class="header-menu__logo">
+            <div class="header-menu__logo-container">
+                <a th:href="@{/index}">
+                    <img src="/static/image/logo.png" alt="logo do site">
+                </a>
+            </div>
+            <a th:href="@{/index}">Entre Páginas</a>
+        </div>
+
+        <div class="search">
+            <div class="custom-select">
+                <div class="select-box">
+                    <span class="selected-option">Livro</span>
+                    <ul class="options">
+                        <li data-value="livro">Livro</li>
+                        <li data-value="comunidade">Comunidade</li>
+                        <li data-value="usuário">Usuário</li>
+                    </ul>
+                </div>
+            </div>
+            <input type="text" id="searchInput" placeholder="Pesquise por Livro, Comunidade ou usuários"
+                spellcheck="false" required class="search_input" />
+
+            <button value="Buscar" class="search_button">
+                <span>
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+            </button>
+
+            <div id="suggestions" class="search_suggestions"></div>
+
+        </div>
+    </header>
+
+</body>
+
+</html>

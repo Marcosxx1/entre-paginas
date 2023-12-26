@@ -1,0 +1,142 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2&family=Roboto+Mono:wght@300&display=swap");
+
+:root {
+    --header-background: #85c1f1;
+    --footer-border: #aaaaaa;
+    --black: #302e2e;
+    --white: #fff;
+    --suport: #f7f7f7;
+    --modal-border: #e7e7e7;
+    --modal-item-hover: #96d3e7;
+    --button-left-right: #615f5f;
+    --button-left-right-hover: #999898;
+    --button-hover: #a9e1f3;
+    --gray: #e7e5e5;
+    --azul-logo: #458ca5;
+    --azul-claro: #e8f3f7;
+    --botao-perfil: #f5f5f5;
+    --header-background-opacity: #74d1f049;
+    --black-opacity: #0000007a;
+    --verde-claro: #e3ffe3;
+    --vermelho: #ef4c48;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto Mono', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+}
+
+.perfil {
+    width: 100%;
+    height: 89.64%;
+    margin: 1% 0 0 0;
+    display: flex;
+}
+
+.perfil-principal {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--header-background-opacity);
+}
+
+.perfil-principal__div {
+    width: 80%;
+    height: 40%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.perfil-principal__div-image {
+    width: 70%;
+    height: 80%;
+    background-color: var(--gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    box-shadow: 1px 0px 7px 0px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.perfil-principal__div-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.perfil-principal__div-suporte {
+    display: flex;
+}
+
+.perfil-principal__div-config {
+    color: var(--black);
+    margin: 95% 0 0 5%;
+    cursor: pointer;
+}
+
+.perfil-principal__left {
+    height: 100%;
+    width: 100%;
+    border-right: 1px solid var(--gray);
+}
+
+.perfil-principal__left-menu {
+    width: 100%;
+    height: 100%;
+}
+
+.perfil-principal__left li {
+    width: 95%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    padding: 0 0 0 5%;
+    cursor: pointer;
+}
+
+.perfil-principal__left li:hover {
+    color: var(--azul-logo);
+    border-right: 1px solid var(--azul-logo);
+}
+
+.perfil-right {
+    height: 90%;
+    width: 100%;
+    border-top: 1px solid var(--gray);
+}
+
+.perfil-right__botao {
+    width: 100%;
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+}
+
+.perfil-right__botao-adicionar {
+    border-radius: 50%;
+    padding: 2%;
+    font-size: 15px;
+    border: none;
+    box-shadow: -1px 0px 12px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    background-color: var(--white);
+}
+
+.perfil-right__botao-adicionar:hover {
+    background-color: var(--botao-perfil);
+}
+
+.active {
+    color: var(--azul-logo);
+    border-right: 1px solid var(--azul-logo);
+}

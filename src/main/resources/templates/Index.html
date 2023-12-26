@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre Paginas</title>
+
+    <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+
+    <link rel="stylesheet" th:href="@{/static/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/IndexStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/PostStyle.css}" />
+    <script th:src="@{/static/js/HeaderScript.js}"></script>
+    <script th:src="@{/static/js/ModalScript.js}"></script>
+    <script th:src="@{/static/js/SearchScript.js}"></script>
+    <script th:src="@{/static/js/CarouselScript.js}"></script>
+
+</head>
+
+<body>
+
+    <div th:replace="~{fragments/header/header :: header}"></div>
+    <div
+        th:replace="~{${#authorization.expression('isAuthenticated()') ? 'fragments/sidebar/sidebar-loggedin' : 'fragments/sidebar/sidebar-loggedout'}}">
+    </div>
+
+    <div class="container">
+        <div class="container-livros">
+            <div th:if="${books.size() > 0}" th:each="book : ${books}">
+                <div class="book">
+                    <img th:src="${book.imagens[0].nome}" alt="icone da livro" style="width: 100px;">
+                </div>
+                <div class="comunidade-verso hide">
+                    <h2 th:text="${book.nome}"></h2>
+                </div>
+            </div>
+        </div>
+        <div class="container-comunidades">
+            <div th:if="${comunidades.size() > 0}" th:each="comunidade : ${comunidades}">
+                <div class="comunidade">
+                    <img th:src="${comunidade.icone}" alt="icone da comunidade">
+                </div>
+                <div class="comunidade-verso hide">
+                    <h2 th:text="${comunidade.title}"></h2>
+                    <h2>membros: 1</h2>
+                </div>
+            </div>
+        </div>
+
+        <div th:replace="~{fragments/posts/posts :: post}"></div>
+
+    </div>
+
+    <span sec:authentication="name" style="display: none;" id="userLogin"></span>
+
+    <div th:replace="~{fragments/posts/posts :: modalPost}"></div>
+
+</body>
+
+</html>

@@ -1,0 +1,128 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2&family=Roboto+Mono:wght@300&display=swap");
+
+:root {
+    --header-background: #85c1f1;
+    --footer-border: #aaaaaa;
+    --black: #302e2e;
+    --white: #fff;
+    --suport: #f7f7f7;
+    --modal-border: #e7e7e7;
+    --modal-item-hover: #96d3e7;
+    --button-left-right: #615f5f;
+    --button-left-right-hover: #999898;
+    --button-hover: #a9e1f3;
+    --gray: #e7e5e5;
+    --azul-logo: #458ca5;
+    --azul-claro: #e8f3f7;
+    --botao-perfil: #f5f5f5;
+    --header-background-opacity: #74d1f049;
+    --black-opacity: #0000007a;
+    --verde-claro: #e3ffe3;
+    --vermelho: #ef4c48;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto Mono', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+}
+
+.login {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+}
+
+.login__logo {
+    position: absolute;
+    width: 250px;
+    top: 66px;
+}
+
+.login__form {
+    width: 35%;
+    height: 30%;
+    margin: 0 auto;
+    box-shadow: 1px 1px 4px var(--gray);
+    border-radius: 10px 10px 0 0;
+}
+
+.login__form form {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+}
+
+.login__form input {
+    margin: 0 auto;
+    width: 90%;
+    height: 12%;
+    padding: 0 0 0 2%;
+    border-radius: 6px;
+    outline: none;
+    border: 1px solid var(--gray);
+    z-index: 1;
+}
+
+.login__form input:focus {
+    border: 1px solid var(--header-background);
+}
+
+.login__form label {
+    margin: 3% 0 3% 5%;
+    letter-spacing: 2px;
+    font-weight: 500;
+}
+
+.login__form button {
+    text-align: center;
+    color: var(--black);
+    width: 40%;
+    height: 15%;
+    border-radius: 4px;
+    font-weight: 700;
+    cursor: pointer;
+    border: 1px solid var(--azul-logo);
+    background-color: var(--white);
+    margin: 7% 0 0 30%;
+    transition: 0.5s;
+}
+
+.login__form button:hover {
+    background-color: var(--header-background);
+}
+
+.login__cadastrar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 0 auto;
+    width: 35%;
+    height: 10%;
+    box-shadow: 1px 1px 4px #ccc;
+    border-radius: 0 0 10px 10px;
+    background-color: rgba(69, 140, 165, 0.3);
+    font-size: 12px;
+}
+
+.login__cadastrar a {
+    text-decoration: none;
+    color: var(--black);
+    font-weight: 700;
+    margin: 0 2%;
+    transition: 0.5s;
+}
+
+.login__cadastrar a:hover {
+    color: var(--azul-logo);
+}

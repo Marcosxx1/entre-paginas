@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre Paginas</title>
+
+    <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/static/css/LoginStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
+    <script th:src="@{/static/js/HeaderScript.js}"></script>
+    <script th:src="@{/static/js/SearchScript.js}"></script>
+</head>
+
+<body>
+    <div th:replace="~{fragments/header/header :: header}"></div>
+
+    <div th:each="livro : ${livrosTrocar}">
+
+        <a th:href="@{/book/trade/{id}(id=${livro.id})}">
+            <h1 th:text="${livro.nome}"></h1>
+            <img th:src="${livro.imagens[0].nome}" alt="" style="width: 100px;">
+        </a>
+
+    </div>
+
+</body>
+
+</html>

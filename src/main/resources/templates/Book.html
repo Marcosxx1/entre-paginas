@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre Paginas</title>
+
+    <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <script>
+        (function (t, a, l, k, j, s) {
+            s = a.createElement('script');
+            s.async = 1;
+            s.src = "https://cdn.talkjs.com/talk.js";
+            a.head.appendChild(s)
+                ; k = t.Promise; t.Talk = {
+                    v: 3, ready: {
+                        then: function (f) {
+                            if (k) return new k(function (r, e) { l.push([f, r, e]) }); l
+                                .push([f])
+                        }, catch: function () { return k && new k() }, c: l
+                    }
+                };
+        })(window, document, []);
+    </script>
+
+    <link rel="stylesheet" th:href="@{/static/css/LoginStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
+    <script th:src="@{/static/js/HeaderScript.js}"></script>
+    <script th:src="@{/static/js/SearchScript.js}"></script>
+</head>
+
+<body>
+    <div th:replace="~{fragments/header/header :: header}"></div>
+
+    <div>
+        <h1 th:text="${troca.nome}"></h1>
+        <img th:each="imagem : ${troca.imagens}" th:src="${imagem.nome}" alt="" style="width: 100px;">
+    </div>
+
+    <span><i class="fa-solid fa-chevron-right"></i>Iniciar Conversa</span>
+    <br>
+    <input type="text" id="userDonoId" th:value="${troca.usuario.id}" />
+    <input type="text" id="userDonoNome" th:value="${troca.usuario.nome}" />
+
+    <input type="text" id="userId" th:value="${user.id}" />
+    <input type="text" id="userName" th:value="${user.nome}" />
+
+    <div id="talkjs-container" style="width: 100%; height: 500px;"></div>
+
+    <script>
+
+        function startChat(user1Id, user1Name, user2Id, user2Name) {
+            Talk.ready.then(function () {
+                var me = new Talk.User({
+                    id: user2Id,
+                    name: user2Name
+                });
+
+                var other = new Talk.User({
+                    id: user1Id,
+                    name: user1Name
+                });
+
+                console.log(me);
+                console.log(other);
+
+                var session = new Talk.Session({
+                    appId: 'tU6KX4gP',
+                    me: me
+                });
+
+                var conversation = session.getOrCreateConversation(Talk.oneOnOneId(me, other));
+
+                conversation.setParticipant(me);
+                conversation.setParticipant(other);
+                const popup = session.createPopup();
+                popup.select(conversation);
+                popup.mount({ show: false });
+
+                const button = document.getElementById('btn-getInTouch');
+                button.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    popup.show();
+                });
+
+                var inbox = session.createInbox();
+                inbox.select(conversation);
+                inbox.mount(document.getElementById("talkjs-container"));
+            });
+        }
+
+        $(document).ready(function () {
+            var userDonoId = $('#userDonoId').val();
+            var userDonoNome = $('#userDonoNome').val();
+
+            var userId = $('#userId').val();
+            var userName = $('#userName').val();
+
+            $("span:contains('Iniciar Conversa')").click(function () {
+                startChat(userDonoId, userDonoNome, userId, userName);
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>

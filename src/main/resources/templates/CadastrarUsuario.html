@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre Paginas</title>
+
+    <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" th:href="@{/static/css/RegisterStyle.css}" />
+
+</head>
+
+<body>
+
+    <div class="cadastro">
+        <div class='cadastro__left'>
+            <img src="/static/image/imgCadastro.png" alt="" />
+        </div>
+        <div class='cadastro__right'>
+            <h1>Crie sua conta</h1>
+            <form th:action="@{/user/register/save}" th:object="${usuario}" method='post'>
+                <div>
+                    <div class="label-erro">
+                        <label for="nome">Nome:</label>
+                        <div>
+                            <span class="mensagem" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+                        </div>
+                    </div>
+                    <div class="div-input">
+                        <input type="text" placeholder='Nome' name='nome' th:field="*{nome}" />
+                    </div>
+                </div>
+
+                <div>
+                    <div class="label-erro">
+                        <label for="login">Login:</label>
+                        <div>
+                            <span class="mensagem" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span>
+                            <span class="mensagem" th:if="${loginExiste}" th:text="${loginExiste}"></span>
+                        </div>
+                    </div>
+                    <div class="div-input">
+                        <input type="text" placeholder='Login' name='login' th:field="*{login}" />
+                    </div>
+                </div>
+
+                <div>
+                    <div class="label-erro">
+                        <label for="email">E-mail:</label>
+                        <div>
+                            <span class="mensagem" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                        </div>
+                    </div>
+                    <div class="div-input">
+                        <input type="email" placeholder='E-mail' name='email' th:field="*{email}" />
+                    </div>
+                </div>
+
+                <div>
+                    <div class="label-erro">
+                        <label for="senha">Senha:</label>
+                        <div>
+                            <span class="mensagem" th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></span>
+                        </div>
+                    </div>
+                    <div class="div-input">
+                        <input type="password" placeholder='Senha' name='senha' th:field="*{senha}" />
+                    </div>
+                </div>
+
+                <div>
+                    <div class="label-erro">
+                        <label for="dataNascimento">Nascimento:</label>
+                        <div>
+                            <span class="mensagem" th:if="${#fields.hasErrors('dataNascimento')}"
+                                th:errors="*{dataNascimento}"></span>
+                        </div>
+                    </div>
+                    <div class="div-input">
+                        <input type="date" th:field="*{dataNascimento}">
+                    </div>
+                </div>
+
+                <button type='submit'>Criar Conta</button>
+                <p>Já possui uma conta?
+                    <a th:href="@{/login}">Faça login</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

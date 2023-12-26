@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre Paginas</title>
+</head>
+
+<body>
+    <div th:fragment="sideBar" class='sideBar'>
+        <ul>
+            <li>
+                <a th:href="@{/login}">
+                    <button class="button">
+                        <i class="fa-solid fa-user-pen"></i>
+                    </button>
+                    <span class="hover-text">Login</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/user/register}">
+                    <button class='button'>
+                        <i class="fa-solid fa-heart"></i>
+                    </button>
+                    <span class="hover-text" style="margin-left: 32px;">Cadastrar</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>
