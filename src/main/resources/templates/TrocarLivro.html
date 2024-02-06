@@ -6,48 +6,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Entre Paginas</title>
 
-    <link rel="stylesheet" th:href="@{/static/css/style.css}" />
-    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
-    <script th:src="@{/static/js/HeaderScript.js}"></script>
+    <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+    <link rel="stylesheet" th:href="@{/static/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/IndexStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/PerfilStyle.css}" />
+    <script th:src="@{/static/js/HeaderScript.js}"></script>
 </head>
 
 <body>
     <div th:replace="~{fragments/header/header :: header}"></div>
 
-    <form th:action="@{/book/create/save/{id}(id=${idUsuario})}" method="post" enctype="multipart/form-data">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required>
+    <div class="perfil">
+        <div class="perfil-principal">
+            <div th:replace="~{fragments/menu/menu :: menu}"></div>
+        </div>
+        <div class="perfil-right">
+            <form class="form-container" th:action="@{/book/create/save/{id}(id=${idUsuario})}" method="post"
+                enctype="multipart/form-data">
 
-        <label for="descricao">Descrição:</label>
-        <textarea id="descricao" name="descricao" rows="4" required></textarea>
+                <h3>Trocar Livro</h3>
 
-        <label for="editora">Editora:</label>
-        <input type="text" id="editora" name="editora" required>
+                <label class="form-label" for="nome">Nome:</label>
+                <input class="form-input" type="text" id="nome" name="nome" required>
 
-        <label for="estado">Estado do livro:</label>
-        <select id="estado" name="estado" required>
-            <option th:each="estado : ${estados}" th:value="${estado}" th:text="${estado}"></option>
-        </select>
+                <label class="form-label" for="descricao">Descrição:</label>
+                <textarea class="form-input" id="descricao" name="descricao" rows="4" maxlength="500" required></textarea>
 
-        <label for="tipo">Tipo:</label>
-        <select id="tipo" name="tipo" required>
-            <option th:each="tipo : ${tipos}" th:value="${tipo}" th:text="${tipo}"></option>
-        </select>
+                <label class="form-label" for="estado">Estado do livro:</label>
+                <select class="form-input" id="estado" name="estado" required>
+                    <option th:each="estado : ${estados}" th:value="${estado}" th:text="${estado}"></option>
+                </select>
 
-        <label for="categoria">Categoria:</label>
-        <select id="categoria" name="categoria" required>
-            <option th:each="categoria : ${categorias}" th:value="${categoria}" th:text="${categoria}"></option>
-        </select>
+                <label class="form-label" for="tipo">Tipo:</label>
+                <select class="form-input" id="tipo" name="tipo" required>
+                    <option th:each="tipo : ${tipos}" th:value="${tipo}" th:text="${tipo}"></option>
+                </select>
 
-        <label for="preco">Preço:</label>
-        <input type="number" id="preco" name="preco" step="0.01" required>
+                <label class="form-label" for="estadoBrasil">Estados do Brasil:</label>
+                <select class="form-input" id="estadoBrasil" name="estadoBrasil" required>
+                    <option th:each="estadoBrasil : ${estadosBrasil}" th:value="${estadoBrasil}"
+                        th:text="${estadoBrasil}">
+                    </option>
+                </select>
 
-        <label for="imagens">Imagens:</label>
-        <input type="file" id="images" name="images" accept="image/*" multiple>
+                <label class="form-label" for="categoria">Categoria:</label>
+                <select class="form-input" id="categoria" name="categoria" required>
+                    <option th:each="categoria : ${categorias}" th:value="${categoria}" th:text="${categoria}"></option>
+                </select>
 
-        <button type="submit">Salvar</button>
-    </form>
+                <label class="form-label" for="cidade">Cidade</label>
+                <input class="form-input" type="text" id="cidade" name="cidade" required>
+
+                <label class="form-label" for="imagens">Imagens:</label>
+                <input class="form-input" type="file" id="images" name="images" accept="image/*" multiple>
+
+                <button class="form-button" type="submit">Salvar</button>
+            </form>
+        </div>
+    </div>
 </body>
 
 </html>

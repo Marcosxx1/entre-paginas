@@ -22,8 +22,8 @@ public class CreateComments {
     private CommentsService commentsService;
 
     @PostMapping("/create/save/{idPost}/{userLogin}")
-    public String createComments(@PathVariable("idPost") String idPost,
-            @PathVariable("userLogin") String userLogin, @Valid Comments comments,
+    public String createComments(@PathVariable String idPost,
+            @PathVariable String userLogin, @Valid Comments comments,
             BindingResult result, RedirectAttributes attributes, Model model) {
 
         commentsService.salvarComments(comments, idPost, userLogin);

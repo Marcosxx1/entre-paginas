@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre Paginas</title>
+
+    <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div th:fragment="menu">
+        <div class="perfil-principal__div">
+            <div class="perfil-principal__div-image">
+                <a th:href="@{/perfil}">
+                    <img th:src="${user.imagem}" alt="Imagem do Usuário" />
+                </a>
+            </div>
+            <span class="perfil-principal__div-config">
+                <a th:href="@{/infos/{id}(id=${user.id})}">
+                    <i class="fa-solid fa-gear"></i>
+                </a>
+            </span>
+        </div>
+        <div class="perfil-principal__left">
+            <ul class="perfil-principal__left-menu">
+                <a th:href="@{/book/create/{id}(id=${user.id})}">
+                    <li>
+                        Trocar Livro
+                    </li>
+                </a>
+                <a th:href="@{/book/exchanges/{id}(id=${user.id})}">
+                    <li>
+                        Minhas Trocas
+                    </li>
+                </a>
+                <a th:href="@{/community/create/{id}(id=${user.id})}">
+                    <li>
+                        Criar Comunidade
+                    </li>
+                </a>
+                <a th:href="@{/community/mycommunities/{id}(id=${user.id})}">
+                    <li>
+                        Minhas Comunidades
+                    </li>
+                </a>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

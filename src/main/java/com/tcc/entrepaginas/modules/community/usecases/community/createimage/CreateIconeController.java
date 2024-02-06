@@ -26,7 +26,7 @@ public class CreateIconeController {
 
     @PostMapping("/icone/{id}")
     public ResponseEntity<String> createIcone(@PathVariable("id") String idComunidade,
-            @RequestParam("icone") MultipartFile icone, HttpServletRequest request,
+            @RequestParam MultipartFile icone, HttpServletRequest request,
             Model model, RedirectAttributes attributes) {
 
         Community community = communityService.pegarCommunity(idComunidade);

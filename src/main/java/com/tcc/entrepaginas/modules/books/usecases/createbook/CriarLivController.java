@@ -1,9 +1,11 @@
 package com.tcc.entrepaginas.modules.books.usecases.createbook;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +21,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.tcc.entrepaginas.modules.books.entities.ImagemLivro;
 import com.tcc.entrepaginas.modules.books.entities.Livro;
 import com.tcc.entrepaginas.modules.books.service.BookService;
+import com.tcc.entrepaginas.modules.users.entities.Usuario;
+import com.tcc.entrepaginas.modules.users.repositories.UsuarioRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -28,15 +32,26 @@ import jakarta.validation.Valid;
 public class CriarLivController {
 
     @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
     private BookService bookService;
 
     @GetMapping("/create/{id}")
-    public String livro(Model model, @PathVariable("id") String idUsuario) {
+    public String livro(Model model, @PathVariable("id") String idUsuario, Authentication authentication,
+            Principal principal) {
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+
+            Usuario user = usuarioRepository.findByLogin(username);
+            model.addAttribute("user", user);
+        }
 
         model.addAttribute("livro", new Livro());
         model.addAttribute("categorias", bookService.listarTodasCategorias());
         model.addAttribute("estados", bookService.listarTodosEstados());
         model.addAttribute("tipos", bookService.listarTodosTipos());
+        model.addAttribute("estadosBrasil", bookService.listarTodosEstadoBrasil());
         model.addAttribute("idUsuario", idUsuario);
 
         return "TrocarLivro";
@@ -61,6 +76,7 @@ public class CriarLivController {
         livro.setEstado(bookService.pegarEstadoPorNome(request.getParameter("estado")));
         livro.setTipo(bookService.pegarTipoPorNome(request.getParameter("tipo")));
         livro.setCategoria(bookService.pegarCategoriaPorNome(request.getParameter("categoria")));
+        livro.setEstadoBrasil(bookService.pegarEstadoBrasilPorNome(request.getParameter("estadoBrasil")));
 
         bookService.salvarLivro(livro, idUsuario, imagensLivro);
 

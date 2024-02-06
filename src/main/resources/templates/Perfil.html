@@ -15,9 +15,12 @@
     <link rel="stylesheet" th:href="@{/static/css/IndexStyle.css}" />
     <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
     <link rel="stylesheet" th:href="@{/static/css/PerfilStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/PostStyle.css}" />
+
     <script th:src="@{/static/js/HeaderScript.js}"></script>
     <script th:src="@{/static/js/ModalScript.js}"></script>
     <script th:src="@{/static/js/SearchScript.js}"></script>
+    <script th:src="@{/static/js/CarouselScript.js}"></script>
 
 </head>
 
@@ -28,47 +31,25 @@
 
     <div class="perfil">
         <div class="perfil-principal">
-            <div class="perfil-principal__div">
-                <div class="perfil-principal__div-image">
-                    <img th:src="${user.imagem}" alt="Imagem do Usuário" />
-                </div>
-                <span class="perfil-principal__div-config">
-                    <a th:href="@{/infos/{id}(id=${user.id})}">
-                        <i class="fa-solid fa-gear"></i>
-                    </a>
-                </span>
-            </div>
-            <div class="perfil-principal__left">
-                <ul class="perfil-principal__left-menu">
-                    <li>
-                        <a th:href="@{/book/create/{id}(id=${user.id})}">
-                            Trocar Livro
-                        </a>
-                    </li>
-                    <li>
-                        <a th:href="@{/book/exchanges/{id}(id=${user.id})}">
-                            Minhas Trocas
-                        </a>
-                    </li>
-                    <li>
-                        Livros Favoritos
-                    </li>
-                    <li>
-                        <a th:href="@{/community/create/{id}(id=${user.id})}">
-                            Criar Comunidade
-                        </a>
-                    </li>
-                    <li>
-                        <a th:href="@{/community/mycommunities/{id}(id=${user.id})}">
-                            Minhas Comunidades
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            <div th:replace="~{fragments/menu/menu :: menu}"></div>
         </div>
         <div class="perfil-right">
-            <div>
-                <h1>Livros para troca</h1>
+            <h5>Livros para tocar</h5>
+            <div class="container-livros">
+                <div th:if="${books.size() > 0}" th:each="book : ${books}">
+                    <div class="book">
+                        <img th:src="${book.imagens[0].nome}" alt="icone da livro" style="width: 100px;">
+                        <div>
+                            <h5 th:text="${book.nome}"></h5>
+                            <div>
+                                <p th:text="${book.cidade}"></p>
+                                <p>-</p>
+                                <p th:text="${book.estadoBrasil}"></p>
+                            </div>
+                            <p th:text="${book.descricao}"></p>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div th:replace="~{fragments/posts/posts :: post}"></div>
         </div>

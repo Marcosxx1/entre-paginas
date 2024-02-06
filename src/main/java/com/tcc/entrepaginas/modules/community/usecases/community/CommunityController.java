@@ -26,16 +26,18 @@ public class CommunityController {
     public PostService postService;
 
     @GetMapping("/community/{id}")
-    public String community(@PathVariable("id") String id, Model model, Authentication authentication) throws NullPointerException {
+    public String community(@PathVariable String id, Model model, Authentication authentication)
+            throws NullPointerException {
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
 
             Usuario user = usuarioRepository.findByLogin(username);
             model.addAttribute("user", user);
         }
-        
-        model.addAttribute("posts", postService.listarPost(Sort.by(Sort.Direction.DESC, "date")));
+
+        model.addAttribute("listPost", postService.listPostsByCommunity(id));
         model.addAttribute("community", communityService.pegarCommunity(id));
         return "/Comunidade";
     }
 }
+

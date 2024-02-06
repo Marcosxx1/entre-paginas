@@ -21,7 +21,7 @@ public class DeletarContatoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deletarContato(@PathVariable("id") String id) {
+    public ResponseEntity<String> deletarContato(@PathVariable String id) {
         boolean deletionSuccessful = deletarContatoUseCase.deletarContato(id);
         if (deletionSuccessful) {
             return ResponseEntity.ok("Contato deletado com sucesso.");

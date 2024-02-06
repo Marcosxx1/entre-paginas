@@ -34,25 +34,37 @@
     </div>
 
     <div class="container">
+        <h5 class="tirulo-trocar">Livros para tocar</h5>
         <div class="container-livros">
             <div th:if="${books.size() > 0}" th:each="book : ${books}">
-                <div class="book">
-                    <img th:src="${book.imagens[0].nome}" alt="icone da livro" style="width: 100px;">
-                </div>
-                <div class="comunidade-verso hide">
-                    <h2 th:text="${book.nome}"></h2>
-                </div>
+                <a th:href="@{/book/trade/{id}(id=${book.id})}">
+                    <div class="book">
+                        <img th:src="${book.imagens[0].nome}" alt="icone da livro">
+                        <div>
+                            <h5 th:text="${book.nome}"></h5>
+                            <div>
+                                <p th:text="${book.cidade}"></p>
+                                <p>-</p>
+                                <p th:text="${book.estadoBrasil}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
+        <h5 class="tirulo-comunidades">Comunidades</h5>
         <div class="container-comunidades">
             <div th:if="${comunidades.size() > 0}" th:each="comunidade : ${comunidades}">
-                <div class="comunidade">
-                    <img th:src="${comunidade.icone}" alt="icone da comunidade">
-                </div>
-                <div class="comunidade-verso hide">
-                    <h2 th:text="${comunidade.title}"></h2>
-                    <h2>membros: 1</h2>
-                </div>
+                <a th:href="@{/community/{id}(id=${comunidade.id})}">
+                    <div class="comunidade">
+                        <img th:src="${comunidade.icone == null ? '/static/image/semImagem.png' : comunidade.icone}"
+                            alt="icone da comunidade">
+                    </div>
+                    <div class="comunidade-verso hide">
+                        <h2 th:text="${comunidade.title}"></h2>
+                        <h2>membros: 1</h2>
+                    </div>
+                </a>
             </div>
         </div>
 
@@ -63,6 +75,45 @@
     <span sec:authentication="name" style="display: none;" id="userLogin"></span>
 
     <div th:replace="~{fragments/posts/posts :: modalPost}"></div>
+
+    <script>
+        $(document).ready(function () {
+            $('.likeBtn').on('click', function () {
+                let postId = $(this).siblings('input').val();
+
+                $.ajax({
+                    url: `/posts/likes/${postId}`,
+                    type: 'POST',
+                    data: { action: 'like' },
+                    success: function (response) {
+                        $('#likesCount').text(response.newLikeCount);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error('Error: ', textStatus, errorThrown);
+                        alert('An error occurred while processing your request.');
+                    }
+                });
+
+            });
+
+            $('.dislikeBtn').on('click', function () {
+                let postId = $(this).siblings('input').val();
+
+                $.ajax({
+                    url: `/posts/dislike/${postId}`,
+                    type: 'POST',
+                    data: { action: 'dislike' },
+                    success: function (response) {
+                        $('#likesCount').text(response.newLikeCount);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error('Error: ', textStatus, errorThrown);
+                        alert('An error occurred while processing your request.');
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 

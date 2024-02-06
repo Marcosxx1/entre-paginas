@@ -24,6 +24,7 @@ import com.tcc.entrepaginas.modules.books.entities.ImagemLivro;
 import com.tcc.entrepaginas.modules.books.entities.Livro;
 import com.tcc.entrepaginas.modules.books.entities.enums.Categoria;
 import com.tcc.entrepaginas.modules.books.entities.enums.Estado;
+import com.tcc.entrepaginas.modules.books.entities.enums.EstadoBrasil;
 import com.tcc.entrepaginas.modules.books.entities.enums.Tipo;
 import com.tcc.entrepaginas.modules.books.repositories.ImagemLivroRepository;
 import com.tcc.entrepaginas.modules.books.repositories.LivroRepository;
@@ -76,6 +77,20 @@ public class BookService {
         livroRepository.delete(livro);
     }
 
+    public List<String> listarTodosEstadoBrasil() {
+        return Arrays.stream(EstadoBrasil.values())
+                .map(EstadoBrasil::name)
+                .collect(Collectors.toList());
+    }
+
+    public EstadoBrasil pegarEstadoBrasilPorNome(String nomeEstadoBrasil) {
+        try {
+            return EstadoBrasil.valueOf(nomeEstadoBrasil);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
+
     public List<String> listarTodasCategorias() {
         return Arrays.stream(Categoria.values())
                 .map(Categoria::name)
@@ -118,13 +133,18 @@ public class BookService {
         }
     }
 
-    public List<Livro> listarRandomLivros(int totalItems, Principal principal) {
+    public List<Livro> listarRandomLivros(int totalItems, Principal principal, String idTroca) {
         List<Livro> livros = this.listarLivros(Sort.by(Sort.Direction.ASC, "id"));
 
         if (principal != null) {
             String username = principal.getName();
             List<Livro> userCommunities = usuarioService.getUserLivros(username);
             livros.removeAll(userCommunities);
+        }
+
+        if (idTroca != null) {
+            Livro livro = this.buscarLivro(idTroca);
+            livros.remove(livro);
         }
 
         if (livros.size() > totalItems) {

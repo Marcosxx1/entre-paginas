@@ -6,56 +6,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Entre Paginas</title>
 
-    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
-    <script th:src="@{/static/js/HeaderScript.js}"></script>
+    <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
+
+    <link rel="stylesheet" th:href="@{/static/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/IndexStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/PerfilStyle.css}" />
+    <script th:src="@{/static/js/HeaderScript.js}"></script>
+    <script th:src="@{/static/js/SearchScript.js}"></script>
 </head>
 
 <body>
     <div th:replace="~{fragments/header/header :: header}"></div>
 
-    <div>
-        <h2>Informações do Perfil</h2>
+    <div class="perfil">
+        <div class="perfil-principal">
+            <div th:replace="~{fragments/menu/menu :: menu}"></div>
+        </div>
 
-        <form th:action="@{/user/image/{id}(id=${user.id})}" method="post" enctype="multipart/form-data">
-            <div class="forms-informacoes-groupFile">
-                <label for="imagem" class="forms-informacoes-groupFile-div_label">Foto de Perfil</label>
-                <input type="file" id="imagem" name="imagem" accept="image/*,.gif" />
-                <button type="submit" class="forms-informacoes_button">Salvar</button>
-            </div>
-        </form>
+        <div class="perfil-right">
 
-        <br />
+            <h3 class="dados-perfil">Dados do Perfil</h3>
 
-        <form th:action="@{/user/edit/{id}(id=${user.id})}" th:object="${user}" method="post" class="forms-informacoes">
-            <div class="forms-informacoes-group">
-                <label for="nome" class="forms-informacoes-group-div_label">Nome</label>
-                <input type="text" id="nome" name="nome" th:field="${user.nome}" />
-            </div>
-
-            <div class="forms-informacoes-group">
-                <label for="email" class="forms-informacoes-group-div_label">Email</label>
-                <input type="email" id="email" name="email" th:field="${user.email}" />
-            </div>
-
-            <div class="forms-informacoes-group">
-                <label for="login" class="forms-informacoes-group-div_label">Login</label>
-                <input type="text" id="login" name="login" th:field="${user.login}" />
-            </div>
-
-            <div class="forms-novaSenha_principal">
-                <div class="forms-novaSenha_group">
-                    <label for="senha" class="forms-novaSenha_group-label">Senha</label>
-                    <input type="password" id="senha" name="senha" th:field="${user.senha}" />
+            <form th:action="@{/user/image/{id}(id=${user.id})}" method="post" enctype="multipart/form-data"
+                class="form-imagem-container">
+                <div class="form-imagem-group">
+                    <label for="imagem" class="form-imagem-label">Foto de Perfil</label>
+                    <input type="file" id="imagem" name="imagem" accept="image/*,.gif" class="form-imagem-input" />
+                    <button type="submit" class="form-imagem-button">Salvar</button>
                 </div>
-                <div class="forms-novaSenha_group">
-                    <label for="confirmar-senha" class="forms-novaSenha_group-label">Confirmar Senha</label>
-                    <input type="password" id="confirmarSenha" name="confirmarSenha" />
-                </div>
-            </div>
+            </form>
 
-            <button type="submit" class="forms-informacoes_button">Salvar</button>
-        </form>
+            <br />
+
+            <form th:action="@{/user/edit/{id}(id=${user.id})}" th:object="${user}" method="post"
+                class="form-informacoes">
+                <div class="form-group">
+                    <label for="nome" class="form-label-infos">Nome</label>
+                    <input type="text" id="nome" name="nome" th:field="${user.nome}" class="form-input-infos" />
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="form-label-infos">Email</label>
+                    <input type="email" id="email" name="email" th:field="${user.email}" class="form-input-infos" />
+                </div>
+
+                <div class="form-group">
+                    <label for="login" class="form-label-infos">Login</label>
+                    <input type="text" id="login" name="login" th:field="${user.login}" class="form-input-infos" />
+                </div>
+
+                <div class="form-novaSenha">
+                    <div class="form-novaSenha-group">
+                        <label for="senha" class="form-novaSenha-group-label">Senha</label>
+                        <input type="password" id="senha" name="senha" th:field="${user.senha}"
+                            class="form-input-infos" />
+                    </div>
+                    <div class="form-novaSenha-group">
+                        <label for="confirmarSenha" class="form-novaSenha-group-label">Confirmar Senha</label>
+                        <input type="password" id="confirmarSenha" name="confirmarSenha" class="form-input-infos" />
+                    </div>
+                </div>
+
+                <button type="submit" class="form-novaSenha-button">Salvar</button>
+            </form>
+        </div>
 
     </div>
 

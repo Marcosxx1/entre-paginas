@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.tcc.entrepaginas.modules.books.entities.enums.Categoria;
 import com.tcc.entrepaginas.modules.books.entities.enums.Estado;
+import com.tcc.entrepaginas.modules.books.entities.enums.EstadoBrasil;
 import com.tcc.entrepaginas.modules.books.entities.enums.Tipo;
 import com.tcc.entrepaginas.modules.users.entities.Usuario;
 
@@ -17,7 +18,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class Livro implements Serializable{
+public class Livro implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -27,15 +28,15 @@ public class Livro implements Serializable{
 
     private String descricao;
 
-    private String editora;
+    private String cidade;
+
+    private int estadoBrasil;
 
     private int estado;
 
     private int tipo;
 
     private int categoria;
-
-    private Double preco;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
@@ -44,23 +45,19 @@ public class Livro implements Serializable{
     @OneToMany(mappedBy = "livro")
     private List<ImagemLivro> imagens;
 
-    // @ManyToMany(fetch = FetchType.EAGER)
-    // @JoinTable(name = "livro_autor", joinColumns = @JoinColumn(name =
-    // "livro_id"), inverseJoinColumns = @JoinColumn(name = "autor_id"))
-    // private List<Autor> autores;
-
     public Livro() {
     }
 
-    public Livro(String nome, String descricao, String editora, int estado, int tipo,
-            int categoria, int status, Double preco, Usuario usuario, List<ImagemLivro> imagens) {
+    public Livro(String id, String nome, String descricao, String cidade, int estadoBrasil,
+            int estado, int tipo, int categoria, Usuario usuario, List<ImagemLivro> imagens) {
+        this.id = id;
         this.nome = nome;
         this.descricao = descricao;
-        this.editora = editora;
+        this.cidade = cidade;
+        this.estadoBrasil = estadoBrasil;
         this.estado = estado;
         this.tipo = tipo;
         this.categoria = categoria;
-        this.preco = preco;
         this.usuario = usuario;
         this.imagens = imagens;
     }
@@ -87,14 +84,6 @@ public class Livro implements Serializable{
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public Double getPreco() {
-        return preco;
-    }
-
-    public void setPreco(Double preco) {
-        this.preco = preco;
     }
 
     public Estado getEstado() {
@@ -143,11 +132,21 @@ public class Livro implements Serializable{
         }
     }
 
-    public String getEditora() {
-        return editora;
+    public String getCidade() {
+        return cidade;
     }
 
-    public void setEditora(String editora) {
-        this.editora = editora;
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public EstadoBrasil getEstadoBrasil() {
+        return EstadoBrasil.valueOf(estadoBrasil);
+    }
+
+    public void setEstadoBrasil(EstadoBrasil estadoBrasil) {
+        if (estadoBrasil != null) {
+            this.estadoBrasil = estadoBrasil.getCode();
+        }
     }
 }

@@ -18,7 +18,7 @@
     --azul-claro: #e8f3f7;
     --botao-perfil: #f5f5f5;
     --header-background-opacity: #74d1f049;
-    --black-opacity: #0000007a;
+    --black-opacity: #00000054;
     --verde-claro: #e3ffe3;
     --vermelho: #ef4c48;
 }
@@ -34,4 +34,5 @@ body {
     width: 100vw;
     height: 100vh;
     letter-spacing: 2px;
+    overflow-x: hidden;
 }

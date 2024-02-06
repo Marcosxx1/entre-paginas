@@ -41,14 +41,7 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- <div class="post-content" th:if="${post.image != null}">
-                    <p class="title" th:text="${post.title}"></p>
-                    <p class="content" th:text="${post.content}"></p>
-                    <img class="content-img" th:src="${post.image.nome}" alt="Imagem do post">
-                </div> -->
-
-
+                
                 <div class="post-content">
                     <p class="title" th:text="${post.title}"></p>
                     <p class="content" th:text="${post.content}"></p>
@@ -62,11 +55,43 @@
                     <span class="novo-comentario"><i class="fa-regular fa-comment-dots"></i> comentários</span>
                     <span class="up">
                         <div>
-                            <i class="fa-solid fa-caret-up" style="color: #85c1f1;"></i>
-                            <p>0</p>
-                            <i class="fa-solid fa-caret-down" style="color: #85c1f1;"></i>
+                            <button class="likeBtn"><i class="fa-solid fa-caret-up"
+                                    style="color: #85c1f1;"></i></button>
+                            <p id="likesCount" th:text="${qtdReaction}"></p>
+                            <button class="dislikeBtn"><i class="fa-solid fa-caret-down"
+                                    style="color: #85c1f1;"></i></button>
+                            <input type="text" th:value="${post.id}">
                         </div>
                     </span>
+                </div>
+
+                <div>
+                    <form method="post">
+                        <textarea name="content" id="content" cols="30" rows="10" maxlength="255" required></textarea>
+                        <input type="submit" value="Comentar" name="comentar" id="comentar">
+                    </form>
+                </div>
+
+                <div th:each="comment : ${comments}" class="comments">
+                    <div th:if="${post.id == comment.post.id}" class="comentarios">
+                        <p th:text="${comment.content}" class="content"></p>
+
+                        <div class="usuario-comments">
+                            <a href="#">
+                                <img class="icone" th:if="${comment.usuario.imagem == null}"
+                                    src="/static/image/semImagem.png" alt="Icone do usuario">
+                                <img class="icone" th:if="${comment.usuario.imagem != null}"
+                                    th:src="${comment.usuario.imagem}" alt="Icone do usuario">
+                            </a>
+
+                            <div class="infos-post">
+                                <a href="#">
+                                    <p class="usuario-nome" th:text="${comment.usuario.nome}"></p>
+                                </a>
+                            </div>
+                            <h5 th:text="${#dates.format(comment.date, 'dd/MM/yyyy HH:mm')}"></h5>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -77,17 +102,9 @@
             <span class="close">&times;</span>
             <div class="post" data-id="123">
             </div>
-            <div>
-                <form method="post">
-                    <input type="text" name="content" id="content">
-                    <input type="submit" value="comentar" name="comentar" id="comentar">
-                </form>
-            </div>
-            <div class="comentarios" data-post-id="123">
-            </div>
+
         </div>
     </div>
-
 </body>
 
 </html>

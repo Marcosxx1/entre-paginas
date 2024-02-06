@@ -32,8 +32,6 @@ public class Post implements Serializable {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    private int likes;
-
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant date;
 
@@ -57,6 +55,9 @@ public class Post implements Serializable {
 
     @OneToOne(mappedBy = "post")
     private ImagemPost image;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reaction> reaction;
 
     public Post() {
     }
@@ -105,14 +106,6 @@ public class Post implements Serializable {
         this.image = image;
     }
 
-    public int getLikes() {
-        return likes;
-    }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
-    }
-
     public Instant getDate() {
         return date;
     }
@@ -145,11 +138,12 @@ public class Post implements Serializable {
         this.comments = comments;
     }
 
-    @Override
-    public String toString() {
-        return "Post [id=" + id + ", title=" + title + ", content=" + content + ", likes=" + likes + ", date=" + date
-                + ", usuario=" + usuario + ", community=" + community + ", comments=" + comments + ", image=" + image
-                + "]";
+    public List<Reaction> getReaction() {
+        return reaction;
+    }
+
+    public void setReaction(List<Reaction> reaction) {
+        this.reaction = reaction;
     }
 
 }

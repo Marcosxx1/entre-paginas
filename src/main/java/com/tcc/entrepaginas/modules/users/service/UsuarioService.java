@@ -4,8 +4,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -34,15 +35,22 @@ public class UsuarioService {
     private final Path root = Paths.get("uploads");
 
     public Usuario pegarUsuario(String id) {
+        Objects.requireNonNull(id, "ID must not be null");
+
         Optional<Usuario> usuario = usuarioRepository.findById(id);
         return usuario.orElseThrow(() -> new ResourceNotFound(id));
     }
 
     public List<Usuario> listarUsuarios(Sort sort) {
-        return usuarioRepository.findAll(sort);
+        if (sort != null) {
+            return usuarioRepository.findAll(sort);
+        } else {
+            return Collections.emptyList();
+        }
     }
 
     public Usuario salvarUsuario(Usuario usuario) {
+        Objects.requireNonNull(usuario, "Usuario must not be null");
         return usuarioRepository.save(usuario);
     }
 
@@ -77,25 +85,12 @@ public class UsuarioService {
     }
 
     public void apagarUsuarioPorId(String id) {
-        Usuario usuario = this.pegarUsuario(id);
+        Usuario usuario = Objects.requireNonNull(this.pegarUsuario(id), "Usuario not found");
         usuarioRepository.delete(usuario);
     }
 
-    public List<Usuario> buscarUsuarios(String query, String option) {
-        List<Usuario> usuarios = new ArrayList<>();
-
-        if ("livro".equalsIgnoreCase(option)) {
-            // usuarios = usuarioRepository.findByNomeDoLivroContaining(query);
-            // return usuarios;
-        } else if ("comunidade".equalsIgnoreCase(option)) {
-            // communities = communityRepository.findByNomeContainingIgnoreCase(query);
-            // return communities;
-        } else if ("usuário".equalsIgnoreCase(option)) {
-            usuarios = usuarioRepository.findByNomeContainingIgnoreCase(query);
-            return usuarios;
-        }
-
-        return usuarios;
+    public List<Usuario> buscarUsuarios(String query) {
+        return usuarioRepository.findByNomeContainingIgnoreCase(query);
     }
 
     public List<Community> getUserCommunities(String username) {

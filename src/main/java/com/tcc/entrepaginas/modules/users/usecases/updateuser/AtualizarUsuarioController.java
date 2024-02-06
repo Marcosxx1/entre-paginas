@@ -29,8 +29,8 @@ public class AtualizarUsuarioController {
   }
 
   @PostMapping("/edit/{id}")
-  public String atualizarUsuario(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result,
-      @PathVariable("id") String id, Model model) {
+  public String atualizarUsuario(@Valid @ModelAttribute Usuario usuario, BindingResult result,
+      @PathVariable String id, Model model) {
 
     if (result.hasErrors()) {
       return "redirect:/infos/" + usuario.getId();

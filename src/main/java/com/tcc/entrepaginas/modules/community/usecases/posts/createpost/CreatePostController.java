@@ -25,7 +25,7 @@ public class CreatePostController {
     private PostService postService;
 
     @PostMapping("/create/{communityId}/{userId}")
-    public String createPost(@Valid Post post, @PathVariable("communityId") String communityId,
+    public String createPost(@Valid Post post, @PathVariable String communityId,
             @PathVariable("userId") String usuarioId, @RequestParam("imagem") MultipartFile image,
             BindingResult result, RedirectAttributes attributes, Model model, HttpServletRequest request) {
 

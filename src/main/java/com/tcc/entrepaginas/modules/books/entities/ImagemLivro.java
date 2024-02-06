@@ -1,7 +1,5 @@
 package com.tcc.entrepaginas.modules.books.entities;
 
-import java.io.Serializable;
-
 import com.tcc.entrepaginas.modules.heranca.Imagem;
 
 import jakarta.persistence.Entity;

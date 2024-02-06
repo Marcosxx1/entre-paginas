@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -43,11 +44,14 @@ public class CommunityService {
     private MembrosRepository membrosRepository;
 
     public Community pegarCommunity(String id) {
+        Objects.requireNonNull(id, "ID must not be null");
+
         Optional<Community> community = communityRepository.findById(id);
         return community.orElseThrow(() -> new ResourceNotFound(id));
     }
 
     public List<Community> listarCommunities(Sort sort) {
+        Objects.requireNonNull(sort, "Sort must not be null");
         return communityRepository.findAll(sort);
     }
 
@@ -56,6 +60,7 @@ public class CommunityService {
     }
 
     public void salvarComunidade(Community community, String idUsuario) {
+        Objects.requireNonNull(community, "Community must not be null");
 
         Membros adicionarMembro = new Membros(
                 usuarioService.pegarUsuario(idUsuario),
@@ -67,12 +72,19 @@ public class CommunityService {
     }
 
     public void atualizarComunidade(Community community) {
+        Objects.requireNonNull(community, "Community must not be null");
         communityRepository.save(community);
     }
 
     public void apagarComunidadePorId(String id) {
+        Objects.requireNonNull(id, "ID must not be null");
+
         Community community = this.pegarCommunity(id);
-        communityRepository.delete(community);
+        if (community != null) {
+            communityRepository.delete(community);
+        } else {
+            throw new ResourceNotFound("Community not found for ID: " + id);
+        }
     }
 
     public List<Community> listarRandomCommunities(int totalItems, Principal principal) {
@@ -124,5 +136,9 @@ public class CommunityService {
         } catch (Exception e) {
             throw new CustomException("Could not store the file. Error: " + e.getMessage());
         }
+    }
+
+    public List<Community> buscarComunidades(String query) {
+        return communityRepository.findByTitleContainingIgnoreCase(query);
     }
 }

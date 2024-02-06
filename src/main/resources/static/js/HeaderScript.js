@@ -24,6 +24,7 @@ $(document).ready(function () {
 
         $item.click(function () {
             $selectedOption.text($item.text());
+            $("#searchInput").attr('placeholder', 'Pesquise por ' + $item.text().toLowerCase());
             $options.hide();
 
             $optionItems.show();

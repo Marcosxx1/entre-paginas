@@ -5,14 +5,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tcc.entrepaginas.modules.users.entities.Usuario;
+import com.tcc.entrepaginas.modules.users.record.UserDto;
 import com.tcc.entrepaginas.modules.users.service.UsuarioService;
 
 @RestController
@@ -23,21 +22,19 @@ public class ListarTodosUsuariosController {
   private UsuarioService usuarioService;
 
   @GetMapping("/list")
-  @ResponseBody
-  public List<String> listarUsuarios(@RequestParam(value = "query", required = false) String query,
-      @RequestParam(value = "option", required = false) String option) {
+  public List<UserDto> listarUsuarios(@RequestParam(required = false) String query) {
     List<Usuario> usuarios;
 
-    if (query != null && !query.isEmpty() && option != null && !option.isEmpty()) {
-
-      usuarios = usuarioService.buscarUsuarios(query, option);
+    if (query != null && !query.isEmpty()) {
+      usuarios = usuarioService.buscarUsuarios(query);
     } else {
       usuarios = usuarioService.listarUsuarios(Sort.by(Sort.Direction.ASC, "id"));
     }
 
-    List<String> resultados = new ArrayList<>();
+    List<UserDto> resultados = new ArrayList<>();
     for (Usuario usuario : usuarios) {
-      resultados.add(usuario.getNome());
+      UserDto userDTO = UserDto.fromUsuario(usuario);
+      resultados.add(userDTO);
     }
 
     return resultados;

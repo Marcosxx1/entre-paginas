@@ -18,7 +18,7 @@ public class DeletarLivroController {
     private BookService bookService;
 
     @GetMapping("/delete/{id}")
-    public String deletarLivro(@PathVariable("id") String id,
+    public String deletarLivro(@PathVariable String id,
             RedirectAttributes attributes, Model model) {
                 
         bookService.apagarLivroPorId(id);

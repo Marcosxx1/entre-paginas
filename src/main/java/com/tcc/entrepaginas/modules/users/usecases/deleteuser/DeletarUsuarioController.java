@@ -22,7 +22,7 @@ public class DeletarUsuarioController {
   }
 
   @GetMapping("/delete/{id}")
-  public String deletarUsuario(@PathVariable("id") String id,
+  public String deletarUsuario(@PathVariable String id,
       RedirectAttributes redirectAttributes) {
 
     usuarioService.apagarUsuarioPorId(id);

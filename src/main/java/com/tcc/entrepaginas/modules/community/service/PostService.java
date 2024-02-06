@@ -6,9 +6,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,16 +89,17 @@ public class PostService {
     public List<Post> listAllPostsInACommunity(String username) {
         List<Community> userCommunities = usuarioService.getUserCommunities(username);
 
-        List<Post> userPosts = new ArrayList<>();
+        return userCommunities.stream()
+                .flatMap(community -> postRepository.findByCommunity(community).stream())
+                .sorted(Comparator.comparing(Post::getDate).reversed())
+                .collect(Collectors.toList());
+    }
 
-        for (Community community : userCommunities) {
-            List<Post> communityPosts = postRepository.findByCommunity(community);
-            userPosts.addAll(communityPosts);
-        }
-
-        Collections.sort(userPosts, (post1, post2) -> post2.getDate().compareTo(post1.getDate()));
-
-        return userPosts;
+    public List<Post> listPostsByCommunity(String communityId) {
+        return listarPost(Sort.by(Sort.Direction.DESC, "date"))
+                .stream()
+                .filter(post -> post.getCommunity().getId().equals(communityId))
+                .collect(Collectors.toList());
     }
 
     public void init() {
@@ -128,4 +131,5 @@ public class PostService {
             throw new CustomException("Could not store the file. Error: " + e.getMessage());
         }
     }
+
 }

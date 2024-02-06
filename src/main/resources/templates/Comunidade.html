@@ -6,121 +6,149 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Entre Paginas</title>
 
-    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
-    <script th:src="@{/static/js/HeaderScript.js}"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
 
-    <style>
-        .configuracoes {
-            display: none;
-        }
+    <link rel="stylesheet" th:href="@{/static/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/IndexStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/CommunityStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/PostStyle.css}" />
 
-        .configuracoes.visible {
-            display: block;
-        }
-    </style>
+    <script th:src="@{/static/js/HeaderScript.js}"></script>
+    <script th:src="@{/static/js/ModalScript.js}"></script>
+    <script th:src="@{/static/js/SearchScript.js}"></script>
+    <script th:src="@{/static/js/CarouselScript.js}"></script>
 
 </head>
 
 <body>
     <div th:replace="~{fragments/header/header :: header}"></div>
 
-    <h1 th:text="${community.title}"></h1>
+    <div class="forum-community-perfil">
+        <h1 class="community-title-perfil" th:text="${community.title}"></h1>
 
-    <img th:if="${community.icone == null}" src="/static/image/semImagem.png" alt="Icone da comunidade">
-    <img th:if="${community.icone != null}" th:src="${community.icone}" alt="Icone da comunidade">
+        <div class="community-perfil">
+            <div class="community-icon-perfil">
+                <img class="icon-img" th:if="${community.icone == null}" src="/static/image/semImagem.png"
+                    alt="Icone da comunidade">
+                <img class="icon-img" th:if="${community.icone != null}" th:src="${community.icone}"
+                    alt="Icone da comunidade">
+            </div>
 
-    <span class="perfil-principal__div-config">
-        <i class="fa-solid fa-gear"></i>
-    </span>
+            <div class="community-content-perfil">
+                <p th:text="${community.content}"></p>
+            </div>
+
+            <div class="community-infos-perfil">
+                <p th:text="${#dates.format(community.date, 'dd/MM/yyyy')}"></p>
+                <div>
+                    <p th:text="${community.privado == true} ? 'Privada' : ''"></p>
+                    <input type="checkbox" th:checked="${community.privado == true}" disabled>
+                </div>
+            </div>
+        </div>
+        <div class="community-menu">
+            <ul>
+                <li class="li-postagem">Criar Postagem</li>
+                <li class="li-config">Editar Informações</li>
+                <li>Convidar Membros</li>
+            </ul>
+        </div>
+    </div>
+
 
     <div class="configuracoes" id="configuracoes">
 
         <form method='post' encType='multipart/form-data' id="icone">
             <div>
                 <div>
-                    <label htmlFor="icone" className="forms-informacoes-groupFile-div_label">
+                    <label htmlFor="icone" class="forms-informacoes-groupFile-div_label">
                         Icone da Comunidade
                     </label>
                 </div>
                 <input type="hidden" th:value="${community.id}" class="communityId">
                 <input type="file" id="icone" name="icone" accept="image/*" />
             </div>
-            <button type="submit" className="forms-informacoes_button">
+            <button type="submit" class="forms-informacoes_button">
                 Salvar
             </button>
         </form>
 
-        <form>
-            <label>
+        <form class="custom-form">
+            <label class="form-label">
                 Título:
-                <input type="text" name="title" value={community.title} required />
+                <input type="text" name="title" class="form-input" required />
             </label>
-            <label>
+            <label class="form-label">
                 Conteúdo:
-                <textarea name="content" value={community.content} required></textarea>
+                <textarea name="content" class="form-input" required></textarea>
             </label>
-            <label>
-                Privado:
-                <input type="checkbox" name="privado" />
+            <label class="form-label">
+                <div class="form-checkbox">
+                    <input class="checkbox" type="checkbox" id="privado" name="privado" th:value="${privado}" />
+                    <label for="privado">Privado</label>
+                </div>
             </label>
-            <button type="submit">Salvar Alterações</button>
+            <button type="submit" class="form-submit-button">Salvar Alterações</button>
         </form>
 
         <button>
-            <a th:href="@{/community/delete/{id}(id=${community.id})}">
+            <a th:href="@{/community/delete/{id}(id=${community.id})}" class="delete-button">
                 Deletar Comunidade
             </a>
         </button>
     </div>
 
-    <div>
-        <h1>Formulário de Post</h1>
+    <div class="post-form" th:if="${#authorization.expression('isAuthenticated()')}">
+        <h1 class="form-title">Formulário de Post</h1>
         <form th:action="@{/posts/create/{communityId}/{userId}(communityId=*{community.id},userId=*{user.id})}"
             method="post" enctype="multipart/form-data">
 
-            <label for="title">Título:</label>
-            <input type="text" id="title" name="title" required>
+            <label class="form-label-post" for="title">Título:</label>
+            <input class="form-input-post" type="text" id="title" name="title" required>
             <br>
 
-            <label for="content">Conteúdo:</label>
-            <textarea id="content" name="content" required></textarea>
+            <label class="form-label-post" for="content">Conteúdo:</label>
+            <textarea class="form-textarea" id="content" name="content" required></textarea>
             <br>
 
-            <label for="image"></label>
-            <input type="file" id="imagem" name="imagem" accept="image/*">
+            <label class="form-label-post form-file" for="image"></label>
+            <input class="form-input-post" type="file" id="imagem" name="imagem" accept="image/*">
 
-            <input type="submit" value="Enviar">
+            <input class="form-submit-button-post" type="submit" value="Enviar">
         </form>
     </div>
 
-    <div th:if="posts != null" th:each="post : ${posts}">
-        <div th:if="${community.id == post.community.id}">
-            <h2 th:text="${post.title}"></h2>
-            <p th:text="${post.content}"></p>
-        </div>
+    <div class="post-form" th:if="${#authorization.expression('!isAuthenticated()')}">
+        <p>Já possui uma conta?
+            <a th:href="@{/login}">Faça login</a>
+        </p>
+        <p>Ainda não tem conta?
+            <a th:href="@{/user/register}">Cadastre-se</a>
+        </p>
+    </div>
 
-        <form th:action="@{/comments/create}" method="post">
-            <!-- <input type="hidden" th:field="*{post.id}" /> -->
+    <div class="post-community">
+        <div th:replace="~{fragments/posts/posts :: post}"></div>
+        <span sec:authentication="name" style="display: none;" id="userLogin"></span>
 
-            <div class="form-group">
-                <label for="content">Conteúdo do Comentário:</label>
-                <textarea id="content" name="content" class="form-control" required></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Adicionar Comentário</button>
-        </form>
-
+        <div th:replace="~{fragments/posts/posts :: modalPost}"></div>
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const configuracoesDiv = document.getElementById("configuracoes");
-            const perfilConfigSpan = document.querySelector(".perfil-principal__div-config");
+            const perfilConfigSpan = document.querySelector(".li-config");
+            const postagem = document.querySelector(".li-postagem");
+            const postagemForm = document.querySelector(".post-form");
 
             perfilConfigSpan.addEventListener("click", function () {
                 configuracoesDiv.classList.toggle("visible");
+            });
+
+            postagem.addEventListener("click", function () {
+                postagemForm.classList.toggle("visible");
             });
         });
     </script>

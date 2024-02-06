@@ -6,44 +6,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Entre Paginas</title>
 
-    <link rel="stylesheet" th:href="@{/static/css/LoginStyle.css}" />
+    <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/static/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/IndexStyle.css}" />
     <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/PerfilStyle.css}" />
     <script th:src="@{/static/js/HeaderScript.js}"></script>
 </head>
 
 <body>
     <div th:replace="~{fragments/header/header :: header}"></div>
 
-    <div>
-        <h2>Comunidades criadas por mim.</h2>
-        <div th:if="${adminCommunities.size() > 0}" th:each="community : ${adminCommunities}">
-            <a th:href="@{'/community/' + ${community.id}}">
-                <img th:if="${community.icone == null}" src="/static/image/semImagem.png" alt="Icone da comunidade">
-                <img th:if="${community.icone != null}" th:src="${community.icone}" alt="Icone da comunidade">
-                <p th:text="${community.title}"></p>
-            </a>
+    <div class="perfil">
+        <div class="perfil-principal">
+            <div th:replace="~{fragments/menu/menu :: menu}"></div>
         </div>
-    </div>
+        <div class="perfil-right">
+            <div class="community-section">
+                <h4>Comunidades criadas por mim.</h4>
+                <div class="community-grid">
+                    <div class="community-list" th:if="${adminCommunities.size() > 0}"
+                        th:each="community : ${adminCommunities}">
+                        <a class="card" th:href="@{'/community/' + ${community.id}}">
+                            <img class="card__img community-icon" th:if="${community.icone == null}"
+                                src="/static/image/semImagem.png" alt="Icone da comunidade">
+                            <img class="card__img community-icon" th:if="${community.icone != null}"
+                                th:src="${community.icone}" alt="Icone da comunidade">
+                            <div class="card__footer">
+                                <span class="community-title" th:text="${community.title}"></span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-    <div>
-        <h2>Comunidades em que participo como moderador.</h2>
-        <div th:if="${moderatorCommunities.size() > 0}" th:each="community : ${moderatorCommunities}">
-            <a th:href="@{'/community/' + ${community.id}}">
-                <img th:if="${community.icone == null}" src="/static/image/semImagem.png" alt="Icone da comunidade">
-                <img th:if="${community.icone != null}" th:src="${community.icone}" alt="Icone da comunidade">
-                <p th:text="${community.title}"></p>
-            </a>
-        </div>
-    </div>
+            <div class="community-section">
+                <h4>Comunidades em que participo como moderador.</h4>
+                <div class="community-grid">
+                    <div class="community-list" th:if="${adminCommunities.size() > 0}"
+                        th:each="community : ${moderatorCommunities}">
+                        <a class="card" th:href="@{'/community/' + ${community.id}}">
+                            <img class="card__img community-icon" th:if="${community.icone == null}"
+                                src="/static/image/semImagem.png" alt="Icone da comunidade">
+                            <img class="card__img community-icon" th:if="${community.icone != null}"
+                                th:src="${community.icone}" alt="Icone da comunidade">
+                            <div class="card__footer">
+                                <span class="community-title" th:text="${community.title}"></span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-    <div>
-        <h2>Comunidades em que participo.</h2>
-        <div th:if="${userCommunities.size() > 0}" th:each="community : ${userCommunities}">
-            <a th:href="@{'/community/' + ${community.id}}">
-                <img th:if="${community.icone == null}" src="/static/image/semImagem.png" alt="Icone da comunidade">
-                <img th:if="${community.icone != null}" th:src="${community.icone}" alt="Icone da comunidade">
-                <p th:text="${community.title}"></p>
-            </a>
+
+            <div class="community-section">
+                <h4>Comunidades em que participo.</h4>
+                <div class="community-grid">
+                    <div class="community-list" th:if="${adminCommunities.size() > 0}"
+                        th:each="community : ${userCommunities}">
+                        <a class="card" th:href="@{'/community/' + ${community.id}}">
+                            <img class="card__img community-icon" th:if="${community.icone == null}"
+                                src="/static/image/semImagem.png" alt="Icone da comunidade">
+                            <img class="card__img community-icon" th:if="${community.icone != null}"
+                                th:src="${community.icone}" alt="Icone da comunidade">
+                            <div class="card__footer">
+                                <span class="community-title" th:text="${community.title}"></span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

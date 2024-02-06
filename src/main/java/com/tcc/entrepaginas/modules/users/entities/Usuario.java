@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tcc.entrepaginas.modules.community.entities.Membros;
 import com.tcc.entrepaginas.modules.community.entities.Post;
+import com.tcc.entrepaginas.modules.community.entities.Reaction;
 import com.tcc.entrepaginas.modules.books.entities.Livro;
 import com.tcc.entrepaginas.modules.community.entities.Comments;
 import com.tcc.entrepaginas.modules.community.entities.SubComments;
@@ -80,6 +81,9 @@ public class Usuario implements UserDetails {
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comments> comentarios;
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reaction> reaction;
 
     public Usuario() {
     }
@@ -213,6 +217,14 @@ public class Usuario implements UserDetails {
 
     public void setSubComments(List<SubComments> subComments) {
         this.subComments = subComments;
+    }
+
+    public List<Reaction> getReaction() {
+        return reaction;
+    }
+
+    public void setReaction(List<Reaction> reaction) {
+        this.reaction = reaction;
     }
 
     @Override

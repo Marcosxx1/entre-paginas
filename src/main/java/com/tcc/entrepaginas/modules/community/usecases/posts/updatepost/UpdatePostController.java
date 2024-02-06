@@ -23,9 +23,9 @@ public class UpdatePostController {
     }
 
     @PatchMapping("/{communityId}/{userId}")
-    public ResponseEntity<PostDto> updateCommunity(@PathVariable("communityId") String communityId,
+    public ResponseEntity<PostDto> updateCommunity(@PathVariable String communityId,
             @PathVariable("userId") String usuarioId, @RequestParam("postDto") String postDtoJson,
-            @RequestParam("image") MultipartFile image) {
+            @RequestParam MultipartFile image) {
         PostDto updatePost = updatePostUseCase.updatePost(postDtoJson, usuarioId, communityId, image);
         if (updatePost != null) {
             return ResponseEntity.ok(updatePost);

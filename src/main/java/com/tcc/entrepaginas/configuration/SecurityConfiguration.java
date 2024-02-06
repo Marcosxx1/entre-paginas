@@ -28,14 +28,11 @@ public class SecurityConfiguration {
                 return http.csrf((csrf) -> csrf.disable())
                                 .httpBasic(Customizer.withDefaults())
                                 .authorizeHttpRequests((authorize) -> authorize
-                                                .requestMatchers("/perfil").authenticated()
-                                                .requestMatchers("/infos/**").authenticated()
-                                                .requestMatchers("/community/**").authenticated()
                                                 .requestMatchers("/**").permitAll()
                                                 .anyRequest().authenticated())
                                 .formLogin((form) -> form
                                                 .loginPage("/login").permitAll()
-                                                .defaultSuccessUrl("/index")) // Redirecionamento padrão para "/index"
+                                                .defaultSuccessUrl("/index"))
                                 .logout((logout) -> logout
                                                 .logoutSuccessUrl("/index").permitAll())
                                 .build();

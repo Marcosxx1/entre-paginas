@@ -1,37 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2&family=Roboto+Mono:wght@300&display=swap");
-
-:root {
-    --header-background: #85c1f1;
-    --footer-border: #aaaaaa;
-    --black: #302e2e;
-    --white: #fff;
-    --suport: #f7f7f7;
-    --modal-border: #e7e7e7;
-    --modal-item-hover: #96d3e7;
-    --button-left-right: #615f5f;
-    --button-left-right-hover: #999898;
-    --button-hover: #a9e1f3;
-    --gray: #e7e5e5;
-    --azul-logo: #458ca5;
-    --azul-claro: #e8f3f7;
-    --botao-perfil: #f5f5f5;
-    --header-background-opacity: #74d1f049;
-    --black-opacity: #0000007a;
-    --verde-claro: #e3ffe3;
-    --vermelho: #ef4c48;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    font-family: 'Roboto Mono', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-
-body {
-    width: 100vw;
-    height: 100vh;
-}
-
 .perfil {
     width: 100%;
     height: 89.64%;
@@ -40,38 +6,51 @@ body {
 }
 
 .perfil-principal {
-    height: 100%;
+    background-color: var(--azul-claro);
+    height: 80%;
     width: 20%;
+    margin: 2% 2% 0 5%;
     display: flex;
     flex-direction: column;
-    background-color: var(--header-background-opacity);
+    box-shadow: 1px 0px 7px 0px rgba(0, 0, 0, 0.2);
+}
+
+.perfil-principal div {
+    width: 100%;
+    height: 100%;
 }
 
 .perfil-principal__div {
-    width: 80%;
-    height: 40%;
-    margin: 0 auto;
+    width: 100% !important;
+    height: 30% !important;
+    margin: 4% 7%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .perfil-principal__div-image {
-    width: 70%;
-    height: 80%;
+    width: 60% !important;
+    height: 100% !important;
     background-color: var(--gray);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 50px;
-    box-shadow: 1px 0px 7px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 0px 7px 0px rgba(0, 0, 0, 0.2);
     position: relative;
+}
+
+.perfil-principal__div-image a {
+    height: 100%;
+    width: 100%;
 }
 
 .perfil-principal__div-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border: 1px solid transparent;
 }
 
 .perfil-principal__div-suporte {
@@ -79,15 +58,21 @@ body {
 }
 
 .perfil-principal__div-config {
-    color: var(--black);
-    margin: 95% 0 0 5%;
+    margin: 90% 0 0 5%;
     cursor: pointer;
+}
+
+.perfil-principal__div-config a {
+    color: var(--black);
+}
+
+.perfil-principal__div-config a:hover {
+    color: var(--azul-logo);
 }
 
 .perfil-principal__left {
     height: 100%;
     width: 100%;
-    border-right: 1px solid var(--gray);
 }
 
 .perfil-principal__left-menu {
@@ -102,17 +87,26 @@ body {
     align-items: center;
     padding: 0 0 0 5%;
     cursor: pointer;
+    border-bottom: 1px solid var(--botao-perfil);
+    font-size: 13px;
+}
+
+.perfil-principal__left a {
+    text-decoration: none;
+    color: var(--black);
 }
 
 .perfil-principal__left li:hover {
-    color: var(--azul-logo);
     border-right: 1px solid var(--azul-logo);
+}
+
+.perfil-principal__left a li:hover {
+    color: var(--azul-logo);
 }
 
 .perfil-right {
     height: 90%;
     width: 100%;
-    border-top: 1px solid var(--gray);
 }
 
 .perfil-right__botao {
@@ -139,4 +133,283 @@ body {
 .active {
     color: var(--azul-logo);
     border-right: 1px solid var(--azul-logo);
+}
+
+.form-container {
+    max-width: 600px;
+    margin: 1% auto 0 auto;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: var(--white);
+}
+
+.form-container h3 {
+    margin: 0 0 6% 0;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--black);
+    font-size: 14px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 2px solid var(--azul-claro);
+    border-radius: 3px;
+    color: var(--black);
+    outline: none;
+}
+
+#descricao,
+.form-container #content {
+    resize: none;
+}
+
+.form-checkbox {
+    display: flex;
+    margin-bottom: 3%;
+}
+
+.checkbox {
+    display: none;
+}
+
+.checkbox+label {
+    position: relative;
+    padding: 2px 0 0 30px;
+    cursor: pointer;
+    display: inline-block;
+    color: var(--black);
+}
+
+.checkbox+label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--azul-claro);
+    background-color: white;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.checkbox:checked+label:before {
+    background-color: var(--azul-logo);
+    border: 2px solid white;
+}
+
+.form-button {
+    background-color: var(--white);
+    color: var(--black);
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid var(--azul-logo);
+}
+
+.form-button:hover {
+    background-color: var(--header-background);
+}
+
+.livro-container {
+    margin-bottom: 20px;
+}
+
+.livro-link {
+    width: 80%;
+    margin: 0 auto;
+    text-decoration: none;
+    display: block;
+    background-color: var(--azul-claro);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+.livro-title {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: var(--black);
+}
+
+.livro-container div {
+    display: flex;
+}
+
+.livro-image {
+    width: 100px;
+    border-radius: 5px;
+}
+
+.livro-descricao {
+    margin: auto 0 auto 3%;
+    color: var(--black);
+}
+
+.community-section h4 {
+    margin-top: 3%;
+}
+
+.community-grid {
+    padding: 2% 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.community-list {
+    position: relative;
+}
+
+.card {
+    border-radius: 2rem;
+    color: var(--black);
+    transform: translateZ(0);
+}
+
+.card__img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    transform: scale(calc(1 + (var(--hover, 0) * 0.25))) rotate(calc(var(--hover, 0) * -5deg));
+    transition: transform 0.2s;
+    border-radius: 2rem;
+}
+
+.card__footer {
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+    position: absolute;
+    bottom: 3px;
+    left: 0;
+    width: 84.6%;
+    height: 30%;
+    border-radius: 0 0 2rem 2rem;
+    background-color: var(--header-background-opacity);
+}
+
+.card:hover .card__footer {
+    backdrop-filter: blur(16px);
+}
+
+
+.dados-perfil {
+    color: var(--black);
+    margin: 5%;
+}
+
+.form-imagem-container {
+    width: 80%;
+    margin: 15px 0 0 5%;
+}
+
+.form-imagem-container div {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-imagem-label {
+    display: block;
+    color: var(--black);
+    margin: 0 0 5px 0;
+    font-size: 14px;
+}
+
+.form-imagem-input {
+    width: 70%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 2px solid var(--azul-claro);
+    border-radius: 3px;
+    color: var(--black);
+    outline: none;
+}
+
+.form-imagem-button {
+    width: 69.97px;
+    text-align: center;
+    color: var(--black);
+    border-radius: 4px;
+    font-weight: 700;
+    cursor: pointer;
+    border: 1px solid var(--azul-logo);
+    background-color: var(--white);
+    padding: 10px 15px;
+    transition: background-color 0.3s ease;
+}
+
+.form-imagem-button:hover {
+    border: 1px solid transparent;
+    background-color: var(--header-background);
+}
+
+.form-informacoes {
+    width: 80%;
+    margin: 20px 0 0 5%;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-label-infos {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--black);
+    font-size: 14px;
+}
+
+.form-input-infos {
+    width: 70%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 2px solid var(--azul-claro);
+    border-radius: 3px;
+    color: var(--black);
+    outline: none;
+}
+
+.form-novaSenha {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.form-novaSenha-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.form-novaSenha-group-label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--black);
+    font-size: 14px;
+}
+
+.form-novaSenha-button {
+    text-align: center;
+    color: var(--black);
+    border-radius: 4px;
+    font-weight: 700;
+    cursor: pointer;
+    border: 1px solid var(--azul-logo);
+    background-color: var(--white);
+    padding: 10px 15px;
+    transition: background-color 0.3s ease;
+}
+
+.form-novaSenha-button:hover {
+    border: 1px solid transparent;
+    background-color: var(--header-background);
 }
