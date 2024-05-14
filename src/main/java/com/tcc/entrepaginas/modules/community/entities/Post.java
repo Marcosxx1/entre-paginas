@@ -27,9 +27,11 @@ public class Post implements Serializable {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    @NotBlank(message = "Título não pode estar em branco")
     private String title;
 
     @Column(columnDefinition = "TEXT")
+    @NotBlank(message = "Conteúdo não pode estar em branco")
     private String content;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")

@@ -27,6 +27,7 @@ public class Comments implements Serializable {
     private String id;
 
     @NotBlank
+    @NotBlank(message = "Content must not be blank")
     @Column(columnDefinition = "TEXT")
     private String content;
 

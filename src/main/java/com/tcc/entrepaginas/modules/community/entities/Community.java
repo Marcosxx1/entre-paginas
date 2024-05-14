@@ -22,10 +22,10 @@ public class Community implements Serializable {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @NotBlank
+    @NotBlank(message = "Título não pode estar em branco")
     private String title;
 
-    @NotBlank
+    @NotBlank(message = "Conteúdo não pode estar em branco")
     private String content;
 
     private String icone;

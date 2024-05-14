@@ -17,7 +17,7 @@ public class Contato implements Serializable {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @Pattern(regexp = "^\\(\\d{2}\\) \\d{5}-\\d{4}$")
+    @Pattern(regexp = "^\\(\\d{2}\\) \\d{5}-\\d{4}$", message = "Telefone must be in the format (XX) XXXXX-XXXX")
     private String telefone;
 
     @ManyToOne

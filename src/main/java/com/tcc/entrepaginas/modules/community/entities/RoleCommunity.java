@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class RoleCommunity implements Serializable {
@@ -17,6 +18,7 @@ public class RoleCommunity implements Serializable {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    @NotBlank(message = "Papel não pode estar em branco")
     private String papel;
 
     @OneToMany(mappedBy = "roleCommunity", cascade = CascadeType.ALL)
