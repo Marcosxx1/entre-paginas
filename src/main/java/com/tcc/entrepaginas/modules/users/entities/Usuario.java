@@ -29,6 +29,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Usuario implements UserDetails {
@@ -58,6 +59,7 @@ public class Usuario implements UserDetails {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+    @NotNull(message = "Data de Nascimento não pode ser nula")
     private Instant dataNascimento;
 
     @ManyToOne
