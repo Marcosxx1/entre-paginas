@@ -19,7 +19,6 @@ public class Reaction implements Serializable {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @NotBlank(message = "Reação não pode estar em branco")
     private String reacao;
 
     @ManyToOne
@@ -69,6 +68,14 @@ public class Reaction implements Serializable {
 
     public void setPost(Post post) {
         this.post = post;
+    }
+
+    @Override
+    public String toString() {
+        return "Reaction [id=" + id + ", reacao=" + reacao + ", usuario=" + usuario + ", post=" + post + ", getId()="
+                + getId() + ", getReacao()=" + getReacao() + ", getUsuario()=" + getUsuario() + ", getPost()="
+                + getPost() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+                + super.toString() + "]";
     }
 
 }

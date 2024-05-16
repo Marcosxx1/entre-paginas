@@ -11,6 +11,8 @@ import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.modules.community.entities.Post;
 import com.tcc.entrepaginas.modules.community.entities.Reaction;
 import com.tcc.entrepaginas.modules.community.repositories.ReactionRepository;
+import com.tcc.entrepaginas.modules.users.entities.Usuario;
+import com.tcc.entrepaginas.modules.users.service.UsuarioService;
 
 @Service
 public class ReactionService {
@@ -20,6 +22,9 @@ public class ReactionService {
 
     @Autowired
     private PostService postService;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     public Reaction buscarReaction(String id) {
         Optional<Reaction> reaction = reactionRepository.findById(id);
@@ -33,7 +38,7 @@ public class ReactionService {
     public int countReaction() {
         int likesCount = reactionRepository.countByReacao("like");
         int dislikesCount = reactionRepository.countByReacao("dislike");
- 
+
         return likesCount - dislikesCount;
     }
 
@@ -42,18 +47,22 @@ public class ReactionService {
         reactionRepository.delete(reaction);
     }
 
-    public int reacaoPost(String idPost, String reacao) {
+    public int reacaoPost(String idPost, String reacao, String idUsuario) {
         Post post = postService.buscarPost(idPost);
 
+        Usuario usuarioEncontrado = usuarioService.pegarUsuario(idUsuario);
+
+        if (usuarioEncontrado == null) {
+            throw new IllegalStateException("Usuário não existe.");
+        }
         if (post == null) {
             throw new IllegalArgumentException("Post not found.");
         }
 
-        if (usuarioJaVotou(idPost, post.getUsuario().getId())) {
+        if (usuarioJaVotou(idPost, idUsuario)) {
             throw new IllegalStateException("User has already voted on this post.");
         }
-
-        Reaction reaction = new Reaction(reacao, post.getUsuario(), post);
+        Reaction reaction = new Reaction(reacao, usuarioEncontrado, post);
 
         reactionRepository.save(reaction);
 
@@ -61,10 +70,16 @@ public class ReactionService {
     }
 
     public boolean usuarioJaVotou(String idPost, String idUsuario) {
+        List<Reaction> reactions = listarReactions(Sort.by(Sort.Direction.ASC, "id"));
 
-        Reaction reaction = reactionRepository.findByPostIdAndUsuarioId(idPost, idUsuario);
+        for (Reaction reaction : reactions) {
+            if (reaction.getPost().getId().equals(idPost) && reaction.getUsuario().getId().equals(idUsuario)) {
+                System.out.println("Usuário já votou.");
+                return true;
+            }
+        }
 
-        return reaction != null;
+        return false;
     }
 
 }

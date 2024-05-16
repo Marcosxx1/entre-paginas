@@ -77,42 +77,50 @@
     <div th:replace="~{fragments/posts/posts :: modalPost}"></div>
 
     <script>
-        $(document).ready(function () {
-            $('.likeBtn').on('click', function () {
-                let postId = $(this).siblings('input').val();
+$(document).ready(function () {
+    $('.likeBtn').on('click', function () {
+        let postId = $(this).siblings('input').val();
+        let button = $(this); // Salvar uma referência para o botão atual
+        console.log("Like button clicked for post ID:", postId);
 
-                $.ajax({
-                    url: `/posts/likes/${postId}`,
-                    type: 'POST',
-                    data: { action: 'like' },
-                    success: function (response) {
-                        $('#likesCount').text(response.newLikeCount);
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.error('Error: ', textStatus, errorThrown);
-                        alert('An error occurred while processing your request.');
-                    }
-                });
-
-            });
-
-            $('.dislikeBtn').on('click', function () {
-                let postId = $(this).siblings('input').val();
-
-                $.ajax({
-                    url: `/posts/dislike/${postId}`,
-                    type: 'POST',
-                    data: { action: 'dislike' },
-                    success: function (response) {
-                        $('#likesCount').text(response.newLikeCount);
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.error('Error: ', textStatus, errorThrown);
-                        alert('An error occurred while processing your request.');
-                    }
-                });
-            });
+        $.ajax({
+            url: `/posts/likes/${postId}`,
+            type: 'POST',
+            data: { action: 'like' },
+            success: function (response) {
+                console.log("Successful like response:", response);
+                // Encontrar o elemento likesCount a partir do botão atual
+                button.closest('.up').find('.likesCount').text(response.newLikeCount);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Error: ', textStatus, errorThrown); 
+                alert('An error occurred while processing your request.');
+            }
         });
+    });
+
+    $('.dislikeBtn').on('click', function () {
+        let postId = $(this).siblings('input').val();
+        let button = $(this); // Salvar uma referência para o botão atual
+        console.log("Dislike button clicked for post ID:", postId);
+
+        $.ajax({
+            url: `/posts/dislike/${postId}`,
+            type: 'POST',
+            data: { action: 'dislike' },
+            success: function (response) {
+                console.log("Successful dislike response:", response);
+                // Encontrar o elemento likesCount a partir do botão atual
+                button.closest('.up').find('.likesCount').text(response.newLikeCount);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Error: ', textStatus, errorThrown);
+                alert('An error occurred while processing your request.');
+            }
+        });
+    });
+});
+
     </script>
 
 </body>

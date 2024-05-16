@@ -36,7 +36,6 @@ public class Post implements Serializable {
     private String content;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-    @NotNull(message = "Data de Nascimento não pode ser nula")
     private Instant date;
 
     @PrePersist
