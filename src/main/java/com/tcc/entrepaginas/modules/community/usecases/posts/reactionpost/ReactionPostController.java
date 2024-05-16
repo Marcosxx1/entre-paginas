@@ -21,29 +21,33 @@ public class ReactionPostController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    @PostMapping("/likes/{idPost}")
-    public int likesPost(@PathVariable("idPost") String idPost, Authentication authentication) {
-        Usuario user = new Usuario();
-
+    @PostMapping("/like/{idPost}")
+    public int likePost(@PathVariable("idPost") String idPost, Authentication authentication) {
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
-
-            user = usuarioRepository.findByLogin(username);
+            Usuario user = usuarioRepository.findByLogin(username);
+            if (user != null) {
+                return reactionService.reacaoPost(idPost, "like", user.getId());
+            } else {
+                throw new RuntimeException("User not found");
+            }
+        } else {
+            throw new RuntimeException("User not authenticated");
         }
-
-        return reactionService.reacaoPost(idPost, "like", user.getId());
     }
 
     @PostMapping("/dislike/{idPost}")
     public int dislikePost(@PathVariable("idPost") String idPost, Authentication authentication) {
-        Usuario user = new Usuario();
-
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
-
-            user = usuarioRepository.findByLogin(username);
+            Usuario user = usuarioRepository.findByLogin(username);
+            if (user != null) {
+                return reactionService.reacaoPost(idPost, "dislike", user.getId());
+            } else {
+                throw new RuntimeException("User not found");
+            }
+        } else {
+            throw new RuntimeException("User not authenticated");
         }
-
-        return reactionService.reacaoPost(idPost, "dislike", user.getId());
     }
 }

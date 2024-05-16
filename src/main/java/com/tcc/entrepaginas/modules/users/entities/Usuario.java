@@ -270,4 +270,13 @@ public class Usuario implements UserDetails {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Usuario [id=" + id + ", imagem=" + imagem + ", nome=" + nome + ", email=" + email + ", login=" + login
+                + ", senha=" + senha + ", premium=" + premium + ", dataNascimento=" + dataNascimento + ", papel="
+                + papel + ", contatos=" + contatos + ", subComments=" + subComments + ", membros=" + membros
+                + ", livros=" + livros + ", posts=" + posts + ", comentarios=" + comentarios + ", reaction=" + reaction
+                + "]";
+    }
+
 }

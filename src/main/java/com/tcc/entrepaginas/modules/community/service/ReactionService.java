@@ -59,9 +59,11 @@ public class ReactionService {
             throw new IllegalArgumentException("Post not found.");
         }
 
-        if (usuarioJaVotou(idPost, idUsuario)) {
-            throw new IllegalStateException("User has already voted on this post.");
-        }
+        /*
+         * if (usuarioJaVotou(idPost, idUsuario)) {
+         * throw new IllegalStateException("User has already voted on this post.");
+         * }
+         */
         Reaction reaction = new Reaction(reacao, usuarioEncontrado, post);
 
         reactionRepository.save(reaction);
