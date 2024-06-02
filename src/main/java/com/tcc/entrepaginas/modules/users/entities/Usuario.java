@@ -60,6 +60,7 @@ public class Usuario implements UserDetails {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+    @NotNull(message = "Data de Nascimento não pode ser nula")
     private Instant dataNascimento;
 
     @ManyToOne
@@ -268,6 +269,15 @@ public class Usuario implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario [id=" + id + ", imagem=" + imagem + ", nome=" + nome + ", email=" + email + ", login=" + login
+                + ", senha=" + senha + ", premium=" + premium + ", dataNascimento=" + dataNascimento + ", papel="
+                + papel + ", contatos=" + contatos + ", subComments=" + subComments + ", membros=" + membros
+                + ", livros=" + livros + ", posts=" + posts + ", comentarios=" + comentarios + ", reaction=" + reaction
+                + "]";
     }
 
 }

@@ -16,6 +16,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Livro implements Serializable {
@@ -24,18 +26,25 @@ public class Livro implements Serializable {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    @NotBlank(message = "Nome não deve estar em branco")
     private String nome;
 
+    @NotBlank(message = "Descricao não deve estar em branco")
     private String descricao;
 
+    @NotBlank(message = "Cidade não deve estar em branco")
     private String cidade;
 
+    @NotNull(message = "Estado Brasil não deve ser nulo")
     private int estadoBrasil;
 
+    @NotNull(message = "Estado não deve ser nulo")
     private int estado;
 
+    @NotNull(message = "Tipo não deve ser nulo")
     private int tipo;
 
+    @NotNull(message = "Categoria não deve ser nulo")
     private int categoria;
 
     @ManyToOne

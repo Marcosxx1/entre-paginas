@@ -24,7 +24,8 @@ public class SubComments implements Serializable{
     private String id;
 
     @NotBlank
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")   
+    @NotBlank(message = "Conteúdo não pode estar em branco")
     private String content;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")

@@ -7,14 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Entre Paginas</title>
 
-    <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-    <link rel="stylesheet" type="text/css"
-        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
     <link rel="stylesheet" th:href="@{/static/css/style.css}" />
     <link rel="stylesheet" th:href="@{/static/css/IndexStyle.css}" />
     <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
@@ -25,6 +19,7 @@
     <script th:src="@{/static/js/SearchScript.js}"></script>
     <script th:src="@{/static/js/CarouselScript.js}"></script>
 
+    <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -89,35 +84,51 @@
 
     <div th:replace="~{fragments/posts/posts :: modalPost}"></div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script th:src="@{/static/js/HeaderScript.js}"></script>
+    <script th:src="@{/static/js/ModalScript.js}"></script>
+    <script th:src="@{/static/js/SearchScript.js}"></script>
+    <script th:src="@{/static/js/CarouselScript.js}"></script>
+
     <script>
         $(document).ready(function () {
             $('.likeBtn').on('click', function () {
-                let postId = $(this).siblings('input').val();
+                let postId = $(this).siblings('.postId').val();
+                let button = $(this);
+                console.log("Like button clicked for post ID:", postId);
 
                 $.ajax({
-                    url: `/posts/likes/${postId}`,
+                    url: `/posts/like/${postId}`,
                     type: 'POST',
-                    data: { action: 'like' },
                     success: function (response) {
-                        $('#likesCount').text(response.newLikeCount);
+                        console.log("Successful like response:", response);
+                        let likesCountElement = button.closest('.up').find('.likesCount');
+                        console.log("Updating likes count for element:", likesCountElement);
+                        likesCountElement.text(response); // Assuming response is the new like count
+                        console.log("Updated likes count to:", likesCountElement.text());
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.error('Error: ', textStatus, errorThrown);
                         alert('An error occurred while processing your request.');
                     }
                 });
-
             });
 
             $('.dislikeBtn').on('click', function () {
-                let postId = $(this).siblings('input').val();
+                let postId = $(this).siblings('.postId').val();
+                let button = $(this);
+                console.log("Dislike button clicked for post ID:", postId);
 
                 $.ajax({
                     url: `/posts/dislike/${postId}`,
                     type: 'POST',
-                    data: { action: 'dislike' },
                     success: function (response) {
-                        $('#likesCount').text(response.newLikeCount);
+                        console.log("Successful dislike response:", response);
+                        let likesCountElement = button.closest('.up').find('.likesCount');
+                        console.log("Updating likes count for element:", likesCountElement);
+                        likesCountElement.text(response); // Assuming response is the new like count
+                        console.log("Updated likes count to:", likesCountElement.text());
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.error('Error: ', textStatus, errorThrown);
@@ -126,6 +137,7 @@
                 });
             });
         });
+
     </script>
 
 

@@ -2,9 +2,12 @@ package com.tcc.entrepaginas.modules.community.entities;
 
 import java.io.Serializable;
 
+import com.tcc.entrepaginas.modules.books.entities.enums.ReacaoStatus;
 import com.tcc.entrepaginas.modules.users.entities.Usuario;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,6 +22,9 @@ public class Reaction implements Serializable {
     private String id;
 
     private String reacao;
+
+    @Enumerated(EnumType.STRING)
+    private ReacaoStatus jaVotou;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
@@ -67,6 +73,22 @@ public class Reaction implements Serializable {
 
     public void setPost(Post post) {
         this.post = post;
+    }
+
+    public ReacaoStatus getJaVotou() {
+        return jaVotou;
+    }
+
+    public void setJaVotou(ReacaoStatus jaVotou) {
+        this.jaVotou = jaVotou;
+    }
+
+    @Override
+    public String toString() {
+        return "Reaction [id=" + id + ", reacao=" + reacao + ", usuario=" + usuario + ", post=" + post + ", getId()="
+                + getId() + ", getReacao()=" + getReacao() + ", getUsuario()=" + getUsuario() + ", getPost()="
+                + getPost() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+                + super.toString() + "]";
     }
 
 }

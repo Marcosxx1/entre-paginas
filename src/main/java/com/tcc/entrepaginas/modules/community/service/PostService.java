@@ -66,6 +66,7 @@ public class PostService {
             HttpServletRequest request) {
 
         Usuario usuario = usuarioService.pegarUsuario(userId);
+        System.out.println(usuario);
         Community community = communityService.pegarCommunity(communityId);
 
         post.setUsuario(usuario);
