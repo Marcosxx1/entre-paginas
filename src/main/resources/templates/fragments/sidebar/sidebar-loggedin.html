@@ -8,34 +8,67 @@
 </head>
 
 <body>
-    <div th:fragment="sideBar" class='sideBar'>
-        <ul>
-            <li>
+    <div th:fragment="sideBar">
+        <div class="perfil-principal__div">
+            <div class="perfil-principal__div-image">
                 <a th:href="@{/perfil}">
-                    <button class='button'>
-                        <i class="fa-solid fa-user-pen"></i>
-                    </button>
-                    <span class="hover-text">Perfil</span>
+                    <img th:src="${user.imagem}" alt="Imagem do Usuário" />
+                    <p th:text="${user.nome}"></p>
                 </a>
-            </li>
-
-            <li>
+            </div>
+        </div>
+        <span class="border"></span>
+        <div class="perfil-principal__left">
+            <ul class="perfil-principal__left-menu">
                 <a th:href="@{/book/create/{id}(id=${user.id})}">
-                    <button class='button'>
-                        <i class="fa-solid fa-book-open-reader"></i>
-                    </button>
-                    <span class="hover-text" style="margin-left: 46px;">Trocar um livro</span>
+                    <li>
+                        <i class="fa-solid fa-book"></i>
+                        Que tal trocar livros?
+                    </li>
                 </a>
-            </li>
-            <li>
+                <a th:href="@{/book/exchanges/{id}(id=${user.id})}">
+                    <li>
+                        <i class="fa-solid fa-people-arrows"></i>
+                        Historico de Trocas
+                    </li>
+                </a>
+                <a th:href="@{/community/create/{id}(id=${user.id})}">
+                    <li>
+                        <i class="fa-solid fa-person-shelter"></i>
+                        Criar Comunidade
+                    </li>
+                </a>
+                <a th:href="@{/community/mycommunities/{id}(id=${user.id})}">
+                    <li>
+                        <i class="fa-solid fa-people-group"></i>
+                        Minhas Comunidades
+                    </li>
+                </a>
+
+                <span class="border"></span>
+
+                <a th:href="@{/infos/{id}(id=${user.id})}">
+                    <li>
+                        <i class="fa-solid fa-gear"></i>
+                        Configurações
+                    </li>
+                </a>
+
+                <a href="#">
+                    <li>
+                        <i class="fa-regular fa-circle-question"></i>
+                        Suporte
+                    </li>
+                </a>
+
                 <a th:href="@{/logout}">
-                    <button class="button">
-                        <i class="fa-solid fa-door-open"></i>
-                    </button>
-                    <span class="hover-text">Logout</span>
+                    <li>
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        Logout
+                    </li>
                 </a>
-            </li>
-        </ul>
+            </ul>
+        </div>
     </div>
 </body>
 

@@ -7,7 +7,7 @@
     <title>Entre Paginas</title>
 
     <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
-   
+
     <link rel="stylesheet" th:href="@{/static/css/style.css}" />
     <link rel="stylesheet" th:href="@{/static/css/RegisterStyle.css}" />
 
@@ -17,20 +17,24 @@
 
     <div class="cadastro">
         <div class='cadastro__left'>
-            <img src="/static/image/imgCadastro.png" alt="" />
+            <img src="/static/image/logo.png" alt="" />
         </div>
         <div class='cadastro__right'>
-            <h1>Crie sua conta</h1>
+            <h1>Crie uma nova conta</h1>
+            <div class="cadastro__right-informativo">
+                <p class="cadastro__right-informativo--p">Junte-se à nossa Comunidade Literária</p>
+                <p class="cadastro__right-informativo--p">Cadastre-se hoje e embarque na nossa jornada.</p>
+            </div>
             <form th:action="@{/user/register/save}" th:object="${usuario}" method='post'>
                 <div>
                     <div class="label-erro">
-                        <label for="nome">Nome:</label>
+                        <label for="nome">Nome Completo:</label>
                         <div>
                             <span class="mensagem" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
                         </div>
                     </div>
                     <div class="div-input">
-                        <input type="text" placeholder='Nome' name='nome' th:field="*{nome}" />
+                        <input type="text" placeholder='Insira seu nome completo' name='nome' th:field="*{nome}" />
                     </div>
                 </div>
 
@@ -43,7 +47,7 @@
                         </div>
                     </div>
                     <div class="div-input">
-                        <input type="text" placeholder='Login' name='login' th:field="*{login}" />
+                        <input type="text" placeholder='Insira seu login' name='login' th:field="*{login}" />
                     </div>
                 </div>
 
@@ -52,10 +56,11 @@
                         <label for="email">E-mail:</label>
                         <div>
                             <span class="mensagem" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                            <span class="mensagem" th:if="${emailExiste}" th:text="${emailExiste}"></span>
                         </div>
                     </div>
                     <div class="div-input">
-                        <input type="email" placeholder='E-mail' name='email' th:field="*{email}" />
+                        <input type="email" placeholder='Insira seu E-mail' name='email' th:field="*{email}" />
                     </div>
                 </div>
 
@@ -67,22 +72,23 @@
                         </div>
                     </div>
                     <div class="div-input">
-                        <input type="password" placeholder='Senha' name='senha' th:field="*{senha}" />
+                        <input type="password" placeholder='Insira seu senha' name='senha' th:field="*{senha}" />
                     </div>
                 </div>
 
                 <div>
                     <div class="label-erro">
-                        <label for="dataNascimento">Nascimento:</label>
+                        <label for="confirmarSenha">Confirmar Senha:</label>
                         <div>
-                            <span class="mensagem" th:if="${#fields.hasErrors('dataNascimento')}"
-                                th:errors="*{dataNascimento}"></span>
+                            <span class="mensagem" th:if="${senhaErrada}" th:text="${senhaErrada}"></span>
                         </div>
                     </div>
                     <div class="div-input">
-                        <input type="date" th:field="*{dataNascimento}">
+                        <input type="password" placeholder='Insira novamente sua senha' name='confirmarSenha' />
                     </div>
                 </div>
+
+                
 
                 <button type='submit'>Criar Conta</button>
                 <p>Já possui uma conta?

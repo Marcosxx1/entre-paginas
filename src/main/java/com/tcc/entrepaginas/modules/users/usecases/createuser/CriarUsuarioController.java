@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tcc.entrepaginas.modules.users.entities.Papel;
@@ -39,14 +40,25 @@ public class CriarUsuarioController {
 
   @PostMapping("/register/save")
   public String createUser(@Valid Usuario usuario, BindingResult result,
+      @RequestParam("confirmarSenha") String confirmarSenha,
       RedirectAttributes attributes, Model model) {
 
     if (result.hasErrors()) {
       return "CadastrarUsuario";
     }
 
+    if (!usuario.getSenha().equals(confirmarSenha)) {
+      model.addAttribute("senhaErrada", "Password and Confirm Password do not match");
+      return "CadastrarUsuario";
+    }
+
     if (this.usuarioRepository.findByLogin(usuario.getLogin()) != null) {
       model.addAttribute("loginExiste", "User already exists with this login");
+      return "CadastrarUsuario";
+    }
+
+    if (this.usuarioRepository.findByEmail(usuario.getEmail()) != null) {
+      model.addAttribute("emailExiste", "User already exists with this email");
       return "CadastrarUsuario";
     }
 

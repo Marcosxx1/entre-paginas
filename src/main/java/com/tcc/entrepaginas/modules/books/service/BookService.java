@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -131,6 +132,20 @@ public class BookService {
         } catch (IllegalArgumentException e) {
             return null;
         }
+    }
+
+    public Livro getRandomLivro() {
+        List<Livro> livros = livroRepository.findAll();
+        int size = livros.size();
+
+        if (size == 0) {
+            throw new ResourceNotFound("Não há livros disponíveis.");
+        }
+
+        Random random = new Random();
+        int randomIndex = random.nextInt(size);
+
+        return livros.get(randomIndex);
     }
 
     public List<Livro> listarRandomLivros(int totalItems, Principal principal, String idTroca) {

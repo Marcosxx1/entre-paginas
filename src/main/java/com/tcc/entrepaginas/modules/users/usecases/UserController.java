@@ -63,9 +63,10 @@ public class UserController {
         }
         model.addAttribute("books", bookService.listarRandomLivros(10, principal, null));
         model.addAttribute("listPost", postService.listarPost(Sort.by(Sort.Direction.DESC, "date")));
-        model.addAttribute("comunidades", communityService.listarRandomCommunities(10, principal));
+        model.addAttribute("comunidades", communityService.listarRandomCommunities(4, principal));
         model.addAttribute("comments", commentsService.listarComments(Sort.by(Sort.Direction.ASC, "id")));
         model.addAttribute("qtdReaction", reactionService.countReaction());
+        model.addAttribute("book", bookService.getRandomLivro());
 
         return "/Index";
     }
@@ -86,14 +87,14 @@ public class UserController {
         return "/Perfil";
     }
 
-    // @GetMapping("/infos/{id}")
-    // public String infos(Model model, @PathVariable String id) {
+    @GetMapping("/infos/{id}")
+    public String infos(Model model, @PathVariable String id) {
 
-    // Usuario user = usuarioService.pegarUsuario(id);
+        Usuario user = usuarioService.pegarUsuario(id);
 
-    // model.addAttribute("user", user);
-    // return "/InformacoesUsuario";
-    // }
+        model.addAttribute("user", user);
+        return "/InformacoesUsuario";
+    }
 
     // @GetMapping("/perfilVisitante/{idUsuario}")
     // public String perfilVisitante(Model model, Principal principal, @PathVariable
@@ -110,5 +111,26 @@ public class UserController {
 
     // return "/Perfil";
     // }
+
+    @GetMapping("/perfilVisitante/{idUsuario}")
+    public String perfilVisitante(Model model, @PathVariable String idUsuario) {
+        Usuario user = usuarioRepository.findById(idUsuario).orElse(null);
+
+        if (user == null) {
+            // Se o usuário não for encontrado, redirecione ou apresente uma mensagem de
+            // erro
+            // Aqui estou redirecionando para uma página de erro 404
+            return "redirect:/error/404";
+        }
+
+        model.addAttribute("user", user);
+        model.addAttribute("listPost", postService.listAllPostsInACommunity(idUsuario));
+        // model.addAttribute("books", bookService.listarRandomLivros(10, null, null));
+        // model.addAttribute("comments",
+        // commentsService.listarComments(Sort.by(Sort.Direction.ASC, "id")));
+        // model.addAttribute("qtdReaction", reactionService.countReaction());
+
+        return "/Perfil";
+    }
 
 }

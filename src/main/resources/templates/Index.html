@@ -19,6 +19,7 @@
     <link rel="stylesheet" th:href="@{/static/css/IndexStyle.css}" />
     <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
     <link rel="stylesheet" th:href="@{/static/css/PostStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/PerfilStyle.css}" />
     <script th:src="@{/static/js/HeaderScript.js}"></script>
     <script th:src="@{/static/js/ModalScript.js}"></script>
     <script th:src="@{/static/js/SearchScript.js}"></script>
@@ -29,49 +30,61 @@
 <body>
 
     <div th:replace="~{fragments/header/header :: header}"></div>
-    <div
-        th:replace="~{${#authorization.expression('isAuthenticated()') ? 'fragments/sidebar/sidebar-loggedin' : 'fragments/sidebar/sidebar-loggedout'}}">
-    </div>
 
-    <div class="container">
-        <h5 class="tirulo-trocar">Livros para tocar</h5>
-        <div class="container-livros">
-            <div th:if="${books.size() > 0}" th:each="book : ${books}">
-                <a th:href="@{/book/trade/{id}(id=${book.id})}">
-                    <div class="book">
-                        <img th:src="${book.imagens[0].nome}" alt="icone da livro">
-                        <div>
-                            <h5 th:text="${book.nome}"></h5>
+    <div class="perfil">
+        <div class="perfil-principal">
+            <div
+                th:replace="~{${#authorization.expression('isAuthenticated()') ? 'fragments/sidebar/sidebar-loggedin' : 'fragments/sidebar/sidebar-loggedout'}}">
+            </div>
+        </div>
+        <div class="perfil-right">
+            <div class="container">
+                <div class="div-titulo">
+                    <h5 class="tirulo-trocar">Livros para tocar</h5>
+                </div>
+                <div class="container-livros">
+                    <div th:if="${books.size() > 0}" th:each="book : ${books}">
+                        <div class="book">
+                            <a class="usuarioTroca"
+                                th:href="@{/perfilVisitante/{idUsuario}(idUsuario=${book.usuario.id})}">
+                                <img th:src="${book.usuario.imagem}" alt="icone do usuario">
+                            </a>
+                            <img th:src="${book.imagens[0].nome}" alt="icone da livro" class="bookImage">
                             <div>
-                                <p th:text="${book.cidade}"></p>
-                                <p>-</p>
-                                <p th:text="${book.estadoBrasil}"></p>
+                                <h3 th:text="${book.nome}"></h3>
+                                <p th:text="${book.usuario.nome}"></p>
+                                <p th:text="${book.cidade}" style="display: none;"></p>
+                                <p th:text="${book.estadoBrasil}" style="display: none;"></p>
+                                <p th:text="${book.descricao}" style="display: none;"></p>
+                                <a class="bookID" th:href="@{/book/trade/{id}(id=${book.id})}"
+                                    style="display: none;"></a>
                             </div>
                         </div>
                     </div>
-                </a>
-            </div>
-        </div>
-        <h5 class="tirulo-comunidades">Comunidades</h5>
-        <div class="container-comunidades">
-            <div th:if="${comunidades.size() > 0}" th:each="comunidade : ${comunidades}">
-                <a th:href="@{/community/{id}(id=${comunidade.id})}">
-                    <div class="comunidade">
-                        <img th:src="${comunidade.icone == null ? '/static/image/semImagem.png' : comunidade.icone}"
-                            alt="icone da comunidade">
+                </div>
+                <div class="div-titulo">
+                    <h5 class="tirulo-comunidades">Comunidades</h5>
+                </div>
+                <div class="container-comunidades">
+                    <div th:if="${comunidades.size() > 0}" th:each="comunidade : ${comunidades}">
+                        <a th:href="@{/community/{id}(id=${comunidade.id})}">
+                            <div class="comunidade">
+                                <img th:src="${comunidade.icone == null ? '/static/image/semImagem.png' : comunidade.icone}"
+                                    alt="icone da comunidade">
+                            </div>
+                            <div class="comunidade-verso hide">
+                                <h2 th:text="${comunidade.title}"></h2>
+                                <h2>membros: 1</h2>
+                            </div>
+                        </a>
                     </div>
-                    <div class="comunidade-verso hide">
-                        <h2 th:text="${comunidade.title}"></h2>
-                        <h2>membros: 1</h2>
-                    </div>
-                </a>
+                </div>
+
+                <div th:replace="~{fragments/posts/posts :: post}"></div>
             </div>
+
         </div>
-
-        <div th:replace="~{fragments/posts/posts :: post}"></div>
-
     </div>
-
     <span sec:authentication="name" style="display: none;" id="userLogin"></span>
 
     <div th:replace="~{fragments/posts/posts :: modalPost}"></div>
@@ -115,6 +128,30 @@
         });
     </script>
 
+
+    <script>
+        $(document).ready(function () {
+            $('.book').on('click', function () {
+                var title = $(this).find('h3').text();
+                var author = $(this).find('p:eq(0)').text();
+                var image = $(this).find('.bookImage').attr('src');
+                var cidade = $(this).find('p:eq(1)').text();
+                var estado = $(this).find('p:eq(2)').text();
+                var descricao = $(this).find('p:eq(3)').text();
+                var link = $(this).find('.bookID').attr('href');
+
+                $('#modalBookTitle').text(title);
+                $('#modalBookAuthor').text(author);
+                $('#modalBookCidade').text(cidade);
+                $('#modalBookEstado').text(estado);
+                $('#modalBookDescricao').text(descricao);
+                $('#modalBookImage').attr('src', image);
+                $('#modalBookLink').attr('href', link);
+
+                $('#bookModalLivro').css('display', 'block');
+            });
+        });
+    </script>
 </body>
 
 </html>

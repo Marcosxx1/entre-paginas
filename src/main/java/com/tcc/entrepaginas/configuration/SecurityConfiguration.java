@@ -28,6 +28,7 @@ public class SecurityConfiguration {
                 return http.csrf((csrf) -> csrf.disable())
                                 .httpBasic(Customizer.withDefaults())
                                 .authorizeHttpRequests((authorize) -> authorize
+                                                .requestMatchers("/Perfil").permitAll()
                                                 .requestMatchers("/**").permitAll()
                                                 .anyRequest().authenticated())
                                 .formLogin((form) -> form

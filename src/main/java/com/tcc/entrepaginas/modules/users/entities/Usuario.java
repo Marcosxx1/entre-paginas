@@ -29,6 +29,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Usuario implements UserDetails {
@@ -43,6 +44,7 @@ public class Usuario implements UserDetails {
     private String nome;
 
     @Email(message = "O email deve ser válido")
+    @NotBlank(message = "O email é obrigatório")
     @Column(unique = true)
     private String email;
 

@@ -1,15 +1,14 @@
 .perfil {
     width: 100%;
-    height: 89.64%;
-    margin: 1% 0 0 0;
+    height: 92%;
     display: flex;
 }
 
 .perfil-principal {
-    background-color: var(--azul-claro);
-    height: 80%;
+    background-color: var(--white);
+    height: 100%;
     width: 20%;
-    margin: 2% 2% 0 5%;
+    margin: 0 2% 0 0;
     display: flex;
     flex-direction: column;
     box-shadow: 1px 0px 7px 0px rgba(0, 0, 0, 0.2);
@@ -23,27 +22,39 @@
 .perfil-principal__div {
     width: 100% !important;
     height: 30% !important;
-    margin: 4% 7%;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
+}
+
+.border {
+    display: block;
+    height: 2px;
+    width: 170px;
+    background-color: var(--header-background-opacity);
+    margin: 0 auto;
 }
 
 .perfil-principal__div-image {
-    width: 60% !important;
-    height: 100% !important;
+    width: 50% !important;
+    height: 50% !important;
     background-color: var(--gray);
     display: flex;
+    border-radius: 50%;
     align-items: center;
     justify-content: center;
     font-size: 50px;
-    box-shadow: 1px 0px 7px 0px rgba(0, 0, 0, 0.2);
     position: relative;
 }
 
 .perfil-principal__div-image a {
     height: 100%;
     width: 100%;
+    color: var(--black);
+    text-decoration: none;
+    font-size: 20px;
+    text-align: center;
 }
 
 .perfil-principal__div-image img {
@@ -51,6 +62,7 @@
     height: 100%;
     object-fit: cover;
     border: 1px solid transparent;
+    border-radius: 50%;
 }
 
 .perfil-principal__div-suporte {
@@ -71,8 +83,8 @@
 }
 
 .perfil-principal__left {
-    height: 100%;
-    width: 100%;
+    height: 69% !important;
+    width: 100%; 
 }
 
 .perfil-principal__left-menu {
@@ -82,13 +94,19 @@
 
 .perfil-principal__left li {
     width: 95%;
-    height: 10%;
+    height: 14.1%;
     display: flex;
     align-items: center;
     padding: 0 0 0 5%;
     cursor: pointer;
-    border-bottom: 1px solid var(--botao-perfil);
     font-size: 13px;
+}
+
+.perfil-principal__left li i {
+    font-size: 20px;
+    color: var(--azul-logo);
+    margin-right: 5%;
+    border: none !important;
 }
 
 .perfil-principal__left a {
@@ -96,17 +114,15 @@
     color: var(--black);
 }
 
-.perfil-principal__left li:hover {
+.perfil-principal__left a li:hover, .perfil-principal__left a li:hover > i {
+    color: var(--azul-logo);
     border-right: 1px solid var(--azul-logo);
 }
 
-.perfil-principal__left a li:hover {
-    color: var(--azul-logo);
-}
-
 .perfil-right {
-    height: 90%;
+    height: 100%;
     width: 100%;
+    overflow: auto;
 }
 
 .perfil-right__botao {
@@ -130,21 +146,23 @@
     background-color: var(--botao-perfil);
 }
 
-.active {
-    color: var(--azul-logo);
-    border-right: 1px solid var(--azul-logo);
-}
-
 .form-container {
-    max-width: 600px;
-    margin: 1% auto 0 auto;
+    width: 800px;
+    margin: 4% auto 0 auto;
     padding: 20px;
     border-radius: 5px;
     background-color: var(--white);
+    display: flex;
+    flex-direction: column;
 }
 
 .form-container h3 {
     margin: 0 0 6% 0;
+}
+
+.form-content {
+    display: flex;
+    width: 100%;
 }
 
 .form-label {
@@ -152,6 +170,16 @@
     margin-bottom: 8px;
     color: var(--black);
     font-size: 14px;
+}
+
+.form-left {
+    width: 47%;
+    margin: 0 3% 0 0;
+}
+
+.form-right {
+    width: 47%;
+    margin: 0 0 0 3%;
 }
 
 .form-input {
@@ -206,6 +234,8 @@
 }
 
 .form-button {
+    width: 100px;
+    margin: 0 auto;
     background-color: var(--white);
     color: var(--black);
     padding: 10px 15px;
@@ -324,7 +354,7 @@
 }
 
 .form-imagem-input {
-    width: 70%;
+    width: 100%;
     padding: 8px;
     margin-bottom: 16px;
     box-sizing: border-box;
@@ -361,55 +391,21 @@
     margin-bottom: 15px;
 }
 
-.form-label-infos {
-    display: block;
-    margin-bottom: 8px;
+.delete {
+    width: 100px;
+    margin: 0 auto;
+    background-color: var(--white);
     color: var(--black);
-    font-size: 14px;
-}
-
-.form-input-infos {
-    width: 70%;
-    padding: 8px;
-    box-sizing: border-box;
-    border: 2px solid var(--azul-claro);
-    border-radius: 3px;
-    color: var(--black);
-    outline: none;
-}
-
-.form-novaSenha {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
-}
-
-.form-novaSenha-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
-}
-
-.form-novaSenha-group-label {
-    display: block;
-    margin-bottom: 8px;
-    color: var(--black);
-    font-size: 14px;
-}
-
-.form-novaSenha-button {
-    text-align: center;
-    color: var(--black);
+    padding: 10px 15px;
+    margin-top: 5%;
+    margin-bottom: 5%;
     border-radius: 4px;
-    font-weight: 700;
     cursor: pointer;
     border: 1px solid var(--azul-logo);
-    background-color: var(--white);
-    padding: 10px 15px;
-    transition: background-color 0.3s ease;
+    display: block;
+    text-decoration: none;
 }
 
-.form-novaSenha-button:hover {
-    border: 1px solid transparent;
+.delete:hover {
     background-color: var(--header-background);
 }

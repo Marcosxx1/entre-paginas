@@ -14,6 +14,7 @@
     <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
     <link rel="stylesheet" th:href="@{/static/css/CommunityStyle.css}" />
     <link rel="stylesheet" th:href="@{/static/css/PostStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/PerfilStyle.css}" />
 
     <script th:src="@{/static/js/HeaderScript.js}"></script>
     <script th:src="@{/static/js/ModalScript.js}"></script>
@@ -25,115 +26,123 @@
 <body>
     <div th:replace="~{fragments/header/header :: header}"></div>
 
-    <div class="forum-community-perfil">
-        <h1 class="community-title-perfil" th:text="${community.title}"></h1>
 
-        <div class="community-perfil">
-            <div class="community-icon-perfil">
-                <img class="icon-img" th:if="${community.icone == null}" src="/static/image/semImagem.png"
-                    alt="Icone da comunidade">
-                <img class="icon-img" th:if="${community.icone != null}" th:src="${community.icone}"
-                    alt="Icone da comunidade">
+    <div class="perfil">
+        <div class="perfil-principal" style="margin-right: 0;">
+            <div
+                th:replace="~{${#authorization.expression('isAuthenticated()') ? 'fragments/sidebar/sidebar-loggedin' : 'fragments/sidebar/sidebar-loggedout'}}">
             </div>
+        </div>
+        <div class="perfil-right">
+            <div class="forum-community-perfil">
+                <h1 class="community-title-perfil" th:text="${community.title}"></h1>
 
-            <div class="community-content-perfil">
-                <p th:text="${community.content}"></p>
-            </div>
+                <div class="community-perfil">
+                    <div class="community-icon-perfil">
+                        <img class="icon-img" th:if="${community.icone == null}" src="/static/image/semImagem.png"
+                            alt="Icone da comunidade">
+                        <img class="icon-img" th:if="${community.icone != null}" th:src="${community.icone}"
+                            alt="Icone da comunidade">
+                    </div>
 
-            <div class="community-infos-perfil">
-                <p th:text="${#dates.format(community.date, 'dd/MM/yyyy')}"></p>
-                <div>
-                    <p th:text="${community.privado == true} ? 'Privada' : ''"></p>
-                    <input type="checkbox" th:checked="${community.privado == true}" disabled>
+                    <div class="community-content-perfil">
+                        <p th:text="${community.content}"></p>
+                    </div>
+
+                    <div class="community-infos-perfil">
+                        <p th:text="${#dates.format(community.date, 'dd/MM/yyyy')}"></p>
+                        <div>
+                            <p th:text="${community.privado == true} ? 'Privada' : ''"></p>
+                            <input type="checkbox" th:checked="${community.privado == true}" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="community-menu">
+                    <ul>
+                        <li class="li-postagem">Criar Postagem</li>
+                        <li class="li-config">Editar Informações</li>
+                        <li>Convidar Membros</li>
+                    </ul>
                 </div>
             </div>
-        </div>
-        <div class="community-menu">
-            <ul>
-                <li class="li-postagem">Criar Postagem</li>
-                <li class="li-config">Editar Informações</li>
-                <li>Convidar Membros</li>
-            </ul>
-        </div>
-    </div>
+            <div class="configuracoes" id="configuracoes">
 
+                <form method='post' encType='multipart/form-data' id="icone">
+                    <div>
+                        <div>
+                            <label htmlFor="icone" class="forms-informacoes-groupFile-div_label">
+                                Icone da Comunidade
+                            </label>
+                        </div>
+                        <input type="hidden" th:value="${community.id}" class="communityId">
+                        <input type="file" id="icone" name="icone" accept="image/*" />
+                    </div>
+                    <button type="submit" class="forms-informacoes_button">
+                        Salvar
+                    </button>
+                </form>
 
-    <div class="configuracoes" id="configuracoes">
-
-        <form method='post' encType='multipart/form-data' id="icone">
-            <div>
-                <div>
-                    <label htmlFor="icone" class="forms-informacoes-groupFile-div_label">
-                        Icone da Comunidade
+                <form class="custom-form">
+                    <label class="form-label">
+                        Título:
+                        <input type="text" name="title" class="form-input" required />
                     </label>
-                </div>
-                <input type="hidden" th:value="${community.id}" class="communityId">
-                <input type="file" id="icone" name="icone" accept="image/*" />
+                    <label class="form-label">
+                        Conteúdo:
+                        <textarea name="content" class="form-input" required></textarea>
+                    </label>
+                    <label class="form-label">
+                        <div class="form-checkbox">
+                            <input class="checkbox" type="checkbox" id="privado" name="privado" th:value="${privado}" />
+                            <label for="privado">Privado</label>
+                        </div>
+                    </label>
+                    <button type="submit" class="form-submit-button">Salvar Alterações</button>
+                </form>
+
+                <button>
+                    <a th:href="@{/community/delete/{id}(id=${community.id})}" class="delete-button">
+                        Deletar Comunidade
+                    </a>
+                </button>
             </div>
-            <button type="submit" class="forms-informacoes_button">
-                Salvar
-            </button>
-        </form>
 
-        <form class="custom-form">
-            <label class="form-label">
-                Título:
-                <input type="text" name="title" class="form-input" required />
-            </label>
-            <label class="form-label">
-                Conteúdo:
-                <textarea name="content" class="form-input" required></textarea>
-            </label>
-            <label class="form-label">
-                <div class="form-checkbox">
-                    <input class="checkbox" type="checkbox" id="privado" name="privado" th:value="${privado}" />
-                    <label for="privado">Privado</label>
-                </div>
-            </label>
-            <button type="submit" class="form-submit-button">Salvar Alterações</button>
-        </form>
+            <div class="post-form" th:if="${#authorization.expression('isAuthenticated()')}">
+                <h1 class="form-title">Formulário de Post</h1>
+                <form th:action="@{/posts/create/{communityId}/{userId}(communityId=*{community.id},userId=*{user.id})}"
+                    method="post" enctype="multipart/form-data">
 
-        <button>
-            <a th:href="@{/community/delete/{id}(id=${community.id})}" class="delete-button">
-                Deletar Comunidade
-            </a>
-        </button>
-    </div>
+                    <label class="form-label-post" for="title">Título:</label>
+                    <input class="form-input-post" type="text" id="title" name="title" required>
+                    <br>
 
-    <div class="post-form" th:if="${#authorization.expression('isAuthenticated()')}">
-        <h1 class="form-title">Formulário de Post</h1>
-        <form th:action="@{/posts/create/{communityId}/{userId}(communityId=*{community.id},userId=*{user.id})}"
-            method="post" enctype="multipart/form-data">
+                    <label class="form-label-post" for="content">Conteúdo:</label>
+                    <textarea class="form-textarea" id="content" name="content" required></textarea>
+                    <br>
 
-            <label class="form-label-post" for="title">Título:</label>
-            <input class="form-input-post" type="text" id="title" name="title" required>
-            <br>
+                    <label class="form-label-post form-file" for="image"></label>
+                    <input class="form-input-post" type="file" id="imagem" name="imagem" accept="image/*">
 
-            <label class="form-label-post" for="content">Conteúdo:</label>
-            <textarea class="form-textarea" id="content" name="content" required></textarea>
-            <br>
+                    <input class="form-submit-button-post" type="submit" value="Enviar">
+                </form>
+            </div>
 
-            <label class="form-label-post form-file" for="image"></label>
-            <input class="form-input-post" type="file" id="imagem" name="imagem" accept="image/*">
+            <div class="post-form" th:if="${#authorization.expression('!isAuthenticated()')}">
+                <p>Já possui uma conta?
+                    <a th:href="@{/login}">Faça login</a>
+                </p>
+                <p>Ainda não tem conta?
+                    <a th:href="@{/user/register}">Cadastre-se</a>
+                </p>
+            </div>
 
-            <input class="form-submit-button-post" type="submit" value="Enviar">
-        </form>
-    </div>
+            <div class="post-community">
+                <div th:replace="~{fragments/posts/posts :: post}"></div>
+                <span sec:authentication="name" style="display: none;" id="userLogin"></span>
 
-    <div class="post-form" th:if="${#authorization.expression('!isAuthenticated()')}">
-        <p>Já possui uma conta?
-            <a th:href="@{/login}">Faça login</a>
-        </p>
-        <p>Ainda não tem conta?
-            <a th:href="@{/user/register}">Cadastre-se</a>
-        </p>
-    </div>
-
-    <div class="post-community">
-        <div th:replace="~{fragments/posts/posts :: post}"></div>
-        <span sec:authentication="name" style="display: none;" id="userLogin"></span>
-
-        <div th:replace="~{fragments/posts/posts :: modalPost}"></div>
+                <div th:replace="~{fragments/posts/posts :: modalPost}"></div>
+            </div>
+        </div>
     </div>
 
     <script>
