@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tcc.entrepaginas.modules.books.entities.Livro;
+import com.tcc.entrepaginas.domain.Livro;
 import com.tcc.entrepaginas.modules.books.service.BookService;
 
 @RestController

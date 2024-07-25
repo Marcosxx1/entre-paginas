@@ -2,7 +2,7 @@ package com.tcc.entrepaginas.modules.community.record;
 
 import java.time.Instant;
 
-import com.tcc.entrepaginas.modules.community.entities.Community;
+import com.tcc.entrepaginas.domain.Community;
 
 public record CommunityDto(String id, String title, String content, String icone, Boolean privado,
         Instant date) {

@@ -1,10 +1,10 @@
 package com.tcc.entrepaginas.modules.books.record;
 
-import com.tcc.entrepaginas.modules.books.entities.Livro;
-import com.tcc.entrepaginas.modules.books.entities.enums.Categoria;
-import com.tcc.entrepaginas.modules.books.entities.enums.Estado;
-import com.tcc.entrepaginas.modules.books.entities.enums.EstadoBrasil;
-import com.tcc.entrepaginas.modules.books.entities.enums.Tipo;
+import com.tcc.entrepaginas.domain.Livro;
+import com.tcc.entrepaginas.domain.enums.Categoria;
+import com.tcc.entrepaginas.domain.enums.Estado;
+import com.tcc.entrepaginas.domain.enums.EstadoBrasil;
+import com.tcc.entrepaginas.domain.enums.Tipo;
 
 public record BookDto(String id, String nome, String descricao, Estado estado,
                 Tipo tipo, Categoria categoria, EstadoBrasil estadoBrasil, String cidade) {

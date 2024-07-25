@@ -1,6 +1,6 @@
 package com.tcc.entrepaginas.modules.users.record;
 
-import com.tcc.entrepaginas.modules.users.entities.Usuario;
+import com.tcc.entrepaginas.domain.Usuario;
 
 public record UserDto(String id, String nome) {
 

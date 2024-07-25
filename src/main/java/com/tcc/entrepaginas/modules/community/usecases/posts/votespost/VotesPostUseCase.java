@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
-import com.tcc.entrepaginas.modules.community.entities.Post;
+import com.tcc.entrepaginas.domain.Post;
 import com.tcc.entrepaginas.modules.community.record.PostDto;
-import com.tcc.entrepaginas.modules.community.repositories.PostRepository;
+import com.tcc.entrepaginas.repository.PostRepository;
 
 @Service
 public class VotesPostUseCase {

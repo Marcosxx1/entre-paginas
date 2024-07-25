@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tcc.entrepaginas.modules.users.entities.Usuario;
+import com.tcc.entrepaginas.domain.Usuario;
 import com.tcc.entrepaginas.modules.users.record.UserDto;
 import com.tcc.entrepaginas.modules.users.service.UsuarioService;
 

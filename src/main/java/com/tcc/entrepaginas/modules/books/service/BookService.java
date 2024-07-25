@@ -21,15 +21,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.tcc.entrepaginas.exceptions.CustomException;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
-import com.tcc.entrepaginas.modules.books.entities.ImagemLivro;
-import com.tcc.entrepaginas.modules.books.entities.Livro;
-import com.tcc.entrepaginas.modules.books.entities.enums.Categoria;
-import com.tcc.entrepaginas.modules.books.entities.enums.Estado;
-import com.tcc.entrepaginas.modules.books.entities.enums.EstadoBrasil;
-import com.tcc.entrepaginas.modules.books.entities.enums.Tipo;
-import com.tcc.entrepaginas.modules.books.repositories.ImagemLivroRepository;
-import com.tcc.entrepaginas.modules.books.repositories.LivroRepository;
-import com.tcc.entrepaginas.modules.users.entities.Usuario;
+import com.tcc.entrepaginas.domain.ImagemLivro;
+import com.tcc.entrepaginas.domain.Livro;
+import com.tcc.entrepaginas.domain.enums.Categoria;
+import com.tcc.entrepaginas.domain.enums.Estado;
+import com.tcc.entrepaginas.domain.enums.EstadoBrasil;
+import com.tcc.entrepaginas.domain.enums.Tipo;
+import com.tcc.entrepaginas.repository.ImagemLivroRepository;
+import com.tcc.entrepaginas.repository.LivroRepository;
+import com.tcc.entrepaginas.domain.Usuario;
 import com.tcc.entrepaginas.modules.users.service.UsuarioService;
 
 @Service

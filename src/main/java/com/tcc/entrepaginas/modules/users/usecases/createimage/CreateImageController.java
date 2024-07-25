@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.tcc.entrepaginas.modules.users.entities.Usuario;
+import com.tcc.entrepaginas.domain.Usuario;
 import com.tcc.entrepaginas.modules.users.service.UsuarioService;
 
 import jakarta.servlet.http.HttpServletRequest;

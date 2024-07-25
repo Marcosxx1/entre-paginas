@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.tcc.entrepaginas.modules.users.entities.Papel;
-import com.tcc.entrepaginas.modules.users.entities.Usuario;
-import com.tcc.entrepaginas.modules.users.repositories.PapelRepository;
-import com.tcc.entrepaginas.modules.users.repositories.UsuarioRepository;
+import com.tcc.entrepaginas.domain.Papel;
+import com.tcc.entrepaginas.domain.Usuario;
+import com.tcc.entrepaginas.repository.PapelRepository;
+import com.tcc.entrepaginas.repository.UsuarioRepository;
 
 import jakarta.validation.Valid;
 

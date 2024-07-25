@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.tcc.entrepaginas.modules.community.service.PostService;
+import com.tcc.entrepaginas.repository.PostService;
 
 @RestController
 @RequestMapping("/api/posts")

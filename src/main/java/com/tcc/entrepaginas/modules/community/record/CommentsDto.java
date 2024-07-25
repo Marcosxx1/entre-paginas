@@ -4,7 +4,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tcc.entrepaginas.modules.community.entities.Comments;
+import com.tcc.entrepaginas.domain.Comments;
 
 public record CommentsDto(String id, String content, Instant date) {
 

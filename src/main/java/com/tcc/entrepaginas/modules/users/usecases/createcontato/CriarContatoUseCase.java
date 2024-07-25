@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.tcc.entrepaginas.exceptions.CustomException;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
-import com.tcc.entrepaginas.modules.users.entities.Contato;
-import com.tcc.entrepaginas.modules.users.entities.Usuario;
+import com.tcc.entrepaginas.domain.Contato;
+import com.tcc.entrepaginas.domain.Usuario;
 import com.tcc.entrepaginas.modules.users.record.ContactDto;
-import com.tcc.entrepaginas.modules.users.repositories.ContatoRepository;
-import com.tcc.entrepaginas.modules.users.repositories.UsuarioRepository;
+import com.tcc.entrepaginas.repository.ContatoRepository;
+import com.tcc.entrepaginas.repository.UsuarioRepository;
 
 @Service
 public class CriarContatoUseCase {

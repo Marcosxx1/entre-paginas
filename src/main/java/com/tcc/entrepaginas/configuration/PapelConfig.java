@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.tcc.entrepaginas.modules.users.entities.Papel;
-import com.tcc.entrepaginas.modules.users.repositories.PapelRepository;
+import com.tcc.entrepaginas.domain.Papel;
+import com.tcc.entrepaginas.repository.PapelRepository;
 
 @Component
 public class PapelConfig implements CommandLineRunner {

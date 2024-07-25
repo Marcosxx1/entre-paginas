@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tcc.entrepaginas.modules.books.service.BookService;
-import com.tcc.entrepaginas.modules.community.service.CommentsService;
-import com.tcc.entrepaginas.modules.community.service.CommunityService;
-import com.tcc.entrepaginas.modules.community.service.PostService;
-import com.tcc.entrepaginas.modules.community.service.ReactionService;
-import com.tcc.entrepaginas.modules.users.entities.Usuario;
-import com.tcc.entrepaginas.modules.users.repositories.UsuarioRepository;
+import com.tcc.entrepaginas.repository.CommentsService;
+import com.tcc.entrepaginas.repository.CommunityService;
+import com.tcc.entrepaginas.repository.PostService;
+import com.tcc.entrepaginas.repository.ReactionService;
+import com.tcc.entrepaginas.domain.Usuario;
+import com.tcc.entrepaginas.repository.UsuarioRepository;
 import com.tcc.entrepaginas.modules.users.service.UsuarioService;
 
 @Controller

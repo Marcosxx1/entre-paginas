@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.tcc.entrepaginas.exceptions.CustomException;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
-import com.tcc.entrepaginas.modules.community.entities.Community;
+import com.tcc.entrepaginas.domain.Community;
 import com.tcc.entrepaginas.modules.community.record.CommunityDto;
-import com.tcc.entrepaginas.modules.community.repositories.CommunityRepository;
-import com.tcc.entrepaginas.modules.users.entities.Usuario;
-import com.tcc.entrepaginas.modules.users.repositories.UsuarioRepository;
+import com.tcc.entrepaginas.repository.CommunityRepository;
+import com.tcc.entrepaginas.domain.Usuario;
+import com.tcc.entrepaginas.repository.UsuarioRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 

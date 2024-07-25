@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tcc.entrepaginas.modules.community.entities.Post;
-import com.tcc.entrepaginas.modules.community.service.PostService;
+import com.tcc.entrepaginas.domain.Post;
+import com.tcc.entrepaginas.repository.PostService;
 
 @RestController
 @RequestMapping("/posts")

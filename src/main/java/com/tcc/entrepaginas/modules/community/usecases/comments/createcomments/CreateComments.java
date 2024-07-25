@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.tcc.entrepaginas.modules.community.entities.Comments;
-import com.tcc.entrepaginas.modules.community.service.CommentsService;
+import com.tcc.entrepaginas.domain.Comments;
+import com.tcc.entrepaginas.repository.CommentsService;
 
 import jakarta.validation.Valid;
 

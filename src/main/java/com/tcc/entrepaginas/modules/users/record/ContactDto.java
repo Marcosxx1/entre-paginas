@@ -3,7 +3,7 @@ package com.tcc.entrepaginas.modules.users.record;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tcc.entrepaginas.modules.users.entities.Contato;
+import com.tcc.entrepaginas.domain.Contato;
 
 
 public record ContactDto(String id, String telefone) {

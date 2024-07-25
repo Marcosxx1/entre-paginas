@@ -4,8 +4,8 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tcc.entrepaginas.modules.community.entities.ImagemPost;
-import com.tcc.entrepaginas.modules.community.entities.Post;
+import com.tcc.entrepaginas.domain.ImagemPost;
+import com.tcc.entrepaginas.domain.Post;
 
 public record PostDto(String id, String title, String content, ImagemPost Image, Instant date,
         List<CommentsDto> comments) {

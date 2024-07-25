@@ -12,8 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.tcc.entrepaginas.modules.users.entities.Usuario;
-import com.tcc.entrepaginas.modules.users.repositories.UsuarioRepository;
+import com.tcc.entrepaginas.domain.Usuario;
+import com.tcc.entrepaginas.repository.UsuarioRepository;
 
 @Service
 public class UserDetailService implements UserDetailsService {

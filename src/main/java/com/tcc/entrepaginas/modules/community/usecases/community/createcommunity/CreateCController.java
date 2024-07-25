@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.tcc.entrepaginas.modules.community.entities.Community;
-import com.tcc.entrepaginas.modules.community.service.CommunityService;
-import com.tcc.entrepaginas.modules.users.entities.Usuario;
-import com.tcc.entrepaginas.modules.users.repositories.UsuarioRepository;
+import com.tcc.entrepaginas.domain.Community;
+import com.tcc.entrepaginas.repository.CommunityService;
+import com.tcc.entrepaginas.domain.Usuario;
+import com.tcc.entrepaginas.repository.UsuarioRepository;
 
 import jakarta.validation.Valid;
 

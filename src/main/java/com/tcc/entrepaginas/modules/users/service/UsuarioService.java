@@ -20,11 +20,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.tcc.entrepaginas.exceptions.CustomException;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
-import com.tcc.entrepaginas.modules.books.entities.Livro;
-import com.tcc.entrepaginas.modules.community.entities.Community;
-import com.tcc.entrepaginas.modules.community.entities.Membros;
-import com.tcc.entrepaginas.modules.users.entities.Usuario;
-import com.tcc.entrepaginas.modules.users.repositories.UsuarioRepository;
+import com.tcc.entrepaginas.domain.Livro;
+import com.tcc.entrepaginas.domain.Community;
+import com.tcc.entrepaginas.domain.Membros;
+import com.tcc.entrepaginas.domain.Usuario;
+import com.tcc.entrepaginas.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {

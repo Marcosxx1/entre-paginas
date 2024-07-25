@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.tcc.entrepaginas.modules.community.entities.RoleCommunity;
-import com.tcc.entrepaginas.modules.community.repositories.RoleCommunityRepository;
+import com.tcc.entrepaginas.domain.RoleCommunity;
+import com.tcc.entrepaginas.repository.RoleCommunityRepository;
 
 @Component
 public class RoleCommunityConfig implements CommandLineRunner {

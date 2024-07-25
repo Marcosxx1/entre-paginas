@@ -1,6 +1,6 @@
 package com.tcc.entrepaginas.modules.community.record;
 
-import com.tcc.entrepaginas.modules.community.entities.Reaction;
+import com.tcc.entrepaginas.domain.Reaction;
 
 public record ReactionDto(String id, String reacao) {
 

@@ -18,11 +18,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.tcc.entrepaginas.modules.books.entities.ImagemLivro;
-import com.tcc.entrepaginas.modules.books.entities.Livro;
+import com.tcc.entrepaginas.domain.ImagemLivro;
+import com.tcc.entrepaginas.domain.Livro;
 import com.tcc.entrepaginas.modules.books.service.BookService;
-import com.tcc.entrepaginas.modules.users.entities.Usuario;
-import com.tcc.entrepaginas.modules.users.repositories.UsuarioRepository;
+import com.tcc.entrepaginas.domain.Usuario;
+import com.tcc.entrepaginas.repository.UsuarioRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;

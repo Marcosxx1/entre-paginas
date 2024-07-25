@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.tcc.entrepaginas.modules.community.entities.Post;
-import com.tcc.entrepaginas.modules.community.service.PostService;
+import com.tcc.entrepaginas.domain.Post;
+import com.tcc.entrepaginas.repository.PostService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;

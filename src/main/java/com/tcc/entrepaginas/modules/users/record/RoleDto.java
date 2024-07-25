@@ -1,6 +1,6 @@
 package com.tcc.entrepaginas.modules.users.record;
 
-import com.tcc.entrepaginas.modules.users.entities.Papel;
+import com.tcc.entrepaginas.domain.Papel;
 
 public record RoleDto(String id, String role) {
 

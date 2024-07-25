@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tcc.entrepaginas.modules.community.entities.Community;
-import com.tcc.entrepaginas.modules.community.service.CommunityService;
+import com.tcc.entrepaginas.domain.Community;
+import com.tcc.entrepaginas.repository.CommunityService;
 
 @RestController
 @RequestMapping("/community")

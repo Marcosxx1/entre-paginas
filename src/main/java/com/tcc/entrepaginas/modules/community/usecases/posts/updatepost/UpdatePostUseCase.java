@@ -9,14 +9,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
-import com.tcc.entrepaginas.modules.community.entities.Community;
-import com.tcc.entrepaginas.modules.community.entities.Post;
+import com.tcc.entrepaginas.domain.Community;
+import com.tcc.entrepaginas.domain.Post;
 import com.tcc.entrepaginas.modules.community.record.PostDto;
-import com.tcc.entrepaginas.modules.community.repositories.CommunityRepository;
-import com.tcc.entrepaginas.modules.community.repositories.ImagemPostRepository;
-import com.tcc.entrepaginas.modules.community.repositories.PostRepository;
-import com.tcc.entrepaginas.modules.users.entities.Usuario;
-import com.tcc.entrepaginas.modules.users.repositories.UsuarioRepository;
+import com.tcc.entrepaginas.repository.CommunityRepository;
+import com.tcc.entrepaginas.repository.ImagemPostRepository;
+import com.tcc.entrepaginas.repository.PostRepository;
+import com.tcc.entrepaginas.domain.Usuario;
+import com.tcc.entrepaginas.repository.UsuarioRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 

@@ -3,7 +3,7 @@ package com.tcc.entrepaginas.modules.books.record;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tcc.entrepaginas.modules.books.entities.ImagemLivro;
+import com.tcc.entrepaginas.domain.ImagemLivro;
 
 public record ImageDto(String id, String nome, long tamanhoEmBytes) {
 
