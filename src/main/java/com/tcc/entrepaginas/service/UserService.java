@@ -15,5 +15,11 @@ public interface UserService {
     String saveUserFromForm(
             NovoUsuarioRequest novoUsuarioRequest, BindingResult result, RedirectAttributes attributes, Model model);
 
-     String updateUserNameLoginAndEmail(Usuario user, String id, UpdateUserNameLoginAndEmailRequest updateUserNameLoginAndEmailRequest, BindingResult result, RedirectAttributes attributes, Model model);
+    String updateUserNameLoginAndEmail(
+            Usuario user,
+            String id,
+            UpdateUserNameLoginAndEmailRequest updateUserNameLoginAndEmailRequest,
+            BindingResult result,
+            RedirectAttributes attributes,
+            Model model);
 }

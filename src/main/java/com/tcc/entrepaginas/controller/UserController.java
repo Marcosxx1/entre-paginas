@@ -38,12 +38,13 @@ public class UserController {
     @PostMapping("/edit/{id}")
     public String atualizarUsuario(
             @PathVariable String id,
-            @Valid @ModelAttribute("updateUserNameLoginAndEmailRequest") UpdateUserNameLoginAndEmailRequest updateUserNameLoginAndEmailRequest,
+            @Valid @ModelAttribute("updateUserNameLoginAndEmailRequest")
+                    UpdateUserNameLoginAndEmailRequest updateUserNameLoginAndEmailRequest,
             @ModelAttribute("user") Usuario user,
             BindingResult result,
             RedirectAttributes redirectAttributes,
             Model model) {
-        return userService.updateUserNameLoginAndEmail( user, id, updateUserNameLoginAndEmailRequest, result, redirectAttributes, model);
+        return userService.updateUserNameLoginAndEmail(
+                user, id, updateUserNameLoginAndEmailRequest, result, redirectAttributes, model);
     }
-
 }

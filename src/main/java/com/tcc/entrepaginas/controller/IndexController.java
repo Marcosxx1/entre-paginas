@@ -52,8 +52,8 @@ public class IndexController {
     }
 
     @GetMapping("/index")
-    public String index(Model model, Principal principal) {
-        if (principal != null) {
+    public String index(Model model, Authentication authentication, Principal principal) {
+        if (authentication != null && authentication.isAuthenticated()) {
             String username = principal.getName();
             Usuario user = usuarioRepository.findByLogin(username);
             model.addAttribute("user", user);
@@ -88,7 +88,8 @@ public class IndexController {
     public String infos(Model model, @PathVariable String id) {
         Usuario user = usuarioService.pegarUsuario(id);
 
-        UpdateUserNameLoginAndEmailRequest updateUserNameLoginAndEmailRequest = new UpdateUserNameLoginAndEmailRequest();
+        UpdateUserNameLoginAndEmailRequest updateUserNameLoginAndEmailRequest =
+                new UpdateUserNameLoginAndEmailRequest();
         updateUserNameLoginAndEmailRequest.setId(id);
         updateUserNameLoginAndEmailRequest.setNome(user.getNome());
         updateUserNameLoginAndEmailRequest.setEmail(user.getEmail());
@@ -98,7 +99,6 @@ public class IndexController {
         model.addAttribute("updateUserNameLoginAndEmailRequest", updateUserNameLoginAndEmailRequest);
         return "InformacoesUsuario";
     }
-
 
     // @GetMapping("/perfilVisitante/{idUsuario}")
     // public String perfilVisitante(Model model, Principal principal, @PathVariable

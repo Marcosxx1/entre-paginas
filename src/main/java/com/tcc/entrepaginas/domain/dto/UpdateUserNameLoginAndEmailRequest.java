@@ -26,5 +26,4 @@ public class UpdateUserNameLoginAndEmailRequest {
     @NotBlank(message = "Login é obrigatório")
     @Size(max = 50, message = "Login não pode ter mais de 50 caracteres")
     private String login;
-
 }

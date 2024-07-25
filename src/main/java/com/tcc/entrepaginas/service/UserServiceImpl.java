@@ -53,7 +53,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String updateUserNameLoginAndEmail(Usuario user, String id, UpdateUserNameLoginAndEmailRequest updateUserNameLoginAndEmailRequest, BindingResult result, RedirectAttributes attributes, Model model) {
+    public String updateUserNameLoginAndEmail(
+            Usuario user,
+            String id,
+            UpdateUserNameLoginAndEmailRequest updateUserNameLoginAndEmailRequest,
+            BindingResult result,
+            RedirectAttributes attributes,
+            Model model) {
 
         if (result.hasErrors()) {
             model.addAttribute("updateUserNameLoginAndEmailRequest", updateUserNameLoginAndEmailRequest);
@@ -76,11 +82,14 @@ public class UserServiceImpl implements UserService {
         return "redirect:/perfil";
     }
 
-    private String wasUserDataChanged(UpdateUserNameLoginAndEmailRequest updateUserNameLoginAndEmailRequest, RedirectAttributes redirectAttributes, Usuario userToBeEdited) {
+    private String wasUserDataChanged(
+            UpdateUserNameLoginAndEmailRequest updateUserNameLoginAndEmailRequest,
+            RedirectAttributes redirectAttributes,
+            Usuario userToBeEdited) {
 
-        boolean dataChanged = !userToBeEdited.getNome().equals(updateUserNameLoginAndEmailRequest.getNome()) ||
-                !userToBeEdited.getEmail().equals(updateUserNameLoginAndEmailRequest.getEmail()) ||
-                !userToBeEdited.getLogin().equals(updateUserNameLoginAndEmailRequest.getLogin());
+        boolean dataChanged = !userToBeEdited.getNome().equals(updateUserNameLoginAndEmailRequest.getNome())
+                || !userToBeEdited.getEmail().equals(updateUserNameLoginAndEmailRequest.getEmail())
+                || !userToBeEdited.getLogin().equals(updateUserNameLoginAndEmailRequest.getLogin());
 
         if (!dataChanged) {
             redirectAttributes.addFlashAttribute("message", "No changes were made.");
@@ -90,6 +99,3 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 }
-
-
-
