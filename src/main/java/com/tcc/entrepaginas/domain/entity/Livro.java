@@ -1,13 +1,9 @@
-package com.tcc.entrepaginas.domain;
-
-import java.io.Serializable;
-import java.util.List;
+package com.tcc.entrepaginas.domain.entity;
 
 import com.tcc.entrepaginas.domain.enums.Categoria;
 import com.tcc.entrepaginas.domain.enums.Estado;
 import com.tcc.entrepaginas.domain.enums.EstadoBrasil;
 import com.tcc.entrepaginas.domain.enums.Tipo;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,6 +13,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class Livro implements Serializable {
@@ -53,11 +51,19 @@ public class Livro implements Serializable {
     @OneToMany(mappedBy = "livro")
     private List<ImagemLivro> imagens;
 
-    public Livro() {
-    }
+    public Livro() {}
 
-    public Livro(String id, String nome, String descricao, String cidade, int estadoBrasil,
-            int estado, int tipo, int categoria, Usuario usuario, List<ImagemLivro> imagens) {
+    public Livro(
+            String id,
+            String nome,
+            String descricao,
+            String cidade,
+            int estadoBrasil,
+            int estado,
+            int tipo,
+            int categoria,
+            Usuario usuario,
+            List<ImagemLivro> imagens) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;

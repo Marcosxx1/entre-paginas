@@ -1,12 +1,10 @@
 package com.tcc.entrepaginas.repository;
 
+import com.tcc.entrepaginas.domain.entity.Post;
+import com.tcc.entrepaginas.domain.entity.Reaction;
+import com.tcc.entrepaginas.domain.entity.Usuario;
 import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.tcc.entrepaginas.domain.Post;
-import com.tcc.entrepaginas.domain.Reaction;
-import com.tcc.entrepaginas.domain.Usuario;
 
 public interface ReactionRepository extends JpaRepository<Reaction, String> {
 
@@ -15,5 +13,4 @@ public interface ReactionRepository extends JpaRepository<Reaction, String> {
     int countByPostIdAndReacao(String postId, String reacao);
 
     Optional<Reaction> findByPostAndUsuario(Post post, Usuario usuario);
-
 }

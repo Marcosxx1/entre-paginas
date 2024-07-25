@@ -1,11 +1,6 @@
-package com.tcc.entrepaginas.domain;
-
-import java.io.Serializable;
-import java.time.Instant;
-import java.util.List;
+package com.tcc.entrepaginas.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,6 +9,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.validation.constraints.NotBlank;
+import java.io.Serializable;
+import java.time.Instant;
+import java.util.List;
 
 @Entity
 public class Community implements Serializable {
@@ -48,19 +46,17 @@ public class Community implements Serializable {
         }
     }
 
-    public Community() {
-    }
+    public Community() {}
 
-    public Community(@NotBlank String title, @NotBlank String content, Boolean privado,
-            Instant date) {
+    public Community(@NotBlank String title, @NotBlank String content, Boolean privado, Instant date) {
         this.title = title;
         this.content = content;
         this.privado = privado;
         this.date = date;
     }
 
-    public Community(String id, @NotBlank String title, @NotBlank String content, String icone, Boolean privado,
-            Instant date) {
+    public Community(
+            String id, @NotBlank String title, @NotBlank String content, String icone, Boolean privado, Instant date) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -132,5 +128,4 @@ public class Community implements Serializable {
     public void setMembros(List<Membros> membros) {
         this.membros = membros;
     }
-
 }

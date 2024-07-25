@@ -1,4 +1,3 @@
-
 package com.tcc.entrepaginas.modules.users.usecases.deletecontato;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +25,7 @@ public class DeletarContatoController {
         if (deletionSuccessful) {
             return ResponseEntity.ok("Contato deletado com sucesso.");
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Contato não encontrado.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Contato não encontrado.");
         }
     }
 }

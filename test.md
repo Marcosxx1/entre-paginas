@@ -4,8 +4,8 @@ package com.tcc.entrepaginas.modules.community.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.tcc.entrepaginas.domain.Post;
-import com.tcc.entrepaginas.domain.Usuario;
+import com.tcc.entrepaginas.domain.entity.Post;
+import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.repository.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.domain.enums.ReacaoStatus;
-import com.tcc.entrepaginas.domain.Reaction;
+import com.tcc.entrepaginas.domain.entity.Reaction;
 import com.tcc.entrepaginas.repository.ReactionRepository;
 import com.tcc.entrepaginas.modules.users.service.UsuarioService;
 
@@ -128,15 +128,15 @@ package com.tcc.entrepaginas.modules.community.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.tcc.entrepaginas.domain.Reaction;
-import com.tcc.entrepaginas.domain.Usuario;
+import com.tcc.entrepaginas.domain.entity.Reaction;
+import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.repository.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
-import com.tcc.entrepaginas.domain.Post;
+import com.tcc.entrepaginas.domain.entity.Post;
 import com.tcc.entrepaginas.repository.ReactionRepository;
 import com.tcc.entrepaginas.modules.users.service.UsuarioService;
 

@@ -1,19 +1,16 @@
 package com.tcc.entrepaginas.modules.community.usecases.community.updatecommunity;
 
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import com.tcc.entrepaginas.domain.entity.Community;
+import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.exceptions.CustomException;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
-import com.tcc.entrepaginas.domain.Community;
 import com.tcc.entrepaginas.modules.community.record.CommunityDto;
 import com.tcc.entrepaginas.repository.CommunityRepository;
-import com.tcc.entrepaginas.domain.Usuario;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
-
 import jakarta.persistence.EntityNotFoundException;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UpdateCUseCase {
@@ -24,8 +21,7 @@ public class UpdateCUseCase {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public UpdateCUseCase(CommunityRepository communityRepository,
-            UsuarioRepository usuarioRepository) {
+    public UpdateCUseCase(CommunityRepository communityRepository, UsuarioRepository usuarioRepository) {
         this.communityRepository = communityRepository;
         this.usuarioRepository = usuarioRepository;
     }
@@ -61,5 +57,4 @@ public class UpdateCUseCase {
         Optional<Usuario> usuario = usuarioRepository.findById(id);
         return usuario.orElseThrow(() -> new ResourceNotFound(id));
     }
-
 }

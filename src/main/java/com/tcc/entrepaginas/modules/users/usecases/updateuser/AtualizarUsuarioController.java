@@ -1,5 +1,10 @@
 package com.tcc.entrepaginas.modules.users.usecases.updateuser;
 
+import com.tcc.entrepaginas.domain.entity.Usuario;
+import com.tcc.entrepaginas.exceptions.ResourceNotFound;
+import com.tcc.entrepaginas.modules.users.service.UsuarioService;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -10,54 +15,47 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.tcc.entrepaginas.exceptions.ResourceNotFound;
-import com.tcc.entrepaginas.domain.Usuario;
-import com.tcc.entrepaginas.modules.users.service.UsuarioService;
-
-import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.Valid;
-
 @Controller
 @RequestMapping("/user")
 public class AtualizarUsuarioController {
 
-  @Autowired
-  private final UsuarioService usuarioService;
+    @Autowired
+    private final UsuarioService usuarioService;
 
-  public AtualizarUsuarioController(UsuarioService usuarioService) {
-    this.usuarioService = usuarioService;
-  }
-
-  @PostMapping("/edit/{id}")
-  public String atualizarUsuario(@Valid @ModelAttribute Usuario usuario, BindingResult result,
-      @PathVariable String id, Model model) {
-
-    if (result.hasErrors()) {
-      return "redirect:/infos/" + usuario.getId();
+    public AtualizarUsuarioController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
     }
 
-    Usuario userEdited = null;
-    try {
-      userEdited = usuarioService.pegarUsuario(id);
+    @PostMapping("/edit/{id}")
+    public String atualizarUsuario(
+            @Valid @ModelAttribute Usuario usuario, BindingResult result, @PathVariable String id, Model model) {
 
-      if (usuario.getSenha() != null) {
-        String newSenha = usuario.getSenha();
-        if (newSenha != null && !newSenha.isEmpty()) {
-          BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-          String encodedPassword = passwordEncoder.encode(newSenha);
-          userEdited.setSenha(encodedPassword); // Aqui
+        if (result.hasErrors()) {
+            return "redirect:/infos/" + usuario.getId();
         }
-      }
 
-      userEdited.setNome(usuario.getNome());
-      userEdited.setEmail(usuario.getEmail());
-      userEdited.setLogin(usuario.getLogin());
+        Usuario userEdited = null;
+        try {
+            userEdited = usuarioService.pegarUsuario(id);
 
-      usuarioService.salvarUsuario(userEdited);
-    } catch (EntityNotFoundException e) {
-      throw new ResourceNotFound(id);
+            if (usuario.getSenha() != null) {
+                String newSenha = usuario.getSenha();
+                if (newSenha != null && !newSenha.isEmpty()) {
+                    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+                    String encodedPassword = passwordEncoder.encode(newSenha);
+                    userEdited.setSenha(encodedPassword); // Aqui
+                }
+            }
+
+            userEdited.setNome(usuario.getNome());
+            userEdited.setEmail(usuario.getEmail());
+            userEdited.setLogin(usuario.getLogin());
+
+            usuarioService.salvarUsuario(userEdited);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFound(id);
+        }
+
+        return "redirect:/perfil";
     }
-
-    return "redirect:/perfil";
-  }
 }

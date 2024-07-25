@@ -1,10 +1,6 @@
-
 package com.tcc.entrepaginas.repository;
 
+import com.tcc.entrepaginas.domain.entity.Contato;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.tcc.entrepaginas.domain.Contato;
-
-public interface ContatoRepository extends JpaRepository<Contato, String> {
-
-}
+public interface ContatoRepository extends JpaRepository<Contato, String> {}

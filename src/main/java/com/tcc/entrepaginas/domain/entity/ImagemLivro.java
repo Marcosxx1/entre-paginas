@@ -1,11 +1,11 @@
-package com.tcc.entrepaginas.domain;
+package com.tcc.entrepaginas.domain.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class ImagemLivro extends Imagem{
+public class ImagemLivro extends Imagem {
 
     @ManyToOne
     @JoinColumn(name = "livro_id")
@@ -37,5 +37,4 @@ public class ImagemLivro extends Imagem{
     public void setTamanhoEmBytes(long tamanhoEmBytes) {
         this.tamanhoEmBytes = tamanhoEmBytes;
     }
-
 }

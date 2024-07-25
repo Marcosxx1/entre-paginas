@@ -1,24 +1,21 @@
 package com.tcc.entrepaginas.modules.community.usecases.posts.updatepost;
 
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tcc.entrepaginas.domain.entity.Community;
+import com.tcc.entrepaginas.domain.entity.Post;
+import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
-import com.tcc.entrepaginas.domain.Community;
-import com.tcc.entrepaginas.domain.Post;
 import com.tcc.entrepaginas.modules.community.record.PostDto;
 import com.tcc.entrepaginas.repository.CommunityRepository;
 import com.tcc.entrepaginas.repository.ImagemPostRepository;
 import com.tcc.entrepaginas.repository.PostRepository;
-import com.tcc.entrepaginas.domain.Usuario;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
-
 import jakarta.persistence.EntityNotFoundException;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UpdatePostUseCase {
@@ -27,6 +24,7 @@ public class UpdatePostUseCase {
     private static String imagePath;
 
     private static String imagePathUser = imagePath + "/post/";
+
     @Autowired
     private final PostRepository postRepository;
 
@@ -39,16 +37,18 @@ public class UpdatePostUseCase {
     @Autowired
     private final ImagemPostRepository imagemPostRepository;
 
-    public UpdatePostUseCase(PostRepository postRepository, UsuarioRepository usuarioRepository,
-            CommunityRepository communityRepository, ImagemPostRepository imagemPostRepository) {
+    public UpdatePostUseCase(
+            PostRepository postRepository,
+            UsuarioRepository usuarioRepository,
+            CommunityRepository communityRepository,
+            ImagemPostRepository imagemPostRepository) {
         this.communityRepository = communityRepository;
         this.usuarioRepository = usuarioRepository;
         this.postRepository = postRepository;
         this.imagemPostRepository = imagemPostRepository;
     }
 
-    public PostDto updatePost(String postDtoJson, String usuarioId, String communityId,
-            MultipartFile image) {
+    public PostDto updatePost(String postDtoJson, String usuarioId, String communityId, MultipartFile image) {
 
         ObjectMapper objectMapper = new ObjectMapper();
         PostDto postDto = null;
@@ -95,5 +95,4 @@ public class UpdatePostUseCase {
         Optional<Post> post = postRepository.findById(id);
         return post.orElseThrow(() -> new ResourceNotFound(id));
     }
-
 }

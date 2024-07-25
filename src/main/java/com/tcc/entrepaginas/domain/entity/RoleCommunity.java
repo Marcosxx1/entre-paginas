@@ -1,7 +1,4 @@
-package com.tcc.entrepaginas.domain;
-
-import java.io.Serializable;
-import java.util.List;
+package com.tcc.entrepaginas.domain.entity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -10,6 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class RoleCommunity implements Serializable {
@@ -24,8 +23,7 @@ public class RoleCommunity implements Serializable {
     @OneToMany(mappedBy = "roleCommunity", cascade = CascadeType.ALL)
     private List<Membros> membros;
 
-    public RoleCommunity() {
-    }
+    public RoleCommunity() {}
 
     public RoleCommunity(String papel) {
         this.papel = papel;
@@ -54,5 +52,4 @@ public class RoleCommunity implements Serializable {
     public void setMembros(List<Membros> membros) {
         this.membros = membros;
     }
-
 }

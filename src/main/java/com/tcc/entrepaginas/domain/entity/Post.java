@@ -1,11 +1,6 @@
-package com.tcc.entrepaginas.domain;
-
-import java.io.Serializable;
-import java.time.Instant;
-import java.util.List;
+package com.tcc.entrepaginas.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,6 +13,9 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.validation.constraints.NotBlank;
+import java.io.Serializable;
+import java.time.Instant;
+import java.util.List;
 
 @Entity()
 public class Post implements Serializable {
@@ -60,14 +58,9 @@ public class Post implements Serializable {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reaction> reaction;
 
-    public Post() {
-    }
+    public Post() {}
 
-    public Post(
-            @NotBlank String title,
-            @NotBlank String content,
-            Usuario usuario,
-            Community community) {
+    public Post(@NotBlank String title, @NotBlank String content, Usuario usuario, Community community) {
 
         this.title = title;
         this.content = content;
@@ -146,5 +139,4 @@ public class Post implements Serializable {
     public void setReaction(List<Reaction> reaction) {
         this.reaction = reaction;
     }
-
 }

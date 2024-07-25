@@ -1,13 +1,11 @@
 package com.tcc.entrepaginas.modules.users.usecases.deletecontato;
 
+import com.tcc.entrepaginas.domain.entity.Contato;
+import com.tcc.entrepaginas.exceptions.ResourceNotFound;
+import com.tcc.entrepaginas.repository.ContatoRepository;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.tcc.entrepaginas.exceptions.ResourceNotFound;
-import com.tcc.entrepaginas.domain.Contato;
-import com.tcc.entrepaginas.repository.ContatoRepository;
 
 @Service
 public class DeletarContatoUseCase {

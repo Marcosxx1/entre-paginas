@@ -1,9 +1,15 @@
 package com.tcc.entrepaginas.modules.books.usecases.createbook;
 
+import com.tcc.entrepaginas.domain.entity.ImagemLivro;
+import com.tcc.entrepaginas.domain.entity.Livro;
+import com.tcc.entrepaginas.domain.entity.Usuario;
+import com.tcc.entrepaginas.modules.books.service.BookService;
+import com.tcc.entrepaginas.repository.UsuarioRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -18,15 +24,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.tcc.entrepaginas.domain.ImagemLivro;
-import com.tcc.entrepaginas.domain.Livro;
-import com.tcc.entrepaginas.modules.books.service.BookService;
-import com.tcc.entrepaginas.domain.Usuario;
-import com.tcc.entrepaginas.repository.UsuarioRepository;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
-
 @Controller
 @RequestMapping("/book")
 public class CriarLivController {
@@ -38,8 +35,8 @@ public class CriarLivController {
     private BookService bookService;
 
     @GetMapping("/create/{id}")
-    public String livro(Model model, @PathVariable("id") String idUsuario, Authentication authentication,
-            Principal principal) {
+    public String livro(
+            Model model, @PathVariable("id") String idUsuario, Authentication authentication, Principal principal) {
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
 
@@ -58,14 +55,21 @@ public class CriarLivController {
     }
 
     @PostMapping("/create/save/{id}")
-    public String createLivro(@PathVariable("id") String idUsuario, @Valid Livro livro,
-            @RequestParam("images") List<MultipartFile> imagens, BindingResult result,
-            RedirectAttributes attributes, Model model, HttpServletRequest request) {
+    public String createLivro(
+            @PathVariable("id") String idUsuario,
+            @Valid Livro livro,
+            @RequestParam("images") List<MultipartFile> imagens,
+            BindingResult result,
+            RedirectAttributes attributes,
+            Model model,
+            HttpServletRequest request) {
 
         List<ImagemLivro> imagensLivro = new ArrayList<>();
         for (MultipartFile imagem : imagens) {
             String fileName = bookService.atualizarImagemLivro(imagem);
-            String baseUrl = ServletUriComponentsBuilder.fromRequestUri(request).replacePath(null).build()
+            String baseUrl = ServletUriComponentsBuilder.fromRequestUri(request)
+                    .replacePath(null)
+                    .build()
                     .toUriString();
             String url = baseUrl + "/bookImage/" + fileName;
 
@@ -82,5 +86,4 @@ public class CriarLivController {
 
         return "redirect:/book/create/" + idUsuario;
     }
-
 }

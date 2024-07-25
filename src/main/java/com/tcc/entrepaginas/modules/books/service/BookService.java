@@ -1,5 +1,17 @@
 package com.tcc.entrepaginas.modules.books.service;
 
+import com.tcc.entrepaginas.domain.entity.ImagemLivro;
+import com.tcc.entrepaginas.domain.entity.Livro;
+import com.tcc.entrepaginas.domain.entity.Usuario;
+import com.tcc.entrepaginas.domain.enums.Categoria;
+import com.tcc.entrepaginas.domain.enums.Estado;
+import com.tcc.entrepaginas.domain.enums.EstadoBrasil;
+import com.tcc.entrepaginas.domain.enums.Tipo;
+import com.tcc.entrepaginas.exceptions.CustomException;
+import com.tcc.entrepaginas.exceptions.ResourceNotFound;
+import com.tcc.entrepaginas.modules.users.service.UsuarioService;
+import com.tcc.entrepaginas.repository.ImagemLivroRepository;
+import com.tcc.entrepaginas.repository.LivroRepository;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,25 +24,11 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.tcc.entrepaginas.exceptions.CustomException;
-import com.tcc.entrepaginas.exceptions.ResourceNotFound;
-import com.tcc.entrepaginas.domain.ImagemLivro;
-import com.tcc.entrepaginas.domain.Livro;
-import com.tcc.entrepaginas.domain.enums.Categoria;
-import com.tcc.entrepaginas.domain.enums.Estado;
-import com.tcc.entrepaginas.domain.enums.EstadoBrasil;
-import com.tcc.entrepaginas.domain.enums.Tipo;
-import com.tcc.entrepaginas.repository.ImagemLivroRepository;
-import com.tcc.entrepaginas.repository.LivroRepository;
-import com.tcc.entrepaginas.domain.Usuario;
-import com.tcc.entrepaginas.modules.users.service.UsuarioService;
 
 @Service
 public class BookService {
@@ -79,9 +77,7 @@ public class BookService {
     }
 
     public List<String> listarTodosEstadoBrasil() {
-        return Arrays.stream(EstadoBrasil.values())
-                .map(EstadoBrasil::name)
-                .collect(Collectors.toList());
+        return Arrays.stream(EstadoBrasil.values()).map(EstadoBrasil::name).collect(Collectors.toList());
     }
 
     public EstadoBrasil pegarEstadoBrasilPorNome(String nomeEstadoBrasil) {
@@ -93,9 +89,7 @@ public class BookService {
     }
 
     public List<String> listarTodasCategorias() {
-        return Arrays.stream(Categoria.values())
-                .map(Categoria::name)
-                .collect(Collectors.toList());
+        return Arrays.stream(Categoria.values()).map(Categoria::name).collect(Collectors.toList());
     }
 
     public Categoria pegarCategoriaPorNome(String nomeCategoria) {
@@ -107,9 +101,7 @@ public class BookService {
     }
 
     public List<String> listarTodosEstados() {
-        return Arrays.stream(Estado.values())
-                .map(Estado::name)
-                .collect(Collectors.toList());
+        return Arrays.stream(Estado.values()).map(Estado::name).collect(Collectors.toList());
     }
 
     public Estado pegarEstadoPorNome(String nomeEstado) {
@@ -121,9 +113,7 @@ public class BookService {
     }
 
     public List<String> listarTodosTipos() {
-        return Arrays.stream(Tipo.values())
-                .map(Tipo::name)
-                .collect(Collectors.toList());
+        return Arrays.stream(Tipo.values()).map(Tipo::name).collect(Collectors.toList());
     }
 
     public Tipo pegarTipoPorNome(String nomeTipo) {

@@ -1,7 +1,14 @@
-package com.tcc.entrepaginas.modules.users.usecases;
+package com.tcc.entrepaginas.controller;
 
+import com.tcc.entrepaginas.domain.entity.Usuario;
+import com.tcc.entrepaginas.modules.books.service.BookService;
+import com.tcc.entrepaginas.modules.users.service.UsuarioService;
+import com.tcc.entrepaginas.repository.CommentsService;
+import com.tcc.entrepaginas.repository.CommunityService;
+import com.tcc.entrepaginas.repository.PostService;
+import com.tcc.entrepaginas.repository.ReactionService;
+import com.tcc.entrepaginas.repository.UsuarioRepository;
 import java.security.Principal;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
@@ -11,17 +18,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.tcc.entrepaginas.modules.books.service.BookService;
-import com.tcc.entrepaginas.repository.CommentsService;
-import com.tcc.entrepaginas.repository.CommunityService;
-import com.tcc.entrepaginas.repository.PostService;
-import com.tcc.entrepaginas.repository.ReactionService;
-import com.tcc.entrepaginas.domain.Usuario;
-import com.tcc.entrepaginas.repository.UsuarioRepository;
-import com.tcc.entrepaginas.modules.users.service.UsuarioService;
-
 @Controller
-public class UserController {
+public class IndexController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -45,8 +43,7 @@ public class UserController {
     private ReactionService reactionService;
 
     @GetMapping("/login")
-    public String login(Authentication authentication, Model model,
-            RedirectAttributes redirectAttributes) {
+    public String login(Authentication authentication, Model model, RedirectAttributes redirectAttributes) {
         if (authentication != null && authentication.isAuthenticated()) {
             return "redirect:/index";
         }
@@ -55,9 +52,8 @@ public class UserController {
 
     @GetMapping("/index")
     public String index(Model model, Authentication authentication, Principal principal) {
-        if (authentication != null && authentication.isAuthenticated()) {
+        if (authentication.isAuthenticated()) {
             String username = authentication.getName();
-
             Usuario user = usuarioRepository.findByLogin(username);
             model.addAttribute("user", user);
         }
@@ -132,5 +128,4 @@ public class UserController {
 
         return "/Perfil";
     }
-
 }

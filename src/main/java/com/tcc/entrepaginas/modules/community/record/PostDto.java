@@ -1,14 +1,13 @@
 package com.tcc.entrepaginas.modules.community.record;
 
+import com.tcc.entrepaginas.domain.entity.ImagemPost;
+import com.tcc.entrepaginas.domain.entity.Post;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tcc.entrepaginas.domain.ImagemPost;
-import com.tcc.entrepaginas.domain.Post;
-
-public record PostDto(String id, String title, String content, ImagemPost Image, Instant date,
-        List<CommentsDto> comments) {
+public record PostDto(
+        String id, String title, String content, ImagemPost Image, Instant date, List<CommentsDto> comments) {
 
     public static PostDto fromPost(Post post) {
         return new PostDto(
@@ -17,8 +16,8 @@ public record PostDto(String id, String title, String content, ImagemPost Image,
                 post.getContent(),
                 post.getImage(),
                 post.getDate(),
-                CommentsDto.transformeCommentsEmDto(post.getComments() != null ? post.getComments()
-                        : new ArrayList<>()));
+                CommentsDto.transformeCommentsEmDto(
+                        post.getComments() != null ? post.getComments() : new ArrayList<>()));
     }
 
     public static List<PostDto> transformePostEmDto(List<Post> posts) {

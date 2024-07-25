@@ -1,10 +1,11 @@
 package com.tcc.entrepaginas.repository;
 
+import com.tcc.entrepaginas.domain.entity.Papel;
+import com.tcc.entrepaginas.domain.entity.Usuario;
 import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.tcc.entrepaginas.domain.Usuario;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, String> {
 
@@ -14,4 +15,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, String> {
 
     List<Usuario> findByNomeContainingIgnoreCase(String query);
 
+    @Query("SELECT p FROM Papel p WHERE p.papelNome = :papelNome")
+    Papel findPapelByNome(@Param("papelNome") String papelNome);
+
+    Usuario findByLoginOrEmail(String login, String email);
 }

@@ -18,35 +18,36 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-        @Bean
-        public BCryptPasswordEncoder passwordEncoder() {
-                return new BCryptPasswordEncoder();
-        }
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-        @Bean
-        public SecurityFilterChain sessionFilterChain(HttpSecurity http) throws Exception {
-                return http.csrf((csrf) -> csrf.disable())
-                                .httpBasic(Customizer.withDefaults())
-                                .authorizeHttpRequests((authorize) -> authorize
-                                                .requestMatchers("/Perfil").permitAll()
-                                                .requestMatchers("/**").permitAll()
-                                                .anyRequest().authenticated())
-                                .formLogin((form) -> form
-                                                .loginPage("/login").permitAll()
-                                                .defaultSuccessUrl("/index"))
-                                .logout((logout) -> logout
-                                                .logoutSuccessUrl("/index").permitAll())
-                                .build();
-        }
+    @Bean
+    public SecurityFilterChain sessionFilterChain(HttpSecurity http) throws Exception {
+        return http.csrf((csrf) -> csrf.disable())
+                .httpBasic(Customizer.withDefaults())
+                .authorizeHttpRequests((authorize) -> authorize
+                        .requestMatchers("/Perfil")
+                        .permitAll()
+                        .requestMatchers("/**")
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated())
+                .formLogin((form) -> form.loginPage("/login").permitAll().defaultSuccessUrl("/index"))
+                .logout((logout) -> logout.logoutSuccessUrl("/index").permitAll())
+                .build();
+    }
 
-        @Bean
-        public AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder,
-                        UserDetailsService userDetailsService) throws Exception {
+    @Bean
+    public AuthenticationManager authenticationManager(
+            HttpSecurity http, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService)
+            throws Exception {
 
-                return http.getSharedObject(AuthenticationManagerBuilder.class)
-                                .userDetailsService(userDetailsService)
-                                .passwordEncoder(passwordEncoder)
-                                .and()
-                                .build();
-        }
+        return http.getSharedObject(AuthenticationManagerBuilder.class)
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder)
+                .and()
+                .build();
+    }
 }

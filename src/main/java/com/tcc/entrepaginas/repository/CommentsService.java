@@ -1,17 +1,15 @@
 package com.tcc.entrepaginas.repository;
 
+import com.tcc.entrepaginas.domain.entity.Comments;
+import com.tcc.entrepaginas.domain.entity.Post;
+import com.tcc.entrepaginas.domain.entity.Usuario;
+import com.tcc.entrepaginas.exceptions.ResourceNotFound;
+import com.tcc.entrepaginas.modules.users.service.UsuarioService;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import com.tcc.entrepaginas.exceptions.ResourceNotFound;
-import com.tcc.entrepaginas.domain.Comments;
-import com.tcc.entrepaginas.domain.Post;
-import com.tcc.entrepaginas.domain.Usuario;
-import com.tcc.entrepaginas.modules.users.service.UsuarioService;
 
 @Service
 public class CommentsService {

@@ -28,5 +28,4 @@ public enum Estado {
         }
         throw new IllegalArgumentException("Invalid Estado code");
     }
-
 }

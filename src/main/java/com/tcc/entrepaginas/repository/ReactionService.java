@@ -1,17 +1,15 @@
 package com.tcc.entrepaginas.repository;
 
+import com.tcc.entrepaginas.domain.entity.Post;
+import com.tcc.entrepaginas.domain.entity.Reaction;
+import com.tcc.entrepaginas.domain.entity.Usuario;
+import com.tcc.entrepaginas.exceptions.ResourceNotFound;
+import com.tcc.entrepaginas.modules.users.service.UsuarioService;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import com.tcc.entrepaginas.exceptions.ResourceNotFound;
-import com.tcc.entrepaginas.domain.Post;
-import com.tcc.entrepaginas.domain.Reaction;
-import com.tcc.entrepaginas.domain.Usuario;
-import com.tcc.entrepaginas.modules.users.service.UsuarioService;
 
 @Service
 public class ReactionService {
@@ -74,7 +72,8 @@ public class ReactionService {
         List<Reaction> reactions = listarReactions(Sort.by(Sort.Direction.ASC, "id"));
 
         for (Reaction reaction : reactions) {
-            if (reaction.getPost().getId().equals(idPost) && reaction.getUsuario().getId().equals(idUsuario)) {
+            if (reaction.getPost().getId().equals(idPost)
+                    && reaction.getUsuario().getId().equals(idUsuario)) {
                 System.out.println("Usuário já votou.");
                 return true;
             }
@@ -82,5 +81,4 @@ public class ReactionService {
 
         return false;
     }
-
 }

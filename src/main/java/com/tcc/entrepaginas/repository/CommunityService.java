@@ -1,5 +1,10 @@
 package com.tcc.entrepaginas.repository;
 
+import com.tcc.entrepaginas.domain.entity.Community;
+import com.tcc.entrepaginas.domain.entity.Membros;
+import com.tcc.entrepaginas.exceptions.CustomException;
+import com.tcc.entrepaginas.exceptions.ResourceNotFound;
+import com.tcc.entrepaginas.modules.users.service.UsuarioService;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,18 +15,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
-
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.tcc.entrepaginas.exceptions.CustomException;
-import com.tcc.entrepaginas.exceptions.ResourceNotFound;
-import com.tcc.entrepaginas.domain.Community;
-import com.tcc.entrepaginas.domain.Membros;
-import com.tcc.entrepaginas.modules.users.service.UsuarioService;
 
 @Service
 public class CommunityService {
@@ -60,9 +58,7 @@ public class CommunityService {
         Objects.requireNonNull(community, "Community must not be null");
 
         Membros adicionarMembro = new Membros(
-                usuarioService.pegarUsuario(idUsuario),
-                roleCommunityRepository.findByPapel("ADMIN"),
-                community);
+                usuarioService.pegarUsuario(idUsuario), roleCommunityRepository.findByPapel("ADMIN"), community);
 
         communityRepository.save(community);
         membrosRepository.save(adicionarMembro);

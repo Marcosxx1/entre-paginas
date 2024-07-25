@@ -1,5 +1,13 @@
 package com.tcc.entrepaginas.repository;
 
+import com.tcc.entrepaginas.domain.entity.Community;
+import com.tcc.entrepaginas.domain.entity.ImagemPost;
+import com.tcc.entrepaginas.domain.entity.Post;
+import com.tcc.entrepaginas.domain.entity.Usuario;
+import com.tcc.entrepaginas.exceptions.CustomException;
+import com.tcc.entrepaginas.exceptions.ResourceNotFound;
+import com.tcc.entrepaginas.modules.users.service.UsuarioService;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,23 +17,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import com.tcc.entrepaginas.exceptions.CustomException;
-import com.tcc.entrepaginas.exceptions.ResourceNotFound;
-import com.tcc.entrepaginas.domain.Community;
-import com.tcc.entrepaginas.domain.ImagemPost;
-import com.tcc.entrepaginas.domain.Post;
-import com.tcc.entrepaginas.domain.Usuario;
-import com.tcc.entrepaginas.modules.users.service.UsuarioService;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class PostService {
@@ -58,8 +55,8 @@ public class PostService {
         postRepository.delete(post);
     }
 
-    public void createPost(String communityId, String userId, MultipartFile image, Post post,
-            HttpServletRequest request) {
+    public void createPost(
+            String communityId, String userId, MultipartFile image, Post post, HttpServletRequest request) {
 
         Usuario usuario = usuarioService.pegarUsuario(userId);
         System.out.println(usuario);
@@ -73,7 +70,9 @@ public class PostService {
         if (image != null && !image.isEmpty()) {
             // O conteúdo da imagem está presente
             String fileName = this.atualizarImagemPost(image);
-            String baseUrl = ServletUriComponentsBuilder.fromRequestUri(request).replacePath(null).build()
+            String baseUrl = ServletUriComponentsBuilder.fromRequestUri(request)
+                    .replacePath(null)
+                    .build()
                     .toUriString();
             String url = baseUrl + "/post/" + fileName;
 
@@ -93,8 +92,7 @@ public class PostService {
     }
 
     public List<Post> listPostsByCommunity(String communityId) {
-        return listarPost(Sort.by(Sort.Direction.DESC, "date"))
-                .stream()
+        return listarPost(Sort.by(Sort.Direction.DESC, "date")).stream()
                 .filter(post -> post.getCommunity().getId().equals(communityId))
                 .collect(Collectors.toList());
     }
@@ -128,5 +126,4 @@ public class PostService {
             throw new CustomException("Could not store the file. Error: " + e.getMessage());
         }
     }
-
 }

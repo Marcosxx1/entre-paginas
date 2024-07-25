@@ -25,7 +25,7 @@
                 <p class="cadastro__right-informativo--p">Junte-se à nossa Comunidade Literária</p>
                 <p class="cadastro__right-informativo--p">Cadastre-se hoje e embarque na nossa jornada.</p>
             </div>
-            <form th:action="@{/user/register/save}" th:object="${usuario}" method='post'>
+            <form th:action="@{/user/register/save}" th:object="${novoUsuarioRequest}" method='post'>
                 <div>
                     <div class="label-erro">
                         <label for="nome">Nome Completo:</label>
@@ -72,7 +72,7 @@
                         </div>
                     </div>
                     <div class="div-input">
-                        <input type="password" placeholder='Insira seu senha' name='senha' th:field="*{senha}" />
+                        <input type="password" placeholder='Insira sua senha' name='senha' th:field="*{senha}" />
                     </div>
                 </div>
 
@@ -80,15 +80,14 @@
                     <div class="label-erro">
                         <label for="confirmarSenha">Confirmar Senha:</label>
                         <div>
+                            <span class="mensagem" th:if="${#fields.hasErrors('confirmarSenha')}" th:errors="*{confirmarSenha}"></span>
                             <span class="mensagem" th:if="${senhaErrada}" th:text="${senhaErrada}"></span>
                         </div>
                     </div>
                     <div class="div-input">
-                        <input type="password" placeholder='Insira novamente sua senha' name='confirmarSenha' />
+                        <input type="password" placeholder='Insira novamente sua senha' name='confirmarSenha' th:field="*{confirmarSenha}" />
                     </div>
                 </div>
-
-                
 
                 <button type='submit'>Criar Conta</button>
                 <p>Já possui uma conta?

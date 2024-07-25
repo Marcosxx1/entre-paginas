@@ -1,6 +1,4 @@
-package com.tcc.entrepaginas.domain;
-
-import java.io.Serializable;
+package com.tcc.entrepaginas.domain.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import java.io.Serializable;
 
 @Entity
 public class Membros implements Serializable {
@@ -28,8 +27,7 @@ public class Membros implements Serializable {
     @JoinColumn(name = "community_id")
     private Community community;
 
-    public Membros() {
-    }
+    public Membros() {}
 
     public Membros(Usuario usuario, RoleCommunity roleCommunity, Community community) {
         this.usuario = usuario;
@@ -68,5 +66,4 @@ public class Membros implements Serializable {
     public void setCommunity(Community community) {
         this.community = community;
     }
-
 }
