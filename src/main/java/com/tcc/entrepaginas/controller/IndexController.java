@@ -51,9 +51,9 @@ public class IndexController {
     }
 
     @GetMapping("/index")
-    public String index(Model model, Authentication authentication, Principal principal) {
-        if (authentication.isAuthenticated()) {
-            String username = authentication.getName();
+    public String index(Model model, Principal principal) {
+        if (principal != null) {
+            String username = principal.getName();
             Usuario user = usuarioRepository.findByLogin(username);
             model.addAttribute("user", user);
         }

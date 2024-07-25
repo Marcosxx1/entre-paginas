@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,7 +26,7 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain sessionFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf((csrf) -> csrf.disable())
+        return http.csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(Customizer.withDefaults())
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/Perfil")
