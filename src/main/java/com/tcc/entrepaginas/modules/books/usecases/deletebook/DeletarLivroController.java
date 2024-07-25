@@ -1,6 +1,6 @@
 package com.tcc.entrepaginas.modules.books.usecases.deletebook;
 
-import com.tcc.entrepaginas.modules.books.service.BookService;
+import com.tcc.entrepaginas.modules.books.service.BookServiceOld;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,12 +14,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class DeletarLivroController {
 
     @Autowired
-    private BookService bookService;
+    private BookServiceOld bookServiceOld;
 
     @GetMapping("/delete/{id}")
     public String deletarLivro(@PathVariable String id, RedirectAttributes attributes, Model model) {
 
-        bookService.apagarLivroPorId(id);
+        bookServiceOld.apagarLivroPorId(id);
 
         return "";
     }

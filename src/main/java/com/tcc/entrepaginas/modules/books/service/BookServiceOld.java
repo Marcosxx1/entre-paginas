@@ -31,7 +31,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
-public class BookService {
+public class BookServiceOld {
 
     private final Path root = Paths.get("bookImage");
 
@@ -76,9 +76,6 @@ public class BookService {
         livroRepository.delete(livro);
     }
 
-    public List<String> listarTodosEstadoBrasil() {
-        return Arrays.stream(EstadoBrasil.values()).map(EstadoBrasil::name).collect(Collectors.toList());
-    }
 
     public EstadoBrasil pegarEstadoBrasilPorNome(String nomeEstadoBrasil) {
         try {
@@ -88,9 +85,6 @@ public class BookService {
         }
     }
 
-    public List<String> listarTodasCategorias() {
-        return Arrays.stream(Categoria.values()).map(Categoria::name).collect(Collectors.toList());
-    }
 
     public Categoria pegarCategoriaPorNome(String nomeCategoria) {
         try {
@@ -100,9 +94,6 @@ public class BookService {
         }
     }
 
-    public List<String> listarTodosEstados() {
-        return Arrays.stream(Estado.values()).map(Estado::name).collect(Collectors.toList());
-    }
 
     public Estado pegarEstadoPorNome(String nomeEstado) {
         try {
@@ -112,9 +103,6 @@ public class BookService {
         }
     }
 
-    public List<String> listarTodosTipos() {
-        return Arrays.stream(Tipo.values()).map(Tipo::name).collect(Collectors.toList());
-    }
 
     public Tipo pegarTipoPorNome(String nomeTipo) {
         try {

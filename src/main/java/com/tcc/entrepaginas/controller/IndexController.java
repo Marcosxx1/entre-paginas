@@ -2,7 +2,7 @@ package com.tcc.entrepaginas.controller;
 
 import com.tcc.entrepaginas.domain.dto.UpdateUserNameLoginAndEmailRequest;
 import com.tcc.entrepaginas.domain.entity.Usuario;
-import com.tcc.entrepaginas.modules.books.service.BookService;
+import com.tcc.entrepaginas.modules.books.service.BookServiceOld;
 import com.tcc.entrepaginas.modules.users.service.UsuarioService;
 import com.tcc.entrepaginas.repository.CommentsService;
 import com.tcc.entrepaginas.repository.CommunityService;
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class IndexController {
@@ -35,7 +34,7 @@ public class IndexController {
     private PostService postService;
 
     @Autowired
-    private BookService bookService;
+    private BookServiceOld bookServiceOld;
 
     @Autowired
     private CommentsService commentsService;
@@ -44,7 +43,7 @@ public class IndexController {
     private ReactionService reactionService;
 
     @GetMapping("/login")
-    public String login(Authentication authentication, Model model, RedirectAttributes redirectAttributes) {
+    public String login(Authentication authentication) {
         if (authentication != null && authentication.isAuthenticated()) {
             return "redirect:/index";
         }
@@ -58,12 +57,12 @@ public class IndexController {
             Usuario user = usuarioRepository.findByLogin(username);
             model.addAttribute("user", user);
         }
-        model.addAttribute("books", bookService.listarRandomLivros(10, principal, null));
+        model.addAttribute("books", bookServiceOld.listarRandomLivros(10, principal, null));
         model.addAttribute("listPost", postService.listarPost(Sort.by(Sort.Direction.DESC, "date")));
         model.addAttribute("comunidades", communityService.listarRandomCommunities(4, principal));
         model.addAttribute("comments", commentsService.listarComments(Sort.by(Sort.Direction.ASC, "id")));
         model.addAttribute("qtdReaction", reactionService.countReaction());
-        model.addAttribute("book", bookService.getRandomLivro());
+        model.addAttribute("book", bookServiceOld.getRandomLivro());
 
         return "/Index";
     }
@@ -76,7 +75,7 @@ public class IndexController {
             Usuario user = usuarioRepository.findByLogin(username);
             model.addAttribute("user", user);
             model.addAttribute("listPost", postService.listAllPostsInACommunity(username));
-            model.addAttribute("books", bookService.listarRandomLivros(10, principal, null));
+            model.addAttribute("books", bookServiceOld.listarRandomLivros(10, principal, null));
             model.addAttribute("comments", commentsService.listarComments(Sort.by(Sort.Direction.ASC, "id")));
             model.addAttribute("qtdReaction", reactionService.countReaction());
         }

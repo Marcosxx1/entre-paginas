@@ -3,8 +3,9 @@ package com.tcc.entrepaginas.modules.books.usecases.createbook;
 import com.tcc.entrepaginas.domain.entity.ImagemLivro;
 import com.tcc.entrepaginas.domain.entity.Livro;
 import com.tcc.entrepaginas.domain.entity.Usuario;
-import com.tcc.entrepaginas.modules.books.service.BookService;
+import com.tcc.entrepaginas.modules.books.service.BookServiceOld;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
+import com.tcc.entrepaginas.service.BookService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import java.security.Principal;
@@ -32,26 +33,14 @@ public class CriarLivController {
     private UsuarioRepository usuarioRepository;
 
     @Autowired
-    private BookService bookService;
+    private BookServiceOld bookServiceOld;
 
+    private BookService bookService;
     @GetMapping("/create/{id}")
     public String livro(
-            Model model, @PathVariable("id") String idUsuario, Authentication authentication, Principal principal) {
-        if (authentication != null && authentication.isAuthenticated()) {
-            String username = authentication.getName();
+            Model model, @PathVariable("id") String idUsuario, Authentication authentication ) {
 
-            Usuario user = usuarioRepository.findByLogin(username);
-            model.addAttribute("user", user);
-        }
-
-        model.addAttribute("livro", new Livro());
-        model.addAttribute("categorias", bookService.listarTodasCategorias());
-        model.addAttribute("estados", bookService.listarTodosEstados());
-        model.addAttribute("tipos", bookService.listarTodosTipos());
-        model.addAttribute("estadosBrasil", bookService.listarTodosEstadoBrasil());
-        model.addAttribute("idUsuario", idUsuario);
-
-        return "TrocarLivro";
+        return bookService.beginBookCreation(model, idUsuario,authentication);
     }
 
     @PostMapping("/create/save/{id}")
@@ -59,14 +48,11 @@ public class CriarLivController {
             @PathVariable("id") String idUsuario,
             @Valid Livro livro,
             @RequestParam("images") List<MultipartFile> imagens,
-            BindingResult result,
-            RedirectAttributes attributes,
-            Model model,
             HttpServletRequest request) {
 
         List<ImagemLivro> imagensLivro = new ArrayList<>();
         for (MultipartFile imagem : imagens) {
-            String fileName = bookService.atualizarImagemLivro(imagem);
+            String fileName = bookServiceOld.atualizarImagemLivro(imagem);
             String baseUrl = ServletUriComponentsBuilder.fromRequestUri(request)
                     .replacePath(null)
                     .build()
@@ -77,12 +63,12 @@ public class CriarLivController {
             imagensLivro.add(imagemLivro);
         }
 
-        livro.setEstado(bookService.pegarEstadoPorNome(request.getParameter("estado")));
-        livro.setTipo(bookService.pegarTipoPorNome(request.getParameter("tipo")));
-        livro.setCategoria(bookService.pegarCategoriaPorNome(request.getParameter("categoria")));
-        livro.setEstadoBrasil(bookService.pegarEstadoBrasilPorNome(request.getParameter("estadoBrasil")));
+        livro.setEstado(bookServiceOld.pegarEstadoPorNome(request.getParameter("estado")));
+        livro.setTipo(bookServiceOld.pegarTipoPorNome(request.getParameter("tipo")));
+        livro.setCategoria(bookServiceOld.pegarCategoriaPorNome(request.getParameter("categoria")));
+        livro.setEstadoBrasil(bookServiceOld.pegarEstadoBrasilPorNome(request.getParameter("estadoBrasil")));
 
-        bookService.salvarLivro(livro, idUsuario, imagensLivro);
+        bookServiceOld.salvarLivro(livro, idUsuario, imagensLivro);
 
         return "redirect:/book/create/" + idUsuario;
     }

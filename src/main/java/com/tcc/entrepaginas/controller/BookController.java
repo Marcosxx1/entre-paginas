@@ -1,2 +1,4 @@
-package com.tcc.entrepaginas.controller;public class BookController {
+package com.tcc.entrepaginas.controller;
+
+public class BookController {
 }

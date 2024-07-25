@@ -1,7 +1,7 @@
 package com.tcc.entrepaginas.modules.books.usecases;
 
 import com.tcc.entrepaginas.domain.entity.Usuario;
-import com.tcc.entrepaginas.modules.books.service.BookService;
+import com.tcc.entrepaginas.modules.books.service.BookServiceOld;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
 import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class BookController {
 
     @Autowired
-    public BookService bookService;
+    public BookServiceOld bookServiceOld;
 
     @Autowired
     public UsuarioRepository usuarioRepository;
@@ -31,7 +31,7 @@ public class BookController {
             model.addAttribute("user", user);
         }
 
-        model.addAttribute("livrosTrocar", bookService.listarTrocasPorPessoas(idUsuario));
+        model.addAttribute("livrosTrocar", bookServiceOld.listarTrocasPorPessoas(idUsuario));
 
         return "MinhasTrocas";
     }
@@ -47,8 +47,8 @@ public class BookController {
             model.addAttribute("user", user);
         }
 
-        model.addAttribute("books", bookService.listarRandomLivros(10, principal, idTroca));
-        model.addAttribute("troca", bookService.buscarLivro(idTroca));
+        model.addAttribute("books", bookServiceOld.listarRandomLivros(10, principal, idTroca));
+        model.addAttribute("troca", bookServiceOld.buscarLivro(idTroca));
 
         return "Book";
     }
