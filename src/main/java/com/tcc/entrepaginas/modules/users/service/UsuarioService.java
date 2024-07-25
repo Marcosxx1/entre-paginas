@@ -82,10 +82,10 @@ public class UsuarioService {
         }
     }
 
-    public void apagarUsuarioPorId(String id) {
+/*    public void apagarUsuarioPorId(String id) {
         Usuario usuario = Objects.requireNonNull(this.pegarUsuario(id), "Usuario not found");
         usuarioRepository.delete(usuario);
-    }
+    }*/
 
     public List<Usuario> buscarUsuarios(String query) {
         return usuarioRepository.findByNomeContainingIgnoreCase(query);

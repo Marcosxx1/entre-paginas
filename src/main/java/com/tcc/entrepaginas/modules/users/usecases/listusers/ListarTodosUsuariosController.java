@@ -19,7 +19,7 @@ public class ListarTodosUsuariosController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping("/list")
+    @GetMapping("/list")// TODO - Estamos usando isso?
     public List<UserDto> listarUsuarios(@RequestParam(required = false) String query) {
         List<Usuario> usuarios;
 

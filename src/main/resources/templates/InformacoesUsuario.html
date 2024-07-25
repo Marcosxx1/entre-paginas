@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.thymeleaf.org" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -76,7 +76,9 @@
             <button type="submit" class="form-button">Salvar</button>
         </form>
 
-        <!--Aqui vamos fazer uma rota para cada:
+        <!--
+                Aqui vamos fazer uma rota para cada:
+        -->
         <form th:action="@{/user/edit/{id}(id=${user.id})}" th:object="${user}" method="post"
               class="form-container">
 
@@ -100,8 +102,9 @@
             </div>
             <button type="submit" class="form-button">Salvar</button>
         </form>
+
+
         <a th:href="@{/user/delete/{id}(id=${user.id})}" class="delete">Delete user</a>
-        -->
     </div>
 </div>
 </body>

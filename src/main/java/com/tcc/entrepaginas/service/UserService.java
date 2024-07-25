@@ -22,4 +22,6 @@ public interface UserService {
             BindingResult result,
             RedirectAttributes attributes,
             Model model);
+
+    String deleteUser(String id);
 }

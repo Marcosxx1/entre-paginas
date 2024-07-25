@@ -9,6 +9,7 @@ import com.tcc.entrepaginas.utils.GetUserIdFromContext;
 import com.tcc.entrepaginas.utils.RegistroDeUsuario;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -81,6 +82,14 @@ public class UserServiceImpl implements UserService {
         attributes.addFlashAttribute("message", "User updated successfully!");
 
         return "redirect:/Perfil";
+    }
+
+    @Override
+    public String deleteUser(String id) {
+        usuarioRepository.delete(getUserIdFromContext.getUserById(id));
+        SecurityContextHolder.getContext().setAuthentication(null);
+
+        return "redirect:/index";
     }
 
     private String wasUserDataChanged(
