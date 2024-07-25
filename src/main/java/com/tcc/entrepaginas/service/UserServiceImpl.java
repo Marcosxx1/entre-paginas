@@ -1,9 +1,11 @@
 package com.tcc.entrepaginas.service;
 
 import com.tcc.entrepaginas.domain.dto.NovoUsuarioRequest;
+import com.tcc.entrepaginas.domain.dto.UpdateUserNameLoginAndEmailRequest;
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.mapper.user.UserMapper;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
+import com.tcc.entrepaginas.utils.GetUserIdFromContext;
 import com.tcc.entrepaginas.utils.RegistroDeUsuario;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -21,6 +23,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
     private final RegistroDeUsuario registroDeUsuario;
+    private final GetUserIdFromContext getUserIdFromContext;
 
     @Override
     public String registerAndRedirect(Authentication authentication, Model model) {
@@ -48,4 +51,45 @@ public class UserServiceImpl implements UserService {
         attributes.addFlashAttribute("mensagem", "Cadastro efetuado com sucesso!");
         return "redirect:/login";
     }
+
+    @Override
+    public String updateUserNameLoginAndEmail(Usuario user, String id, UpdateUserNameLoginAndEmailRequest updateUserNameLoginAndEmailRequest, BindingResult result, RedirectAttributes attributes, Model model) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("updateUserNameLoginAndEmailRequest", updateUserNameLoginAndEmailRequest);
+            model.addAttribute("user", user);
+            return "redirect:/infos/" + id;
+        }
+
+        Usuario userToBeEdited = getUserIdFromContext.getUserById(id);
+
+        String redirectUrl = wasUserDataChanged(updateUserNameLoginAndEmailRequest, attributes, userToBeEdited);
+
+        if (redirectUrl != null) {
+            return redirectUrl;
+        }
+        Usuario usuarioToSave = userMapper.toUpdateUsuario(updateUserNameLoginAndEmailRequest);
+
+        usuarioRepository.save(usuarioToSave);
+        attributes.addFlashAttribute("message", "User updated successfully!");
+
+        return "redirect:/perfil";
+    }
+
+    private String wasUserDataChanged(UpdateUserNameLoginAndEmailRequest updateUserNameLoginAndEmailRequest, RedirectAttributes redirectAttributes, Usuario userToBeEdited) {
+
+        boolean dataChanged = !userToBeEdited.getNome().equals(updateUserNameLoginAndEmailRequest.getNome()) ||
+                !userToBeEdited.getEmail().equals(updateUserNameLoginAndEmailRequest.getEmail()) ||
+                !userToBeEdited.getLogin().equals(updateUserNameLoginAndEmailRequest.getLogin());
+
+        if (!dataChanged) {
+            redirectAttributes.addFlashAttribute("message", "No changes were made.");
+            return "redirect:/infos/" + userToBeEdited.getId();
+        }
+
+        return null;
+    }
 }
+
+
+

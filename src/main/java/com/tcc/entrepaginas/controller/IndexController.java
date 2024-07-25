@@ -1,5 +1,6 @@
 package com.tcc.entrepaginas.controller;
 
+import com.tcc.entrepaginas.domain.dto.UpdateUserNameLoginAndEmailRequest;
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.modules.books.service.BookService;
 import com.tcc.entrepaginas.modules.users.service.UsuarioService;
@@ -85,12 +86,19 @@ public class IndexController {
 
     @GetMapping("/infos/{id}")
     public String infos(Model model, @PathVariable String id) {
-
         Usuario user = usuarioService.pegarUsuario(id);
 
+        UpdateUserNameLoginAndEmailRequest updateUserNameLoginAndEmailRequest = new UpdateUserNameLoginAndEmailRequest();
+        updateUserNameLoginAndEmailRequest.setId(id);
+        updateUserNameLoginAndEmailRequest.setNome(user.getNome());
+        updateUserNameLoginAndEmailRequest.setEmail(user.getEmail());
+        updateUserNameLoginAndEmailRequest.setLogin(user.getLogin());
+
         model.addAttribute("user", user);
-        return "/InformacoesUsuario";
+        model.addAttribute("updateUserNameLoginAndEmailRequest", updateUserNameLoginAndEmailRequest);
+        return "InformacoesUsuario";
     }
+
 
     // @GetMapping("/perfilVisitante/{idUsuario}")
     // public String perfilVisitante(Model model, Principal principal, @PathVariable

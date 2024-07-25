@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/user")
+//@RequestMapping("/user")
 public class AtualizarUsuarioController {
 
     @Autowired
@@ -26,7 +26,7 @@ public class AtualizarUsuarioController {
         this.usuarioService = usuarioService;
     }
 
-    @PostMapping("/edit/{id}")
+   //@PostMapping("/edit/{id}")
     public String atualizarUsuario(
             @Valid @ModelAttribute Usuario usuario, BindingResult result, @PathVariable String id, Model model) {
 

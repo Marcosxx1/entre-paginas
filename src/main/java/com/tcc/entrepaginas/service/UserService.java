@@ -1,6 +1,8 @@
 package com.tcc.entrepaginas.service;
 
 import com.tcc.entrepaginas.domain.dto.NovoUsuarioRequest;
+import com.tcc.entrepaginas.domain.dto.UpdateUserNameLoginAndEmailRequest;
+import com.tcc.entrepaginas.domain.entity.Usuario;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,4 +14,6 @@ public interface UserService {
 
     String saveUserFromForm(
             NovoUsuarioRequest novoUsuarioRequest, BindingResult result, RedirectAttributes attributes, Model model);
+
+     String updateUserNameLoginAndEmail(Usuario user, String id, UpdateUserNameLoginAndEmailRequest updateUserNameLoginAndEmailRequest, BindingResult result, RedirectAttributes attributes, Model model);
 }

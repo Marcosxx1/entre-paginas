@@ -129,7 +129,8 @@ public class BookService {
         int size = livros.size();
 
         if (size == 0) {
-            throw new ResourceNotFound("Não há livros disponíveis.");
+            size+=1;
+            //throw new ResourceNotFound("Não há livros disponíveis.");
         }
 
         Random random = new Random();

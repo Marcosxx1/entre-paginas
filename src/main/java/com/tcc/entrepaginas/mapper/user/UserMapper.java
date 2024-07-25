@@ -1,6 +1,7 @@
 package com.tcc.entrepaginas.mapper.user;
 
 import com.tcc.entrepaginas.domain.dto.NovoUsuarioRequest;
+import com.tcc.entrepaginas.domain.dto.UpdateUserNameLoginAndEmailRequest;
 import com.tcc.entrepaginas.domain.entity.Papel;
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
@@ -23,6 +24,15 @@ public class UserMapper {
                 .login(novoUsuarioRequest.getLogin())
                 .senha(passwordEncoder.encode(novoUsuarioRequest.getSenha()))
                 .papel(papel)
+                .build();
+    }
+
+    public Usuario toUpdateUsuario(UpdateUserNameLoginAndEmailRequest updateUserNameLoginAndEmailRequest){
+        return Usuario.builder()
+                .id(updateUserNameLoginAndEmailRequest.getId())
+                .nome(updateUserNameLoginAndEmailRequest.getNome())
+                .email(updateUserNameLoginAndEmailRequest.getEmail())
+                .login(updateUserNameLoginAndEmailRequest.getLogin())
                 .build();
     }
 }
