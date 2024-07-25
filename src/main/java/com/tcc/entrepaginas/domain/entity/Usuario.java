@@ -55,7 +55,7 @@ public class Usuario implements UserDetails {
     @JoinColumn(name = "papel_id")
     private Papel papel;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Contato> contatos;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

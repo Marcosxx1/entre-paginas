@@ -27,12 +27,9 @@ public class UserMapper {
                 .build();
     }
 
-    public Usuario toUpdateUsuario(UpdateUserNameLoginAndEmailRequest updateUserNameLoginAndEmailRequest) {
-        return Usuario.builder()
-                .id(updateUserNameLoginAndEmailRequest.getId())
-                .nome(updateUserNameLoginAndEmailRequest.getNome())
-                .email(updateUserNameLoginAndEmailRequest.getEmail())
-                .login(updateUserNameLoginAndEmailRequest.getLogin())
-                .build();
+    public void toUpdateUsuario(Usuario existingUser, UpdateUserNameLoginAndEmailRequest updateUserNameLoginAndEmailRequest) {
+        existingUser.setNome(updateUserNameLoginAndEmailRequest.getNome());
+        existingUser.setEmail(updateUserNameLoginAndEmailRequest.getEmail());
+        existingUser.setLogin(updateUserNameLoginAndEmailRequest.getLogin());
     }
 }

@@ -74,12 +74,13 @@ public class UserServiceImpl implements UserService {
         if (redirectUrl != null) {
             return redirectUrl;
         }
-        Usuario usuarioToSave = userMapper.toUpdateUsuario(updateUserNameLoginAndEmailRequest);
 
-        usuarioRepository.save(usuarioToSave);
+        userMapper.toUpdateUsuario(userToBeEdited, updateUserNameLoginAndEmailRequest);
+
+        usuarioRepository.save(userToBeEdited);
         attributes.addFlashAttribute("message", "User updated successfully!");
 
-        return "redirect:/perfil";
+        return "redirect:/Perfil";
     }
 
     private String wasUserDataChanged(
