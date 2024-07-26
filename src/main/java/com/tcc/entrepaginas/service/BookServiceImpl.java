@@ -9,6 +9,7 @@ import com.tcc.entrepaginas.domain.enums.Tipo;
 import com.tcc.entrepaginas.repository.LivroRepository;
 import com.tcc.entrepaginas.utils.GetUserIdFromContext;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class BookServiceImpl implements BookService {
 
     private final LivroRepository livroRepository;
@@ -31,7 +33,7 @@ public class BookServiceImpl implements BookService {
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
 
-            Usuario user = getUserIdFromContext.getUserById(username);
+             Usuario user = getUserIdFromContext.getUserById(idUsuario);
             model.addAttribute("user", user);
         }
 

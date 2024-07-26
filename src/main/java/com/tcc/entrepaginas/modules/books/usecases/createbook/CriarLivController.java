@@ -27,6 +27,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @Controller
 @RequestMapping("/book")
+
 public class CriarLivController {
 
     @Autowired
@@ -35,6 +36,7 @@ public class CriarLivController {
     @Autowired
     private BookServiceOld bookServiceOld;
 
+    @Autowired
     private BookService bookService;
     @GetMapping("/create/{id}")
     public String livro(

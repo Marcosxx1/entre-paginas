@@ -4,9 +4,11 @@ import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 @AllArgsConstructor
 public class GetUserIdFromContext {
@@ -25,6 +27,7 @@ public class GetUserIdFromContext {
     }
 
     public Usuario getUserById(String userId) {
+        log.error("getUserById Exception error: [{}]", userId);
         return userRepository.findById(userId).orElseThrow(() -> new ResourceNotFound(userId));
     }
 }
