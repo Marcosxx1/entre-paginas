@@ -9,10 +9,8 @@ import com.tcc.entrepaginas.repository.CommunityService;
 import com.tcc.entrepaginas.repository.PostService;
 import com.tcc.entrepaginas.repository.ReactionService;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
-
-import java.security.Principal;
-
 import com.tcc.entrepaginas.service.IndexService;
+import java.security.Principal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;

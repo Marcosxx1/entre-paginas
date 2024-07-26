@@ -2,12 +2,9 @@ package com.tcc.entrepaginas.service;
 
 import com.tcc.entrepaginas.domain.dto.NovoLivroRequest;
 import jakarta.servlet.http.HttpServletRequest;
-
-import java.security.Principal;
 import java.util.List;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface BookService {
@@ -20,5 +17,5 @@ public interface BookService {
             List<MultipartFile> imagens,
             HttpServletRequest request);
 
-    String bookExchange(Model model,String idUsuario, Authentication authentication);
+    String bookExchange(Model model, String idUsuario, Authentication authentication);
 }

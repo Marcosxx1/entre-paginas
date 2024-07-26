@@ -1,12 +1,6 @@
 package com.tcc.entrepaginas.modules.books.service;
 
-import com.tcc.entrepaginas.domain.entity.ImagemLivro;
 import com.tcc.entrepaginas.domain.entity.Livro;
-import com.tcc.entrepaginas.domain.entity.Usuario;
-import com.tcc.entrepaginas.domain.enums.Categoria;
-import com.tcc.entrepaginas.domain.enums.Estado;
-import com.tcc.entrepaginas.domain.enums.EstadoBrasil;
-import com.tcc.entrepaginas.domain.enums.Tipo;
 import com.tcc.entrepaginas.exceptions.CustomException;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.modules.users.service.UsuarioService;
@@ -51,14 +45,10 @@ public class BookServiceOld {
         return livroRepository.findAll(sort);
     }
 
-
-
     public void apagarLivroPorId(String id) {
         Livro livro = this.buscarLivro(id);
         livroRepository.delete(livro);
     }
-
-
 
     public Livro getRandomLivro() {
         List<Livro> livros = livroRepository.findAll();
@@ -99,8 +89,6 @@ public class BookServiceOld {
         Collections.shuffle(livro);
         return livro.subList(0, totalItems);
     }
-
-
 
     public void init() {
         try {

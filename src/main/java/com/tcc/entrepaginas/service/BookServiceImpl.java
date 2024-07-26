@@ -31,8 +31,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public String beginBookCreation(Model model, String idUsuario, Authentication authentication) {
-        model = userUtils.setUserInAttributesIfAuthenticated(model, authentication,idUsuario);
-
+        model = userUtils.setUserInAttributesIfAuthenticated(model, authentication, idUsuario);
 
         model.addAttribute("livro", new Livro());
         model.addAttribute("categorias", enumListingService.listarTodasCategorias());
@@ -67,7 +66,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public String bookExchange(Model model, String idUsuario, Authentication authentication) {
-        model = userUtils.setUserInAttributesIfAuthenticated(model, authentication,idUsuario);
+        model = userUtils.setUserInAttributesIfAuthenticated(model, authentication, idUsuario);
 
         model.addAttribute("livrosTrocar", listarTrocasPorPessoas(idUsuario));
         return "MinhasTrocas";
