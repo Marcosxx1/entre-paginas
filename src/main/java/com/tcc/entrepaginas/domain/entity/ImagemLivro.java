@@ -3,8 +3,13 @@ package com.tcc.entrepaginas.domain.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.*;
 
 @Entity
+@Builder
+@AllArgsConstructor
+@Getter
+@Setter
 public class ImagemLivro extends Imagem {
 
     @ManyToOne
@@ -22,19 +27,4 @@ public class ImagemLivro extends Imagem {
         this.livro = livro;
     }
 
-    public Livro getLivro() {
-        return livro;
     }
-
-    public void setLivro(Livro livro) {
-        this.livro = livro;
-    }
-
-    public long getTamanhoEmBytes() {
-        return tamanhoEmBytes;
-    }
-
-    public void setTamanhoEmBytes(long tamanhoEmBytes) {
-        this.tamanhoEmBytes = tamanhoEmBytes;
-    }
-}

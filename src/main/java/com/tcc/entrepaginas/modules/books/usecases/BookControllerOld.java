@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
-public class BookController {
+public class BookControllerOld {
 
     @Autowired
     public BookServiceOld bookServiceOld;

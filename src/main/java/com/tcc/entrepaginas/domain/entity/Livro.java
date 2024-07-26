@@ -24,7 +24,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Livro implements Serializable {
+public class Livro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
