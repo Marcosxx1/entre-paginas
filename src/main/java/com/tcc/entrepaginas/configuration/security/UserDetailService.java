@@ -1,5 +1,6 @@
 package com.tcc.entrepaginas.configuration.security;
 
+import com.tcc.entrepaginas.domain.entity.CustomUserDetails;
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
 import java.util.HashSet;
@@ -27,16 +28,18 @@ public class UserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
         Usuario usuario = usuarioRepository.findByLogin(username);
 
         if (usuario != null) {
             Set<GrantedAuthority> papeisDoUsuario = new HashSet<>();
-
             GrantedAuthority pp = new SimpleGrantedAuthority(usuario.getPapel().getPapelNome());
             papeisDoUsuario.add(pp);
 
-            return new User(usuario.getLogin(), usuario.getPassword(), papeisDoUsuario);
+            return new CustomUserDetails(
+                    usuario.getId(),
+                    usuario.getLogin(),
+                     papeisDoUsuario
+            );
         } else {
             log.error("UserDetailService.loadUserByUsername Exception error: [{}]", username);
             throw new UsernameNotFoundException("Usuário não encontrado");

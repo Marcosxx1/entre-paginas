@@ -51,60 +51,14 @@ public class BookServiceOld {
         return livroRepository.findAll(sort);
     }
 
-    public void salvarLivro(Livro livro, String idUsuario, List<ImagemLivro> imagensLivro) {
-        if (livro == null) {
-            throw new IllegalArgumentException("Dados inválidos");
-        }
 
-        livro.setUsuario(usuarioService.pegarUsuario(idUsuario));
-
-        livroRepository.save(livro);
-
-        for (ImagemLivro imagemLivro : imagensLivro) {
-            imagemLivroRepository.save(imagemLivro);
-        }
-    }
-
-    public void atualizarLivro(Livro livro) {
-        livroRepository.save(livro);
-    }
 
     public void apagarLivroPorId(String id) {
         Livro livro = this.buscarLivro(id);
         livroRepository.delete(livro);
     }
 
-    public EstadoBrasil pegarEstadoBrasilPorNome(String nomeEstadoBrasil) {
-        try {
-            return EstadoBrasil.valueOf(nomeEstadoBrasil);
-        } catch (IllegalArgumentException e) {
-            return null;
-        }
-    }
 
-    public Categoria pegarCategoriaPorNome(String nomeCategoria) {
-        try {
-            return Categoria.valueOf(nomeCategoria);
-        } catch (IllegalArgumentException e) {
-            return null;
-        }
-    }
-
-    public Estado pegarEstadoPorNome(String nomeEstado) {
-        try {
-            return Estado.valueOf(nomeEstado);
-        } catch (IllegalArgumentException e) {
-            return null;
-        }
-    }
-
-    public Tipo pegarTipoPorNome(String nomeTipo) {
-        try {
-            return Tipo.valueOf(nomeTipo);
-        } catch (IllegalArgumentException e) {
-            return null;
-        }
-    }
 
     public Livro getRandomLivro() {
         List<Livro> livros = livroRepository.findAll();
@@ -146,10 +100,7 @@ public class BookServiceOld {
         return livro.subList(0, totalItems);
     }
 
-    public List<Livro> listarTrocasPorPessoas(String idUsuario) {
-        Usuario usuario = usuarioService.pegarUsuario(idUsuario);
-        return livroRepository.findByUsuario(usuario);
-    }
+
 
     public void init() {
         try {

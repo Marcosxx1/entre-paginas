@@ -6,7 +6,7 @@ import com.tcc.entrepaginas.domain.entity.Livro;
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.mapper.book.BookMapper;
 import com.tcc.entrepaginas.repository.LivroRepository;
-import com.tcc.entrepaginas.utils.GetUserIdFromContext;
+import com.tcc.entrepaginas.utils.UserUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class BookServiceImpl implements BookService {
 
     private final LivroRepository livroRepository;
     private final ImagemLivroService imagemLivroService;
-    private final GetUserIdFromContext getUserIdFromContext;
+    private final UserUtils userUtils;
     private final EnumConverterService enumConverterService;
     private final EnumListingService enumListingService;
 
@@ -31,11 +31,8 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public String beginBookCreation(Model model, String idUsuario, Authentication authentication) {
+        model = userUtils.setUserInAttributesIfAuthenticated(model, authentication,idUsuario);
 
-        if (authentication != null && authentication.isAuthenticated()) {
-            Usuario user = getUserIdFromContext.getUserById(idUsuario);
-            model.addAttribute("user", user);
-        }
 
         model.addAttribute("livro", new Livro());
         model.addAttribute("categorias", enumListingService.listarTodasCategorias());
@@ -68,16 +65,29 @@ public class BookServiceImpl implements BookService {
         return "redirect:/book/create/" + idUsuario;
     }
 
+    @Override
+    public String bookExchange(Model model, String idUsuario, Authentication authentication) {
+        model = userUtils.setUserInAttributesIfAuthenticated(model, authentication,idUsuario);
+
+        model.addAttribute("livrosTrocar", listarTrocasPorPessoas(idUsuario));
+        return "MinhasTrocas";
+    }
+
     private void salvarLivro(Livro livro, String idUsuario, List<ImagemLivro> imagensLivro) {
         if (livro == null) {
             throw new IllegalArgumentException("Dados inválidos"); // TODO - EXCEPTION MELHOR
         }
 
-        livro.setUsuario(getUserIdFromContext.getUserById(idUsuario));
+        livro.setUsuario(userUtils.getUserById(idUsuario));
         livroRepository.save(livro);
 
         for (ImagemLivro imagemLivro : imagensLivro) {
             imagemLivroService.saveImagemLivro(imagemLivro);
         }
+    }
+
+    public List<Livro> listarTrocasPorPessoas(String idUsuario) {
+        Usuario usuario = userUtils.getUserById(idUsuario);
+        return livroRepository.findByUsuario(usuario);
     }
 }

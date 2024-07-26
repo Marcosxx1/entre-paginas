@@ -4,6 +4,7 @@ import com.tcc.entrepaginas.domain.dto.NovoLivroRequest;
 import com.tcc.entrepaginas.service.BookService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -32,5 +33,15 @@ public class BookController {
             @RequestParam("images") List<MultipartFile> imagens,
             HttpServletRequest request) {
         return bookService.saveBook(idUsuario, novoLivroRequest, imagens, request);
+    }
+
+    @GetMapping("/exchanges/{id}")
+    public String tradeBook(
+            Model model,
+            @PathVariable("id") String idUsuario,
+            Authentication authentication) {
+
+        return bookService.bookExchange(model,idUsuario,authentication);
+
     }
 }

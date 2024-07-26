@@ -5,7 +5,7 @@ import com.tcc.entrepaginas.domain.dto.UpdateUserNameLoginAndEmailRequest;
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.mapper.user.UserMapper;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
-import com.tcc.entrepaginas.utils.GetUserIdFromContext;
+import com.tcc.entrepaginas.utils.UserUtils;
 import com.tcc.entrepaginas.utils.RegistroDeUsuario;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
     private final RegistroDeUsuario registroDeUsuario;
-    private final GetUserIdFromContext getUserIdFromContext;
+    private final UserUtils userUtils;
 
     @Override
     public String registerAndRedirect(Authentication authentication, Model model) {
@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
             return "redirect:/infos/" + id;
         }
 
-        Usuario userToBeEdited = getUserIdFromContext.getUserById(id);
+        Usuario userToBeEdited = userUtils.getUserById(id);
 
         String redirectUrl = wasUserDataChanged(updateUserNameLoginAndEmailRequest, attributes, userToBeEdited);
 
@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String deleteUser(String id) {
-        usuarioRepository.delete(getUserIdFromContext.getUserById(id));
+        usuarioRepository.delete(userUtils.getUserById(id));
         SecurityContextHolder.getContext().setAuthentication(null);
 
         return "redirect:/index";

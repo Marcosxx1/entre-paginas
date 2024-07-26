@@ -20,7 +20,7 @@ public class BookControllerOld {
     @Autowired
     public UsuarioRepository usuarioRepository;
 
-    @GetMapping("/book/exchanges/{id}")
+/*    @GetMapping("/book/exchanges/{id}")
     public String tradeBook(
             Model model, @PathVariable("id") String idUsuario, Authentication authentication, Principal principal) {
 
@@ -34,7 +34,7 @@ public class BookControllerOld {
         model.addAttribute("livrosTrocar", bookServiceOld.listarTrocasPorPessoas(idUsuario));
 
         return "MinhasTrocas";
-    }
+    }*/
 
     @GetMapping("/book/trade/{id}")
     public String book(
