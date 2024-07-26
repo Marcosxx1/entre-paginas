@@ -9,7 +9,11 @@ import com.tcc.entrepaginas.repository.CommunityService;
 import com.tcc.entrepaginas.repository.PostService;
 import com.tcc.entrepaginas.repository.ReactionService;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
+
 import java.security.Principal;
+
+import com.tcc.entrepaginas.service.IndexService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
@@ -19,7 +23,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
+@RequiredArgsConstructor
 public class IndexController {
+
+    private final IndexService indexService;
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -44,10 +51,7 @@ public class IndexController {
 
     @GetMapping("/login")
     public String login(Authentication authentication) {
-        if (authentication != null && authentication.isAuthenticated()) {
-            return "redirect:/index";
-        }
-        return "/Login";
+        return indexService.redirecctToIndexOrLoginBasedOnAuth(authentication);
     }
 
     @GetMapping("/index")

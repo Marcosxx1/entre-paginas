@@ -35,7 +35,6 @@ public class UserUtils {
 
     public Model setUserInAttributesIfAuthenticated(Model model, Authentication authentication, String idUsuario) {
         if (authentication != null && authentication.isAuthenticated()) {
-            String username = authentication.getName();
             Usuario user = getUserById(idUsuario);
             model.addAttribute("user", user);
         }

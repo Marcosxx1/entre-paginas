@@ -9,8 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
+ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -28,18 +27,16 @@ public class UserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
         Usuario usuario = usuarioRepository.findByLogin(username);
 
         if (usuario != null) {
             Set<GrantedAuthority> papeisDoUsuario = new HashSet<>();
+
             GrantedAuthority pp = new SimpleGrantedAuthority(usuario.getPapel().getPapelNome());
             papeisDoUsuario.add(pp);
 
-            return new CustomUserDetails(
-                    usuario.getId(),
-                    usuario.getLogin(),
-                     papeisDoUsuario
-            );
+            return new CustomUserDetails(usuario.getLogin(), usuario.getPassword(), papeisDoUsuario, usuario.getId());
         } else {
             log.error("UserDetailService.loadUserByUsername Exception error: [{}]", username);
             throw new UsernameNotFoundException("Usuário não encontrado");
