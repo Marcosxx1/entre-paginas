@@ -18,13 +18,8 @@ public class ImagemLivro extends Imagem {
 
     private long tamanhoEmBytes;
 
-    public ImagemLivro() {
-        super();
-    }
-
     public ImagemLivro(String nome, Livro livro) {
         super(nome);
         this.livro = livro;
     }
-
-    }
+}

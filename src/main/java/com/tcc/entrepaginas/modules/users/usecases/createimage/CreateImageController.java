@@ -29,9 +29,7 @@ public class CreateImageController {
     public String createImage(
             @PathVariable("id") String idUsuario,
             @RequestParam("imagem") MultipartFile image,
-            HttpServletRequest request,
-            Model model,
-            RedirectAttributes attributes) {
+            HttpServletRequest request) {
 
         Usuario usuario = usuarioService.pegarUsuario(idUsuario);
 

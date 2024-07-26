@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class BookMapper {
 
-    public Livro toLivro(NovoLivroRequest novoLivroRequest){
+    public Livro toLivro(NovoLivroRequest novoLivroRequest) {
         return Livro.builder()
                 .nome(novoLivroRequest.getNome())
                 .descricao(novoLivroRequest.getDescricao())

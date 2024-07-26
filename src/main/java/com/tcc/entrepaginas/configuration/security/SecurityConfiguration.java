@@ -1,4 +1,4 @@
-package com.tcc.entrepaginas.configuration;
+package com.tcc.entrepaginas.configuration.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

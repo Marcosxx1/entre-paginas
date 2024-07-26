@@ -1,9 +1,10 @@
-package com.tcc.entrepaginas.modules.users.usecases.authentication;
+package com.tcc.entrepaginas.configuration.security;
 
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
 import java.util.HashSet;
 import java.util.Set;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class UserDetailService implements UserDetailsService {
 
     @Autowired
@@ -36,6 +38,7 @@ public class UserDetailService implements UserDetailsService {
 
             return new User(usuario.getLogin(), usuario.getPassword(), papeisDoUsuario);
         } else {
+            log.error("UserDetailService.loadUserByUsername Exception error: [{}]", username);
             throw new UsernameNotFoundException("Usuário não encontrado");
         }
     }

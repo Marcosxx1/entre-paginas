@@ -17,13 +17,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -76,7 +74,6 @@ public class BookServiceOld {
         livroRepository.delete(livro);
     }
 
-
     public EstadoBrasil pegarEstadoBrasilPorNome(String nomeEstadoBrasil) {
         try {
             return EstadoBrasil.valueOf(nomeEstadoBrasil);
@@ -84,7 +81,6 @@ public class BookServiceOld {
             return null;
         }
     }
-
 
     public Categoria pegarCategoriaPorNome(String nomeCategoria) {
         try {
@@ -94,7 +90,6 @@ public class BookServiceOld {
         }
     }
 
-
     public Estado pegarEstadoPorNome(String nomeEstado) {
         try {
             return Estado.valueOf(nomeEstado);
@@ -102,7 +97,6 @@ public class BookServiceOld {
             return null;
         }
     }
-
 
     public Tipo pegarTipoPorNome(String nomeTipo) {
         try {
