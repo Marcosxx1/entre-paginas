@@ -40,13 +40,10 @@ public class BookServiceImpl implements BookService {
 
     private final LivroRepository livroRepository;
     private final ImagemLivroService imagemLivroService;
-
-   //private final LivroService livroService;
-
     private final GetUserIdFromContext getUserIdFromContext;
     private final BookMapper bookMapper;
 
-    private   Path root = Paths.get("bookImage");
+    private Path root = Paths.get("bookImage");
 
     @Override
     public String beginBookCreation(Model model, String idUsuario, Authentication authentication) {
