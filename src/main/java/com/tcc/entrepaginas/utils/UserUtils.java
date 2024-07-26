@@ -3,6 +3,8 @@ package com.tcc.entrepaginas.utils;
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
+import java.security.Principal;
+import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -20,6 +22,14 @@ public class UserUtils {
     public String get() {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication.getName();
+    }
+
+    public Model setModelIfAuthenticationExists(Principal principal, Model model) {
+        if (Objects.nonNull(principal.getName())) {
+            Usuario user = findAuthenticatedUser();
+            return model.addAttribute("user", user);
+        }
+        return null;
     }
 
     public Usuario findAuthenticatedUser() {

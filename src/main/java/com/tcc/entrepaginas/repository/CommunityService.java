@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.Principal;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -78,27 +76,6 @@ public class CommunityService {
         } else {
             throw new ResourceNotFound("Community not found for ID: " + id);
         }
-    }
-
-    public List<Community> listarRandomCommunities(int totalItems, Principal principal) {
-        List<Community> comunidades = this.listarCommunities(Sort.by(Sort.Direction.ASC, "id"));
-
-        if (principal != null) {
-            String username = principal.getName();
-            List<Community> userCommunities = usuarioService.getUserCommunities(username);
-            comunidades.removeAll(userCommunities);
-        }
-
-        if (comunidades.size() > totalItems) {
-            comunidades = this.getRandomCommunities(comunidades, totalItems);
-        }
-
-        return comunidades;
-    }
-
-    public List<Community> getRandomCommunities(List<Community> comunidades, int totalItems) {
-        Collections.shuffle(comunidades);
-        return comunidades.subList(0, totalItems);
     }
 
     public void init() {

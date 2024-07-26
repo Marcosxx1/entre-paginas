@@ -4,13 +4,19 @@ import com.tcc.entrepaginas.domain.dto.NovoLivroRequest;
 import com.tcc.entrepaginas.domain.entity.ImagemLivro;
 import com.tcc.entrepaginas.domain.entity.Livro;
 import com.tcc.entrepaginas.domain.entity.Usuario;
+import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.mapper.book.BookMapper;
+import com.tcc.entrepaginas.modules.users.service.UsuarioService;
 import com.tcc.entrepaginas.repository.LivroRepository;
 import com.tcc.entrepaginas.utils.UserUtils;
 import jakarta.servlet.http.HttpServletRequest;
+import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -23,6 +29,7 @@ public class BookServiceImpl implements BookService {
 
     private final LivroRepository livroRepository;
     private final ImagemLivroService imagemLivroService;
+    private final UsuarioService usuarioService;
     private final UserUtils userUtils;
     private final EnumConverterService enumConverterService;
     private final EnumListingService enumListingService;
@@ -88,5 +95,56 @@ public class BookServiceImpl implements BookService {
     public List<Livro> listarTrocasPorPessoas(String idUsuario) {
         Usuario usuario = userUtils.getUserById(idUsuario);
         return livroRepository.findByUsuario(usuario);
+    }
+
+    @Override
+    public Livro buscarLivro(String id) {
+        return livroRepository.findById(id).orElseThrow(() -> new ResourceNotFound(id));
+    }
+
+    @Override
+    public List<Livro> listarLivros(Sort sort) {
+        return livroRepository.findAll(sort);
+    }
+
+    @Override
+    public void apagarLivroPorId(String id) {
+        Livro livro = buscarLivro(id);
+        livroRepository.delete(livro);
+    }
+
+    @Override
+    public Livro getRandomLivro() {
+        List<Livro> livros = livroRepository.findAll();
+        return livros.isEmpty() ? new Livro() : livros.get(new Random().nextInt(livros.size()));
+    }
+
+    @Override
+    public List<Livro> listarRandomLivros(int totalItems, Principal principal, String idTroca) {
+        List<Livro> livros = livroRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        filterUserLivros(livros, principal);
+        filterByIdTroca(livros, idTroca);
+
+        return livros.size() > totalItems ? getRandomLivros(livros, totalItems) : livros;
+    }
+
+    private void filterUserLivros(List<Livro> livros, Principal principal) {
+        if (principal != null) {
+            String username = principal.getName();
+            List<Livro> userLivros = usuarioService.getUserLivros(username);
+            livros.removeAll(userLivros);
+        }
+    }
+
+    private void filterByIdTroca(List<Livro> livros, String idTroca) {
+        if (idTroca != null) {
+            Livro livro = buscarLivro(idTroca);
+            livros.remove(livro);
+        }
+    }
+
+    private List<Livro> getRandomLivros(List<Livro> livros, int totalItems) {
+        Collections.shuffle(livros);
+        return livros.subList(0, totalItems);
     }
 }

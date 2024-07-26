@@ -13,14 +13,10 @@ import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
-import java.util.UUID;
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class BookServiceOld {
@@ -37,8 +33,7 @@ public class BookServiceOld {
     private ImagemLivroRepository imagemLivroRepository;
 
     public Livro buscarLivro(String id) {
-        Optional<Livro> livro = livroRepository.findById(id);
-        return livro.orElseThrow(() -> new ResourceNotFound(id));
+        return livroRepository.findById(id).orElseThrow(() -> new ResourceNotFound(id));
     }
 
     public List<Livro> listarLivros(Sort sort) {
@@ -65,7 +60,7 @@ public class BookServiceOld {
     }
 
     public List<Livro> listarRandomLivros(int totalItems, Principal principal, String idTroca) {
-        List<Livro> livros = this.listarLivros(Sort.by(Sort.Direction.ASC, "id"));
+        List<Livro> livros = livroRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
 
         if (principal != null) {
             String username = principal.getName();
@@ -97,26 +92,6 @@ public class BookServiceOld {
             }
         } catch (IOException e) {
             throw new CustomException("Could not initialize folder for upload!");
-        }
-    }
-
-    public String atualizarImagemLivro(MultipartFile image) {
-        try {
-            init();
-
-            UUID uuid = UUID.randomUUID();
-
-            String newFileName = uuid.toString();
-
-            String extension = FilenameUtils.getExtension(image.getOriginalFilename());
-
-            String fileName = newFileName + "." + extension;
-
-            Files.copy(image.getInputStream(), this.root.resolve(fileName));
-
-            return fileName;
-        } catch (Exception e) {
-            throw new CustomException("Could not store the file. Error: " + e.getMessage());
         }
     }
 }

@@ -2,18 +2,15 @@ package com.tcc.entrepaginas.controller;
 
 import com.tcc.entrepaginas.domain.dto.UpdateUserNameLoginAndEmailRequest;
 import com.tcc.entrepaginas.domain.entity.Usuario;
-import com.tcc.entrepaginas.modules.books.service.BookServiceOld;
 import com.tcc.entrepaginas.modules.users.service.UsuarioService;
-import com.tcc.entrepaginas.repository.CommentsService;
 import com.tcc.entrepaginas.repository.CommunityService;
-import com.tcc.entrepaginas.repository.PostService;
-import com.tcc.entrepaginas.repository.ReactionService;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
 import com.tcc.entrepaginas.service.IndexService;
+import com.tcc.entrepaginas.service.PostServiceNew;
+import com.tcc.entrepaginas.utils.UserUtils;
 import java.security.Principal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,27 +22,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class IndexController {
 
     private final IndexService indexService;
+    private final UserUtils userUtils; // Isso vai sair
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UsuarioRepository usuarioRepository; // Isso vai sair
 
     @Autowired
-    private UsuarioService usuarioService;
+    private UsuarioService usuarioService; // Isso vai sair
 
     @Autowired
-    private CommunityService communityService;
+    private CommunityService communityService; // também
 
     @Autowired
-    private PostService postService;
-
-    @Autowired
-    private BookServiceOld bookServiceOld;
-
-    @Autowired
-    private CommentsService commentsService;
-
-    @Autowired
-    private ReactionService reactionService;
+    private PostServiceNew postService; // também
 
     @GetMapping("/login")
     public String login(Authentication authentication) {
@@ -53,36 +42,13 @@ public class IndexController {
     }
 
     @GetMapping("/index")
-    public String index(Model model, Authentication authentication, Principal principal) {
-        if (authentication != null && authentication.isAuthenticated()) {
-            String username = principal.getName();
-            Usuario user = usuarioRepository.findByLogin(username);
-            model.addAttribute("user", user);
-        }
-        model.addAttribute("books", bookServiceOld.listarRandomLivros(10, principal, null));
-        model.addAttribute("listPost", postService.listarPost(Sort.by(Sort.Direction.DESC, "date")));
-        model.addAttribute("comunidades", communityService.listarRandomCommunities(4, principal));
-        model.addAttribute("comments", commentsService.listarComments(Sort.by(Sort.Direction.ASC, "id")));
-        model.addAttribute("qtdReaction", reactionService.countReaction());
-        model.addAttribute("book", bookServiceOld.getRandomLivro());
-
-        return "/Index";
+    public String index(Model model, Principal principal) {
+        return indexService.populateIndexModel(model, principal);
     }
 
     @GetMapping("/perfil")
     public String perfil(Model model, Authentication authentication, Principal principal) {
-        if (authentication != null && authentication.isAuthenticated()) {
-            String username = authentication.getName();
-
-            Usuario user = usuarioRepository.findByLogin(username);
-            model.addAttribute("user", user);
-            model.addAttribute("listPost", postService.listAllPostsInACommunity(username));
-            model.addAttribute("books", bookServiceOld.listarRandomLivros(10, principal, null));
-            model.addAttribute("comments", commentsService.listarComments(Sort.by(Sort.Direction.ASC, "id")));
-            model.addAttribute("qtdReaction", reactionService.countReaction());
-        }
-
-        return "/Perfil";
+        return indexService.populateModelForProfileView(model, authentication, principal);
     }
 
     @GetMapping("/infos/{id}")

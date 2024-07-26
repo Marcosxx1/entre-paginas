@@ -5,10 +5,8 @@ import com.tcc.entrepaginas.domain.entity.Post;
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.modules.users.service.UsuarioService;
-import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,10 +24,6 @@ public class CommentsService {
     public Comments buscarComments(String id) {
         Optional<Comments> comments = commentsRepository.findById(id);
         return comments.orElseThrow(() -> new ResourceNotFound(id));
-    }
-
-    public List<Comments> listarComments(Sort sort) {
-        return commentsRepository.findAll(sort);
     }
 
     public void apagarCommentsPorId(String id) {

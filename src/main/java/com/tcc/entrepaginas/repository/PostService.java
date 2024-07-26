@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -80,15 +79,6 @@ public class PostService {
 
             imagemPostRepository.save(imagePost);
         }
-    }
-
-    public List<Post> listAllPostsInACommunity(String username) {
-        List<Community> userCommunities = usuarioService.getUserCommunities(username);
-
-        return userCommunities.stream()
-                .flatMap(community -> postRepository.findByCommunity(community).stream())
-                .sorted(Comparator.comparing(Post::getDate).reversed())
-                .collect(Collectors.toList());
     }
 
     public List<Post> listPostsByCommunity(String communityId) {
