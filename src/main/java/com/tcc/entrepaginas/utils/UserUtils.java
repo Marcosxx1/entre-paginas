@@ -1,10 +1,10 @@
 package com.tcc.entrepaginas.utils;
 
+import com.tcc.entrepaginas.domain.entity.CustomUserDetails;
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
 import java.security.Principal;
-import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -24,18 +24,21 @@ public class UserUtils {
         return authentication.getName();
     }
 
-    public Model setModelIfAuthenticationExists(Principal principal, Model model) {
-        if (Objects.nonNull(principal.getName())) {
-            Usuario user = findAuthenticatedUser();
-            return model.addAttribute("user", user);
+    public Model setModelIfAuthenticationExists(Principal principal, Authentication authentication, Model model) {
+        if (authentication != null && authentication.getPrincipal() instanceof CustomUserDetails customUserDetails) {
+            String userId = customUserDetails.getUserId();
+            Usuario user = getUserById(userId);
+            model.addAttribute("user", user);
         }
-        return null;
+        return model;
     }
 
-    public Usuario findAuthenticatedUser() {
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-        var userId = authentication.getName();
-        return getUserById(userId);
+    public Model setUserInAttributesIfAuthenticated(Model model, Authentication authentication, String username) {
+        if (authentication != null && authentication.isAuthenticated()) {
+            Usuario user = getUserById(username);
+            model.addAttribute("user", user);
+        }
+        return model;
     }
 
     public Usuario getUserById(String userId) {
@@ -43,11 +46,10 @@ public class UserUtils {
         return userRepository.findById(userId).orElseThrow(() -> new ResourceNotFound(userId));
     }
 
-    public Model setUserInAttributesIfAuthenticated(Model model, Authentication authentication, String idUsuario) {
-        if (authentication != null && authentication.isAuthenticated()) {
-            Usuario user = getUserById(idUsuario);
-            model.addAttribute("user", user);
-        }
-        return model;
-    }
+    /*
+    public Usuario findAuthenticatedUser() {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        var userId = authentication.getName();
+        return getUserById(userId);
+    }*/
 }

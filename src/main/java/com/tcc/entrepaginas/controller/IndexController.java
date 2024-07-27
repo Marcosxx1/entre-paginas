@@ -3,7 +3,6 @@ package com.tcc.entrepaginas.controller;
 import com.tcc.entrepaginas.domain.dto.UpdateUserNameLoginAndEmailRequest;
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.modules.users.service.UsuarioService;
-import com.tcc.entrepaginas.repository.CommunityService;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
 import com.tcc.entrepaginas.service.IndexService;
 import com.tcc.entrepaginas.service.PostServiceNew;
@@ -31,9 +30,6 @@ public class IndexController {
     private UsuarioService usuarioService; // Isso vai sair
 
     @Autowired
-    private CommunityService communityService; // também
-
-    @Autowired
     private PostServiceNew postService; // também
 
     @GetMapping("/login")
@@ -42,8 +38,8 @@ public class IndexController {
     }
 
     @GetMapping("/index")
-    public String index(Model model, Principal principal) {
-        return indexService.populateIndexModel(model, principal);
+    public String index(Model model, Principal principal, Authentication authentication) {
+        return indexService.populateIndexModel(model, principal, authentication);
     }
 
     @GetMapping("/perfil")

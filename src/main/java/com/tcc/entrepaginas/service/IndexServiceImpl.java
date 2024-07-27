@@ -28,8 +28,8 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
-    public String populateIndexModel(Model model, Principal principal) {
-        model = userUtils.setModelIfAuthenticationExists(principal, model);
+    public String populateIndexModel(Model model, Principal principal, Authentication authentication) {
+        model = userUtils.setModelIfAuthenticationExists(principal, authentication, model);
 
         model.addAttribute("books", bookService.listarRandomLivros(10, principal, null));
         model.addAttribute("listPost", postServiceNew.listarPost(Sort.by(Sort.Direction.DESC, "date")));
@@ -43,10 +43,10 @@ public class IndexServiceImpl implements IndexService {
 
     @Override
     public String populateModelForProfileView(Model model, Authentication authentication, Principal principal) {
-        if (authentication != null && authentication.isAuthenticated()) {
+        if (authentication != null && authentication.isAuthenticated()) { // TODO - Usar do UserUtils
             String username = authentication.getName();
 
-            model = userUtils.setModelIfAuthenticationExists(principal, model);
+            model = userUtils.setModelIfAuthenticationExists(principal, authentication, model);
             model.addAttribute("listPost", postServiceNew.listAllPostsInACommunity(username));
             model.addAttribute("books", bookService.listarRandomLivros(10, principal, null));
             model.addAttribute("comments", commentsServiceNew.listarComments(Sort.by(Sort.Direction.ASC, "id")));

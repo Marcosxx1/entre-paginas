@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 public interface IndexService {
     String redirecctToIndexOrLoginBasedOnAuth(Authentication authentication);
 
-    String populateIndexModel(Model model, Principal principal);
+    String populateIndexModel(Model model, Principal principal, Authentication authentication);
 
     String populateModelForProfileView(Model model, Authentication authentication, Principal principal);
 }
