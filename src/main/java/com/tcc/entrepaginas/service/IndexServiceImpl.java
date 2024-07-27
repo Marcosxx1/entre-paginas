@@ -1,23 +1,28 @@
 package com.tcc.entrepaginas.service;
 
-import com.tcc.entrepaginas.utils.UserUtils;
 import java.security.Principal;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+
+import com.tcc.entrepaginas.mapper.user.UserMapper;
+import com.tcc.entrepaginas.utils.UserUtils;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class IndexServiceImpl implements IndexService {
 
     private final UserUtils userUtils;
+    private final UserMapper userMapper;
     private final BookService bookService;
     private final PostServiceNew postServiceNew;
-    private final CommunityServiceNew CommunityServiceNew;
     private final CommentsServiceNew commentsServiceNew;
     private final ReactionServiceNew reactionServiceNew;
+    private final CommunityServiceNew communityServiceNew;
 
     @Override
     public String redirecctToIndexOrLoginBasedOnAuth(Authentication authentication) {
@@ -29,11 +34,11 @@ public class IndexServiceImpl implements IndexService {
 
     @Override
     public String populateIndexModel(Model model, Principal principal, Authentication authentication) {
-        model = userUtils.setModelIfAuthenticationExists(principal, authentication, model);
+        model = userUtils.setModelIfAuthenticationExists(authentication, model);
 
         model.addAttribute("books", bookService.listarRandomLivros(10, principal, null));
         model.addAttribute("listPost", postServiceNew.listarPost(Sort.by(Sort.Direction.DESC, "date")));
-        model.addAttribute("comunidades", CommunityServiceNew.listarRandomCommunities(4, principal));
+        model.addAttribute("comunidades", communityServiceNew.listarRandomCommunities(4, principal));
         model.addAttribute("comments", commentsServiceNew.listarComments(Sort.by(Sort.Direction.ASC, "id")));
         model.addAttribute("qtdReaction", reactionServiceNew.countReaction());
         model.addAttribute("book", bookService.getRandomLivro());
@@ -43,10 +48,10 @@ public class IndexServiceImpl implements IndexService {
 
     @Override
     public String populateModelForProfileView(Model model, Authentication authentication, Principal principal) {
-        if (authentication != null && authentication.isAuthenticated()) { // TODO - Usar do UserUtils
+        if (authentication != null && authentication.isAuthenticated()) { // Usar do UserUtils
             String username = authentication.getName();
 
-            model = userUtils.setModelIfAuthenticationExists(principal, authentication, model);
+            model = userUtils.setModelIfAuthenticationExists(authentication, model);
             model.addAttribute("listPost", postServiceNew.listAllPostsInACommunity(username));
             model.addAttribute("books", bookService.listarRandomLivros(10, principal, null));
             model.addAttribute("comments", commentsServiceNew.listarComments(Sort.by(Sort.Direction.ASC, "id")));
@@ -54,5 +59,15 @@ public class IndexServiceImpl implements IndexService {
         }
 
         return "/Perfil";
+    }
+
+    @Override
+    public String prepareUser(Model model, Authentication authentication) {
+
+        var updateUserNameLoginAndEmailRequest = userMapper.toUpdateUserNameLoginAndEmailRequest(authentication);
+
+        model = userUtils.setModelIfAuthenticationExists(authentication, model);
+        model.addAttribute("updateUserNameLoginAndEmailRequest", updateUserNameLoginAndEmailRequest);
+        return "InformacoesUsuario";
     }
 }

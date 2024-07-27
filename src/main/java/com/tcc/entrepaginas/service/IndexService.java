@@ -10,4 +10,6 @@ public interface IndexService {
     String populateIndexModel(Model model, Principal principal, Authentication authentication);
 
     String populateModelForProfileView(Model model, Authentication authentication, Principal principal);
+
+    String prepareUser(Model model, Authentication authentication);
 }

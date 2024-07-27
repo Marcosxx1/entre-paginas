@@ -1,14 +1,7 @@
 package com.tcc.entrepaginas.controller;
 
-import com.tcc.entrepaginas.domain.dto.UpdateUserNameLoginAndEmailRequest;
-import com.tcc.entrepaginas.domain.entity.Usuario;
-import com.tcc.entrepaginas.modules.users.service.UsuarioService;
-import com.tcc.entrepaginas.repository.UsuarioRepository;
-import com.tcc.entrepaginas.service.IndexService;
-import com.tcc.entrepaginas.service.PostServiceNew;
-import com.tcc.entrepaginas.utils.UserUtils;
 import java.security.Principal;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -16,12 +9,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.tcc.entrepaginas.domain.entity.Usuario;
+import com.tcc.entrepaginas.modules.users.service.UsuarioService;
+import com.tcc.entrepaginas.repository.UsuarioRepository;
+import com.tcc.entrepaginas.service.IndexService;
+import com.tcc.entrepaginas.service.PostServiceNew;
+
+import lombok.RequiredArgsConstructor;
+
 @Controller
 @RequiredArgsConstructor
 public class IndexController {
 
     private final IndexService indexService;
-    private final UserUtils userUtils; // Isso vai sair
 
     @Autowired
     private UsuarioRepository usuarioRepository; // Isso vai sair
@@ -47,20 +47,9 @@ public class IndexController {
         return indexService.populateModelForProfileView(model, authentication, principal);
     }
 
-    @GetMapping("/infos/{id}")
-    public String infos(Model model, @PathVariable String id) {
-        Usuario user = usuarioService.pegarUsuario(id);
-
-        UpdateUserNameLoginAndEmailRequest updateUserNameLoginAndEmailRequest =
-                new UpdateUserNameLoginAndEmailRequest();
-        updateUserNameLoginAndEmailRequest.setId(id);
-        updateUserNameLoginAndEmailRequest.setNome(user.getNome());
-        updateUserNameLoginAndEmailRequest.setEmail(user.getEmail());
-        updateUserNameLoginAndEmailRequest.setLogin(user.getLogin());
-
-        model.addAttribute("user", user);
-        model.addAttribute("updateUserNameLoginAndEmailRequest", updateUserNameLoginAndEmailRequest);
-        return "InformacoesUsuario";
+    @GetMapping("/infos")
+    public String informacoesDoUsuario(Model model, Authentication authentication) {
+        return indexService.prepareUser(model, authentication);
     }
 
     // @GetMapping("/perfilVisitante/{idUsuario}")

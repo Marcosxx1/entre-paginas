@@ -4,7 +4,6 @@ import com.tcc.entrepaginas.domain.entity.CustomUserDetails;
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
-import java.security.Principal;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -24,13 +23,15 @@ public class UserUtils {
         return authentication.getName();
     }
 
-    public Model setModelIfAuthenticationExists(Principal principal, Authentication authentication, Model model) {
+    public String getIdUserFromUserDetail(Authentication authentication) {
         if (authentication != null && authentication.getPrincipal() instanceof CustomUserDetails customUserDetails) {
-            String userId = customUserDetails.getUserId();
-            Usuario user = getUserById(userId);
-            model.addAttribute("user", user);
+            return customUserDetails.getUserId();
         }
-        return model;
+        return "";
+    }
+
+    public Model setModelIfAuthenticationExists(Authentication authentication, Model model) {
+        return model.addAttribute("user", getUserById(getIdUserFromUserDetail(authentication)));
     }
 
     public Model setUserInAttributesIfAuthenticated(Model model, Authentication authentication, String username) {
@@ -46,10 +47,4 @@ public class UserUtils {
         return userRepository.findById(userId).orElseThrow(() -> new ResourceNotFound(userId));
     }
 
-    /*
-    public Usuario findAuthenticatedUser() {
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-        var userId = authentication.getName();
-        return getUserById(userId);
-    }*/
 }
