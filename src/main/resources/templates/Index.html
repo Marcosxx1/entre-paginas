@@ -46,7 +46,7 @@
                     <div th:if="${books.size() > 0}" th:each="book : ${books}">
                         <div class="book">
                             <a class="usuarioTroca"
-                                th:href="@{/perfilVisitante/{idUsuario}(idUsuario=${book.usuario.id})}">
+                                th:href="@{/perfilVisitante/{nomeUsuario}(nomeUsuario=${book.usuario.nome})}">
                                 <img th:src="${book.usuario.imagem}" alt="icone do usuario">
                             </a>
                             <img th:src="${book.imagens[0].nome}" alt="icone da livro" class="bookImage">

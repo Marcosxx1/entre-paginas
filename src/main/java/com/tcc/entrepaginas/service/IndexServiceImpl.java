@@ -1,16 +1,14 @@
 package com.tcc.entrepaginas.service;
 
+import com.tcc.entrepaginas.domain.entity.Usuario;
+import com.tcc.entrepaginas.mapper.user.UserMapper;
+import com.tcc.entrepaginas.utils.UserUtils;
 import java.security.Principal;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-
-import com.tcc.entrepaginas.mapper.user.UserMapper;
-import com.tcc.entrepaginas.utils.UserUtils;
-
-import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -69,5 +67,20 @@ public class IndexServiceImpl implements IndexService {
         model = userUtils.setModelIfAuthenticationExists(authentication, model);
         model.addAttribute("updateUserNameLoginAndEmailRequest", updateUserNameLoginAndEmailRequest);
         return "InformacoesUsuario";
+    }
+
+    @Override
+    public String visitOtherUsersFromIndex(Model model, String userName) {
+        Usuario user = userUtils.getUserByLogin(userName);
+
+        if (user == null) {
+            return "redirect:/error/404";
+        }
+
+        model.addAttribute("user", user);
+        model.addAttribute("books", bookService.listAllBooksForUser(user));
+        model.addAttribute("communities", communityServiceNew.listCommunitiesForUser(user));
+
+        return "/Perfil";
     }
 }

@@ -2,6 +2,7 @@ package com.tcc.entrepaginas.service;
 
 import com.tcc.entrepaginas.domain.dto.NovoLivroRequest;
 import com.tcc.entrepaginas.domain.entity.Livro;
+import com.tcc.entrepaginas.domain.entity.Usuario;
 import jakarta.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.List;
@@ -31,4 +32,6 @@ public interface BookService {
     void apagarLivroPorId(String id);
 
     Livro getRandomLivro();
+
+    List<Livro> listAllBooksForUser(Usuario user);
 }

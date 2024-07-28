@@ -27,6 +27,18 @@
 <body>
     <div th:replace="~{fragments/header/header :: header}"></div>
 
+    <p th:text="${user.nome}"></p>
+    <p th:text="${user.id}"></p>
+    <p th:text="${user.email}"></p>
+
+    <div th:each="livro : ${books}">
+        <p th:text="${livro.nome}"></p>
+    </div>
+
+    <div th:each="comunidade : ${communities}">
+        <p th:text="${comunidade.title}"></p>
+    </div>
+    <!-- 
     <span sec:authentication="name" style="display: none;" id="userLogin"></span>
 
     <div class="perfil">
@@ -53,7 +65,7 @@
             </div>
             <div th:replace="~{fragments/posts/posts :: post}"></div>
         </div>
-    </div>
+    </div> -->
 
     <div th:replace="~{fragments/posts/posts :: modalPost}"></div>
 

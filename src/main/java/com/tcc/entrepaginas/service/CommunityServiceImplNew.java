@@ -1,17 +1,21 @@
 package com.tcc.entrepaginas.service;
 
 import com.tcc.entrepaginas.domain.entity.Community;
+import com.tcc.entrepaginas.domain.entity.Usuario;
+import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.modules.users.service.UsuarioService;
 import com.tcc.entrepaginas.repository.CommunityRepository;
 import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class CommunityServiceImplNew implements CommunityServiceNew {
 
     private final CommunityRepository communityRepository;
@@ -36,5 +40,13 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
     public List<Community> getRandomCommunities(List<Community> comunidades, int totalItems) {
         Collections.shuffle(comunidades);
         return comunidades.subList(0, totalItems);
+    }
+
+    @Override
+    public List<Community> listCommunitiesForUser(Usuario user) {
+        log.error("listCommunitiesForUser [{}]", user.getId());
+        return communityRepository
+                .findCommunitiesByUserId(user.getId())
+                .orElseThrow(() -> new ResourceNotFound(user.getId()));
     }
 }

@@ -6,9 +6,7 @@ import com.tcc.entrepaginas.domain.entity.Papel;
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
 import com.tcc.entrepaginas.utils.UserUtils;
-
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -42,10 +40,15 @@ public class UserMapper {
     public UpdateUserNameLoginAndEmailRequest toUpdateUserNameLoginAndEmailRequest(Authentication authentication) {
         return UpdateUserNameLoginAndEmailRequest.builder()
                 .id(userUtils.getIdUserFromUserDetail(authentication))
-                .nome(userUtils.getUserById(userUtils.getIdUserFromUserDetail(authentication)).getNome())
-                .email(userUtils.getUserById(userUtils.getIdUserFromUserDetail(authentication)).getEmail())
-                .login(userUtils.getUserById(userUtils.getIdUserFromUserDetail(authentication)).getLogin())
+                .nome(userUtils
+                        .getUserById(userUtils.getIdUserFromUserDetail(authentication))
+                        .getNome())
+                .email(userUtils
+                        .getUserById(userUtils.getIdUserFromUserDetail(authentication))
+                        .getEmail())
+                .login(userUtils
+                        .getUserById(userUtils.getIdUserFromUserDetail(authentication))
+                        .getLogin())
                 .build();
     }
-
 }

@@ -12,4 +12,6 @@ public interface IndexService {
     String populateModelForProfileView(Model model, Authentication authentication, Principal principal);
 
     String prepareUser(Model model, Authentication authentication);
+
+    String visitOtherUsersFromIndex(Model model, String userName);
 }

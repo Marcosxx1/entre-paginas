@@ -2,7 +2,9 @@ package com.tcc.entrepaginas.service;
 
 import com.tcc.entrepaginas.domain.dto.NovoUsuarioRequest;
 import com.tcc.entrepaginas.domain.dto.UpdateUserNameLoginAndEmailRequest;
+import com.tcc.entrepaginas.domain.entity.Community;
 import com.tcc.entrepaginas.domain.entity.Usuario;
+import java.util.List;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,4 +26,6 @@ public interface UserService {
             Model model);
 
     String deleteUser(String id);
+
+    List<Community> getUserCommunities(String username);
 }

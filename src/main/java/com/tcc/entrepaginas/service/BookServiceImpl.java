@@ -94,7 +94,7 @@ public class BookServiceImpl implements BookService {
 
     public List<Livro> listarTrocasPorPessoas(String idUsuario) {
         Usuario usuario = userUtils.getUserById(idUsuario);
-        return livroRepository.findByUsuario(usuario);
+        return livroRepository.findByUsuario(usuario).orElseThrow(() -> new ResourceNotFound(idUsuario));
     }
 
     @Override
@@ -146,5 +146,10 @@ public class BookServiceImpl implements BookService {
     private List<Livro> getRandomLivros(List<Livro> livros, int totalItems) {
         Collections.shuffle(livros);
         return livros.subList(0, totalItems);
+    }
+
+    public List<Livro> listAllBooksForUser(Usuario user) {
+        log.error("listAllBooksForUser [{}]", user.getId());
+        return livroRepository.findByUsuario(user).orElseThrow(() -> new ResourceNotFound(user.getId()));
     }
 }
