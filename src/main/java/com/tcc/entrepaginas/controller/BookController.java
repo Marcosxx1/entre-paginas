@@ -39,4 +39,6 @@ public class BookController {
 
         return bookService.bookExchange(model, idUsuario, authentication);
     }
+
+    //TODO - implementar alterar informações dos livros.
 }
