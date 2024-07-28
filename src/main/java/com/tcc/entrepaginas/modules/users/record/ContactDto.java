@@ -1,20 +1,16 @@
 package com.tcc.entrepaginas.modules.users.record;
 
+import com.tcc.entrepaginas.domain.entity.Contato;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.tcc.entrepaginas.modules.users.entities.Contato;
-
 
 public record ContactDto(String id, String telefone) {
 
     public static ContactDto fromContato(Contato contato) {
-        return new ContactDto(contato.getId(),
-                contato.getTelefone());
-
+        return new ContactDto(contato.getId(), contato.getTelefone());
     }
 
-    public static List<ContactDto>  transformeContatoEmDto(List<Contato> contatos) {
+    public static List<ContactDto> transformeContatoEmDto(List<Contato> contatos) {
         List<ContactDto> contactDtos = new ArrayList<>();
 
         for (Contato contato : contatos) {
@@ -24,5 +20,4 @@ public record ContactDto(String id, String telefone) {
 
         return contactDtos;
     }
-
 }

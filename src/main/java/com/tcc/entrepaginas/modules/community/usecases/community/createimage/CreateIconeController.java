@@ -1,5 +1,8 @@
 package com.tcc.entrepaginas.modules.community.usecases.community.createimage;
 
+import com.tcc.entrepaginas.domain.entity.Community;
+import com.tcc.entrepaginas.repository.CommunityService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -12,11 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.tcc.entrepaginas.modules.community.entities.Community;
-import com.tcc.entrepaginas.modules.community.service.CommunityService;
-
-import jakarta.servlet.http.HttpServletRequest;
-
 @RestController
 @RequestMapping("/community")
 public class CreateIconeController {
@@ -25,14 +23,20 @@ public class CreateIconeController {
     private CommunityService communityService;
 
     @PostMapping("/icone/{id}")
-    public ResponseEntity<String> createIcone(@PathVariable("id") String idComunidade,
-            @RequestParam MultipartFile icone, HttpServletRequest request,
-            Model model, RedirectAttributes attributes) {
+    public ResponseEntity<String> createIcone(
+            @PathVariable("id") String idComunidade,
+            @RequestParam MultipartFile icone,
+            HttpServletRequest request,
+            Model model,
+            RedirectAttributes attributes) {
 
         Community community = communityService.pegarCommunity(idComunidade);
 
         String fileName = communityService.atualizarIconeComunidade(icone);
-        String baseUrl = ServletUriComponentsBuilder.fromRequestUri(request).replacePath(null).build().toUriString();
+        String baseUrl = ServletUriComponentsBuilder.fromRequestUri(request)
+                .replacePath(null)
+                .build()
+                .toUriString();
         String url = baseUrl + "/icone/" + fileName;
 
         community.setIcone(url);

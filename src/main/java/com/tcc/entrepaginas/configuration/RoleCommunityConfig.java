@@ -1,11 +1,10 @@
 package com.tcc.entrepaginas.configuration;
 
+import com.tcc.entrepaginas.domain.entity.RoleCommunity;
+import com.tcc.entrepaginas.repository.RoleCommunityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import com.tcc.entrepaginas.modules.community.entities.RoleCommunity;
-import com.tcc.entrepaginas.modules.community.repositories.RoleCommunityRepository;
 
 @Component
 public class RoleCommunityConfig implements CommandLineRunner {
@@ -16,7 +15,7 @@ public class RoleCommunityConfig implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        String[] papeis = { "ADMIN", "MODERATOR", "USER" };
+        String[] papeis = {"ADMIN", "MODERATOR", "USER"};
 
         for (String papelString : papeis) {
             RoleCommunity papel = roleCommunityRepository.findByPapel(papelString);

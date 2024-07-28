@@ -1,11 +1,9 @@
 package com.tcc.entrepaginas.modules.community.record;
 
+import com.tcc.entrepaginas.domain.entity.Community;
 import java.time.Instant;
 
-import com.tcc.entrepaginas.modules.community.entities.Community;
-
-public record CommunityDto(String id, String title, String content, String icone, Boolean privado,
-        Instant date) {
+public record CommunityDto(String id, String title, String content, String icone, Boolean privado, Instant date) {
 
     public static CommunityDto fromCommunity(Community community) {
         return new CommunityDto(
@@ -16,5 +14,4 @@ public record CommunityDto(String id, String title, String content, String icone
                 community.getPrivado(),
                 community.getDate());
     }
-
 }

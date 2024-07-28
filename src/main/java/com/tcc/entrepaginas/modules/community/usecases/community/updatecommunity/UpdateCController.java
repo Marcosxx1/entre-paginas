@@ -1,5 +1,6 @@
 package com.tcc.entrepaginas.modules.community.usecases.community.updatecommunity;
 
+import com.tcc.entrepaginas.modules.community.record.CommunityDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -7,8 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.tcc.entrepaginas.modules.community.record.CommunityDto;
 
 @RestController
 @RequestMapping("/api/comunidades")
@@ -22,8 +21,8 @@ public class UpdateCController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<CommunityDto> updateCommunity(@PathVariable String id,
-            @RequestBody CommunityDto communityDto) {
+    public ResponseEntity<CommunityDto> updateCommunity(
+            @PathVariable String id, @RequestBody CommunityDto communityDto) {
         CommunityDto updateCommunity = updateCommUseCase.updateCommunity(id, communityDto);
         if (updateCommunity != null) {
             return ResponseEntity.ok(updateCommunity);
@@ -32,4 +31,3 @@ public class UpdateCController {
         }
     }
 }
-

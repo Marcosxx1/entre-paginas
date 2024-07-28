@@ -29,6 +29,7 @@
     <link rel="stylesheet" th:href="@{/static/css/style.css}" />
     <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
     <link rel="stylesheet" th:href="@{/static/css/ExchangeStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/PerfilStyle.css}" />
 
     <script th:src="@{/static/js/HeaderScript.js}"></script>
     <script th:src="@{/static/js/SearchScript.js}"></script>
@@ -36,95 +37,125 @@
 
 <body>
     <div th:replace="~{fragments/header/header :: header}"></div>
-    <div
-        th:replace="~{${#authorization.expression('isAuthenticated()') ? 'fragments/sidebar/sidebar-loggedin' : 'fragments/sidebar/sidebar-loggedout'}}">
-    </div>
 
-
-
-    <div class="troca-details">
-        <div class="troca-images">
-            <div class="image-container">
-                <img id="mainImage" th:src="${troca.imagens[0].nome}" alt="" class="troca-image">
-
-                <div class="imagens-troca">
-                    <img onclick="changeMainImage(this.src)" th:each="imagem : ${troca.imagens}" class="imagens"
-                        th:src="${imagem.nome}" alt="">
-                </div>
-            </div>
-            <div class="troca-info">
-                <div class="troca-title-div">
-                    <p th:text="${troca.nome}" class="troca-title"></p>
-                    <p th:text="'Descrição do livro: ' + ${troca.descricao}" class="troca-description"></p>
-                </div>
-
-                <div>
-                    <p th:text="'Estado: ' + ${#strings.replace(troca.estado, '_', ' ')}" class="troca-location"></p>
-                    <p th:text="'Tipo: ' + ${#strings.replace(troca.tipo, '_', ' ')}" class="troca-info-item"></p>
-                </div>
-
-                <div>
-                    <p th:text="'Categoria: ' + ${#strings.replace(troca.categoria, '_', ' ')}" class="troca-info-item">
-                    </p>
-                </div>
+    <div class="perfil">
+        <div class="perfil-principal">
+            <div
+                th:replace="~{${#authorization.expression('isAuthenticated()') ? 'fragments/sidebar/sidebar-loggedin' : 'fragments/sidebar/sidebar-loggedout'}}">
             </div>
         </div>
-        <div class="troca-user">
-            <div class="user-info">
-                <img th:src="${troca.usuario.imagem == null ? '/static/image/semImagem.png' : troca.usuario.imagem}"
-                    alt="" class="user-image">
+        <div class="perfil-right">
+            <div class="container">
+                <div class="troca-details">
+                    <div class="troca-images">
+                        <div class="image-container">
+                            <img id="mainImage" th:src="${troca.imagens[0].nome}" alt="" class="troca-image">
 
-                <div>
-                    <a href="">
-                        <h4 th:text="${troca.usuario.login}" class="user-login"></h4>
-                        <p th:text="${troca.usuario.email}" class="user-email"></p>
-                    </a>
-                </div>
+                            <div class="imagens-troca">
+                                <img onclick="changeMainImage(this.src, this)"
+                                    th:each="imagem, status : ${troca.imagens}" class="imagens" th:src="${imagem.nome}"
+                                    alt="" th:class="${status.index == 0} ? 'imagens selected-image' : 'imagens'">
+                            </div>
+                        </div>
+                        <div class="troca-info">
+                            <div class="troca-title-div">
+                                <p th:text="${troca.nome}" class="troca-title"></p>
+                                <div class="rest-info">
+                                    <span style="width: 141,4px; margin-right: 4px;">Descrição do livro:</span>
+                                    <p th:text="${troca.descricao}" class="troca-description"></p>
+                                </div>
+                            </div>
 
-                <div>
-                    <p th:text="${troca.cidade} + ' - ' +  ${troca.estadoBrasil}" class="troca-location">
-                    </p>
-                </div>
-            </div>
-
-
-            <div class="troca-carousel">
-                <div th:if="${books.size() > 0}" th:each="book : ${books}">
-                    <a th:href="@{/book/trade/{id}(id=${book.id})}">
-                        <div class="book">
-                            <img th:src="${book.imagens[0].nome}" alt="icone da livro">
                             <div>
-                                <h5 th:text="${book.nome}"></h5>
-                                <div>
-                                    <p th:text="${book.cidade}"></p>
-                                    <p th:text="${book.estadoBrasil}"></p>
+                                <div class="rest-info">
+                                    <span>Categoria:</span>
+                                    <p th:text="${#strings.replace(troca.categoria, '_', ' ')}" class="troca-info-item">
+                                    </p>
+                                </div>
+                                <div class="rest-info">
+                                    <span>Região:</span>
+                                    <p th:text="${troca.cidade} + ' - ' +  ${troca.estadoBrasil}"
+                                        class="troca-info-item">
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="rest-info">
+                                    <span>Estado:</span>
+                                    <p th:text="${#strings.replace(troca.estado, '_', ' ')}" class="troca-info-item">
+                                    </p>
+                                </div>
+                                <div class="rest-info">
+                                    <span>Tipo:</span>
+                                    <p th:text="${#strings.replace(troca.tipo, '_', ' ')}" class="troca-info-item"></p>
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </div>
+                    <div class="troca-user">
+                        <a href="#">
+                            <div class="user-info">
+                                <img th:src="${troca.usuario.imagem == null ? '/static/image/semImagem.png' : troca.usuario.imagem}"
+                                    alt="" class="user-image">
+                                <div>
+                                    <h4 th:text="${troca.usuario.login}" class="user-login"></h4>
+                                    <p th:text="${troca.usuario.email}" class="user-email"></p>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="troca-carousel">
+                            <div th:if="${books.size() > 0}" th:each="book : ${books}">
+                                <a th:href="@{/book/trade/{id}(id=${book.id})}">
+                                    <div class="book">
+                                        <img th:src="${book.imagens[0].nome}" alt="icone da livro">
+                                        <div>
+                                            <h5 th:text="${book.nome}"></h5>
+                                            <div>
+                                                <p th:text="${book.cidade}"></p>
+                                                <p>-</p>
+                                                <p th:text="${book.estadoBrasil}"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: none;" th:if="${#authorization.expression('isAuthenticated()')}">
+                    <input type="hidden" id="userDonoId" th:value="${troca.usuario.id}" />
+                    <input type="hidden" id="userDonoNome" th:value="${troca.usuario.login}" />
+                    <input type="hidden" id="userDonoImage"
+                        th:value="${troca.usuario.imagem == null ? '/static/image/semImagem.png' : troca.usuario.imagem}" />
+
+                    <input type="hidden" id="userId" th:value="${user.id}" />
+                    <input type="hidden" id="userName" th:value="${user.nome}" />
+                    <input type="hidden" id="userImage"
+                        th:value="${user.imagem == null ? '/static/image/semImagem.png' : user.imagem}" />
                 </div>
             </div>
         </div>
-    </div>
-
-    <div style="display: none;" th:if="${#authorization.expression('isAuthenticated()')}">
-        <input type="hidden" id="userDonoId" th:value="${troca.usuario.id}" />
-        <input type="hidden" id="userDonoNome" th:value="${troca.usuario.login}" />
-        <input type="hidden" id="userDonoImage"
-            th:value="${troca.usuario.imagem == null ? '/static/image/semImagem.png' : troca.usuario.imagem}" />
-
-        <input type="hidden" id="userId" th:value="${user.id}" />
-        <input type="hidden" id="userName" th:value="${user.nome}" />
-        <input type="hidden" id="userImage"
-            th:value="${user.imagem == null ? '/static/image/semImagem.png' : user.imagem}" />
     </div>
 
     <div id="talkjs-container"></div>
 
-    <script th:if="${#authorization.expression('isAuthenticated()')}">
-        function changeMainImage(newSrc) {
+    <script>
+        function changeMainImage(newSrc, clickedImage) {
             document.getElementById('mainImage').src = newSrc;
+
+            // Remove a classe 'selected-image' de todas as imagens
+            let images = document.querySelectorAll('.imagens');
+            images.forEach(img => {
+                img.classList.remove('selected-image');
+            });
+
+            // Adiciona a classe 'selected-image' à imagem clicada
+            clickedImage.classList.add('selected-image');
         }
+    </script>
+
+    <script th:if="${#authorization.expression('isAuthenticated()')}">
         function startChat(user1Id, user1Name, user1image, user2Id, user2Name, user2Image) {
             Talk.ready.then(function () {
                 var me = new Talk.User({
@@ -178,7 +209,6 @@
 
             startChat(userDonoId, userDonoNome, userDonoImage, userId, userName, userImage);
         });
-
     </script>
 
 </body>

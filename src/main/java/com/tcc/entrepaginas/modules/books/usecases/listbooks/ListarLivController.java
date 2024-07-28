@@ -1,7 +1,8 @@
 package com.tcc.entrepaginas.modules.books.usecases.listbooks;
 
+import com.tcc.entrepaginas.domain.entity.Livro;
+import com.tcc.entrepaginas.modules.books.service.BookServiceOld;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.ui.Model;
@@ -9,19 +10,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tcc.entrepaginas.modules.books.entities.Livro;
-import com.tcc.entrepaginas.modules.books.service.BookService;
-
 @RestController
 @RequestMapping("/api/livros")
 public class ListarLivController {
 
     @Autowired
-    private BookService bookService;
+    private BookServiceOld bookServiceOld;
 
     @GetMapping
     public String listarLivros(Model model) {
-        List<Livro> livros = bookService.listarLivros(Sort.by(Sort.Direction.ASC, "id"));
+        List<Livro> livros = bookServiceOld.listarLivros(Sort.by(Sort.Direction.ASC, "id"));
 
         model.addAttribute("livros", livros);
         return "/Alguma Coisa";

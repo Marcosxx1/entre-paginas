@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -8,25 +8,29 @@
 </head>
 
 <body>
-    <div th:fragment="sideBar" class='sideBar'>
-        <ul>
-            <li>
+    <div th:fragment="sideBar">
+        <div class="perfil-principal__left">
+            <ul class="perfil-principal__left-menu">
                 <a th:href="@{/login}">
-                    <button class="button">
+                    <li>
                         <i class="fa-solid fa-user-pen"></i>
-                    </button>
-                    <span class="hover-text">Login</span>
+                        Login
+                    </li>
                 </a>
-            </li>
-            <li>
                 <a th:href="@{/user/register}">
-                    <button class='button'>
+                    <li>
                         <i class="fa-solid fa-heart"></i>
-                    </button>
-                    <span class="hover-text" style="margin-left: 32px;">Cadastrar</span>
+                        Cadastrar
+                    </li>
                 </a>
-            </li>
-        </ul>
+                <a href="#">
+                    <li>
+                        <i class="fa-regular fa-circle-question"></i>
+                        Suporte
+                    </li>
+                </a>
+            </ul>
+        </div>
     </div>
 </body>
 

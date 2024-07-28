@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.thymeleaf.org" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -8,80 +8,105 @@
 
     <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" type="text/css"
-        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+          href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
 
-    <link rel="stylesheet" th:href="@{/static/css/style.css}" />
-    <link rel="stylesheet" th:href="@{/static/css/IndexStyle.css}" />
-    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
-    <link rel="stylesheet" th:href="@{/static/css/PerfilStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/IndexStyle.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/PerfilStyle.css}"/>
     <script th:src="@{/static/js/HeaderScript.js}"></script>
     <script th:src="@{/static/js/SearchScript.js}"></script>
 </head>
 
 <body>
-    <div th:replace="~{fragments/header/header :: header}"></div>
+<div th:replace="~{fragments/header/header :: header}"></div>
 
-    <div class="perfil">
-        <div class="perfil-principal">
-            <div th:replace="~{fragments/menu/menu :: menu}"></div>
-        </div>
-
-        <div class="perfil-right">
-
-            <h3 class="dados-perfil">Dados do Perfil</h3>
-
-            <form th:action="@{/user/image/{id}(id=${user.id})}" method="post" enctype="multipart/form-data"
-                class="form-imagem-container">
-                <div class="form-imagem-group">
-                    <label for="imagem" class="form-imagem-label">Foto de Perfil</label>
-                    <input type="file" id="imagem" name="imagem" accept="image/*,.gif" class="form-imagem-input" />
-                    <button type="submit" class="form-imagem-button">Salvar</button>
-                </div>
-            </form>
-
-            <br />
-
-            <form th:action="@{/user/edit/{id}(id=${user.id})}" th:object="${user}" method="post"
-                class="form-informacoes">
-                <div class="form-group">
-                    <label for="nome" class="form-label-infos">Nome</label>
-                    <input type="text" id="nome" name="nome" th:field="${user.nome}" class="form-input-infos" />
-                </div>
-
-                <div class="form-group">
-                    <label for="email" class="form-label-infos">Email</label>
-                    <input type="email" id="email" name="email" th:field="${user.email}" class="form-input-infos" />
-                </div>
-
-                <div class="form-group">
-                    <label for="login" class="form-label-infos">Login</label>
-                    <input type="text" id="login" name="login" th:field="${user.login}" class="form-input-infos" />
-                </div>
-
-                <div class="form-novaSenha">
-                    <div class="form-novaSenha-group">
-                        <label for="senha" class="form-novaSenha-group-label">Senha</label>
-                        <input type="password" id="senha" name="senha" th:field="${user.senha}"
-                            class="form-input-infos" />
-                    </div>
-                    <div class="form-novaSenha-group">
-                        <label for="confirmarSenha" class="form-novaSenha-group-label">Confirmar Senha</label>
-                        <input type="password" id="confirmarSenha" name="confirmarSenha" class="form-input-infos" />
-                    </div>
-                </div>
-
-                <button type="submit" class="form-novaSenha-button">Salvar</button>
-            </form>
-        </div>
-
+<div class="perfil">
+    <div class="perfil-principal">
+        <div th:replace="~{fragments/sidebar/sidebar-loggedin}"></div>
     </div>
 
-    <a th:href="@{/user/delete/{id}(id=${user.id})}">Delete user</a>
+    <div class="perfil-right">
+        <form class="form-container" th:action="@{/user/image/{id}(id=${user.id})}" method="post"
+              enctype="multipart/form-data">
 
+            <h3>Imagem</h3>
+
+            <div class="form-imagem-group">
+                <label for="imagem" class="form-label">Foto de Perfil</label>
+                <input type="file" id="imagem" name="imagem" accept="image/*,.gif" class="form-imagem-input"/>
+            </div>
+
+            <button class="form-button" type="submit">Salvar</button>
+        </form>
+
+        <form th:action="@{/user/edit/{id}(id=${user.id})}" th:object="${updateUserNameLoginAndEmailRequest}"
+              method="post"
+              class="form-container">
+
+            <h3>Informações</h3>
+
+            <div class="form-content">
+                <div class="form-left">
+                    <div class="form-group">
+                        <label for="nome" class="form-label">Nome</label>
+                        <input type="text" id="nome" name="nome" th:field="*{nome}" class="form-input"/>
+                        <span class="form-error" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" name="email" th:field="*{email}" class="form-input"/>
+                        <span class="form-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                    </div>
+                </div>
+
+                <div class="form-right">
+                    <div class="form-group">
+                        <label for="login" class="form-label">Login</label>
+                        <input type="text" id="login" name="login" th:field="*{login}" class="form-input"/>
+                        <span class="form-error" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="form-button">Salvar</button>
+        </form>
+
+        <!--
+                Aqui vamos fazer uma rota para cada:
+        -->
+        <form th:action="@{/user/edit/{id}(id=${user.id})}" th:object="${user}" method="post"
+              class="form-container">
+
+            <h3>Trocar senha</h3>
+
+            <div class="form-content">
+                <div class="form-left">
+                    <div class="form-novaSenha-group">
+                        <label for="senha" class="form-label">Senha</label>
+                        <input type="password" id="senha" name="senha" th:field="${user.senha}"
+                               class="form-input"/>
+                    </div>
+                </div>
+
+                <div class="form-right">
+                    <div class="form-novaSenha-group">
+                        <label for="confirmarSenha" class="form-label">Confirmar Senha</label>
+                        <input type="password" id="confirmarSenha" name="confirmarSenha" class="form-input"/>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="form-button">Salvar</button>
+        </form>
+
+
+        <a th:href="@{/user/delete/{id}(id=${user.id})}" class="delete">Delete user</a>
+    </div>
+</div>
 </body>
 
 </html>

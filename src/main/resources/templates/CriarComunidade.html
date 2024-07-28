@@ -21,22 +21,26 @@
     <div th:replace="~{fragments/header/header :: header}"></div>
     <div class="perfil">
         <div class="perfil-principal">
-            <div th:replace="~{fragments/menu/menu :: menu}"></div>
+            <div th:replace="~{fragments/sidebar/sidebar-loggedin}"></div>
         </div>
         <div class="perfil-right">
             <div>
-                <h2>Formulário da Comunidade</h2>
-
                 <form th:action="@{/community/create/save/{id}(id=${idUsuario})}" th:object="${community}" method='post'
                     id="community-form" class="form-container">
-                    <div>
-                        <label class="form-label" for="title">Título:</label>
-                        <input class="form-input" type="text" id="title" name="title" required th:field="*{title}" />
-                    </div>
-                    <div>
-                        <label class="form-label" for="content">Conteúdo:</label>
-                        <textarea class="form-input" id="content" name="content" required
-                            th:field="*{content}"></textarea>
+                    <h3>Formulário da Comunidade</h3>
+
+                    <div class="form-content">
+                        <div class="form-left">
+                            <label class="form-label" for="title">Título:</label>
+                            <input class="form-input" type="text" id="title" name="title" required
+                                th:field="*{title}" />
+                        </div>
+
+                        <div class="form-right">
+                            <label class="form-label" for="content">Conteúdo:</label>
+                            <textarea class="form-input" id="content" name="content" required
+                                th:field="*{content}"></textarea>
+                        </div>
                     </div>
                     <div class="form-checkbox">
                         <input class="checkbox" type="checkbox" id="privado" name="privado" th:value="${privado}" />

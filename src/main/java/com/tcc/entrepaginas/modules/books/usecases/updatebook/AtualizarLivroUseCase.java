@@ -9,8 +9,8 @@
 // import com.tcc.entrepaginas.modules.books.entities.Livro;
 // import com.tcc.entrepaginas.modules.books.record.BookDto;
 // import com.tcc.entrepaginas.modules.books.repositories.LivroRepository;
-// import com.tcc.entrepaginas.modules.users.entities.Usuario;
-// import com.tcc.entrepaginas.modules.users.repositories.UsuarioRepository;
+// import com.tcc.entrepaginas.domain.Usuario;
+// import com.tcc.entrepaginas.repository.UsuarioRepository;
 
 // import jakarta.persistence.EntityNotFoundException;
 
@@ -44,7 +44,7 @@
 //             livro.setTipo(livroDTO.tipo());
 //             livro.setCategoria(livroDTO.categoria());
 //             livro.setPreco(livroDTO.preco());
-//             livro.setUsuario(pegarUsuario(livroDTO.userDto().id())); 
+//             livro.setUsuario(pegarUsuario(livroDTO.userDto().id()));
 
 //             livroRepository.save(livro);
 

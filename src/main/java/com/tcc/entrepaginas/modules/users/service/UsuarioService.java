@@ -1,5 +1,12 @@
 package com.tcc.entrepaginas.modules.users.service;
 
+import com.tcc.entrepaginas.domain.entity.Community;
+import com.tcc.entrepaginas.domain.entity.Livro;
+import com.tcc.entrepaginas.domain.entity.Membros;
+import com.tcc.entrepaginas.domain.entity.Usuario;
+import com.tcc.entrepaginas.exceptions.CustomException;
+import com.tcc.entrepaginas.exceptions.ResourceNotFound;
+import com.tcc.entrepaginas.repository.UsuarioRepository;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,21 +17,12 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.tcc.entrepaginas.exceptions.CustomException;
-import com.tcc.entrepaginas.exceptions.ResourceNotFound;
-import com.tcc.entrepaginas.modules.books.entities.Livro;
-import com.tcc.entrepaginas.modules.community.entities.Community;
-import com.tcc.entrepaginas.modules.community.entities.Membros;
-import com.tcc.entrepaginas.modules.users.entities.Usuario;
-import com.tcc.entrepaginas.modules.users.repositories.UsuarioRepository;
 
 @Service
 public class UsuarioService {
@@ -84,10 +82,10 @@ public class UsuarioService {
         }
     }
 
-    public void apagarUsuarioPorId(String id) {
+    /*    public void apagarUsuarioPorId(String id) {
         Usuario usuario = Objects.requireNonNull(this.pegarUsuario(id), "Usuario not found");
         usuarioRepository.delete(usuario);
-    }
+    }*/
 
     public List<Usuario> buscarUsuarios(String query) {
         return usuarioRepository.findByNomeContainingIgnoreCase(query);
@@ -98,9 +96,7 @@ public class UsuarioService {
         if (user == null) {
             throw new UsernameNotFoundException("Usuário não encontrado: " + username);
         }
-        return user.getMembros().stream()
-                .map(Membros::getCommunity)
-                .collect(Collectors.toList());
+        return user.getMembros().stream().map(Membros::getCommunity).collect(Collectors.toList());
     }
 
     public List<Livro> getUserLivros(String username) {
@@ -108,8 +104,7 @@ public class UsuarioService {
         if (user == null) {
             throw new UsernameNotFoundException("Usuário não encontrado: " + username);
         }
-        return user.getLivros().stream()
-                .collect(Collectors.toList());
+        return user.getLivros().stream().collect(Collectors.toList());
     }
 
     public Usuario pegarUsuarioPorLogin(String login) {

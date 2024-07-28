@@ -1,11 +1,10 @@
 package com.tcc.entrepaginas.configuration;
 
+import com.tcc.entrepaginas.domain.entity.Papel;
+import com.tcc.entrepaginas.repository.PapelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import com.tcc.entrepaginas.modules.users.entities.Papel;
-import com.tcc.entrepaginas.modules.users.repositories.PapelRepository;
 
 @Component
 public class PapelConfig implements CommandLineRunner {
@@ -16,7 +15,7 @@ public class PapelConfig implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        String[] papeis = { "ADMIN", "USER" };
+        String[] papeis = {"ADMIN", "USER"};
 
         for (String papelString : papeis) {
             Papel papel = papelRepository.findByPapelNome(papelString);

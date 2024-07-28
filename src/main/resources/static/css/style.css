@@ -16,7 +16,7 @@
     --light-gray: #f3f1f1;
     --azul-logo: #458ca5;
     --azul-claro: #e8f3f7;
-    --botao-perfil: #f5f5f5;
+    --botao-perfil: #e2e2e2;
     --header-background-opacity: #74d1f049;
     --black-opacity: #00000054;
     --verde-claro: #e3ffe3;
@@ -34,5 +34,7 @@ body {
     width: 100vw;
     height: 100vh;
     letter-spacing: 2px;
+    box-sizing: border-box;
     overflow-x: hidden;
+    background-color: var(--botao-perfil);
 }

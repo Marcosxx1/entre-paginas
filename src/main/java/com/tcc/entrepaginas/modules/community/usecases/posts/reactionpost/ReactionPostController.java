@@ -1,15 +1,14 @@
 package com.tcc.entrepaginas.modules.community.usecases.posts.reactionpost;
 
+import com.tcc.entrepaginas.domain.entity.Usuario;
+import com.tcc.entrepaginas.repository.ReactionService;
+import com.tcc.entrepaginas.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.security.core.Authentication;
-
-import com.tcc.entrepaginas.modules.community.service.ReactionService;
-import com.tcc.entrepaginas.modules.users.entities.Usuario;
-import com.tcc.entrepaginas.modules.users.repositories.UsuarioRepository;
 
 @RestController
 @RequestMapping("/posts")
