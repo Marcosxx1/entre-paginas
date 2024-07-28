@@ -38,7 +38,8 @@ $(document).ready(function () {
                         $("#suggestions").append("<div><a href='#'> Nada foi encontrado! </a></div>");
                     } else {
                         data.forEach(function (result) {
-                            $("#suggestions").append("<div><a href='#'>" + result + "</a></div>");
+                            var perfilUrl = '/perfilVisitante/' + result.id;
+                            $("#suggestions").append("<div><a href='" + perfilUrl + "'>" + result + "</a></div>");
                         });
                     }
                 }

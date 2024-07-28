@@ -31,7 +31,11 @@ public class UserUtils {
     }
 
     public Model setModelIfAuthenticationExists(Authentication authentication, Model model) {
-        return model.addAttribute("user", getUserById(getIdUserFromUserDetail(authentication)));
+        if (authentication != null && authentication.isAuthenticated()) {
+            return model.addAttribute("user", getUserById(getIdUserFromUserDetail(authentication)));
+        }
+
+        return model;
     }
 
     public Model setUserInAttributesIfAuthenticated(Model model, Authentication authentication, String username) {

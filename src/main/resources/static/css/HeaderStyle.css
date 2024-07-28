@@ -1,7 +1,7 @@
 /* cabeçalho */
 .header-menu {
     width: 100vw;
-    height: 8%;
+    height: 9%;
     background-color: var(--header-background);
     position: relative;
     display: flex;
@@ -10,7 +10,7 @@
 }
 
 .header-menu__logo {
-    height: 70%;
+    height: 60%;
     margin: auto 0;
     display: flex;
     align-items: center;
@@ -45,7 +45,7 @@
 /* barra de pesquisa */
 .search {
     width: 80%;
-    height: 50%;
+    height: 45%;
     display: flex;
     margin: auto 0;
     align-items: center;
@@ -107,7 +107,7 @@
     padding: 0 0 0 10%;
     cursor: pointer;
     width: 100px;
-    height: 35px;
+    height: 25px;
     font-weight: bold;
     user-select: none;
     font-size: 12px;
@@ -147,18 +147,18 @@
 }
 
 .options li:hover {
-    background-color: var(--header-background);
+    color: var(--azul-logo);
 }
 
 .search_suggestions {
     display: none;
     background-color: #f9f9f9;
     border: 1px solid var(--header-background);
-    width: 500px;
+    width: 580px;
     position: absolute;
-    top: 56px;
-    left: 450px;
-    z-index: 1;
+    top: 37px;
+    left: 484px;
+    z-index: 999;
 }
 
 .search_suggestions a {
@@ -169,7 +169,7 @@
 }
 
 .search_suggestions a:hover {
-    background-color: var(--header-background);
+    color: var(--azul-logo);
 }
 
 /* sidebar */
