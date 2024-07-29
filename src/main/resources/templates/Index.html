@@ -82,13 +82,18 @@
 
                 <div th:replace="~{fragments/posts/posts :: post}"></div>
             </div>
-            <div id="bookModalLivro" class="modalLivro">
+            <div th:if="${book != null}" id="bookModalLivro" class="modalLivro">
                 <div class="modalLivro-content">
                     <div class="div-anunciante">
                         <p class="anunciante">Anuncio feito por:</p>
-                        <p th:text="${book.usuario.nome}" id="modalBookAuthor" class="anunciante"></p>
+                        <p th:text="${book.usuario != null ? book.usuario.nome : 'N/A'}" id="modalBookAuthor" class="anunciante"></p>
                     </div>
-                    <img th:src="${book.imagens[0].nome}" alt="icone da livro" id="modalBookImage">
+
+                    <div th:if="${book.imagens != null}">
+                        <img th:src="${book.imagens[0].nome}" alt="icone da livro" id="modalBookImage" />
+                    </div>
+                    <p th:text="${book.imagens != null ? book.imagens[0].nome : 'N/A'}" id="modalBookImageName"></p>
+
                     <div>
                         <h3 th:text="${book.nome}" id="modalBookTitle"></h3>
                         <div class="modalLugar">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.thymeleaf.org" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -9,34 +9,35 @@
     <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <link rel="stylesheet" th:href="@{/static/css/style.css}" />
-    <link rel="stylesheet" th:href="@{/static/css/IndexStyle.css}" />
-    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
-    <link rel="stylesheet" th:href="@{/static/css/PerfilStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/IndexStyle.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/PerfilStyle.css}"/>
     <script th:src="@{/static/js/HeaderScript.js}"></script>
     <script th:src="@{/static/js/SearchScript.js}"></script>
 </head>
 
 <body>
-    <div th:replace="~{fragments/header/header :: header}"></div>
+<div th:replace="~{fragments/header/header :: header}"></div>
 
-    <div class="perfil">
-        <div class="perfil-principal">
-            <div th:replace="~{fragments/sidebar/sidebar-loggedin}"></div>
-        </div>
-        <div class="perfil-right">
-            <h5>Minhas Trocas</h5>
-            <div th:each="livro : ${livrosTrocar}" class="livro-container">
-                <a th:href="@{/book/trade/{id}(id=${livro.id})}" class="livro-link">
-                    <h3 th:text="${livro.nome}" class="livro-title"></h3>
-                    <div>
-                        <img th:src="${livro.imagens[0].nome}" alt="" class="livro-image">
-                        <p th:text="${livro.descricao}" class="livro-descricao"></p>
-                    </div>
-                </a>
-            </div>
+<div class="perfil">
+    <div class="perfil-principal">
+        <div th:replace="~{fragments/sidebar/sidebar-loggedin}"></div>
+    </div>
+    <div class="perfil-right">
+        <h5>Minhas Trocas</h5>
+        <div th:each="livro : ${livrosTrocar}" class="livro-container-minhas-trocas">
+            <a th:href="@{/book/trade/{id}(id=${livro.id})}" class="livro-link">
+                <h3 th:text="${livro.nome}" class="livro-title"></h3>
+                <div>
+                    <img th:src="${livro.imagens[0].nome}" alt="" class="livro-image">
+                    <p th:text="${livro.descricao}" class="livro-descricao"></p>
+                </div>
+            </a>
+            <a th:href="@{/book/prepare-edit/{id}(id=${livro.id})}" class="edit-button">Edit</a>
         </div>
     </div>
+</div>
 
 </body>
 

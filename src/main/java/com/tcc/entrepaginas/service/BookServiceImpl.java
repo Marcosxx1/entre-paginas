@@ -1,5 +1,6 @@
 package com.tcc.entrepaginas.service;
 
+import com.tcc.entrepaginas.domain.dto.LivroParaEditarRequest;
 import com.tcc.entrepaginas.domain.dto.NovoLivroRequest;
 import com.tcc.entrepaginas.domain.entity.ImagemLivro;
 import com.tcc.entrepaginas.domain.entity.Livro;
@@ -68,7 +69,7 @@ public class BookServiceImpl implements BookService {
 
         salvarLivro(livroParaAssociar, idUsuario, imagensLivro);
 
-        return "redirect:/book/create/" + idUsuario;
+        return "redirect:/book/exchanges/" + idUsuario;
     }
 
     @Override
@@ -151,5 +152,32 @@ public class BookServiceImpl implements BookService {
     public List<Livro> listAllBooksForUser(Usuario user) {
         log.error("listAllBooksForUser [{}]", user.getId());
         return livroRepository.findByUsuario(user).orElseThrow(() -> new ResourceNotFound(user.getId()));
+    }
+
+    public String prepareBookToEdit(Model model, String idLivro, Authentication authentication) {
+        String idUsuario = userUtils.getIdUserFromUserDetail(authentication);
+        model = userUtils.setUserInAttributesIfAuthenticated(model, authentication, idUsuario);
+
+        Livro livro = buscarLivro(idLivro);
+        model.addAttribute("livro", livro);
+        model.addAttribute("categorias", enumListingService.listarTodasCategorias());
+        model.addAttribute("estados", enumListingService.listarTodosEstados());
+        model.addAttribute("tipos", enumListingService.listarTodosTipos());
+        model.addAttribute("estadosBrasil", enumListingService.listarTodosEstadosBrasil());
+        model.addAttribute("idUsuario", livro.getUsuario().getId());
+        // Podemos pegar o ImagemLivroService, pegar as imagens com o ID do livro
+        // No HTML poderiamos fazer um modalzinho com as minuaturas das imagens e editar uma por uma
+        // OUU
+        // Fazer outra rota para editar as imagens em específico
+        return "EditarLivro";
+    }
+
+    @Override
+    public String saveEditedBook(
+            String idLivro, LivroParaEditarRequest livroParaEditarRequest, HttpServletRequest request) {
+        Livro livro = buscarLivro(idLivro);
+        livro = bookMapper.toLivroFromLivroParaEditarRequest(livro, livroParaEditarRequest);
+        livroRepository.save(livro);
+        return "redirect:/book/exchanges/" + livro.getUsuario().getId();
     }
 }

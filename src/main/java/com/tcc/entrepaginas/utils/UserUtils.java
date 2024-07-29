@@ -47,12 +47,10 @@ public class UserUtils {
     }
 
     public Usuario getUserById(String userId) {
-        log.error("getUserById Exception error: [{}]", userId);
         return userRepository.findById(userId).orElseThrow(() -> new ResourceNotFound(userId));
     }
 
     public Usuario getUserByLogin(String userName) {
-        log.error("getUserByLogin Exception error: [{}]", userName);
         return userRepository.findByLogin(userName);
     }
 }

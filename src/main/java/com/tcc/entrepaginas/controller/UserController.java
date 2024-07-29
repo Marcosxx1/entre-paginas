@@ -6,6 +6,7 @@ import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,12 +17,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/user")
 @RequiredArgsConstructor
+@Slf4j
 public class UserController {
 
     private final UserService userService;
 
     @GetMapping("/register")
     public String register(Authentication authentication, Model model) {
+        log.info(
+                "UserController - GET on /register; called by user: {}",
+                authentication != null ? authentication.getName() : "Anonymous");
         return userService.registerAndRedirect(authentication, model);
     }
 
@@ -31,7 +36,7 @@ public class UserController {
             BindingResult result,
             RedirectAttributes attributes,
             Model model) {
-
+        log.info("UserController - POST on /register/save; NovoUsuarioRequest: {}", novoUsuarioRequest);
         return userService.saveUserFromForm(novoUsuarioRequest, result, attributes, model);
     }
 
@@ -44,12 +49,17 @@ public class UserController {
             BindingResult result,
             RedirectAttributes redirectAttributes,
             Model model) {
+        log.info(
+                "UserController - POST on /edit/{}; UpdateUserNameLoginAndEmailRequest: {}",
+                id,
+                updateUserNameLoginAndEmailRequest);
         return userService.updateUserNameLoginAndEmail(
                 user, id, updateUserNameLoginAndEmailRequest, result, redirectAttributes, model);
     }
 
     @GetMapping("/delete/{id}")
     public String deletarUsuario(@PathVariable String id) {
+        log.info("UserController - GET on /delete/{}; called to delete user with id: ", id);
         return userService.deleteUser(id);
     }
 }
