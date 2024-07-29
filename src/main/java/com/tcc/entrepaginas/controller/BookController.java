@@ -5,6 +5,8 @@ import com.tcc.entrepaginas.domain.dto.NovoLivroRequest;
 import com.tcc.entrepaginas.service.BookService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+
+import java.security.Principal;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -83,5 +85,14 @@ public class BookController {
                 livroParaEditarRequest);
 
         return bookService.saveEditedBook(idLivro, livroParaEditarRequest, request);
+    }
+
+
+    @GetMapping("/trade/{id}")
+    public String book(
+            Model model, @PathVariable("id") String idTroca, Authentication authentication, Principal principal) {
+
+        log.info("BookController - GET on /book/trade/{id};  /book/trade/{}, called by user: {}", idTroca, authentication != null ? authentication.getName() : "Anonymous");
+        return bookService.prepareTradeBookPage(model, idTroca, authentication, principal);
     }
 }

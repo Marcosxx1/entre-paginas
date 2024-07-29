@@ -180,4 +180,15 @@ public class BookServiceImpl implements BookService {
         livroRepository.save(livro);
         return "redirect:/book/exchanges/" + livro.getUsuario().getId();
     }
+
+    @Override
+    public String prepareTradeBookPage(Model model, String idTroca, Authentication authentication, Principal principal) {
+
+        String idUsuario = userUtils.getIdUserFromUserDetail(authentication);
+        model = userUtils.setUserInAttributesIfAuthenticated(model, authentication, idUsuario);
+
+        model.addAttribute("books", listarRandomLivros(10, principal, idTroca));
+        model.addAttribute("troca", buscarLivro(idTroca));
+
+        return "Book";    }
 }

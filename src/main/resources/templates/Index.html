@@ -92,7 +92,9 @@
                     <div th:if="${book.imagens != null}">
                         <img th:src="${book.imagens[0].nome}" alt="icone da livro" id="modalBookImage" />
                     </div>
-                    <p th:text="${book.imagens != null ? book.imagens[0].nome : 'N/A'}" id="modalBookImageName"></p>
+                    <!--
+                                        <p th:text="${book.imagens != null ? book.imagens[0].nome : 'N/A'}" id="modalBookImageName"></p>
+                    -->
 
                     <div>
                         <h3 th:text="${book.nome}" id="modalBookTitle"></h3>

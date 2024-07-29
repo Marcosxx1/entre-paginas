@@ -35,14 +35,10 @@ public interface BookService {
     Livro getRandomLivro();
 
     List<Livro> listAllBooksForUser(Usuario user);
-    /*    @GetMapping("/book/prepare-edit/")
-    public String beginBookEdit(Model model, @PathVariable("id") String idLivro, Authentication authentication) {
 
-        log.info("BookController - GET on /book/edit/{id};  /book/edit/{}, called by user: {}", idLivro, authentication != null ? authentication.getName() : "Anonymous");
-
-        return bookService.prepareBookToEdit(model, idLivro, authentication);
-    }*/
     String prepareBookToEdit(Model model, String idLivro, Authentication authentication);
 
     String saveEditedBook(String idLivro, LivroParaEditarRequest livroParaEditarRequest, HttpServletRequest request);
+
+    String prepareTradeBookPage(Model model, String idTroca, Authentication authentication, Principal principal);
 }
