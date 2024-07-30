@@ -1,9 +1,9 @@
 package com.tcc.entrepaginas.modules.community.usecases.community;
 
 import com.tcc.entrepaginas.domain.entity.Usuario;
-import com.tcc.entrepaginas.repository.CommunityService;
 import com.tcc.entrepaginas.repository.PostService;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
+import com.tcc.entrepaginas.service.CommunityServiceNew;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -11,14 +11,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@Controller
+//@Controller
 public class CommunityController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
 
     @Autowired
-    public CommunityService communityService;
+    public CommunityServiceNew communityServiceOld;
 
     @Autowired
     public PostService postService;
@@ -34,7 +34,7 @@ public class CommunityController {
         }
 
         model.addAttribute("listPost", postService.listPostsByCommunity(id));
-        model.addAttribute("community", communityService.pegarCommunity(id));
+        model.addAttribute("community", communityServiceOld.pegarCommunity(id));
         return "/Comunidade";
     }
 }

@@ -1,4 +1,4 @@
-package com.tcc.entrepaginas.utils;
+package com.tcc.entrepaginas.utils.user;
 
 import com.tcc.entrepaginas.domain.entity.CustomUserDetails;
 import com.tcc.entrepaginas.domain.entity.Usuario;

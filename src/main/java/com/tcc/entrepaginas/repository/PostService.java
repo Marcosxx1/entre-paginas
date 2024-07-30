@@ -7,6 +7,7 @@ import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.exceptions.CustomException;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.modules.users.service.UsuarioService;
+import com.tcc.entrepaginas.service.CommunityServiceNew;
 import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -32,7 +33,7 @@ public class PostService {
     private PostRepository postRepository;
 
     @Autowired
-    private CommunityService communityService;
+    private CommunityServiceNew communityServiceOld;
 
     @Autowired
     private UsuarioService usuarioService;
@@ -59,7 +60,7 @@ public class PostService {
 
         Usuario usuario = usuarioService.pegarUsuario(userId);
         System.out.println(usuario);
-        Community community = communityService.pegarCommunity(communityId);
+        Community community = communityServiceOld.pegarCommunity(communityId);
 
         post.setUsuario(usuario);
         post.setCommunity(community);

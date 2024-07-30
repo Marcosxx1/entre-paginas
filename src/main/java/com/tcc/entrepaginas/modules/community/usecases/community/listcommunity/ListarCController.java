@@ -1,9 +1,10 @@
 package com.tcc.entrepaginas.modules.community.usecases.community.listcommunity;
 
 import com.tcc.entrepaginas.domain.entity.Community;
-import com.tcc.entrepaginas.repository.CommunityService;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.tcc.entrepaginas.service.CommunityServiceNew;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,20 +13,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/community")
+//@RequestMapping("/community")
 public class ListarCController {
 
     @Autowired
-    private CommunityService communityService;
+    private CommunityServiceNew communityServiceOld;
 
     @GetMapping("/list")
     public List<String> listarCommunity(@RequestParam(required = false) String query) {
         List<Community> communities;
 
         if (query != null && !query.isEmpty()) {
-            communities = communityService.buscarComunidades(query);
+            communities = communityServiceOld.buscarComunidades(query);
         } else {
-            communities = communityService.listarCommunities(Sort.by(Sort.Direction.ASC, "id"));
+            communities = communityServiceOld.listarCommunities(Sort.by(Sort.Direction.ASC, "id"));
         }
         List<String> resultados = new ArrayList<>();
         for (Community community : communities) {

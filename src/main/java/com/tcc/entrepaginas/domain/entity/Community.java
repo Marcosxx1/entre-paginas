@@ -8,22 +8,25 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
-import jakarta.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.List;
+import lombok.*;
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class Community implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @NotBlank(message = "Título não pode estar em branco")
     private String title;
 
-    @NotBlank(message = "Conteúdo não pode estar em branco")
     private String content;
 
     private String icone;
@@ -44,88 +47,5 @@ public class Community implements Serializable {
         if (date == null) {
             date = Instant.now();
         }
-    }
-
-    public Community() {}
-
-    public Community(@NotBlank String title, @NotBlank String content, Boolean privado, Instant date) {
-        this.title = title;
-        this.content = content;
-        this.privado = privado;
-        this.date = date;
-    }
-
-    public Community(
-            String id, @NotBlank String title, @NotBlank String content, String icone, Boolean privado, Instant date) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.icone = icone;
-        this.privado = privado;
-        this.date = date;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getIcone() {
-        return icone;
-    }
-
-    public void setIcone(String icone) {
-        this.icone = icone;
-    }
-
-    public Boolean getPrivado() {
-        return privado;
-    }
-
-    public void setPrivado(Boolean privado) {
-        this.privado = privado;
-    }
-
-    public Instant getDate() {
-        return date;
-    }
-
-    public void setDate(Instant date) {
-        this.date = date;
-    }
-
-    public List<Post> getPost() {
-        return post;
-    }
-
-    public void setPost(List<Post> post) {
-        this.post = post;
-    }
-
-    public List<Membros> getMembros() {
-        return membros;
-    }
-
-    public void setMembros(List<Membros> membros) {
-        this.membros = membros;
     }
 }

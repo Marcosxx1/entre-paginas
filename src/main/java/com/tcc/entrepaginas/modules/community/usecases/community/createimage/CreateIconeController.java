@@ -1,7 +1,7 @@
 package com.tcc.entrepaginas.modules.community.usecases.community.createimage;
 
 import com.tcc.entrepaginas.domain.entity.Community;
-import com.tcc.entrepaginas.repository.CommunityService;
+import com.tcc.entrepaginas.service.CommunityServiceNew;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 public class CreateIconeController {
 
     @Autowired
-    private CommunityService communityService;
+    private CommunityServiceNew communityServiceOld;
 
     @PostMapping("/icone/{id}")
     public ResponseEntity<String> createIcone(
@@ -30,9 +30,9 @@ public class CreateIconeController {
             Model model,
             RedirectAttributes attributes) {
 
-        Community community = communityService.pegarCommunity(idComunidade);
+        Community community = communityServiceOld.pegarCommunity(idComunidade);
 
-        String fileName = communityService.atualizarIconeComunidade(icone);
+        String fileName = communityServiceOld.atualizarIconeComunidade(icone);
         String baseUrl = ServletUriComponentsBuilder.fromRequestUri(request)
                 .replacePath(null)
                 .build()
@@ -41,7 +41,7 @@ public class CreateIconeController {
 
         community.setIcone(url);
 
-        communityService.atualizarComunidade(community);
+        communityServiceOld.atualizarComunidade(community);
 
         return ResponseEntity.ok("Success");
     }

@@ -9,7 +9,7 @@ import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.mapper.book.BookMapper;
 import com.tcc.entrepaginas.modules.users.service.UsuarioService;
 import com.tcc.entrepaginas.repository.LivroRepository;
-import com.tcc.entrepaginas.utils.UserUtils;
+import com.tcc.entrepaginas.utils.user.UserUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.Collections;
@@ -182,7 +182,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public String prepareTradeBookPage(Model model, String idTroca, Authentication authentication, Principal principal) {
+    public String prepareTradeBookPage(
+            Model model, String idTroca, Authentication authentication, Principal principal) {
 
         String idUsuario = userUtils.getIdUserFromUserDetail(authentication);
         model = userUtils.setUserInAttributesIfAuthenticated(model, authentication, idUsuario);
@@ -190,5 +191,6 @@ public class BookServiceImpl implements BookService {
         model.addAttribute("books", listarRandomLivros(10, principal, idTroca));
         model.addAttribute("troca", buscarLivro(idTroca));
 
-        return "Book";    }
+        return "Book";
+    }
 }
