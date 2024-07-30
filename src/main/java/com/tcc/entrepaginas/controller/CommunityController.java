@@ -25,7 +25,7 @@ public class CommunityController {
 
     private final CommunityServiceNew communityService;
 
-    @GetMapping("/community/{id}")
+    @GetMapping("/{id}")
     public String community(@PathVariable String id, Model model, Authentication authentication)
             throws NullPointerException {
         log.info(
