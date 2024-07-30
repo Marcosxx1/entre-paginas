@@ -28,12 +28,20 @@ public class CommunityController {
     @GetMapping("/community/{id}")
     public String community(@PathVariable String id, Model model, Authentication authentication)
             throws NullPointerException {
+        log.info(
+                "CommunityController - GET on /community/{id}; /community/{} called by user: {}",
+                id,
+                authentication != null ? authentication.getName() : "Anonymous");
         return communityService.prepareCommunityAndListOfPosts(id, model, authentication);
     }
 
     @GetMapping("/create/{id}")
     public String populateCommunityToReturnToCreation(
             Model model, @PathVariable("id") String idUsuario, Authentication authentication) {
+        log.info(
+                "CommunityController - GET on /create/{id}; /create/{} called by user: {}",
+                idUsuario,
+                authentication != null ? authentication.getName() : "Anonymous");
         return communityService.beginCommunityCreation(model, idUsuario, authentication);
     }
 
@@ -43,24 +51,35 @@ public class CommunityController {
             @Valid NovaComunidadeRequest novaComunidadeRequest,
             BindingResult result,
             Model model) {
-
+        log.info(
+                "CommunityController - POST on /create/save/{id}; /create/save/{} called with NovaComunidadeRequest: {}",
+                idUsuario,
+                novaComunidadeRequest);
         return communityService.salvarComunidade(model, result, novaComunidadeRequest, idUsuario);
     }
 
     @GetMapping("/mycommunities/{id}")
     public String getMyCommunities(@PathVariable("id") String idUsuario, Model model, Authentication authentication) {
+        log.info(
+                "CommunityController - GET on /mycommunities/{id}; /mycommunities/{} called by user: {}",
+                idUsuario,
+                authentication != null ? authentication.getName() : "Anonymous");
         return communityService.allMyCommunities(idUsuario, model, authentication);
     }
 
     @PostMapping("/icone/{id}")
     public ResponseEntity<String> createIcone(
             @PathVariable("id") String idComunidade, @RequestParam MultipartFile icone, HttpServletRequest request) {
-
+        log.info(
+                "CommunityController - POST on /icone/{id}; /icone/{} called with MultipartFile: {}",
+                idComunidade,
+                icone != null ? icone.getOriginalFilename() : "No file");
         return communityService.changeCommunityIcon(idComunidade, icone, request);
     }
 
     @GetMapping("/list")
     public List<String> listarCommunity(@RequestParam(required = false) String query) {
+        log.info("CommunityController - GET on /list; /list called with query: {}", query);
         return communityService.listCommunitiesWithOrWithoutSort(query);
     }
 
@@ -69,15 +88,16 @@ public class CommunityController {
             @PathVariable String id,
             @Valid @RequestBody UpdateCommunityRequest updateCommunityRequest,
             BindingResult result) {
-
+        log.info(
+                "CommunityController - PATCH on /{}; called with UpdateCommunityRequest: {}",
+                id,
+                updateCommunityRequest);
         return communityService.updateCommunity(id, updateCommunityRequest, result);
     }
 
     @GetMapping("/delete/{id}")
     public String deletarLivro(@PathVariable("id") String idComunidade, RedirectAttributes attributes, Model model) {
-
-        communityService.deleteCommunity(idComunidade);
-
-        return "redirect:/perfil";
+        log.info("CommunityController - GET on /delete/{id}; /delete/{} called", idComunidade);
+        return communityService.deleteCommunity(idComunidade);
     }
 }

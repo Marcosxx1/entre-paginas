@@ -4,7 +4,6 @@ import com.tcc.entrepaginas.domain.dto.NovaComunidadeRequest;
 import com.tcc.entrepaginas.domain.dto.UpdateCommunityRequest;
 import com.tcc.entrepaginas.domain.entity.Community;
 import com.tcc.entrepaginas.domain.entity.Usuario;
-import com.tcc.entrepaginas.exceptions.CustomException;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.mapper.community.CommunityMapper;
 import com.tcc.entrepaginas.mapper.member.MemberMapper;
@@ -14,15 +13,10 @@ import com.tcc.entrepaginas.repository.MembrosRepository;
 import com.tcc.entrepaginas.utils.community.CommunityUtils;
 import com.tcc.entrepaginas.utils.user.UserUtils;
 import jakarta.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -40,14 +34,12 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
     private final RoleCommunityService roleCommunityService;
     private final CommunityRepository communityRepository;
     private final MembrosRepository membrosRepository;
-    private final PostServiceNew postServiceNew;
     private final CommunityMapper communityMapper;
+    private final PostServiceNew postServiceNew;
     private final CommunityUtils communityUtils;
     private final UsuarioService usuarioService;
     private final MemberMapper memberMapper;
     private final UserUtils userUtils;
-
-    private Path root = Paths.get("icone");
 
     public List<Community> listarRandomCommunities(int totalItems, Principal principal) {
         List<Community> comunidades = communityRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
@@ -219,37 +211,5 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
     public void atualizarComunidade(Community community) {
         Objects.requireNonNull(community, "Community must not be null"); // TODO - VERIFICAR
         communityRepository.save(community);
-    }
-
-    @Override
-    public void init() {
-        try {
-            if (!Files.exists(root)) {
-                Files.createDirectory(root);
-            }
-        } catch (IOException e) {
-            throw new CustomException("Could not initialize folder for upload!");
-        }
-    }
-
-    @Override
-    public String atualizarIconeComunidade(MultipartFile image) {
-        try {
-            init();
-
-            UUID uuid = UUID.randomUUID();
-
-            String newFileName = uuid.toString();
-
-            String extension = FilenameUtils.getExtension(image.getOriginalFilename());
-
-            String fileName = newFileName + "." + extension;
-
-            Files.copy(image.getInputStream(), this.root.resolve(fileName));
-
-            return fileName;
-        } catch (Exception e) {
-            throw new CustomException("Could not store the file. Error: " + e.getMessage());
-        }
     }
 }

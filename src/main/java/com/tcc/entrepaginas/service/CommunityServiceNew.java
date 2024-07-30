@@ -34,11 +34,7 @@ public interface CommunityServiceNew {
 
     void atualizarComunidade(Community community);
 
-    void init();
-
     String deleteCommunity(String idComunidade);
-
-    String atualizarIconeComunidade(MultipartFile image);
 
     String beginCommunityCreation(Model model, String idUsuario, Authentication authentication);
 
