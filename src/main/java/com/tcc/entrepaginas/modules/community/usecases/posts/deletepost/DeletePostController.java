@@ -1,6 +1,6 @@
 package com.tcc.entrepaginas.modules.community.usecases.posts.deletepost;
 
-import com.tcc.entrepaginas.repository.PostService;
+import com.tcc.entrepaginas.service.PostServiceNew;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class DeletePostController {
 
     @Autowired
-    private PostService postService;
+    private PostServiceNew postService;
 
     @DeleteMapping("/delete/{id}")
     public String deletarPost(@PathVariable("id") String idPost, RedirectAttributes attributes, Model model) {

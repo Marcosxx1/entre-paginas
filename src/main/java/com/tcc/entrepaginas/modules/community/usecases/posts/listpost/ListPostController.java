@@ -1,7 +1,7 @@
 package com.tcc.entrepaginas.modules.community.usecases.posts.listpost;
 
 import com.tcc.entrepaginas.domain.entity.Post;
-import com.tcc.entrepaginas.repository.PostService;
+import com.tcc.entrepaginas.service.PostServiceNew;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ListPostController {
 
     @Autowired
-    private PostService postService;
+    private PostServiceNew postService;
 
     @GetMapping("/list")
     public String listPosts(Model model) {

@@ -5,6 +5,7 @@ import com.tcc.entrepaginas.domain.entity.Post;
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.modules.users.service.UsuarioService;
+import com.tcc.entrepaginas.service.PostServiceNew;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public class CommentsService {
     private CommentsRepository commentsRepository;
 
     @Autowired
-    private PostService postService;
+    private PostServiceNew postService;
 
     @Autowired
     private UsuarioService userService;

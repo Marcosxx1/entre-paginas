@@ -1,40 +1,34 @@
-package com.tcc.entrepaginas.modules.community.usecases.posts.createpost;
+package com.tcc.entrepaginas.controller;
 
-import com.tcc.entrepaginas.domain.entity.Post;
-import com.tcc.entrepaginas.repository.PostService;
+import com.tcc.entrepaginas.domain.dto.NovoPostRequest;
+import com.tcc.entrepaginas.service.PostServiceNew;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/posts")
-public class CreatePostController {
+@AllArgsConstructor
+@Slf4j
+public class PostController {
 
-    @Autowired
-    private PostService postService;
+    private final PostServiceNew postServiceNew;
 
     @PostMapping("/create/{communityId}/{userId}")
     public String createPost(
-            @Valid Post post,
+            @Valid NovoPostRequest novoPostRequest,
             @PathVariable String communityId,
             @PathVariable("userId") String usuarioId,
             @RequestParam("imagem") MultipartFile image,
-            BindingResult result,
-            RedirectAttributes attributes,
-            Model model,
             HttpServletRequest request) {
 
-        postService.createPost(communityId, usuarioId, image, post, request);
-
-        return "redirect:/community/" + communityId;
+        return postServiceNew.createPost(communityId, usuarioId, image, novoPostRequest, request);
     }
 }

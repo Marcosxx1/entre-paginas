@@ -5,6 +5,7 @@ import com.tcc.entrepaginas.domain.entity.Reaction;
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.modules.users.service.UsuarioService;
+import com.tcc.entrepaginas.service.PostServiceNew;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class ReactionService {
     private ReactionRepository reactionRepository;
 
     @Autowired
-    private PostService postService;
+    private PostServiceNew postService;
 
     @Autowired
     private UsuarioService usuarioService;
