@@ -1,23 +1,21 @@
 package com.tcc.entrepaginas.controller;
 
 import com.tcc.entrepaginas.domain.dto.NovaComunidadeRequest;
-import com.tcc.entrepaginas.domain.entity.Community;
-import com.tcc.entrepaginas.domain.entity.Usuario;
+import com.tcc.entrepaginas.domain.dto.UpdateCommunityRequest;
 import com.tcc.entrepaginas.service.CommunityServiceNew;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/community")
@@ -26,6 +24,12 @@ import java.util.List;
 public class CommunityController {
 
     private final CommunityServiceNew communityService;
+
+    @GetMapping("/community/{id}")
+    public String community(@PathVariable String id, Model model, Authentication authentication)
+            throws NullPointerException {
+        return communityService.prepareCommunityAndListOfPosts(id, model, authentication);
+    }
 
     @GetMapping("/create/{id}")
     public String populateCommunityToReturnToCreation(
@@ -48,4 +52,32 @@ public class CommunityController {
         return communityService.allMyCommunities(idUsuario, model, authentication);
     }
 
+    @PostMapping("/icone/{id}")
+    public ResponseEntity<String> createIcone(
+            @PathVariable("id") String idComunidade, @RequestParam MultipartFile icone, HttpServletRequest request) {
+
+        return communityService.changeCommunityIcon(idComunidade, icone, request);
+    }
+
+    @GetMapping("/list")
+    public List<String> listarCommunity(@RequestParam(required = false) String query) {
+        return communityService.listCommunitiesWithOrWithoutSort(query);
+    }
+
+    @PatchMapping("/{id}")
+    public UpdateCommunityRequest updateCommunity(
+            @PathVariable String id,
+            @Valid @RequestBody UpdateCommunityRequest updateCommunityRequest,
+            BindingResult result) {
+
+        return communityService.updateCommunity(id, updateCommunityRequest, result);
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deletarLivro(@PathVariable("id") String idComunidade, RedirectAttributes attributes, Model model) {
+
+        communityService.deleteCommunity(idComunidade);
+
+        return "redirect:/perfil";
+    }
 }

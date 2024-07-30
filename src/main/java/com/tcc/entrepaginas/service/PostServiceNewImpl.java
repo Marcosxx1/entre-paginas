@@ -31,4 +31,11 @@ public class PostServiceNewImpl implements PostServiceNew {
                 .sorted(Comparator.comparing(Post::getDate).reversed())
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<Post> listPostsByCommunity(String communityId) {
+        return listarPost(Sort.by(Sort.Direction.DESC, "date")).stream()
+                .filter(post -> post.getCommunity().getId().equals(communityId))
+                .collect(Collectors.toList());
+    }
 }

@@ -16,7 +16,6 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -80,12 +79,6 @@ public class PostService {
 
             imagemPostRepository.save(imagePost);
         }
-    }
-
-    public List<Post> listPostsByCommunity(String communityId) {
-        return listarPost(Sort.by(Sort.Direction.DESC, "date")).stream()
-                .filter(post -> post.getCommunity().getId().equals(communityId))
-                .collect(Collectors.toList());
     }
 
     public void init() {

@@ -1,11 +1,14 @@
 package com.tcc.entrepaginas.service;
 
 import com.tcc.entrepaginas.domain.dto.NovaComunidadeRequest;
+import com.tcc.entrepaginas.domain.dto.UpdateCommunityRequest;
 import com.tcc.entrepaginas.domain.entity.Community;
 import com.tcc.entrepaginas.domain.entity.Usuario;
+import jakarta.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.List;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +23,8 @@ public interface CommunityServiceNew {
 
     List<Community> listarCommunitiesPorUsuario(String idUsuario, String role);
 
+    List<String> listCommunitiesWithOrWithoutSort(String query);
+
     List<Community> buscarComunidades(String query);
 
     Community pegarCommunity(String id);
@@ -29,13 +34,20 @@ public interface CommunityServiceNew {
 
     void atualizarComunidade(Community community);
 
-    void apagarComunidadePorId(String id);
-
     void init();
+
+    String deleteCommunity(String idComunidade);
 
     String atualizarIconeComunidade(MultipartFile image);
 
     String beginCommunityCreation(Model model, String idUsuario, Authentication authentication);
 
     String allMyCommunities(String idUsuario, Model model, Authentication authentication);
+
+    ResponseEntity<String> changeCommunityIcon(String idComunidade, MultipartFile icone, HttpServletRequest request);
+
+    UpdateCommunityRequest updateCommunity(
+            String id, UpdateCommunityRequest updateCommunityRequest, BindingResult result);
+
+    String prepareCommunityAndListOfPosts(String id, Model model, Authentication authentication);
 }

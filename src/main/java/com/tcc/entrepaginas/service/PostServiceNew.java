@@ -8,4 +8,6 @@ public interface PostServiceNew {
     List<Post> listarPost(Sort sort);
 
     List<Post> listAllPostsInACommunity(String username);
+
+    List<Post> listPostsByCommunity(String communityId);
 }
