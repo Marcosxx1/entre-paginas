@@ -16,7 +16,7 @@ public interface PostServiceNew {
 
     Post buscarPost(String id);
 
-    void apagarPostPorId(String id);
+    String apagarPostPorId(String id);
 
     String createPost(
             String communityId,

@@ -90,8 +90,9 @@ public class PostServiceNewImpl implements PostServiceNew {
     }
 
     @Override
-    public void apagarPostPorId(String id) {
+    public String  apagarPostPorId(String id) {
         Post post = buscarPost(id);
         postRepository.delete(post);
+        return "redirect:/perfil";
     }
 }
