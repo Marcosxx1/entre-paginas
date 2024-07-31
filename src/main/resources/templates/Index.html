@@ -128,11 +128,15 @@
                     type: 'POST',
                     data: { action: 'like' },
                     success: function (response) {
-                        $('#likesCount').text(response.newLikeCount);
+                        $('#likesCount').text(response);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
-                        console.error('Error: ', textStatus, errorThrown);
-                        alert('An error occurred while processing your request.');
+                        if (jqXHR.status === 409) {
+                            alert('You have already voted on this post.');
+                        } else {
+                            console.error('Error: ', textStatus, errorThrown);
+                            alert('An error occurred while processing your request.');
+                        }
                     }
                 });
 
@@ -146,16 +150,21 @@
                     type: 'POST',
                     data: { action: 'dislike' },
                     success: function (response) {
-                        $('#likesCount').text(response.newLikeCount);
+                        $('#likesCount').text(response);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
-                        console.error('Error: ', textStatus, errorThrown);
-                        alert('An error occurred while processing your request.');
+                        if (jqXHR.status === 409) {
+                            alert('You have already voted on this post.');
+                        } else {
+                            console.error('Error: ', textStatus, errorThrown);
+                            alert('An error occurred while processing your request.');
+                        }
                     }
                 });
             });
         });
     </script>
+
 
 
     <script>

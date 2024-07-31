@@ -1,17 +1,17 @@
 package com.tcc.entrepaginas.modules.community.service;
 
-import java.util.List;
-import java.util.Optional;
-
 import com.tcc.entrepaginas.domain.entity.Post;
 import com.tcc.entrepaginas.domain.entity.Reaction;
+import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.repository.ReactionRepository;
 import com.tcc.entrepaginas.service.PostServiceNew;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 
 @Service
 public class ReactionService {
@@ -43,29 +43,34 @@ public class ReactionService {
         reactionRepository.delete(reaction);
     }
 
-    public int reacaoPost(String idPost, String reacao) {
+    public ResponseEntity<?> reacaoPost(String idPost, String reacao) {
         Post post = postService.buscarPost(idPost);
 
         if (post == null) {
-            throw new IllegalArgumentException("Post not found.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Post not found.");
         }
 
-        if (usuarioJaVotou(idPost, post.getUsuario().getId())) {
-            throw new IllegalStateException("User has already voted on this post.");
+        Optional<Reaction> existingReaction =
+                usuarioJaVotou(idPost, post.getUsuario().getId());
+
+        if (existingReaction.isPresent()) {
+            // If the reaction exists, delete it
+            reactionRepository.delete(existingReaction.get());
+        } else {
+            // If no reaction exists, create a new one
+            Reaction newReaction = Reaction.builder()
+                    .reacao(reacao)
+                    .usuario(post.getUsuario())
+                    .post(post)
+                    .build();
+            reactionRepository.save(newReaction);
         }
 
-        Reaction reaction =Reaction.builder().reacao(reacao).usuario(post.getUsuario()).post(post).build();
-
-        reactionRepository.save(reaction);
-
-        return this.countReaction();
+        int newLikeCount = this.countReaction();
+        return ResponseEntity.ok(newLikeCount);
     }
 
-    public boolean usuarioJaVotou(String idPost, String idUsuario) {
-
-        Reaction reaction = reactionRepository.findByPostIdAndUsuarioId(idPost, idUsuario);
-
-        return reaction != null;
+    public Optional<Reaction> usuarioJaVotou(String idPost, String idUsuario) {
+        return reactionRepository.findByPostIdAndUsuarioId(idPost, idUsuario);
     }
-
 }

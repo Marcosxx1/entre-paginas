@@ -41,7 +41,11 @@ public class ImageUtils {
         }
     }
 
-    public static ImagemPost createImagePost(MultipartFile image, HttpServletRequest request, Post post, Path root) {// TODO - VER POSSIBILIDADE DE NÃO SER STATICO
+    public static ImagemPost createImagePost(
+            MultipartFile image,
+            HttpServletRequest request,
+            Post post,
+            Path root) { // TODO - VER POSSIBILIDADE DE NÃO SER STATICO
         if (image != null && !image.isEmpty()) {
             String fileName = atualizarImagemPost(image, root);
 

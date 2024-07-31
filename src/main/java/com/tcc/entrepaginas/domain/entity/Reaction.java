@@ -11,8 +11,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
 
-import java.io.Serializable;
-
 @Entity
 @Builder
 @NoArgsConstructor
@@ -37,6 +35,4 @@ public class Reaction {
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
-
-
 }

@@ -40,7 +40,8 @@ public class PostServiceNewImpl implements PostServiceNew {
     @PostConstruct
     public void init() {
         ImageUtils.init(ROOT);
-    } // Isso é normal, pode dizer que não está sendo utilizado. Mas está, quando o Spring inicia ele seta para a gente antes de tudo.
+    } // Isso é normal, pode dizer que não está sendo utilizado. Mas está, quando o Spring inicia ele seta para a gente
+    // antes de tudo.
 
     @Override
     public String createPost(
@@ -51,7 +52,7 @@ public class PostServiceNewImpl implements PostServiceNew {
             HttpServletRequest request) {
 
         Usuario usuario = userUtils.getUserById(userId);
-        Community community = communityServiceNew.pegarCommunity(communityId);// TODO - CASO NÃO EXISTIR, JOGAR ERRO
+        Community community = communityServiceNew.pegarCommunity(communityId); // TODO - CASO NÃO EXISTIR, JOGAR ERRO
 
         var post = postMapper.toPostFromNewRequest(novoPostRequest);
 
@@ -60,7 +61,7 @@ public class PostServiceNewImpl implements PostServiceNew {
 
         postRepository.save(post);
 
-        ImagemPost imagePost = ImageUtils.createImagePost(image, request, post, ROOT);//TODO - REVER FLUXO
+        ImagemPost imagePost = ImageUtils.createImagePost(image, request, post, ROOT); // TODO - REVER FLUXO
         if (imagePost != null) {
             imagemPostRepository.save(imagePost);
         }
@@ -93,6 +94,4 @@ public class PostServiceNewImpl implements PostServiceNew {
         Post post = buscarPost(id);
         postRepository.delete(post);
     }
-
-
 }
