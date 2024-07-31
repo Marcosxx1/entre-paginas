@@ -15,7 +15,7 @@
     --gray: #e7e5e5;
     --light-gray: #f3f1f1;
     --azul-logo: #458ca5;
-    --azul-claro: #e8f3f7;
+    --azul-claro: #c1ebfa;
     --botao-perfil: #e2e2e2;
     --header-background-opacity: #74d1f049;
     --black-opacity: #00000054;
@@ -36,7 +36,7 @@ body {
     letter-spacing: 2px;
     box-sizing: border-box;
     overflow-x: hidden;
-    background-color: var(--botao-perfil);
+    background-color: var(--white);
 }
 
 .livro-container-minhas-trocas {
