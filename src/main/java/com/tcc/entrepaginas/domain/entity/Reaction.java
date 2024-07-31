@@ -9,10 +9,17 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.*;
+
 import java.io.Serializable;
 
-@Entity()
-public class Reaction implements Serializable {
+@Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+public class Reaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -31,59 +38,5 @@ public class Reaction implements Serializable {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    public Reaction() {}
 
-    public Reaction(String reacao, Usuario usuario, Post post) {
-        this.reacao = reacao;
-        this.usuario = usuario;
-        this.post = post;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getReacao() {
-        return reacao;
-    }
-
-    public void setReacao(String reacao) {
-        this.reacao = reacao;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
-    }
-
-    public ReacaoStatus getJaVotou() {
-        return jaVotou;
-    }
-
-    public void setJaVotou(ReacaoStatus jaVotou) {
-        this.jaVotou = jaVotou;
-    }
-
-    @Override
-    public String toString() {
-        return "Reaction [id=" + id + ", reacao=" + reacao + ", usuario=" + usuario + ", post=" + post + ", getId()="
-                + getId() + ", getReacao()=" + getReacao() + ", getUsuario()=" + getUsuario() + ", getPost()="
-                + getPost() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
-                + super.toString() + "]";
-    }
 }

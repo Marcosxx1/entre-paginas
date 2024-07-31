@@ -29,6 +29,7 @@ public class PostServiceNewImpl implements PostServiceNew {
 
     private final PostRepository postRepository;
     private final ImagemPostRepository imagemPostRepository;
+    private final CommunityServiceNew communityServiceNew;
 
     private final UserService userService;
     private final PostMapper postMapper;
@@ -50,9 +51,7 @@ public class PostServiceNewImpl implements PostServiceNew {
             HttpServletRequest request) {
 
         Usuario usuario = userUtils.getUserById(userId);
-        Community community = postRepository
-                .findCommunityById(communityId)
-                .orElseThrow(() -> new ResourceNotFound("Community not found with id: " + communityId));
+        Community community = communityServiceNew.pegarCommunity(communityId);// TODO - CASO NÃO EXISTIR, JOGAR ERRO
 
         var post = postMapper.toPostFromNewRequest(novoPostRequest);
 
@@ -81,13 +80,6 @@ public class PostServiceNewImpl implements PostServiceNew {
         return userCommunities.stream()
                 .flatMap(community -> postRepository.findByCommunity(community).stream())
                 .sorted(Comparator.comparing(Post::getDate).reversed())
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Post> listPostsByCommunity(String communityId) {
-        return listarPost(Sort.by(Sort.Direction.DESC, "date")).stream()
-                .filter(post -> post.getCommunity().getId().equals(communityId))
                 .collect(Collectors.toList());
     }
 

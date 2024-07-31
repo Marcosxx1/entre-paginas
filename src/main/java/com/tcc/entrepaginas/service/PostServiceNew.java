@@ -12,7 +12,7 @@ public interface PostServiceNew {
 
     List<Post> listAllPostsInACommunity(String username);
 
-    List<Post> listPostsByCommunity(String communityId);
+   // List<Post> listPostsByCommunity(String communityId);
 
     Post buscarPost(String id);
 

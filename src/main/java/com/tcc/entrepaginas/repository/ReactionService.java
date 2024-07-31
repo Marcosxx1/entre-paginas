@@ -1,16 +1,17 @@
-package com.tcc.entrepaginas.repository;
+package com.tcc.entrepaginas.modules.community.service;
+
+import java.util.List;
+import java.util.Optional;
 
 import com.tcc.entrepaginas.domain.entity.Post;
 import com.tcc.entrepaginas.domain.entity.Reaction;
-import com.tcc.entrepaginas.domain.entity.Usuario;
-import com.tcc.entrepaginas.exceptions.ResourceNotFound;
-import com.tcc.entrepaginas.modules.users.service.UsuarioService;
+import com.tcc.entrepaginas.repository.ReactionRepository;
 import com.tcc.entrepaginas.service.PostServiceNew;
-import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 
 @Service
 public class ReactionService {
@@ -20,9 +21,6 @@ public class ReactionService {
 
     @Autowired
     private PostServiceNew postService;
-
-    @Autowired
-    private UsuarioService usuarioService;
 
     public Reaction buscarReaction(String id) {
         Optional<Reaction> reaction = reactionRepository.findById(id);
@@ -45,24 +43,18 @@ public class ReactionService {
         reactionRepository.delete(reaction);
     }
 
-    public int reacaoPost(String idPost, String reacao, String idUsuario) {
+    public int reacaoPost(String idPost, String reacao) {
         Post post = postService.buscarPost(idPost);
 
-        Usuario usuarioEncontrado = usuarioService.pegarUsuario(idUsuario);
-
-        if (usuarioEncontrado == null) {
-            throw new IllegalStateException("Usuário não existe.");
-        }
         if (post == null) {
             throw new IllegalArgumentException("Post not found.");
         }
 
-        /*
-         * if (usuarioJaVotou(idPost, idUsuario)) {
-         * throw new IllegalStateException("User has already voted on this post.");
-         * }
-         */
-        Reaction reaction = new Reaction(reacao, usuarioEncontrado, post);
+        if (usuarioJaVotou(idPost, post.getUsuario().getId())) {
+            throw new IllegalStateException("User has already voted on this post.");
+        }
+
+        Reaction reaction =Reaction.builder().reacao(reacao).usuario(post.getUsuario()).post(post).build();
 
         reactionRepository.save(reaction);
 
@@ -70,16 +62,10 @@ public class ReactionService {
     }
 
     public boolean usuarioJaVotou(String idPost, String idUsuario) {
-        List<Reaction> reactions = listarReactions(Sort.by(Sort.Direction.ASC, "id"));
 
-        for (Reaction reaction : reactions) {
-            if (reaction.getPost().getId().equals(idPost)
-                    && reaction.getUsuario().getId().equals(idUsuario)) {
-                System.out.println("Usuário já votou.");
-                return true;
-            }
-        }
+        Reaction reaction = reactionRepository.findByPostIdAndUsuarioId(idPost, idUsuario);
 
-        return false;
+        return reaction != null;
     }
+
 }

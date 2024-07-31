@@ -10,6 +10,7 @@ import com.tcc.entrepaginas.mapper.member.MemberMapper;
 import com.tcc.entrepaginas.modules.users.service.UsuarioService;
 import com.tcc.entrepaginas.repository.CommunityRepository;
 import com.tcc.entrepaginas.repository.MembrosRepository;
+import com.tcc.entrepaginas.utils.PostUtils;
 import com.tcc.entrepaginas.utils.community.CommunityUtils;
 import com.tcc.entrepaginas.utils.user.UserUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,8 +36,8 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
     private final CommunityRepository communityRepository;
     private final MembrosRepository membrosRepository;
     private final CommunityMapper communityMapper;
-    private final PostServiceNew postServiceNew;
     private final CommunityUtils communityUtils;
+    private final PostUtils postUtils;
     private final UsuarioService usuarioService;
     private final MemberMapper memberMapper;
     private final UserUtils userUtils;
@@ -167,7 +168,7 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
     public String prepareCommunityAndListOfPosts(String id, Model model, Authentication authentication) {
 
         model = userUtils.setModelIfAuthenticationExists(authentication, model);
-        model.addAttribute("listPost", postServiceNew.listPostsByCommunity(id));
+        model.addAttribute("listPost", postUtils.listPostsByCommunity(id));
         model.addAttribute("community", pegarCommunity(id));
         return "/Comunidade";
     }
