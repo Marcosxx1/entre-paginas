@@ -58,9 +58,7 @@
                             <button class="likeBtn"><i class="fa-solid fa-caret-up"
                                                        style="color: #85c1f1;"></i></button>
                             <p id="likesCount" th:text="${qtdReaction}"></p>
-                            <button class="dislikeBtn"><i class="fa-solid fa-caret-down"
-                                                          style="color: #85c1f1;"></i></button>
-                            <input type="text" th:value="${post.id}">
+                            <input type="hidden" th:value="${post.id}">
                         </div>
                     </span>
                 </div>

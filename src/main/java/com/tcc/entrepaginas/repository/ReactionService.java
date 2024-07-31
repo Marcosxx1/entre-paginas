@@ -1,9 +1,8 @@
-package com.tcc.entrepaginas.modules.community.service;
+package com.tcc.entrepaginas.repository;
 
 import com.tcc.entrepaginas.domain.entity.Post;
 import com.tcc.entrepaginas.domain.entity.Reaction;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
-import com.tcc.entrepaginas.repository.ReactionRepository;
 import com.tcc.entrepaginas.service.PostServiceNew;
 import java.util.List;
 import java.util.Optional;

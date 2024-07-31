@@ -141,27 +141,6 @@
                 });
 
             });
-
-            $('.dislikeBtn').on('click', function () {
-                let postId = $(this).siblings('input').val();
-
-                $.ajax({
-                    url: `/posts/dislike/${postId}`,
-                    type: 'POST',
-                    data: { action: 'dislike' },
-                    success: function (response) {
-                        $('#likesCount').text(response);
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        if (jqXHR.status === 409) {
-                            alert('You have already voted on this post.');
-                        } else {
-                            console.error('Error: ', textStatus, errorThrown);
-                            alert('An error occurred while processing your request.');
-                        }
-                    }
-                });
-            });
         });
     </script>
 
