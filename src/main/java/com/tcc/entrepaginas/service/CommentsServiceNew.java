@@ -7,4 +7,6 @@ import org.springframework.data.domain.Sort;
 public interface CommentsServiceNew {
 
     List<Comments> listarComments(Sort sort);
+
+    boolean editComment(String commentId, String newContent);
 }

@@ -27,11 +27,6 @@ public class CommentsService {
         return comments.orElseThrow(() -> new ResourceNotFound(id));
     }
 
-    public void apagarCommentsPorId(String id) {
-        Comments comments = this.buscarComments(id);
-        commentsRepository.delete(comments);
-    }
-
     public void salvarComments(Comments comments, String idPost, String userLogin) {
         Post post = postService.buscarPost(idPost);
         Usuario usuario = userService.pegarUsuarioPorLogin(userLogin);

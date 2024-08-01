@@ -30,7 +30,7 @@ public class BookServiceImpl implements BookService {
 
     private final LivroRepository livroRepository;
     private final ImagemLivroService imagemLivroService;
-    private final UsuarioService usuarioService;
+    private final UserService userService;
     private final UserUtils userUtils;
     private final EnumConverterService enumConverterService;
     private final EnumListingService enumListingService;
@@ -132,7 +132,7 @@ public class BookServiceImpl implements BookService {
     private void filterUserLivros(List<Livro> livros, Principal principal) {
         if (principal != null) {
             String username = principal.getName();
-            List<Livro> userLivros = usuarioService.getUserLivros(username);
+            List<Livro> userLivros = userService.getUserLivros(username);
             livros.removeAll(userLivros);
         }
     }

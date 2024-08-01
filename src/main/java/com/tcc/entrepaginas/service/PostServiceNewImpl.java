@@ -1,6 +1,7 @@
 package com.tcc.entrepaginas.service;
 
 import com.tcc.entrepaginas.domain.dto.NovoPostRequest;
+import com.tcc.entrepaginas.domain.dto.UpdatePostRequest;
 import com.tcc.entrepaginas.domain.entity.Community;
 import com.tcc.entrepaginas.domain.entity.ImagemPost;
 import com.tcc.entrepaginas.domain.entity.Post;
@@ -70,6 +71,18 @@ public class PostServiceNewImpl implements PostServiceNew {
     }
 
     @Override
+    public String updatePost(UpdatePostRequest updatePostRequest, String postId, String communityId) {
+
+        var post = buscarPost(postId);
+
+        post.setTitle(updatePostRequest.getTitle()); // Talvez um mapper?
+        post.setContent(updatePostRequest.getContent()); //
+        postRepository.save(post);
+
+        return "redirect:/community/" + communityId;
+    }
+
+    @Override
     public List<Post> listarPost(Sort sort) {
         return postRepository.findAll(sort);
     }
@@ -90,7 +103,7 @@ public class PostServiceNewImpl implements PostServiceNew {
     }
 
     @Override
-    public String  apagarPostPorId(String id) {
+    public String apagarPostPorId(String id) {
         Post post = buscarPost(id);
         postRepository.delete(post);
         return "redirect:/perfil";

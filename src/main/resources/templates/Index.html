@@ -8,7 +8,7 @@
     <title>Entre Paginas</title>
 
     <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://i.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <link rel="stylesheet" type="text/css"
         href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
@@ -123,7 +123,7 @@
             $('.likeBtn').on('click', function () {
                 let postId = $(this).siblings('input').val();
 
-                $.ajax({
+                $.i({
                     url: `/posts/likes/${postId}`,
                     type: 'POST',
                     data: { action: 'like' },

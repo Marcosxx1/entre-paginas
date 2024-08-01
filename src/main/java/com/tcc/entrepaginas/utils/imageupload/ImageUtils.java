@@ -24,7 +24,7 @@ public class ImageUtils {
         }
     }
 
-    public static String atualizarImagemPost(MultipartFile image, Path root) {
+    public static String saveImageWithUniqueName(MultipartFile image, Path root) {
         try {
             init(root);
 
@@ -32,7 +32,6 @@ public class ImageUtils {
             String newFileName = uuid.toString();
             String extension = FilenameUtils.getExtension(image.getOriginalFilename());
             String fileName = newFileName + "." + extension;
-
             Files.copy(image.getInputStream(), root.resolve(fileName));
 
             return fileName;
@@ -41,13 +40,14 @@ public class ImageUtils {
         }
     }
 
-    public static ImagemPost createImagePost(
-            MultipartFile image,
-            HttpServletRequest request,
-            Post post,
-            Path root) { // TODO - VER POSSIBILIDADE DE NÃO SER STATICO
+    public static ImagemPost
+            createImagePost( // TODO Ver possibilidade de ser Generic ao invés de padrão apenas para o post
+                    MultipartFile image,
+                    HttpServletRequest request,
+                    Post post,
+                    Path root) { // TODO - VER POSSIBILIDADE DE NÃO SER STATICO
         if (image != null && !image.isEmpty()) {
-            String fileName = atualizarImagemPost(image, root);
+            String fileName = saveImageWithUniqueName(image, root);
 
             String baseUrl = ServletUriComponentsBuilder.fromRequestUri(request)
                     .replacePath(null)

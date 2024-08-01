@@ -38,7 +38,7 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
     private final CommunityMapper communityMapper;
     private final CommunityUtils communityUtils;
     private final PostUtils postUtils;
-    private final UsuarioService usuarioService;
+    private final UserService userService;
     private final MemberMapper memberMapper;
     private final UserUtils userUtils;
 
@@ -47,7 +47,7 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
 
         if (principal != null) {
             String username = principal.getName();
-            List<Community> userCommunities = usuarioService.getUserCommunities(username);
+            List<Community> userCommunities = userService.getUserCommunities(username);
             comunidades.removeAll(userCommunities);
         }
 
@@ -90,10 +90,7 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
 
     @Override
     public Community pegarCommunity(String id) {
-        Objects.requireNonNull(id, "ID must not be null"); // TODO - VERIFICAR UMA CAMADA ACIMA
-
-        Optional<Community> community = communityRepository.findById(id);
-        return community.orElseThrow(() -> new ResourceNotFound(id));
+        return communityRepository.findById(id).orElseThrow(() -> new ResourceNotFound(id));
     }
 
     @Override
@@ -194,7 +191,7 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
         }
         var community = communityMapper.toCommunity(novaComunidadeRequest);
         var toSave = memberMapper.toMember( // TODO 1/2 - MOVER PARA MemberService
-                usuarioService.pegarUsuario(idUsuario), // PEGAR DO CONTEXTO
+                userUtils.getUserById(idUsuario), // PEGAR DO CONTEXTO
                 roleCommunityService.findCommunityByUserRole("ADMIN"),
                 community);
 

@@ -1,11 +1,8 @@
 package com.tcc.entrepaginas.domain.dto;
 
-import com.tcc.entrepaginas.domain.entity.ImagemPost;
-import com.tcc.entrepaginas.modules.community.record.CommentsDto;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
-
-import java.time.Instant;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -13,10 +10,12 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class UpdatePostRequest {
-    private String id;
+
+    @NotBlank(message = "Título não pode estar em branco")
+    @Size(max = 255, message = "Cidade não pode ter mais de 255 caracteres")
     private String title;
+
+    @NotBlank(message = "Conteúdo não pode estar em branco")
+    @Size(max = 500, message = "Conteúdo não pode ter mais de 500 caracteres")
     private String content;
-    private ImagemPost Image;
-    private Instant date;
-    private List<CommentsDto> comments;
 }

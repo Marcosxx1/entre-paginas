@@ -3,16 +3,23 @@ package com.tcc.entrepaginas.controller;
 import com.tcc.entrepaginas.domain.dto.NovoUsuarioRequest;
 import com.tcc.entrepaginas.domain.dto.UpdateUserNameLoginAndEmailRequest;
 import com.tcc.entrepaginas.domain.entity.Usuario;
+import com.tcc.entrepaginas.modules.users.record.UserDto;
 import com.tcc.entrepaginas.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -61,5 +68,20 @@ public class UserController {
     public String deletarUsuario(@PathVariable String id) {
         log.info("UserController - GET on /delete/{}; called to delete user with id: ", id);
         return userService.deleteUser(id);
+    }
+
+    @PostMapping("/image/{id}")
+    public String createImage(
+            Authentication authentication, @RequestParam("imagem") MultipartFile image, HttpServletRequest request) {
+        log.info(
+                "UserController - POST on /createImage/ID; called by user: {}",
+                authentication != null ? authentication.getName() : "Anonymous");
+
+        return userService.saveUserImage(authentication, image, request);
+    }
+
+    @GetMapping("/user/list") // TODO - Estamos usando isso?
+    public List<UserDto> listarUsuarios(@RequestParam(required = false) String query) {
+       return userService.listAllUserBasedOnQuery(query);
     }
 }

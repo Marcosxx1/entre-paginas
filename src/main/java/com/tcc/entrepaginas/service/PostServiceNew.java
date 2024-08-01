@@ -1,6 +1,7 @@
 package com.tcc.entrepaginas.service;
 
 import com.tcc.entrepaginas.domain.dto.NovoPostRequest;
+import com.tcc.entrepaginas.domain.dto.UpdatePostRequest;
 import com.tcc.entrepaginas.domain.entity.Post;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -24,4 +25,6 @@ public interface PostServiceNew {
             MultipartFile image,
             NovoPostRequest novoPostRequest,
             HttpServletRequest request);
+
+    String updatePost(UpdatePostRequest updatePostRequest, String postId, String communityId);
 }

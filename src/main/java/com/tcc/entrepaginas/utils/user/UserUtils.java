@@ -53,4 +53,11 @@ public class UserUtils {
     public Usuario getUserByLogin(String userName) {
         return userRepository.findByLogin(userName);
     }
+
+    public Usuario getUsuarioObjectFromAuthentication(Authentication authentication) {
+        if (authentication != null && authentication.getPrincipal() instanceof CustomUserDetails customUserDetails) {
+            return getUserById(customUserDetails.getUserId());
+        }
+        return null;
+    }
 }

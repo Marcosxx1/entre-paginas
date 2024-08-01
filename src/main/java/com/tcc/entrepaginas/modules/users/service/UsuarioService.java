@@ -67,13 +67,9 @@ public class UsuarioService {
             init();
 
             UUID uuid = UUID.randomUUID();
-
             String newFileName = uuid.toString();
-
             String extension = FilenameUtils.getExtension(image.getOriginalFilename());
-
             String fileName = newFileName + "." + extension;
-
             Files.copy(image.getInputStream(), this.root.resolve(fileName));
 
             return fileName;
@@ -91,21 +87,7 @@ public class UsuarioService {
         return usuarioRepository.findByNomeContainingIgnoreCase(query);
     }
 
-    public List<Community> getUserCommunities(String username) {
-        Usuario user = usuarioRepository.findByLogin(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("Usuário não encontrado: " + username);
-        }
-        return user.getMembros().stream().map(Membros::getCommunity).collect(Collectors.toList());
-    }
 
-    public List<Livro> getUserLivros(String username) {
-        Usuario user = usuarioRepository.findByLogin(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("Usuário não encontrado: " + username);
-        }
-        return user.getLivros().stream().collect(Collectors.toList());
-    }
 
     public Usuario pegarUsuarioPorLogin(String login) {
         return usuarioRepository.findByLogin(login);
