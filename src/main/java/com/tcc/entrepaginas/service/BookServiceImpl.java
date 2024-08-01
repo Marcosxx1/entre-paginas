@@ -7,7 +7,6 @@ import com.tcc.entrepaginas.domain.entity.Livro;
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.mapper.book.BookMapper;
-import com.tcc.entrepaginas.modules.users.service.UsuarioService;
 import com.tcc.entrepaginas.repository.LivroRepository;
 import com.tcc.entrepaginas.utils.user.UserUtils;
 import jakarta.servlet.http.HttpServletRequest;

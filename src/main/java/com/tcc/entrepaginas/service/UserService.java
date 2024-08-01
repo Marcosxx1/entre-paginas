@@ -2,10 +2,10 @@ package com.tcc.entrepaginas.service;
 
 import com.tcc.entrepaginas.domain.dto.NovoUsuarioRequest;
 import com.tcc.entrepaginas.domain.dto.UpdateUserNameLoginAndEmailRequest;
+import com.tcc.entrepaginas.domain.dto.UserListResponse;
 import com.tcc.entrepaginas.domain.entity.Community;
 import com.tcc.entrepaginas.domain.entity.Livro;
 import com.tcc.entrepaginas.domain.entity.Usuario;
-import com.tcc.entrepaginas.modules.users.record.UserDto;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 import org.springframework.security.core.Authentication;
@@ -23,7 +23,6 @@ public interface UserService {
 
     String saveUserImage(Authentication authentication, MultipartFile image, HttpServletRequest request);
 
-
     String updateUserNameLoginAndEmail(
             Usuario user,
             String id,
@@ -36,7 +35,7 @@ public interface UserService {
 
     List<Community> getUserCommunities(String username);
 
-    List<UserDto> listAllUserBasedOnQuery(String query);
-     List<Livro> getUserLivros(String username);
+    List<UserListResponse> listAllUserBasedOnQuery(String query);
 
+    List<Livro> getUserLivros(String username);
 }

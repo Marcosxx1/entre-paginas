@@ -35,12 +35,18 @@ public class PostController {
             @RequestParam("imagem") MultipartFile image,
             HttpServletRequest request) {
 
-        log.info("PostController - POST on /create/{}/{}; NovoPostRequest: {}, called by userId: {}", communityId, usuarioId, novoPostRequest, usuarioId);
+        log.info(
+                "PostController - POST on /create/{}/{}; NovoPostRequest: {}, called by userId: {}",
+                communityId,
+                usuarioId,
+                novoPostRequest,
+                usuarioId);
 
         return postServiceNew.createPost(communityId, usuarioId, image, novoPostRequest, request);
     }
 
-    @PostMapping("/likes/{idPost}")
+    @PostMapping("/likes/{idPost}") // TODO - Usuários não logados estão conseguindo votar em posts. Apenas usuários
+    // Autenticados podem votar
     public ResponseEntity<?> likesPost(@PathVariable("idPost") String idPost) {
 
         log.info("PostController - POST on /likes/{}; called to like post with id: {}", idPost, idPost);
@@ -56,7 +62,7 @@ public class PostController {
         return postServiceNew.apagarPostPorId(idPost);
     }
 
-        /*    @PatchMapping("update/{postId}/{communityId}")
+    /*    @PatchMapping("update/{postId}/{communityId}")
     public String updateCommunity( // Vai retornar para a página de comunidade passando o ID
                                    @PathVariable("postId") String postId,
                                    @PathVariable("communityId") String communityId,

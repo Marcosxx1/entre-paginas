@@ -12,8 +12,14 @@ import jakarta.persistence.PrePersist;
 import jakarta.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.Instant;
+import lombok.*;
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class SubComments implements Serializable {
 
     @Id
@@ -42,50 +48,4 @@ public class SubComments implements Serializable {
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
-
-    public SubComments(@NotBlank String content, Comments parentComment, Usuario usuario) {
-        this.content = content;
-        this.parentComment = parentComment;
-        this.usuario = usuario;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Instant getDate() {
-        return date;
-    }
-
-    public void setDate(Instant date) {
-        this.date = date;
-    }
-
-    public Comments getParentComment() {
-        return parentComment;
-    }
-
-    public void setParentComment(Comments parentComment) {
-        this.parentComment = parentComment;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
 }

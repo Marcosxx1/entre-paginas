@@ -15,8 +15,14 @@ import jakarta.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.List;
+import lombok.*;
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class Comments implements Serializable {
 
     @Id
@@ -48,61 +54,4 @@ public class Comments implements Serializable {
 
     @OneToMany(mappedBy = "parentComment", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SubComments> subComments;
-
-    public Comments() {}
-
-    public Comments(String id, String content, Instant date, List<SubComments> subComments) {
-        this.id = id;
-        this.content = content;
-        this.date = date;
-        this.subComments = subComments;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Instant getDate() {
-        return date;
-    }
-
-    public void setDate(Instant date) {
-        this.date = date;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
-    }
-
-    public List<SubComments> getSubComments() {
-        return subComments;
-    }
-
-    public void setSubComments(List<SubComments> subComments) {
-        this.subComments = subComments;
-    }
 }

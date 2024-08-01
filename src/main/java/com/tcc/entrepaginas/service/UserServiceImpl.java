@@ -2,12 +2,12 @@ package com.tcc.entrepaginas.service;
 
 import com.tcc.entrepaginas.domain.dto.NovoUsuarioRequest;
 import com.tcc.entrepaginas.domain.dto.UpdateUserNameLoginAndEmailRequest;
+import com.tcc.entrepaginas.domain.dto.UserListResponse;
 import com.tcc.entrepaginas.domain.entity.Community;
 import com.tcc.entrepaginas.domain.entity.Livro;
 import com.tcc.entrepaginas.domain.entity.Membros;
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.mapper.user.UserMapper;
-import com.tcc.entrepaginas.modules.users.record.UserDto;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
 import com.tcc.entrepaginas.utils.imageupload.ImageUtils;
 import com.tcc.entrepaginas.utils.user.RegistroDeUsuario;
@@ -16,7 +16,6 @@ import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -161,12 +160,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> listAllUserBasedOnQuery(String query) {
+    public List<UserListResponse> listAllUserBasedOnQuery(String query) {
         List<Usuario> usuarios = getUsuarios(query);
         return convertToUserDtoList(usuarios);
     }
 
-    private List<Usuario> getUsuarios(String query) {// TODO - 1/3 Verificar se podemos separar isso daqui. Apesar que não sei se é necessário mesmo só para "limpar" o service
+    private List<Usuario> getUsuarios(
+            String query) { // TODO - 1/3 Verificar se podemos separar isso daqui. Apesar que não sei se é necessário
+        // mesmo só para "limpar" o service
         if (query != null && !query.isEmpty()) {
             return buscarUsuarios(query);
         } else {
@@ -174,20 +175,17 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    private List<UserDto> convertToUserDtoList(List<Usuario> usuarios) {// TODO - 3/3
-        return usuarios.stream()
-                .map(UserDto::fromUsuario)
-                .collect(Collectors.toList());
+    private List<UserListResponse> convertToUserDtoList(List<Usuario> usuarios) { // TODO - 3/3
+        return usuarios.stream().map(UserListResponse::fromUsuario).collect(Collectors.toList());
     }
 
-    public List<Usuario> buscarUsuarios(String query) {// TODO - 3/3
+    public List<Usuario> buscarUsuarios(String query) { // TODO - 3/3
         return usuarioRepository.findByNomeContainingIgnoreCase(query);
     }
 
     public List<Usuario> listarUsuarios(Sort sort) {
         return sort != null ? usuarioRepository.findAll(sort) : Collections.emptyList();
     }
-
 
     @Override
     public List<Livro> getUserLivros(String username) {
@@ -197,5 +195,4 @@ public class UserServiceImpl implements UserService {
         }
         return user.getLivros().stream().collect(Collectors.toList());
     }
-
 }

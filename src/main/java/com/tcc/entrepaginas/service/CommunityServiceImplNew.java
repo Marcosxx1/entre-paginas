@@ -7,7 +7,6 @@ import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.mapper.community.CommunityMapper;
 import com.tcc.entrepaginas.mapper.member.MemberMapper;
-import com.tcc.entrepaginas.modules.users.service.UsuarioService;
 import com.tcc.entrepaginas.repository.CommunityRepository;
 import com.tcc.entrepaginas.repository.MembrosRepository;
 import com.tcc.entrepaginas.utils.PostUtils;
