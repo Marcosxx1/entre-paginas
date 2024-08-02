@@ -80,9 +80,6 @@ public class BookServiceImpl implements BookService {
     }
 
     private void salvarLivro(Livro livro, String idUsuario, List<ImagemLivro> imagensLivro) {
-        if (livro == null) {
-            throw new IllegalArgumentException("Dados inválidos"); // TODO - EXCEPTION MELHOR
-        }
 
         livro.setUsuario(userUtils.getUserById(idUsuario));
         livroRepository.save(livro);

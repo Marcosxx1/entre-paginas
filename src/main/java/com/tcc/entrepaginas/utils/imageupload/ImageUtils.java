@@ -41,7 +41,7 @@ public class ImageUtils {
     }
 
     public static ImagemPost
-            createImagePost( // TODO Ver possibilidade de ser Generic ao invés de padrão apenas para o post
+            createImagePost( // TODO Ver possibilidade de ser Generic<T> ao invés de padrão apenas para o post
                     MultipartFile image,
                     HttpServletRequest request,
                     Post post,

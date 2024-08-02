@@ -165,9 +165,7 @@ public class UserServiceImpl implements UserService {
         return convertToUserDtoList(usuarios);
     }
 
-    private List<Usuario> getUsuarios(
-            String query) { // TODO - 1/3 Verificar se podemos separar isso daqui. Apesar que não sei se é necessário
-        // mesmo só para "limpar" o service
+    private List<Usuario> getUsuarios(String query) {
         if (query != null && !query.isEmpty()) {
             return buscarUsuarios(query);
         } else {
@@ -175,11 +173,11 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    private List<UserListResponse> convertToUserDtoList(List<Usuario> usuarios) { // TODO - 3/3
+    private List<UserListResponse> convertToUserDtoList(List<Usuario> usuarios) {
         return usuarios.stream().map(UserListResponse::fromUsuario).collect(Collectors.toList());
     }
 
-    public List<Usuario> buscarUsuarios(String query) { // TODO - 3/3
+    public List<Usuario> buscarUsuarios(String query) {
         return usuarioRepository.findByNomeContainingIgnoreCase(query);
     }
 
