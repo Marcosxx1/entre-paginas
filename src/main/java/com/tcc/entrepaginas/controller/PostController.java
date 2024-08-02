@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -47,17 +48,17 @@ public class PostController {
 
     @PostMapping("/likes/{idPost}") // TODO - Usuários não logados estão conseguindo votar em posts. Apenas usuários
     // Autenticados podem votar
-    public ResponseEntity<?> likesPost(@PathVariable("idPost") String idPost) {
+    public ResponseEntity<?> likesPost(@PathVariable("idPost") String idPost, Authentication authentication) {
 
-        log.info("PostController - POST on /likes/{}; called to like post with id: {}", idPost, idPost);
+        log.info("PostController - POST on /likes/{idPost}; /likes/{}; called to like post with id: {}", idPost, idPost);
 
-        return reactionServiceNew.reacaoPost(idPost, "like");
+        return reactionServiceNew.reacaoPost(idPost, "like",authentication);
     }
 
     @DeleteMapping("/delete/{id}")
     public String deletarPost(@PathVariable("id") String idPost, RedirectAttributes attributes, Model model) {
 
-        log.info("PostController - DELETE on /delete/{}; called to delete post with id: {}", idPost, idPost);
+        log.info("PostController - DELETE on /delete/{id}; /delete/{}; called to delete post with id: {}", idPost, idPost);
 
         return postServiceNew.apagarPostPorId(idPost);
     }
@@ -74,7 +75,7 @@ public class PostController {
     @PutMapping("/edit/{commentId}")
     public ResponseEntity<?> editComment(@PathVariable String commentId, @RequestBody Map<String, String> payload) {
         String newContent = payload.get("content");
-        log.info("PostController - PUT on /edit/{}; new content: {}", commentId, newContent);
+        log.info("PostController - PUT on/edit/{commentId} /edit/{}; new content: {}", commentId, newContent);
         boolean updated = commentsServiceNew.editComment(commentId, newContent);
         if (updated) {
             log.info("PostController - Comment with id {} updated successfully.", commentId);

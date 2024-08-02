@@ -5,7 +5,9 @@ import com.tcc.entrepaginas.domain.entity.Reaction;
 import com.tcc.entrepaginas.repository.ReactionRepository;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,14 +25,17 @@ public class ReactionServiceImplNew implements ReactionServiceNew {
     }
 
     @Override
-    public ResponseEntity<?> reacaoPost(String idPost, String reacao) {
+    public ResponseEntity<?> reacaoPost(String idPost, String reacao, Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("You must be logged in to vote.");
+        }
+
         Post post = postServiceNew.buscarPost(idPost);
 
         Optional<Reaction> existingReaction =
                 usuarioJaVotou(idPost, post.getUsuario().getId());
 
         if (existingReaction.isPresent()) {
-
             reactionRepository.delete(existingReaction.get());
         } else {
             Reaction newReaction = Reaction.builder()

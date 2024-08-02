@@ -131,7 +131,9 @@
                     $('#likesCount').text(response);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    if (jqXHR.status === 409) {
+                    if (jqXHR.status === 401) {
+                        alert('You must be logged in to vote.');
+                    } else if (jqXHR.status === 409) {
                         alert('You have already voted on this post.');
                     } else {
                         console.error('Error: ', textStatus, errorThrown);
@@ -143,6 +145,7 @@
         });
     });
 </script>
+
 
 
 
