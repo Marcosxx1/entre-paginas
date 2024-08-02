@@ -10,7 +10,7 @@ $(document).ready(function () {
             const modalPostContainer = document.querySelector('.modalIndex .post');
             modalPostContainer.innerHTML = postElement.innerHTML;
             modalPostContainer.setAttribute('data-id', idPost);
-            document.querySelector('.modalIndex form').action = `/comments/create/save/${idPost}/${userLogin}`;
+            document.querySelector('.modalIndex form').action = `/comments/create/save/${idPost}`;
             modal.style.display = "block";
         }
     });

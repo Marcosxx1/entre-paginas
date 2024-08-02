@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -37,9 +38,11 @@ public class CommentsServiceImplNew implements CommentsServiceNew {
     }
 
     @Override
-    public String salvarComments(Comments comments, String idPost, String userLogin) {
+    public String salvarComments(Comments comments, String idPost,  Authentication authentication) {
+
+
         Post post = postService.buscarPost(idPost);
-        Usuario usuario = userUtils.getUserByLogin(userLogin);
+        Usuario usuario = userUtils.getUserByLogin(authentication.getName());
 
         comments.setPost(post);
         comments.setUsuario(usuario);

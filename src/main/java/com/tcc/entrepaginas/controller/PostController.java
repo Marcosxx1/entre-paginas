@@ -46,7 +46,7 @@ public class PostController {
         return postServiceNew.createPost(communityId, usuarioId, image, novoPostRequest, request);
     }
 
-    @PostMapping("/likes/{idPost}") // TODO - Usuários não logados estão conseguindo votar em posts. Apenas usuários
+    @PostMapping("/likes/{idPost}")
     // Autenticados podem votar
     public ResponseEntity<?> likesPost(@PathVariable("idPost") String idPost, Authentication authentication) {
 
