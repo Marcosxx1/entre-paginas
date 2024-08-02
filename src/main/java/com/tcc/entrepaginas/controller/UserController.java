@@ -77,8 +77,11 @@ public class UserController {
         return userService.saveUserImage(authentication, image, request);
     }
 
-    @GetMapping("/user/list") // TODO - Estamos usando isso?
+    @GetMapping("/user/list")
     public List<UserListResponse> listarUsuarios(@RequestParam(required = false) String query) {
+
+        log.info("UserController - GET on /user/list; /user/list called with query: {}", query);
+
         return userService.listAllUserBasedOnQuery(query);
     }
 }

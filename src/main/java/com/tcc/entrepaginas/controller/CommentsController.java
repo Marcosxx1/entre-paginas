@@ -20,13 +20,11 @@ public class CommentsController {
     private final CommentsServiceNew commentsServiceNew;
 
     @PostMapping("/create/save/{idPost}")
-    public String createComments(
-            @PathVariable String idPost,
-             @Valid Comments comments,
-            Authentication authentication) {
+    public String createComments(@PathVariable String idPost, @Valid Comments comments, Authentication authentication) {
         log.info(
                 "CommentsController - POST on /create/save/{idPost}; /create/save/{}; called by user: {}",
-                idPost, authentication != null ? authentication.getName() : "Anonymous");
+                idPost,
+                authentication != null ? authentication.getName() : "Anonymous");
         return commentsServiceNew.salvarComments(comments, idPost, authentication);
     }
 }

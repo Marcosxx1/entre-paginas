@@ -38,8 +38,7 @@ public class CommentsServiceImplNew implements CommentsServiceNew {
     }
 
     @Override
-    public String salvarComments(Comments comments, String idPost,  Authentication authentication) {
-
+    public String salvarComments(Comments comments, String idPost, Authentication authentication) {
 
         Post post = postService.buscarPost(idPost);
         Usuario usuario = userUtils.getUserByLogin(authentication.getName());

@@ -11,7 +11,7 @@ public interface CommentsServiceNew {
 
     boolean editComment(String commentId, String newContent);
 
-    String salvarComments(Comments comments, String idPost,  Authentication authentication);
+    String salvarComments(Comments comments, String idPost, Authentication authentication);
 
     Comments buscarComments(String id);
 }

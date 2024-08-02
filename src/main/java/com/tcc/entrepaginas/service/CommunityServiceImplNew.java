@@ -3,12 +3,12 @@ package com.tcc.entrepaginas.service;
 import com.tcc.entrepaginas.domain.dto.NovaComunidadeRequest;
 import com.tcc.entrepaginas.domain.dto.UpdateCommunityRequest;
 import com.tcc.entrepaginas.domain.entity.Community;
+import com.tcc.entrepaginas.domain.entity.Membros;
 import com.tcc.entrepaginas.domain.entity.Usuario;
-import com.tcc.entrepaginas.exceptions.ResourceNotFound;
+import com.tcc.entrepaginas.exceptions.CommunityNotFoundException;
 import com.tcc.entrepaginas.mapper.community.CommunityMapper;
 import com.tcc.entrepaginas.mapper.member.MemberMapper;
 import com.tcc.entrepaginas.repository.CommunityRepository;
-import com.tcc.entrepaginas.repository.MembrosRepository;
 import com.tcc.entrepaginas.utils.PostUtils;
 import com.tcc.entrepaginas.utils.community.CommunityUtils;
 import com.tcc.entrepaginas.utils.user.UserUtils;
@@ -33,7 +33,7 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
 
     private final RoleCommunityService roleCommunityService;
     private final CommunityRepository communityRepository;
-    private final MembrosRepository membrosRepository;
+
     private final CommunityMapper communityMapper;
     private final CommunityUtils communityUtils;
     private final PostUtils postUtils;
@@ -64,32 +64,41 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
 
     @Override
     public List<Community> listCommunitiesForUser(Usuario user) {
-        log.error("listCommunitiesForUser [{}]", user.getId());
+        log.error("listCommunitiesForUser [User ID: {}]", user.getId());
         return communityRepository
                 .findCommunitiesByUserId(user.getId())
-                .orElseThrow(() -> new ResourceNotFound(user.getId()));
+                .orElseThrow(() -> new CommunityNotFoundException(
+                        "Communities not found for user", "No communities found for user with ID: " + user.getId()));
     }
 
     @Override
     public List<Community> listarCommunities(Sort sort) {
-        Objects.requireNonNull(sort, "Sort must not be null"); // TODO - FAZER VERIFICAÇÃO UMA CAMADA ACIMA
         return communityRepository.findAll(sort);
     }
 
     @Override
     public List<Community> listarCommunitiesPorUsuario(String idUsuario, String role) {
-
-        return communityRepository.getCommunitiesByRole(role, idUsuario); // TODO - VERIFICAR SE REALMENTE EXISTE
+        return communityRepository
+                .getCommunitiesByRole(role, idUsuario)
+                .orElseThrow(() -> new CommunityNotFoundException(
+                        "Community Not Found",
+                        "No communities found for user with ID: " + idUsuario + " and role: " + role));
     }
 
     @Override
-    public List<Community> buscarComunidades(String query) { // TODO - VERIFICAR SE EXISTE
-        return communityRepository.findByTitleContainingIgnoreCase(query);
+    public List<Community> buscarComunidades(String query) {
+        return communityRepository
+                .findByTitleContainingIgnoreCase(query)
+                .orElseThrow(() ->
+                        new CommunityNotFoundException("Community Not Found", "No communities with query: " + query));
     }
 
     @Override
     public Community pegarCommunity(String id) {
-        return communityRepository.findById(id).orElseThrow(() -> new ResourceNotFound(id));
+        return communityRepository
+                .findById(id)
+                .orElseThrow(() -> new CommunityNotFoundException(
+                        "Community Not Found", "No communities found for user with ID: " + id));
     }
 
     @Override
@@ -129,10 +138,6 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
 
     @Override
     public List<String> listCommunitiesWithOrWithoutSort(String query) {
-        // TODO - Eu tenho a impressão que poderíamos rever esse método
-        // Pensemos, temos o listar comunidades e esse agora, a única mudança é a String query
-        // Talvez poderíamos ter um método só, que o default da query é "", ou seja, se não for passado ele busca normal
-        // Se for, busca com a query
         List<Community> communities;
 
         if (query != null && !query.isEmpty()) {
@@ -189,24 +194,19 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
             return "CriarComunidade";
         }
         var community = communityMapper.toCommunity(novaComunidadeRequest);
-        var toSave = memberMapper.toMember( // TODO 1/2 - MOVER PARA MemberService
-                userUtils.getUserById(idUsuario), // PEGAR DO CONTEXTO
-                roleCommunityService.findCommunityByUserRole("ADMIN"),
-                community);
 
-        communityRepository.save(community); // Talvez não precise, como Membros tem relacionamento com as entidades,
-        /*Eu creio que podemos fazer algo como
-         * community.setMembros.... e tal
-         * Dessa forma não precisaremos chamar dois saves (Fica mais fácil de entender como está agora)
-         * Mas se podemos fazer tudo de uma vez, porque não?*/
-        membrosRepository.save(toSave); // TODO 2/2 - MOVER PARA MemberService
+        List<Membros> membersToSave = memberMapper.toListOfMembers(
+                userUtils.getUserById(idUsuario), roleCommunityService.findCommunityByUserRole("ADMIN"), community);
+
+        community.setMembros(membersToSave);
+
+        communityRepository.save(community);
 
         return "redirect:/perfil";
     }
 
     @Override
     public void atualizarComunidade(Community community) {
-        Objects.requireNonNull(community, "Community must not be null"); // TODO - VERIFICAR
         communityRepository.save(community);
     }
 }

@@ -18,9 +18,9 @@ public interface CommunityRepository extends JpaRepository<Community, String> {
             WHERE ro.papel ILIKE :role \
             AND usu.id = :userId\
             """)
-    List<Community> getCommunitiesByRole(@Param("role") String role, @Param("userId") String userId);
+    Optional<List<Community>> getCommunitiesByRole(@Param("role") String role, @Param("userId") String userId);
 
-    List<Community> findByTitleContainingIgnoreCase(String query);
+    Optional<List<Community>> findByTitleContainingIgnoreCase(String query);
 
     @Query("SELECT com FROM Community com JOIN com.membros mem WHERE mem.usuario.id = :userId")
     Optional<List<Community>> findCommunitiesByUserId(@Param("userId") String userId);

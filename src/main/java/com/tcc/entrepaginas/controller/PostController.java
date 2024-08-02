@@ -50,15 +50,19 @@ public class PostController {
     // Autenticados podem votar
     public ResponseEntity<?> likesPost(@PathVariable("idPost") String idPost, Authentication authentication) {
 
-        log.info("PostController - POST on /likes/{idPost}; /likes/{}; called to like post with id: {}", idPost, idPost);
+        log.info(
+                "PostController - POST on /likes/{idPost}; /likes/{}; called to like post with id: {}", idPost, idPost);
 
-        return reactionServiceNew.reacaoPost(idPost, "like",authentication);
+        return reactionServiceNew.reacaoPost(idPost, "like", authentication);
     }
 
     @DeleteMapping("/delete/{id}")
     public String deletarPost(@PathVariable("id") String idPost, RedirectAttributes attributes, Model model) {
 
-        log.info("PostController - DELETE on /delete/{id}; /delete/{}; called to delete post with id: {}", idPost, idPost);
+        log.info(
+                "PostController - DELETE on /delete/{id}; /delete/{}; called to delete post with id: {}",
+                idPost,
+                idPost);
 
         return postServiceNew.apagarPostPorId(idPost);
     }
@@ -74,8 +78,10 @@ public class PostController {
 
     @PutMapping("/edit/{commentId}")
     public ResponseEntity<?> editComment(@PathVariable String commentId, @RequestBody Map<String, String> payload) {
+
         String newContent = payload.get("content");
         log.info("PostController - PUT on/edit/{commentId} /edit/{}; new content: {}", commentId, newContent);
+
         boolean updated = commentsServiceNew.editComment(commentId, newContent);
         if (updated) {
             log.info("PostController - Comment with id {} updated successfully.", commentId);
