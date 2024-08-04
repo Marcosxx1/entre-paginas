@@ -14,19 +14,19 @@ import java.util.Date;
 @NoArgsConstructor
 public class VerificationToken {
 
-    @jakarta.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String Id;
+    private String id;
 
     private String token;
 
     private Date expirationTime;
 
     @OneToOne
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private Usuario usuario;
 
-    public VerificationToken( String token, Usuario usuario) {
+    public VerificationToken(String token, Usuario usuario) {
         this.token = token;
         this.usuario = usuario;
         this.expirationTime = TokenExpirationTime.getExpirationTime();

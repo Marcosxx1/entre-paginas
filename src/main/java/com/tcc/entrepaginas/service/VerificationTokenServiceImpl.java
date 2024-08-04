@@ -31,7 +31,7 @@ public class VerificationTokenServiceImpl implements VerificationTokenService {
             return "expired";
         }
 
-        usuario.setEnabled(true);
+        usuario.set_Enabled(true);
         userService.save(usuario);
 
         return "valid";

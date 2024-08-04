@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String saveUserFromForm(
             NovoUsuarioRequest novoUsuarioRequest, BindingResult result, RedirectAttributes attributes, Model model, HttpServletRequest request) {
-        registroDeUsuario.validarUsuario(novoUsuarioRequest, result);
+        registroDeUsuario.validarUsuario(novoUsuarioRequest, result, request);
 
         if (result.hasErrors()) {
             model.addAttribute("novoUsuarioRequest", novoUsuarioRequest);
@@ -219,11 +219,16 @@ public class UserServiceImpl implements UserService {
     public String verifyEmail(String token) {
         Optional<VerificationToken> verificationToken = tokenService.findByToken(token);
 
-        if (verificationToken.isPresent() && verificationToken.get().getUsuario().isEnabled()) {
+       // Usuario usuario = verificationToken.get().getUsuario();
+
+       // var test = verificationToken.get().getUsuario().is_Enabled();
+
+
+        if (verificationToken.isPresent() && verificationToken.get().getUsuario().is_Enabled()) {
             return "redirect:/login?verified";
         }
 
-        String verificationResult = tokenService.validateToken(String.valueOf(verificationToken));
+        String verificationResult = tokenService.validateToken(verificationToken.get().getToken());// TODO - Isso não me parece certo. Talvez usar isso: verificationToken.get().getToken()
 
         if (verificationResult.equalsIgnoreCase("invalid")) {
             return "redirect:/error?invalid";

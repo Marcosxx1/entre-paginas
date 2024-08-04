@@ -48,7 +48,8 @@ public class UserController {
 
     @GetMapping("/verifyEmail")
     public String  verifyEmail(@RequestParam("token") String token) {
-       return userService.verifyEmail(token);
+        log.info("UserController - GET on /verifyEmail; called with token: {}", token);
+        return userService.verifyEmail(token);
     }
 
     @PostMapping("/edit/{id}")
