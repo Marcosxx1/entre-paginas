@@ -16,6 +16,14 @@
 <body>
 
     <div class="cadastro">
+
+        <div class="row mt-2">
+            <div th:if="${param.success}">
+                Registration successful, check your email
+            </div>
+            <div class="m-4">User registration Form</div>
+        </div>
+
         <div class='cadastro__left'>
             <img src="/static/image/logo.png" alt="" />
         </div>

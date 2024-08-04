@@ -15,6 +15,7 @@ import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
 import lombok.*;
+import org.hibernate.annotations.NaturalId;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -37,6 +38,7 @@ public class Usuario implements UserDetails {
     private String nome;
 
     @Column(unique = true)
+    @NaturalId(mutable = true)
     private String email;
 
     @Column(unique = true)
@@ -46,6 +48,8 @@ public class Usuario implements UserDetails {
 
     @Column(columnDefinition = "boolean default false")
     private boolean premium;
+
+    private boolean isEnabled = false;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")

@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,9 +40,15 @@ public class UserController {
             @Valid NovoUsuarioRequest novoUsuarioRequest,
             BindingResult result,
             RedirectAttributes attributes,
-            Model model) {
+            Model model,
+            HttpServletRequest request) {
         log.info("UserController - POST on /register/save; NovoUsuarioRequest: {}", novoUsuarioRequest);
-        return userService.saveUserFromForm(novoUsuarioRequest, result, attributes, model);
+        return userService.saveUserFromForm(novoUsuarioRequest, result, attributes, model, request);
+    }
+
+    @GetMapping("/verifyEmail")
+    public String  verifyEmail(@RequestParam("token") String token) {
+       return userService.verifyEmail(token);
     }
 
     @PostMapping("/edit/{id}")

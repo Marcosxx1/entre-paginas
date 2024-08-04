@@ -3,23 +3,28 @@ package com.tcc.entrepaginas.service;
 import com.tcc.entrepaginas.domain.dto.NovoUsuarioRequest;
 import com.tcc.entrepaginas.domain.dto.UpdateUserNameLoginAndEmailRequest;
 import com.tcc.entrepaginas.domain.dto.UserListResponse;
-import com.tcc.entrepaginas.domain.entity.Community;
-import com.tcc.entrepaginas.domain.entity.Livro;
-import com.tcc.entrepaginas.domain.entity.Membros;
-import com.tcc.entrepaginas.domain.entity.Usuario;
+import com.tcc.entrepaginas.domain.entity.*;
+import com.tcc.entrepaginas.domain.registration.RegistrationCompleteEvent;
+import com.tcc.entrepaginas.domain.registration.VerificationToken;
 import com.tcc.entrepaginas.mapper.user.UserMapper;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
+import com.tcc.entrepaginas.repository.VerificationTokenRepository;
 import com.tcc.entrepaginas.utils.imageupload.ImageUtils;
+import com.tcc.entrepaginas.utils.registration.UrlUtils;
 import com.tcc.entrepaginas.utils.user.RegistroDeUsuario;
 import com.tcc.entrepaginas.utils.user.UserUtils;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,6 +46,9 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final RegistroDeUsuario registroDeUsuario;
     private final UserUtils userUtils;
+    private final ApplicationEventPublisher publisher;
+    private final VerificationTokenService tokenService;
+
     private static final Path ROOT = Paths.get("uploads");
 
     @PostConstruct
@@ -60,7 +68,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String saveUserFromForm(
-            NovoUsuarioRequest novoUsuarioRequest, BindingResult result, RedirectAttributes attributes, Model model) {
+            NovoUsuarioRequest novoUsuarioRequest, BindingResult result, RedirectAttributes attributes, Model model, HttpServletRequest request) {
         registroDeUsuario.validarUsuario(novoUsuarioRequest, result);
 
         if (result.hasErrors()) {
@@ -71,8 +79,11 @@ public class UserServiceImpl implements UserService {
         Usuario usuario = userMapper.toUsuario(novoUsuarioRequest, passwordEncoder);
         usuarioRepository.save(usuario);
 
+        publisher.publishEvent(new RegistrationCompleteEvent(usuario, UrlUtils.getApplicationUrl(request)));
+
+
         attributes.addFlashAttribute("mensagem", "Cadastro efetuado com sucesso!");
-        return "redirect:/login";
+        return "redirect:/user/register?success";
     }
 
     @Override
@@ -193,4 +204,48 @@ public class UserServiceImpl implements UserService {
         }
         return user.getLivros().stream().collect(Collectors.toList());
     }
+
+    @Override
+    public Usuario getUserByEmail(String email) {
+        return usuarioRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Email não encontrado"));
+    }
+
+    @Override
+    public void saveUser(Usuario user) {
+        usuarioRepository.save(user);
+    }
+
+    @Override
+    public String verifyEmail(String token) {
+        Optional<VerificationToken> verificationToken = tokenService.findByToken(token);
+
+        if (verificationToken.isPresent() && verificationToken.get().getUsuario().isEnabled()) {
+            return "redirect:/login?verified";
+        }
+
+        String verificationResult = tokenService.validateToken(String.valueOf(verificationToken));
+
+        if (verificationResult.equalsIgnoreCase("invalid")) {
+            return "redirect:/error?invalid";
+        } else if (verificationResult.equalsIgnoreCase("expired")) {
+            return "redirect:/error?expired";
+        } else if (verificationResult.equalsIgnoreCase("valid")) {
+            return "redirect:/login?verified";
+        }
+        return "redirect:/error?invalid";
+    }
 }
+/*        if (verificationToken.isPresent()) {
+            Usuario user = verificationToken.get().getUsuario();
+            if (!user.isEnabled()) {
+                user.setEnabled(true);
+                usuarioRepository.save(user);
+                return "Email verificado com sucesso!";
+            } else {
+                return "Email já foi verificado!";
+            }
+        } else {
+            return "Token inválido!";
+        }*/
+
+
