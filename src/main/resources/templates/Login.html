@@ -13,14 +13,29 @@
 
 <body>
 
-    <div class="login">
+<div class="login">
 
-        <img src="/static/image/logo.png" class='login__logo' alt="Imagem do logo no login" />
+    <img src="/static/image/logo.png" class='login__logo' alt="Imagem do logo no login" />
 
-        <div th:if="${param.error}">
-            <button type="button" data-bs-dismiss="alert"></button>
-            <span>Senha ou usuário inválido</span>
-        </div>
+    <div th:if="${param.error}">
+        <button type="button" data-bs-dismiss="alert"></button>
+        <span>Senha ou usuário inválido</span>
+    </div>
+
+    <!-- New code for displaying success messages -->
+    <div th:if="${param.reset_success}" class="col-sm-8">
+        <p class="alert alert-info alert-dismissible fade show" role="alert">You have successfully reset your password, please log in here.</p>
+    </div>
+
+    <div th:if="${param.verified}" class="col-sm-8">
+        <p class="alert alert-info alert-dismissible fade show" role="alert">This account has already been verified, please log in here.</p>
+    </div>
+
+    <div th:if="${param.valid}" class="col-sm-8">
+        <p class="alert alert-info alert-dismissible">Email verified successfully, please log in here.</p>
+    </div>
+    <!-- End of new code -->
+
         <div class='login__form'>
             <form th:action="@{/login}" method="post">
                 <label htmlFor="login">Login</label>

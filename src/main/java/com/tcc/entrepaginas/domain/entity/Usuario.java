@@ -1,20 +1,14 @@
 package com.tcc.entrepaginas.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import com.tcc.entrepaginas.domain.registration.VerificationToken;
+import jakarta.persistence.*;
+
 import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
 import lombok.*;
+import org.hibernate.annotations.NaturalId;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -37,6 +31,7 @@ public class Usuario implements UserDetails {
     private String nome;
 
     @Column(unique = true)
+    @NaturalId(mutable = true)
     private String email;
 
     @Column(unique = true)
@@ -46,6 +41,8 @@ public class Usuario implements UserDetails {
 
     @Column(columnDefinition = "boolean default false")
     private boolean premium;
+
+    private boolean is_Enabled = false;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
@@ -75,6 +72,9 @@ public class Usuario implements UserDetails {
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reaction> reaction;
+
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private VerificationToken verificationToken;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -5,8 +5,6 @@ import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-// Classe customizada para podermos retornar o ID no contexto da Autenticação TODO -
-
 @Getter
 public class CustomUserDetails extends User {
     private String userId;

@@ -103,8 +103,13 @@
             <button type="submit" class="form-button">Salvar</button>
         </form>
 
+        <form th:action="@{/user/delete/{id}(id=${user.id})}"  method="get"
+              class="form-container">
 
-        <a th:href="@{/user/delete/{id}(id=${user.id})}" class="delete">Delete user</a>
+            <button type="submit" class="form-button">Delete user</button>
+        </form>
+
+
     </div>
 </div>
 </body>

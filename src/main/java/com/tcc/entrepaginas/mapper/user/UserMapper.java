@@ -5,7 +5,7 @@ import com.tcc.entrepaginas.domain.dto.UpdateUserNameLoginAndEmailRequest;
 import com.tcc.entrepaginas.domain.entity.Papel;
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
-import com.tcc.entrepaginas.utils.UserUtils;
+import com.tcc.entrepaginas.utils.user.UserUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;

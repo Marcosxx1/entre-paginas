@@ -3,13 +3,10 @@ package com.tcc.entrepaginas.domain.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
-@Builder
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
@@ -21,12 +18,7 @@ public class ImagemLivro extends Imagem {
 
     private long tamanhoEmBytes;
 
-    public ImagemLivro() {
-        super();
-    }
-
-    public ImagemLivro(String nome, Livro livro) {
-        super(nome);
+    public ImagemLivro(String url, Livro livro) {
         this.livro = livro;
     }
 }

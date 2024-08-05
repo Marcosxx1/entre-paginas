@@ -1,5 +1,6 @@
 package com.tcc.entrepaginas.service;
 
+import com.tcc.entrepaginas.domain.dto.LivroParaEditarRequest;
 import com.tcc.entrepaginas.domain.dto.NovoLivroRequest;
 import com.tcc.entrepaginas.domain.entity.Livro;
 import com.tcc.entrepaginas.domain.entity.Usuario;
@@ -34,4 +35,10 @@ public interface BookService {
     Livro getRandomLivro();
 
     List<Livro> listAllBooksForUser(Usuario user);
+
+    String prepareBookToEdit(Model model, String idLivro, Authentication authentication);
+
+    String saveEditedBook(String idLivro, LivroParaEditarRequest livroParaEditarRequest, HttpServletRequest request);
+
+    String prepareTradeBookPage(Model model, String idTroca, Authentication authentication, Principal principal);
 }

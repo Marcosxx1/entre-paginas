@@ -148,16 +148,21 @@
 
 .form-container {
     width: 800px;
-    margin: 4% auto 0 auto;
+    margin: 5% auto 0 auto;
     padding: 20px;
+    border: 2px solid var(--azul-logo);
     border-radius: 5px;
     background-color: var(--white);
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .form-container h3 {
-    margin: 0 0 6% 0;
+    position: absolute;
+    top: -14px;
+    background-color: white;
+    padding: 0 0.4%;
 }
 
 .form-content {
@@ -187,7 +192,7 @@
     padding: 8px;
     margin-bottom: 16px;
     box-sizing: border-box;
-    border: 2px solid var(--azul-claro);
+    border: 2px solid var(--header-background);
     border-radius: 3px;
     color: var(--black);
     outline: none;
@@ -236,12 +241,14 @@
 .form-button {
     width: 100px;
     margin: 0 auto;
-    background-color: var(--white);
+    background-color: var(--azul-claro);
     color: var(--black);
     padding: 10px 15px;
     border-radius: 4px;
     cursor: pointer;
-    border: 1px solid var(--azul-logo);
+    border: none;
+    box-shadow: inset 0 0 4px rgb(59, 59, 59);
+    transition: background-color 1s;
 }
 
 .form-button:hover {
@@ -401,11 +408,14 @@
     margin-bottom: 5%;
     border-radius: 4px;
     cursor: pointer;
-    border: 1px solid var(--azul-logo);
+    border: 1px solid var(--vermelho);
     display: block;
     text-decoration: none;
+    transition: background-color 1s;
 }
 
 .delete:hover {
-    background-color: var(--header-background);
+    border: none;
+    box-shadow: inset 0 0 3px rgb(59, 59, 59);
+    background-color: var(--vermelho);
 }

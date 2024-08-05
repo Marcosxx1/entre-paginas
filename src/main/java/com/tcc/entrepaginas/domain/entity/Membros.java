@@ -7,8 +7,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import java.io.Serializable;
+import lombok.*;
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class Membros implements Serializable {
 
     @Id
@@ -26,44 +32,4 @@ public class Membros implements Serializable {
     @ManyToOne
     @JoinColumn(name = "community_id")
     private Community community;
-
-    public Membros() {}
-
-    public Membros(Usuario usuario, RoleCommunity roleCommunity, Community community) {
-        this.usuario = usuario;
-        this.roleCommunity = roleCommunity;
-        this.community = community;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public RoleCommunity getRoleCommunity() {
-        return roleCommunity;
-    }
-
-    public void setRoleCommunity(RoleCommunity roleCommunity) {
-        this.roleCommunity = roleCommunity;
-    }
-
-    public Community getCommunity() {
-        return community;
-    }
-
-    public void setCommunity(Community community) {
-        this.community = community;
-    }
 }

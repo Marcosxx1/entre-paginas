@@ -12,5 +12,7 @@ public interface ReactionRepository extends JpaRepository<Reaction, String> {
 
     int countByPostIdAndReacao(String postId, String reacao);
 
+    Optional<Reaction> findByPostIdAndUsuarioId(String idPost, String idUsuario);
+
     Optional<Reaction> findByPostAndUsuario(Post post, Usuario usuario);
 }

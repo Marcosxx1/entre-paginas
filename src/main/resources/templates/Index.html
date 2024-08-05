@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
     <meta charset="UTF-8">
@@ -11,7 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <link rel="stylesheet" type="text/css"
-        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+          href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
 
@@ -29,151 +29,149 @@
 
 <body>
 
-    <div th:replace="~{fragments/header/header :: header}"></div>
+<div th:replace="~{fragments/header/header :: header}"></div>
 
-    <div class="perfil">
-        <div class="perfil-principal">
-            <div
+<div class="perfil">
+    <div class="perfil-principal">
+        <div
                 th:replace="~{${#authorization.expression('isAuthenticated()') ? 'fragments/sidebar/sidebar-loggedin' : 'fragments/sidebar/sidebar-loggedout'}}">
-            </div>
         </div>
-        <div class="perfil-right">
-            <div class="container">
-                <div class="div-titulo">
-                    <h5 class="tirulo-trocar">Livros para tocar</h5>
-                </div>
-                <div class="container-livros">
-                    <div th:if="${books.size() > 0}" th:each="book : ${books}">
-                        <div class="book">
-                            <a class="usuarioTroca"
-                                th:href="@{/perfilVisitante/{nomeUsuario}(nomeUsuario=${book.usuario.nome})}">
-                                <img th:src="${book.usuario.imagem}" alt="icone do usuario">
-                            </a>
-                            <img th:src="${book.imagens[0].nome}" alt="icone da livro" class="bookImage">
-                            <div>
-                                <h3 th:text="${book.nome}"></h3>
-                                <p th:text="${book.usuario.nome}"></p>
-                                <p th:text="${book.cidade}" style="display: none;"></p>
-                                <p th:text="${book.estadoBrasil}" style="display: none;"></p>
-                                <p th:text="${book.descricao}" style="display: none;"></p>
-                                <a class="bookID" th:href="@{/book/trade/{id}(id=${book.id})}"
-                                    style="display: none;"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="div-titulo">
-                    <h5 class="tirulo-comunidades">Comunidades</h5>
-                </div>
-                <div class="container-comunidades">
-                    <div th:if="${comunidades.size() > 0}" th:each="comunidade : ${comunidades}">
-                        <a th:href="@{/community/{id}(id=${comunidade.id})}">
-                            <div class="comunidade">
-                                <img th:src="${comunidade.icone == null ? '/static/image/semImagem.png' : comunidade.icone}"
-                                    alt="icone da comunidade">
-                            </div>
-                            <div class="comunidade-verso hide">
-                                <h2 th:text="${comunidade.title}"></h2>
-                                <h2>membros: 1</h2>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div th:replace="~{fragments/posts/posts :: post}"></div>
+    </div>
+    <div class="perfil-right">
+        <div class="container">
+            <div class="div-titulo">
+                <h5 class="tirulo-trocar">Livros para tocar</h5>
             </div>
-            <div id="bookModalLivro" class="modalLivro">
-                <div class="modalLivro-content">
-                    <div class="div-anunciante">
-                        <p class="anunciante">Anuncio feito por:</p>
-                        <p th:text="${book.usuario.nome}" id="modalBookAuthor" class="anunciante"></p>
-                    </div>
-                    <img th:src="${book.imagens[0].nome}" alt="icone da livro" id="modalBookImage">
-                    <div>
-                        <h3 th:text="${book.nome}" id="modalBookTitle"></h3>
-                        <div class="modalLugar">
-                            <p th:text="${book.cidade}" id="modalBookCidade"></p>
-                            -
-                            <p th:text="${book.estadoBrasil}" id="modalBookEstado"></p>
+            <div class="container-livros">
+                <div th:if="${books.size() > 0}" th:each="book : ${books}">
+                    <div class="book">
+                        <a class="usuarioTroca"
+                           th:href="@{/perfilVisitante/{nomeUsuario}(nomeUsuario=${book.usuario.nome})}">
+                            <img th:src="${book.usuario.imagem}" alt="icone do usuario">
+                        </a>
+                        <img th:src="${book.imagens[0].nome}" alt="icone da livro" class="bookImage">
+                        <div>
+                            <h3 th:text="${book.nome}"></h3>
+                            <p th:text="${book.usuario.nome}"></p>
+                            <p th:text="${book.cidade}" style="display: none;"></p>
+                            <p th:text="${book.estadoBrasil}" style="display: none;"></p>
+                            <p th:text="${book.descricao}" style="display: none;"></p>
+                            <a class="bookID" th:href="@{/book/trade/{id}(id=${book.id})}"
+                               style="display: none;"></a>
                         </div>
-                        <div class="modalBookDescricaoDiv">
-                            <p class="descricao">Descrição: </p>
-                            <p th:text="${book.descricao}" id="modalBookDescricao"></p>
-                        </div>
                     </div>
-
-                    <a th:href="@{/book/trade/{id}(id=${book.id})}" id="modalBookLink">Solicitar Troca</a>
                 </div>
+            </div>
+            <div class="div-titulo">
+                <h5 class="tirulo-comunidades">Comunidades</h5>
+            </div>
+            <div class="container-comunidades">
+                <div th:if="${comunidades.size() > 0}" th:each="comunidade : ${comunidades}">
+                    <a th:href="@{/community/{id}(id=${comunidade.id})}">
+                        <div class="comunidade">
+                            <img th:src="${comunidade.icone == null ? '/static/image/semImagem.png' : comunidade.icone}"
+                                 alt="icone da comunidade">
+                        </div>
+                        <div class="comunidade-verso hide">
+                            <h2 th:text="${comunidade.title}"></h2>
+                            <h2>membros: 1</h2>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div th:replace="~{fragments/posts/posts :: post}"></div>
+        </div>
+        <div th:if="${book != null}" id="bookModalLivro" class="modalLivro">
+            <div class="modalLivro-content">
+                <div class="div-anunciante">
+                    <p class="anunciante">Anuncio feito por:</p>
+                    <p th:text="${book.usuario != null ? book.usuario.nome : 'N/A'}" id="modalBookAuthor" class="anunciante"></p>
+                </div>
+
+                <div th:if="${book.imagens != null}">
+                    <img th:src="${book.imagens[0].nome}" alt="icone da livro" id="modalBookImage" />
+                </div>
+                <!--
+                                    <p th:text="${book.imagens != null ? book.imagens[0].nome : 'N/A'}" id="modalBookImageName"></p>
+                -->
+
+                <div>
+                    <h3 th:text="${book.nome}" id="modalBookTitle"></h3>
+                    <div class="modalLugar">
+                        <p th:text="${book.cidade}" id="modalBookCidade"></p>
+                        -
+                        <p th:text="${book.estadoBrasil}" id="modalBookEstado"></p>
+                    </div>
+                    <div class="modalBookDescricaoDiv">
+                        <p class="descricao">Descrição: </p>
+                        <p th:text="${book.descricao}" id="modalBookDescricao"></p>
+                    </div>
+                </div>
+
+                <a th:href="@{/book/trade/{id}(id=${book.id})}" id="modalBookLink">Solicitar Troca</a>
             </div>
         </div>
     </div>
-    <span sec:authentication="name" style="display: none;" id="userLogin"></span>
+</div>
+<span sec:authentication="name" style="display: none;" id="userLogin"></span>
 
-    <div th:replace="~{fragments/posts/posts :: modalPost}"></div>
+<div th:replace="~{fragments/posts/posts :: modalPost}"></div>
 
-    <script>
-        $(document).ready(function () {
-            $('.likeBtn').on('click', function () {
-                let postId = $(this).siblings('input').val();
+<script>
+    $(document).ready(function () {
+        $('.likeBtn').on('click', function () {
+            let postId = $(this).siblings('input').val();
 
-                $.ajax({
-                    url: `/posts/likes/${postId}`,
-                    type: 'POST',
-                    data: { action: 'like' },
-                    success: function (response) {
-                        $('#likesCount').text(response.newLikeCount);
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
+            $.ajax({
+                url: `/posts/likes/${postId}`,
+                type: 'POST',
+                data: { action: 'like' },
+                success: function (response) {
+                    $('#likesCount').text(response);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    if (jqXHR.status === 401) {
+                        alert('You must be logged in to vote.');
+                    } else if (jqXHR.status === 409) {
+                        alert('You have already voted on this post.');
+                    } else {
                         console.error('Error: ', textStatus, errorThrown);
                         alert('An error occurred while processing your request.');
                     }
-                });
-
+                }
             });
 
-            $('.dislikeBtn').on('click', function () {
-                let postId = $(this).siblings('input').val();
-
-                $.ajax({
-                    url: `/posts/dislike/${postId}`,
-                    type: 'POST',
-                    data: { action: 'dislike' },
-                    success: function (response) {
-                        $('#likesCount').text(response.newLikeCount);
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.error('Error: ', textStatus, errorThrown);
-                        alert('An error occurred while processing your request.');
-                    }
-                });
-            });
         });
-    </script>
+    });
+</script>
 
 
-    <script>
-        $(document).ready(function () {
-            $('.book').on('click', function () {
-                var title = $(this).find('h3').text();
-                var author = $(this).find('p:eq(0)').text();
-                var image = $(this).find('.bookImage').attr('src');
-                var cidade = $(this).find('p:eq(1)').text();
-                var estado = $(this).find('p:eq(2)').text();
-                var descricao = $(this).find('p:eq(3)').text();
-                var link = $(this).find('.bookID').attr('href');
 
-                $('#modalBookTitle').text(title);
-                $('#modalBookAuthor').text(author);
-                $('#modalBookCidade').text(cidade);
-                $('#modalBookEstado').text(estado);
-                $('#modalBookDescricao').text(descricao);
-                $('#modalBookImage').attr('src', image);
-                $('#modalBookLink').attr('href', link);
 
-                $('#bookModalLivro').css('display', 'block');
-            });
+<script>
+    $(document).ready(function () {
+        $('.book').on('click', function () {
+            var title = $(this).find('h3').text();
+            var author = $(this).find('p:eq(0)').text();
+            var image = $(this).find('.bookImage').attr('src');
+            var cidade = $(this).find('p:eq(1)').text();
+            var estado = $(this).find('p:eq(2)').text();
+            var descricao = $(this).find('p:eq(3)').text();
+            var link = $(this).find('.bookID').attr('href');
+
+            $('#modalBookTitle').text(title);
+            $('#modalBookAuthor').text(author);
+            $('#modalBookCidade').text(cidade);
+            $('#modalBookEstado').text(estado);
+            $('#modalBookDescricao').text(descricao);
+            $('#modalBookImage').attr('src', image);
+            $('#modalBookLink').attr('href', link);
+
+            $('#bookModalLivro').css('display', 'block');
         });
-    </script>
+    });
+</script>
 </body>
 
 </html>

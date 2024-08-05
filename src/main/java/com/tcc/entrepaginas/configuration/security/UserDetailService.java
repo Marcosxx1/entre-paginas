@@ -30,7 +30,12 @@ public class UserDetailService implements UserDetailsService {
 
         Usuario usuario = usuarioRepository.findByLogin(username);
 
-        if (usuario != null) {
+        if (usuario != null ) {
+            if (!usuario.is_Enabled()) {
+                log.error("UserDetailService.loadUserByUsername: User [{}] is disabled", username);
+                throw new UsernameNotFoundException("Usuário desabilitado");
+            }
+
             Set<GrantedAuthority> papeisDoUsuario = new HashSet<>();
 
             GrantedAuthority pp = new SimpleGrantedAuthority(usuario.getPapel().getPapelNome());
@@ -38,8 +43,9 @@ public class UserDetailService implements UserDetailsService {
 
             return new CustomUserDetails(usuario.getLogin(), usuario.getPassword(), papeisDoUsuario, usuario.getId());
         } else {
-            log.error("UserDetailService.loadUserByUsername Exception error: [{}]", username);
+            log.error("UserDetailService.loadUserByUsername: User [{}] not found", username);
             throw new UsernameNotFoundException("Usuário não encontrado");
         }
     }
 }
+

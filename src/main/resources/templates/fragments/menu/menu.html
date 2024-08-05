@@ -15,7 +15,8 @@
         <div class="perfil-principal__div">
             <div class="perfil-principal__div-image">
                 <a th:href="@{/perfil}">
-                    <img th:if="${user.imagem != null and user.imagem.trim() != ''}"<!--Foi adicionado isso pois a imagem estava quebrando -->
+                    <!--Foi adicionado isso pois a imagem estava quebrando -->
+                    <img th:if="${user.imagem != null and user.imagem.trim() != ''}"
                          th:src="${user.imagem}"
                          alt="Imagem do Usuário"
                     />

@@ -2,7 +2,7 @@ package com.tcc.entrepaginas.service;
 
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.mapper.user.UserMapper;
-import com.tcc.entrepaginas.utils.UserUtils;
+import com.tcc.entrepaginas.utils.user.UserUtils;
 import java.security.Principal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;

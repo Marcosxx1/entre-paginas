@@ -1,14 +1,14 @@
 package com.tcc.entrepaginas.service;
 
+import com.tcc.entrepaginas.domain.dto.LivroParaEditarRequest;
 import com.tcc.entrepaginas.domain.dto.NovoLivroRequest;
 import com.tcc.entrepaginas.domain.entity.ImagemLivro;
 import com.tcc.entrepaginas.domain.entity.Livro;
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.mapper.book.BookMapper;
-import com.tcc.entrepaginas.modules.users.service.UsuarioService;
 import com.tcc.entrepaginas.repository.LivroRepository;
-import com.tcc.entrepaginas.utils.UserUtils;
+import com.tcc.entrepaginas.utils.user.UserUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.Collections;
@@ -29,7 +29,7 @@ public class BookServiceImpl implements BookService {
 
     private final LivroRepository livroRepository;
     private final ImagemLivroService imagemLivroService;
-    private final UsuarioService usuarioService;
+    private final UserService userService;
     private final UserUtils userUtils;
     private final EnumConverterService enumConverterService;
     private final EnumListingService enumListingService;
@@ -68,7 +68,7 @@ public class BookServiceImpl implements BookService {
 
         salvarLivro(livroParaAssociar, idUsuario, imagensLivro);
 
-        return "redirect:/book/create/" + idUsuario;
+        return "redirect:/book/exchanges/" + idUsuario;
     }
 
     @Override
@@ -80,9 +80,6 @@ public class BookServiceImpl implements BookService {
     }
 
     private void salvarLivro(Livro livro, String idUsuario, List<ImagemLivro> imagensLivro) {
-        if (livro == null) {
-            throw new IllegalArgumentException("Dados inválidos"); // TODO - EXCEPTION MELHOR
-        }
 
         livro.setUsuario(userUtils.getUserById(idUsuario));
         livroRepository.save(livro);
@@ -131,7 +128,7 @@ public class BookServiceImpl implements BookService {
     private void filterUserLivros(List<Livro> livros, Principal principal) {
         if (principal != null) {
             String username = principal.getName();
-            List<Livro> userLivros = usuarioService.getUserLivros(username);
+            List<Livro> userLivros = userService.getUserLivros(username);
             livros.removeAll(userLivros);
         }
     }
@@ -151,5 +148,45 @@ public class BookServiceImpl implements BookService {
     public List<Livro> listAllBooksForUser(Usuario user) {
         log.error("listAllBooksForUser [{}]", user.getId());
         return livroRepository.findByUsuario(user).orElseThrow(() -> new ResourceNotFound(user.getId()));
+    }
+
+    public String prepareBookToEdit(Model model, String idLivro, Authentication authentication) {
+        String idUsuario = userUtils.getIdUserFromUserDetail(authentication);
+        model = userUtils.setUserInAttributesIfAuthenticated(model, authentication, idUsuario);
+
+        Livro livro = buscarLivro(idLivro);
+        model.addAttribute("livro", livro);
+        model.addAttribute("categorias", enumListingService.listarTodasCategorias());
+        model.addAttribute("estados", enumListingService.listarTodosEstados());
+        model.addAttribute("tipos", enumListingService.listarTodosTipos());
+        model.addAttribute("estadosBrasil", enumListingService.listarTodosEstadosBrasil());
+        model.addAttribute("idUsuario", livro.getUsuario().getId());
+        // Podemos pegar o ImagemLivroService, pegar as imagens com o ID do livro
+        // No HTML poderiamos fazer um modalzinho com as minuaturas das imagens e editar uma por uma
+        // OUU
+        // Fazer outra rota para editar as imagens em específico
+        return "EditarLivro";
+    }
+
+    @Override
+    public String saveEditedBook(
+            String idLivro, LivroParaEditarRequest livroParaEditarRequest, HttpServletRequest request) {
+        Livro livro = buscarLivro(idLivro);
+        livro = bookMapper.toLivroFromLivroParaEditarRequest(livro, livroParaEditarRequest);
+        livroRepository.save(livro);
+        return "redirect:/book/exchanges/" + livro.getUsuario().getId();
+    }
+
+    @Override
+    public String prepareTradeBookPage(
+            Model model, String idTroca, Authentication authentication, Principal principal) {
+
+        String idUsuario = userUtils.getIdUserFromUserDetail(authentication);
+        model = userUtils.setUserInAttributesIfAuthenticated(model, authentication, idUsuario);
+
+        model.addAttribute("books", listarRandomLivros(10, principal, idTroca));
+        model.addAttribute("troca", buscarLivro(idTroca));
+
+        return "Book";
     }
 }
