@@ -2,6 +2,7 @@ package com.tcc.entrepaginas.controller;
 
 import com.tcc.entrepaginas.domain.dto.LivroParaEditarRequest;
 import com.tcc.entrepaginas.domain.dto.NovoLivroRequest;
+import com.tcc.entrepaginas.domain.entity.Livro;
 import com.tcc.entrepaginas.service.BookService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -95,5 +96,14 @@ public class BookController {
                 idTroca,
                 authentication != null ? authentication.getName() : "Anonymous");
         return bookService.prepareTradeBookPage(model, idTroca, authentication, principal);
+    }
+
+    @GetMapping("/all-exchanges")
+    public String viewAllExchanges(Model model, Authentication authentication) {
+        log.info("BookController - GET on /all-exchanges; called by user: {}",
+                authentication != null ? authentication.getName() : "Anonymous");
+
+        return bookService.listarTodasTrocas(model);
+
     }
 }

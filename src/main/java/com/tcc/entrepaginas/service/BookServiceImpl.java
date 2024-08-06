@@ -5,15 +5,18 @@ import com.tcc.entrepaginas.domain.dto.NovoLivroRequest;
 import com.tcc.entrepaginas.domain.entity.ImagemLivro;
 import com.tcc.entrepaginas.domain.entity.Livro;
 import com.tcc.entrepaginas.domain.entity.Usuario;
+import com.tcc.entrepaginas.domain.enums.EstadoBrasil;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.mapper.book.BookMapper;
 import com.tcc.entrepaginas.repository.LivroRepository;
 import com.tcc.entrepaginas.utils.user.UserUtils;
 import jakarta.servlet.http.HttpServletRequest;
+
 import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
@@ -73,9 +76,16 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public String bookExchange(Model model, String idUsuario, Authentication authentication) {
+        /*Filtrar livros para troca por região:
+Configurar o sistema para que os livros exibidos para troca sejam apenas aqueles que estão na mesma região do usuário.
+*/
         model = userUtils.setUserInAttributesIfAuthenticated(model, authentication, idUsuario);
 
-        model.addAttribute("livrosTrocar", listarTrocasPorPessoas(idUsuario));
+        List<Livro> livrosPorRegiao = listarLivrosPorRegiao(idUsuario); // Adicionar uma section ou algo do tipo talvez?
+
+
+        model.addAttribute("livrosTrocar", listarTrocasPorPessoas(idUsuario));// Assim podemos ter as trocas ativas do usuário
+        model.addAttribute("livrosTrocar", livrosPorRegiao); // E as trocas por região que for escolhida
         return "MinhasTrocas";
     }
 
@@ -188,5 +198,23 @@ public class BookServiceImpl implements BookService {
         model.addAttribute("troca", buscarLivro(idTroca));
 
         return "Book";
+    }
+
+    @Override
+    public List<Livro> listarLivrosPorRegiao(String idUsuario) {
+        Usuario usuario = userUtils.getUserById(idUsuario);
+        String userCidade = usuario.getCidade();
+        EstadoBrasil userEstado = usuario.getEstadoBrasil();
+
+        return livroRepository.findByCidadeAndEstado(userCidade, userEstado);
+    }
+
+    @Override
+    public String listarTodasTrocas(Model model) {
+
+        List<Livro> livrosTrocar = livroRepository.findAll();
+        model.addAttribute("livrosTrocar", livrosTrocar);
+
+        return "AllExchanges";
     }
 }

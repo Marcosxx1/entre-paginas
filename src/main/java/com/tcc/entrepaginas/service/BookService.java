@@ -41,4 +41,8 @@ public interface BookService {
     String saveEditedBook(String idLivro, LivroParaEditarRequest livroParaEditarRequest, HttpServletRequest request);
 
     String prepareTradeBookPage(Model model, String idTroca, Authentication authentication, Principal principal);
+
+    List<Livro> listarLivrosPorRegiao(String idUsuario);
+
+    String listarTodasTrocas(Model model);
 }

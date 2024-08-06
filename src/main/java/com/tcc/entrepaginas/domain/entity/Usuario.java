@@ -1,6 +1,7 @@
 package com.tcc.entrepaginas.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.tcc.entrepaginas.domain.enums.EstadoBrasil;
 import com.tcc.entrepaginas.domain.registration.VerificationToken;
 import jakarta.persistence.*;
 
@@ -38,6 +39,10 @@ public class Usuario implements UserDetails {
     private String login;
 
     private String senha;
+
+    private String cidade;
+
+    private EstadoBrasil estadoBrasil;
 
     @Column(columnDefinition = "boolean default false")
     private boolean premium;
