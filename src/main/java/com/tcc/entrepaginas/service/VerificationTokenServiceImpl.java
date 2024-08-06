@@ -4,11 +4,10 @@ import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.domain.registration.VerificationToken;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
 import com.tcc.entrepaginas.repository.VerificationTokenRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import java.util.Calendar;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +24,7 @@ public class VerificationTokenServiceImpl implements VerificationTokenService {
             return "invalid";
         }
 
-        Usuario usuario= existToken.get().getUsuario();
+        Usuario usuario = existToken.get().getUsuario();
         Calendar cal = Calendar.getInstance();
         if ((existToken.get().getExpirationTime().getTime() - cal.getTime().getTime()) <= 0) {
             return "expired";

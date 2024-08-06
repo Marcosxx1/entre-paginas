@@ -18,7 +18,8 @@ public class RegistroDeUsuario {
     private final UsuarioRepository usuarioRepository;
     private final ApplicationEventPublisher publisher;
 
-    public void validarUsuario(NovoUsuarioRequest novoUsuarioRequest, BindingResult result, HttpServletRequest request) {
+    public void validarUsuario(
+            NovoUsuarioRequest novoUsuarioRequest, BindingResult result, HttpServletRequest request) {
         Usuario usuarioExistente =
                 usuarioRepository.findByLoginOrEmail(novoUsuarioRequest.getLogin(), novoUsuarioRequest.getEmail());
 
@@ -28,11 +29,10 @@ public class RegistroDeUsuario {
             }
             if (usuarioExistente.getEmail().equals(novoUsuarioRequest.getEmail())) {
                 result.rejectValue("email", "error.email", "User already exists with this email");
-            } else
-            if(!usuarioExistente.isEnabled()){
+            } else if (!usuarioExistente.isEnabled()) {
                 result.rejectValue("email", "error.email", "A new validation email was sent to your email");
-                publisher.publishEvent(new RegistrationCompleteEvent(usuarioExistente, UrlUtils.getApplicationUrl(request)));
-
+                publisher.publishEvent(
+                        new RegistrationCompleteEvent(usuarioExistente, UrlUtils.getApplicationUrl(request)));
             }
         }
     }

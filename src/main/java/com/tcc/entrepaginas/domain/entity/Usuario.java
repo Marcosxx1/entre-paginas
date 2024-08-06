@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tcc.entrepaginas.domain.enums.EstadoBrasil;
 import com.tcc.entrepaginas.domain.registration.VerificationToken;
 import jakarta.persistence.*;
-
 import java.time.Instant;
 import java.util.Collection;
 import java.util.List;

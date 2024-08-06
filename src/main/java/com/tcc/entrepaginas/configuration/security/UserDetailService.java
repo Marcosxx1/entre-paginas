@@ -30,7 +30,7 @@ public class UserDetailService implements UserDetailsService {
 
         Usuario usuario = usuarioRepository.findByLogin(username);
 
-        if (usuario != null ) {
+        if (usuario != null) {
             if (!usuario.is_Enabled()) {
                 log.error("UserDetailService.loadUserByUsername: User [{}] is disabled", username);
                 throw new UsernameNotFoundException("Usuário desabilitado");
@@ -48,4 +48,3 @@ public class UserDetailService implements UserDetailsService {
         }
     }
 }
-

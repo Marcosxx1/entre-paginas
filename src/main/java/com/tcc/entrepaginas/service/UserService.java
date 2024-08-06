@@ -8,8 +8,6 @@ import com.tcc.entrepaginas.domain.entity.Livro;
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,7 +19,11 @@ public interface UserService {
     String registerAndRedirect(Authentication authentication, Model model);
 
     String saveUserFromForm(
-            NovoUsuarioRequest novoUsuarioRequest, BindingResult result, RedirectAttributes attributes, Model model, HttpServletRequest request);
+            NovoUsuarioRequest novoUsuarioRequest,
+            BindingResult result,
+            RedirectAttributes attributes,
+            Model model,
+            HttpServletRequest request);
 
     String saveUserImage(Authentication authentication, MultipartFile image, HttpServletRequest request);
 

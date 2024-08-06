@@ -10,7 +10,6 @@ import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,7 +46,7 @@ public class UserController {
     }
 
     @GetMapping("/verifyEmail")
-    public String  verifyEmail(@RequestParam("token") String token) {
+    public String verifyEmail(@RequestParam("token") String token) {
         log.info("UserController - GET on /verifyEmail; called with token: {}", token);
         return userService.verifyEmail(token);
     }
