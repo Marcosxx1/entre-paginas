@@ -1,19 +1,17 @@
 package com.tcc.entrepaginas.domain.registration.event.listener;
 
-
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.domain.registration.RegistrationCompleteEvent;
 import com.tcc.entrepaginas.service.VerificationTokenService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import java.io.UnsupportedEncodingException;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationListener;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
-
-import java.io.UnsupportedEncodingException;
-import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -24,15 +22,15 @@ public class RegistrationCompleteEventListener implements ApplicationListener<Re
 
     @Override
     public void onApplicationEvent(RegistrationCompleteEvent event) {
-        //1. get the user
+        // 1. get the user
         user = event.getUsuario();
-        //2. generate a token for the user
+        // 2. generate a token for the user
         String vToken = UUID.randomUUID().toString();
-        //3. save the token for the user
+        // 3. save the token for the user
         tokenService.saveVerificationTokenForUser(user, vToken);
-        //4. Build the verification url
+        // 4. Build the verification url
         String url = event.getConfirmationUrl() + "/user/verifyEmail?token=" + vToken;
-        //5. send the email to the user
+        // 5. send the email to the user
         try {
             sendVerificationEmail(url);
         } catch (MessagingException | UnsupportedEncodingException e) {
@@ -43,28 +41,27 @@ public class RegistrationCompleteEventListener implements ApplicationListener<Re
     public void sendVerificationEmail(String url) throws MessagingException, UnsupportedEncodingException {
         String subject = "Email Verification";
         String senderName = "Users Verification Service";
-        String mailContent = "<p> Hi, " + user.getNome() + ", </p>" +
-                "<p>Thank you for registering with us," + " " +
-                "Please, follow the link below to complete your registration.</p>" +
-                "<a href=\"" + url + "\">Verify your email to activate your account</a>" +
-                "<p> Thank you <br> Users Registration Portal Service";
+        String mailContent = "<p> Hi, " + user.getNome() + ", </p>" + "<p>Thank you for registering with us,"
+                + " " + "Please, follow the link below to complete your registration.</p>"
+                + "<a href=\""
+                + url + "\">Verify your email to activate your account</a>"
+                + "<p> Thank you <br> Users Registration Portal Service";
         emailMessage(subject, senderName, mailContent, mailSender, user);
     }
-
 
     public void sendPasswordResetVerificationEmail(String url) throws MessagingException, UnsupportedEncodingException {
         String subject = "Password Reset Request Verification";
         String senderName = "Users Verification Service";
-        String mailContent = "<p> Hi, " + user.getNome() + ", </p>" +
-                "<p><b>You recently requested to reset your password,</b>" + "" +
-                "Please, follow the link below to complete the action.</p>" +
-                "<a href=\"" + url + "\">Reset password</a>" +
-                "<p> Users Registration Portal Service";
+        String mailContent =
+                "<p> Hi, " + user.getNome() + ", </p>" + "<p><b>You recently requested to reset your password,</b>"
+                        + "" + "Please, follow the link below to complete the action.</p>"
+                        + "<a href=\""
+                        + url + "\">Reset password</a>" + "<p> Users Registration Portal Service";
         emailMessage(subject, senderName, mailContent, mailSender, user);
     }
 
-    private static void emailMessage(String subject, String senderName,
-                                     String mailContent, JavaMailSender mailSender, Usuario theUser)
+    private static void emailMessage(
+            String subject, String senderName, String mailContent, JavaMailSender mailSender, Usuario theUser)
             throws MessagingException, UnsupportedEncodingException {
         MimeMessage message = mailSender.createMimeMessage();
         var messageHelper = new MimeMessageHelper(message);
@@ -74,6 +71,4 @@ public class RegistrationCompleteEventListener implements ApplicationListener<Re
         messageHelper.setText(mailContent, true);
         mailSender.send(message);
     }
-
-
 }

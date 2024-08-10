@@ -8,21 +8,18 @@ import com.tcc.entrepaginas.domain.registration.RegistrationCompleteEvent;
 import com.tcc.entrepaginas.domain.registration.VerificationToken;
 import com.tcc.entrepaginas.mapper.user.UserMapper;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
-import com.tcc.entrepaginas.repository.VerificationTokenRepository;
 import com.tcc.entrepaginas.utils.imageupload.ImageUtils;
 import com.tcc.entrepaginas.utils.registration.UrlUtils;
 import com.tcc.entrepaginas.utils.user.RegistroDeUsuario;
 import com.tcc.entrepaginas.utils.user.UserUtils;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Sort;
@@ -68,7 +65,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String saveUserFromForm(
-            NovoUsuarioRequest novoUsuarioRequest, BindingResult result, RedirectAttributes attributes, Model model, HttpServletRequest request) {
+            NovoUsuarioRequest novoUsuarioRequest,
+            BindingResult result,
+            RedirectAttributes attributes,
+            Model model,
+            HttpServletRequest request) {
         registroDeUsuario.validarUsuario(novoUsuarioRequest, result, request);
 
         if (result.hasErrors()) {
@@ -80,7 +81,6 @@ public class UserServiceImpl implements UserService {
         usuarioRepository.save(usuario);
 
         publisher.publishEvent(new RegistrationCompleteEvent(usuario, UrlUtils.getApplicationUrl(request)));
-
 
         attributes.addFlashAttribute("mensagem", "Cadastro efetuado com sucesso!");
         return "redirect:/user/register?success";
@@ -207,7 +207,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Usuario getUserByEmail(String email) {
-        return usuarioRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Email não encontrado"));
+        return usuarioRepository
+                .findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Email não encontrado"));
     }
 
     @Override
@@ -219,16 +221,18 @@ public class UserServiceImpl implements UserService {
     public String verifyEmail(String token) {
         Optional<VerificationToken> verificationToken = tokenService.findByToken(token);
 
-       // Usuario usuario = verificationToken.get().getUsuario();
+        // Usuario usuario = verificationToken.get().getUsuario();
 
-       // var test = verificationToken.get().getUsuario().is_Enabled();
+        // var test = verificationToken.get().getUsuario().is_Enabled();
 
-
-        if (verificationToken.isPresent() && verificationToken.get().getUsuario().is_Enabled()) {
+        if (verificationToken.isPresent()
+                && verificationToken.get().getUsuario().is_Enabled()) {
             return "redirect:/login?verified";
         }
 
-        String verificationResult = tokenService.validateToken(verificationToken.get().getToken());// TODO - Isso não me parece certo. Talvez usar isso: verificationToken.get().getToken()
+        String verificationResult = tokenService.validateToken(verificationToken
+                .get()
+                .getToken()); // TODO - Isso não me parece certo. Talvez usar isso: verificationToken.get().getToken()
 
         if (verificationResult.equalsIgnoreCase("invalid")) {
             return "redirect:/error?invalid";
@@ -241,16 +245,14 @@ public class UserServiceImpl implements UserService {
     }
 }
 /*        if (verificationToken.isPresent()) {
-            Usuario user = verificationToken.get().getUsuario();
-            if (!user.isEnabled()) {
-                user.setEnabled(true);
-                usuarioRepository.save(user);
-                return "Email verificado com sucesso!";
-            } else {
-                return "Email já foi verificado!";
-            }
-        } else {
-            return "Token inválido!";
-        }*/
-
-
+    Usuario user = verificationToken.get().getUsuario();
+    if (!user.isEnabled()) {
+        user.setEnabled(true);
+        usuarioRepository.save(user);
+        return "Email verificado com sucesso!";
+    } else {
+        return "Email já foi verificado!";
+    }
+} else {
+    return "Token inválido!";
+}*/

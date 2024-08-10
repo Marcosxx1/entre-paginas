@@ -96,4 +96,13 @@ public class BookController {
                 authentication != null ? authentication.getName() : "Anonymous");
         return bookService.prepareTradeBookPage(model, idTroca, authentication, principal);
     }
+
+    @GetMapping("/all-exchanges")
+    public String viewAllExchanges(Model model, Authentication authentication) {
+        log.info(
+                "BookController - GET on /all-exchanges; called by user: {}",
+                authentication != null ? authentication.getName() : "Anonymous");
+
+        return bookService.listarTodasTrocas(model);
+    }
 }

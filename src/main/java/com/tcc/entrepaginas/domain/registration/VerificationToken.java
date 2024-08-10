@@ -2,11 +2,10 @@ package com.tcc.entrepaginas.domain.registration;
 
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import jakarta.persistence.*;
+import java.util.Date;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.Date;
 
 @Entity
 @Getter
