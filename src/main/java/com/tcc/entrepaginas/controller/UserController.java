@@ -89,6 +89,7 @@ public class UserController {
             return "redirect:/user/edit-password/" + id;
         }
     }
+
     @GetMapping("/delete/{id}")
     public String deletarUsuario(@PathVariable String id) {
         log.info("UserController - GET on /delete/{}; called to delete user with id: ", id);

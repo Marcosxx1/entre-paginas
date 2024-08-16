@@ -80,11 +80,13 @@ public class BookServiceImpl implements BookService {
         return "MinhasTrocas";
     }
 
-/*    @Override
+    /*    @Override
     public String bookExchange(Model model, String idUsuario, Authentication authentication) {
-        *//*Filtrar livros para troca por região:
-        Configurar o sistema para que os livros exibidos para troca sejam apenas aqueles que estão na mesma região do usuário.
-        *//*
+        */
+    /*Filtrar livros para troca por região:
+    Configurar o sistema para que os livros exibidos para troca sejam apenas aqueles que estão na mesma região do usuário.
+    */
+    /*
         model = userUtils.setUserInAttributesIfAuthenticated(model, authentication, idUsuario);
 
         List<Livro> livrosPorRegiao = listarLivrosPorRegiao(idUsuario); // Adicionar uma section ou algo do tipo talvez?

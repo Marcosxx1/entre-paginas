@@ -247,14 +247,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUserPassword(String id, String novaSenha) {
-        Usuario user = usuarioRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFound("Usuário não encontrado"));
+        Usuario user = usuarioRepository.findById(id).orElseThrow(() -> new ResourceNotFound("Usuário não encontrado"));
 
         String senhaCriptografada = passwordEncoder.encode(novaSenha);
         user.setSenha(senhaCriptografada);
 
         usuarioRepository.save(user);
-
     }
 }
 /*        if (verificationToken.isPresent()) {

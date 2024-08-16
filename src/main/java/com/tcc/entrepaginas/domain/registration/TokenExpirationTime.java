@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class TokenExpirationTime {
 
-    public static final int TOKEN_EXPIRATION_TIME = 1; // TODO - pegar por @Value()
+    public static final int TOKEN_EXPIRATION_TIME = 60; // TODO - pegar por @Value()
 
     public static Date getExpirationTime() {
         Calendar calendar = Calendar.getInstance();
