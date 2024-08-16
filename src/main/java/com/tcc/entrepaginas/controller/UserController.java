@@ -52,7 +52,7 @@ public class UserController {
     }
 
     @PostMapping("/edit/{id}")
-    public String atualizarUsuario(
+    public String atualizarNomeLoginOuEmailUsuario(
             @PathVariable String id,
             @Valid @ModelAttribute("updateUserNameLoginAndEmailRequest")
                     UpdateUserNameLoginAndEmailRequest updateUserNameLoginAndEmailRequest,
@@ -61,13 +61,34 @@ public class UserController {
             RedirectAttributes redirectAttributes,
             Model model) {
         log.info(
-                "UserController - POST on /edit/{}; UpdateUserNameLoginAndEmailRequest: {}",
+                "UserController - POST on /edit/{id}; /edit/{}; UpdateUserNameLoginAndEmailRequest: {}",
                 id,
                 updateUserNameLoginAndEmailRequest);
         return userService.updateUserNameLoginAndEmail(
                 user, id, updateUserNameLoginAndEmailRequest, result, redirectAttributes, model);
     }
 
+    @PostMapping("/edit-password/{id}")
+    public String atualizarSenhaUsuario(
+            @PathVariable String id,
+            @RequestParam("senha") String senha,
+            @RequestParam("confirmarSenha") String confirmarSenha,
+            RedirectAttributes redirectAttributes) {
+
+        if (!senha.equals(confirmarSenha)) {
+            redirectAttributes.addFlashAttribute("error", "As senhas não coincidem.");
+            return "redirect:/user/edit-password/" + id;
+        }
+
+        try {
+            userService.updateUserPassword(id, senha);
+            redirectAttributes.addFlashAttribute("message", "Senha atualizada com sucesso!");
+            return "redirect:/infos";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Erro ao atualizar a senha.");
+            return "redirect:/user/edit-password/" + id;
+        }
+    }
     @GetMapping("/delete/{id}")
     public String deletarUsuario(@PathVariable String id) {
         log.info("UserController - GET on /delete/{}; called to delete user with id: ", id);

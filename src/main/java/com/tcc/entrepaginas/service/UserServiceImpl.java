@@ -6,6 +6,7 @@ import com.tcc.entrepaginas.domain.dto.UserListResponse;
 import com.tcc.entrepaginas.domain.entity.*;
 import com.tcc.entrepaginas.domain.registration.RegistrationCompleteEvent;
 import com.tcc.entrepaginas.domain.registration.VerificationToken;
+import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.mapper.user.UserMapper;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
 import com.tcc.entrepaginas.utils.imageupload.ImageUtils;
@@ -102,7 +103,7 @@ public class UserServiceImpl implements UserService {
 
         usuarioRepository.save(usuario);
 
-        return "redirect:/perfil";
+        return "redirect:/infos";
     }
 
     @Override
@@ -117,7 +118,7 @@ public class UserServiceImpl implements UserService {
         if (result.hasErrors()) {
             model.addAttribute("updateUserNameLoginAndEmailRequest", updateUserNameLoginAndEmailRequest);
             model.addAttribute("user", user);
-            return "redirect:/infos/" + id;
+            return "forward:/infos"; // Assim mantemos os dados para o formulário
         }
 
         Usuario userToBeEdited = userUtils.getUserById(id);
@@ -133,7 +134,7 @@ public class UserServiceImpl implements UserService {
         usuarioRepository.save(userToBeEdited);
         attributes.addFlashAttribute("message", "User updated successfully!");
 
-        return "redirect:/Perfil";
+        return "redirect:/infos";
     }
 
     @Override
@@ -155,7 +156,7 @@ public class UserServiceImpl implements UserService {
 
         if (!dataChanged) {
             redirectAttributes.addFlashAttribute("message", "No changes were made.");
-            return "redirect:/infos/" + userToBeEdited.getId();
+            return "redirect:/infos";
         }
 
         return null;
@@ -242,6 +243,18 @@ public class UserServiceImpl implements UserService {
             return "redirect:/login?verified";
         }
         return "redirect:/error?invalid";
+    }
+
+    @Override
+    public void updateUserPassword(String id, String novaSenha) {
+        Usuario user = usuarioRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFound("Usuário não encontrado"));
+
+        String senhaCriptografada = passwordEncoder.encode(novaSenha);
+        user.setSenha(senhaCriptografada);
+
+        usuarioRepository.save(user);
+
     }
 }
 /*        if (verificationToken.isPresent()) {

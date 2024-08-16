@@ -48,4 +48,6 @@ public interface UserService {
     void saveUser(Usuario user);
 
     String verifyEmail(String token);
+
+    void updateUserPassword(String id, String senha);
 }
