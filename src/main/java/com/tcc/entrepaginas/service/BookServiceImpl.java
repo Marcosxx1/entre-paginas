@@ -74,9 +74,19 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public String bookExchange(Model model, String idUsuario, Authentication authentication) {
-        /*Filtrar livros para troca por região:
-        Configurar o sistema para que os livros exibidos para troca sejam apenas aqueles que estão na mesma região do usuário.
+        model = userUtils.setUserInAttributesIfAuthenticated(model, authentication, idUsuario);
+
+        model.addAttribute("livrosTrocar", listarTrocasPorPessoas(idUsuario));
+        return "MinhasTrocas";
+    }
+
+    /*    @Override
+    public String bookExchange(Model model, String idUsuario, Authentication authentication) {
         */
+    /*Filtrar livros para troca por região:
+    Configurar o sistema para que os livros exibidos para troca sejam apenas aqueles que estão na mesma região do usuário.
+    */
+    /*
         model = userUtils.setUserInAttributesIfAuthenticated(model, authentication, idUsuario);
 
         List<Livro> livrosPorRegiao = listarLivrosPorRegiao(idUsuario); // Adicionar uma section ou algo do tipo talvez?
@@ -85,7 +95,7 @@ public class BookServiceImpl implements BookService {
                 "livrosTrocar", listarTrocasPorPessoas(idUsuario)); // Assim podemos ter as trocas ativas do usuário
         model.addAttribute("livrosTrocar", livrosPorRegiao); // E as trocas por região que for escolhida
         return "MinhasTrocas";
-    }
+    }*/
 
     private void salvarLivro(Livro livro, String idUsuario, List<ImagemLivro> imagensLivro) {
 

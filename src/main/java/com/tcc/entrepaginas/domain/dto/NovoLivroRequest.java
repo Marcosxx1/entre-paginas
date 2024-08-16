@@ -6,6 +6,7 @@ import com.tcc.entrepaginas.domain.enums.EstadoBrasil;
 import com.tcc.entrepaginas.domain.enums.Tipo;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 @Data
@@ -16,11 +17,11 @@ import lombok.*;
 public class NovoLivroRequest {
 
     @NotBlank(message = "Nome não pode estar em branco")
-    // @Size(max = 255, message = "Nome não pode ter mais de 255 caracteres")
+    @Size(max = 255, message = "Nome não pode ter mais de 255 caracteres")
     private String nome;
 
     @NotBlank(message = "Descrição não pode estar em branco")
-    // @Size(max = 500, message = "Descrição não pode ter mais de 500 caracteres")
+    @Size(max = 255, message = "Descrição não pode ter mais de 500 caracteres")
     private String descricao;
 
     @NotBlank(message = "Cidade não pode estar em branco")

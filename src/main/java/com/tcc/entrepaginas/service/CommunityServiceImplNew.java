@@ -202,7 +202,7 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
 
         communityRepository.save(community);
 
-        return "redirect:/perfil";
+        return "redirect:/community/mycommunities/" + idUsuario;
     }
 
     @Override

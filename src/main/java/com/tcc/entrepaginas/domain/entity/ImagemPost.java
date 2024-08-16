@@ -17,8 +17,11 @@ public class ImagemPost extends Imagem implements Serializable {
     @JoinColumn(name = "post_id", referencedColumnName = "id")
     private Post post;
 
+    private String url;
+
     public ImagemPost(String url, Post post) {
-        // super(id, nome);
+        super();
         this.post = post;
+        this.url = url;
     }
 }
