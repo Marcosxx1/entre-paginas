@@ -16,9 +16,13 @@ public class ImagemLivro extends Imagem {
     @JoinColumn(name = "livro_id")
     private Livro livro;
 
+    private String url;
+
     private long tamanhoEmBytes;
 
     public ImagemLivro(String url, Livro livro) {
+        super();
         this.livro = livro;
+        this.url = url;
     }
 }
