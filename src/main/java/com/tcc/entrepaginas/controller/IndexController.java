@@ -70,7 +70,7 @@ public class IndexController {
         * Por exemplo, tive que adicionar isso no Index:
         *
                     <div th:if="${book.imagens != null}">
-                        <img th:src="${book.imagens[0].nome}" alt="icone da livro" id="modalBookImage" />
+                        <img th:src="${book.imagens[0].url}" alt="icone da livro" id="modalBookImage" />
                     </div>
                     <p th:text="${book.imagens != null ? book.imagens[0].nome : 'N/A'}" id="modalBookImageName"></p>
 

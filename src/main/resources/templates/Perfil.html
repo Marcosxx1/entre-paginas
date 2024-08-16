@@ -50,7 +50,7 @@
             <div class="container-livros">
                 <div th:if="${books.size() > 0}" th:each="book : ${books}">
                     <div class="book">
-                        <img th:src="${book.imagens[0].nome}" alt="icone da livro" style="width: 100px;">
+                        <img th:src="${book.imagens[0].url}" alt="icone da livro" style="width: 100px;">
                         <div>
                             <h5 th:text="${book.nome}"></h5>
                             <div>
