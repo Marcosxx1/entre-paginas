@@ -84,7 +84,7 @@
 
 .perfil-principal__left {
     height: 69% !important;
-    width: 100%; 
+    width: 100%;
 }
 
 .perfil-principal__left-menu {
@@ -114,7 +114,8 @@
     color: var(--black);
 }
 
-.perfil-principal__left a li:hover, .perfil-principal__left a li:hover > i {
+.perfil-principal__left a li:hover,
+.perfil-principal__left a li:hover>i {
     color: var(--azul-logo);
     border-right: 1px solid var(--azul-logo);
 }
@@ -259,21 +260,41 @@
     margin-bottom: 20px;
 }
 
+.livro-container-minhas-trocas {
+    margin: 2%;
+    width: 20%;
+    height: 50%;
+    display: inline-block;
+    margin-bottom: 20px;
+    border: 2px solid var(--azul-logo);
+    padding: 10px;
+    border-radius: 8px;
+    background-color: var(--white);
+}
+
 .livro-link {
-    width: 80%;
+    width: 100%;
+    height: 80%;
     margin: 0 auto;
     text-decoration: none;
     display: block;
-    background-color: var(--azul-claro);
+    background-color: var(--azul-logo);
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 5px 5px 0 0;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
 }
 
+.livro-content {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .livro-title {
-    margin-bottom: 10px;
     font-size: 14px;
-    color: var(--black);
+    color: var(--white);
+    text-align: center;
 }
 
 .livro-container div {
@@ -281,13 +302,42 @@
 }
 
 .livro-image {
-    width: 100px;
+    width: 100%;
+    height: 50%;
+    object-fit: cover;
     border-radius: 5px;
 }
 
 .livro-descricao {
     margin: auto 0 auto 3%;
     color: var(--black);
+}
+
+.edit-button-div {
+    width: 100%;
+    height: 13%;
+    padding: 10px;
+    display: block;
+    border-radius: 0 0 5px 5px;
+    background-color: var(--azul-logo);
+}
+
+.edit-button {
+    text-decoration: none;
+    color: var(--azul-logo);
+    background-color: var(--light-gray);
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid var(--azul-logo);
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit-button:hover {
+    background-color: var(--azul-logo);
+    color: var(--white);
 }
 
 .community-section h4 {
