@@ -83,4 +83,20 @@ public class IndexServiceImpl implements IndexService {
 
         return "/Perfil";
     }
+
+    @Override
+    public String suporte(Model model, Principal principal, Authentication authentication) {
+
+        if (authentication != null && authentication.isAuthenticated()) { // Usar do UserUtils
+            String username = authentication.getName();
+
+            model = userUtils.setModelIfAuthenticationExists(authentication, model);
+            model.addAttribute("listPost", postServiceNew.listAllPostsInACommunity(username));
+            model.addAttribute("books", bookService.listarRandomLivros(10, principal, null));
+            model.addAttribute("comments", commentsServiceNew.listarComments(Sort.by(Sort.Direction.ASC, "id")));
+            model.addAttribute("qtdReaction", reactionServiceNew.countReaction());
+        }
+
+        return "Suporte";
+    }
 }

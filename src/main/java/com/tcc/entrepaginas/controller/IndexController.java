@@ -55,25 +55,36 @@ public class IndexController {
         return indexService.visitOtherUsersFromIndex(model, userName);
     }
 
-    /*TODO - Atualmente no método acima, caso o banco seja novo estamos mandando objetos não checados (null)
+    @GetMapping("/suporte")
+    public String suporte(Model model, Principal principal, Authentication authentication) {
+        return indexService.suporte(model, principal, authentication);
+    }
 
-    *      @GetMapping("/perfilVisitante/{userName}")
-    public String perfilVisitante(Model model, @PathVariable("userName") String userName) {
-        Optional<Usuario> userOptional = userService.getUserByLogin(userName);
-
-        if (userOptional.isPresent()) {
-            return indexService.prepareProfileView(model, userOptional.get());
-        } else {
-            return "redirect:/error/404";
-        }
-        *
-        * Por exemplo, tive que adicionar isso no Index:
-        *
-                    <div th:if="${book.imagens != null}">
-                        <img th:src="${book.imagens[0].url}" alt="icone da livro" id="modalBookImage" />
-                    </div>
-                    <p th:text="${book.imagens != null ? book.imagens[0].nome : 'N/A'}" id="modalBookImageName"></p>
-
-          Mas não me parece adequado tratar no front a falta de algo na base de dados
-    }*/
+    /*
+     * TODO - Atualmente no método acima, caso o banco seja novo estamos mandando
+     * objetos não checados (null)
+     * 
+     * @GetMapping("/perfilVisitante/{userName}")
+     * public String perfilVisitante(Model model, @PathVariable("userName") String
+     * userName) {
+     * Optional<Usuario> userOptional = userService.getUserByLogin(userName);
+     * 
+     * if (userOptional.isPresent()) {
+     * return indexService.prepareProfileView(model, userOptional.get());
+     * } else {
+     * return "redirect:/error/404";
+     * }
+     *
+     * Por exemplo, tive que adicionar isso no Index:
+     *
+     * <div th:if="${book.imagens != null}">
+     * <img th:src="${book.imagens[0].url}" alt="icone da livro" id="modalBookImage"
+     * />
+     * </div>
+     * <p th:text="${book.imagens != null ? book.imagens[0].nome : 'N/A'}"
+     * id="modalBookImageName"></p>
+     * 
+     * Mas não me parece adequado tratar no front a falta de algo na base de dados
+     * }
+     */
 }

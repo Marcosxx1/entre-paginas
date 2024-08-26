@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Entre Paginas</title>
+    <link rel="icon" th:href="@{/static/image/Favicon.png}" type="image/x-icon">
 
     <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -24,63 +25,80 @@
             <div th:replace="~{fragments/sidebar/sidebar-loggedin}"></div>
         </div>
         <div class="perfil-right">
-            <div class="community-section">
-                <h4>Comunidades criadas por mim.</h4>
-                <div class="community-grid">
-                    <div class="community-list" th:if="${adminCommunities.size() > 0}"
-                        th:each="community : ${adminCommunities}">
-                        <a class="card" th:href="@{'/community/' + ${community.id}}">
-                            <img class="card__img community-icon" th:if="${community.icone == null}"
-                                src="/static/image/semImagem.png" alt="Icone da comunidade">
-                            <img class="card__img community-icon" th:if="${community.icone != null}"
-                                th:src="${community.icone}" alt="Icone da comunidade">
-                            <div class="card__footer">
-                                <span class="community-title" th:text="${community.title}"></span>
-                            </div>
-                        </a>
+            <ul class="community-menu">
+                <li class="community-menu-li active minhas_comunidades">Minhas comunidades</li>
+                <li class="community-menu-li moderador_comunidades">Onde sou moderador</li>
+                <li class="community-menu-li participo_comunidades">Onde participo</li>
+            </ul>
+
+            <div class="community-section section-active minhas_comunidades" th:if="${adminCommunities.size() > 0}"
+                th:each="community : ${adminCommunities}">
+                <div class="card">
+                    <img class="card__img community-icon" th:if="${community.icone == null}"
+                        src="/static/image/semImagem.png" alt="Icone da comunidade">
+                    <img class="card__img community-icon" th:if="${community.icone != null}" th:src="${community.icone}"
+                        alt="Icone da comunidade">
+                    <div class="card__footer">
+                        <span class="community-title" th:text="${community.title}"></span>
+                    </div>
+                    <div>
+                        <a th:href="@{'/community/' + ${community.id}}" class="card-button">Editar</a>
                     </div>
                 </div>
             </div>
 
-            <div class="community-section">
-                <h4>Comunidades em que participo como moderador.</h4>
-                <div class="community-grid">
-                    <div class="community-list" th:if="${adminCommunities.size() > 0}"
-                        th:each="community : ${moderatorCommunities}">
-                        <a class="card" th:href="@{'/community/' + ${community.id}}">
-                            <img class="card__img community-icon" th:if="${community.icone == null}"
-                                src="/static/image/semImagem.png" alt="Icone da comunidade">
-                            <img class="card__img community-icon" th:if="${community.icone != null}"
-                                th:src="${community.icone}" alt="Icone da comunidade">
-                            <div class="card__footer">
-                                <span class="community-title" th:text="${community.title}"></span>
-                            </div>
-                        </a>
+            <div class="community-section moderador_comunidades" th:if="${moderatorCommunities.size() > 0}"
+                th:each="community : ${moderatorCommunities}">
+                <div class="card">
+                    <img class="card__img community-icon" th:if="${community.icone == null}"
+                        src="/static/image/semImagem.png" alt="Icone da comunidade">
+                    <img class="card__img community-icon" th:if="${community.icone != null}" th:src="${community.icone}"
+                        alt="Icone da comunidade">
+                    <div class="card__footer">
+                        <span class="community-title" th:text="${community.title}"></span>
+                    </div>
+                    <div>
+                        <a th:href="@{'/community/' + ${community.id}}" class="card-button">Editar</a>
                     </div>
                 </div>
             </div>
 
-
-            <div class="community-section">
-                <h4>Comunidades em que participo.</h4>
-                <div class="community-grid">
-                    <div class="community-list" th:if="${adminCommunities.size() > 0}"
-                        th:each="community : ${userCommunities}">
-                        <a class="card" th:href="@{'/community/' + ${community.id}}">
-                            <img class="card__img community-icon" th:if="${community.icone == null}"
-                                src="/static/image/semImagem.png" alt="Icone da comunidade">
-                            <img class="card__img community-icon" th:if="${community.icone != null}"
-                                th:src="${community.icone}" alt="Icone da comunidade">
-                            <div class="card__footer">
-                                <span class="community-title" th:text="${community.title}"></span>
-                            </div>
-                        </a>
+            <div class="community-section participo_comunidades" th:if="${userCommunities.size() > 0}"
+                th:each="community : ${userCommunities}">
+                <div class="card">
+                    <img class="card__img community-icon" th:if="${community.icone == null}"
+                        src="/static/image/semImagem.png" alt="Icone da comunidade">
+                    <img class="card__img community-icon" th:if="${community.icone != null}" th:src="${community.icone}"
+                        alt="Icone da comunidade">
+                    <div class="card__footer">
+                        <span class="community-title" th:text="${community.title}"></span>
+                    </div>
+                    <div>
+                        <a th:href="@{'/community/' + ${community.id}}" class="card-button">Editar</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <script>
+        $(document).ready(function () {
+            $('.community-menu-li').click(function () {
+                // Remove a classe 'section-active' de todas as seções
+                $('.community-section').removeClass('section-active');
+
+                // Remove a classe 'active' de todos os itens do menu
+                $('.community-menu-li').removeClass('active');
+
+                // Adiciona a classe 'section-active' à seção correspondente
+                var classToActivate = $(this).attr('class').split(' ')[1];
+                $('.' + classToActivate).addClass('section-active');
+
+                // Adiciona a classe 'active' ao item do menu clicado
+                $(this).addClass('active');
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre Paginas</title>
+
+    <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <link rel="icon" th:href="@{/static/image/Favicon.png}" type="image/x-icon">
+
+    <link rel="stylesheet" th:href="@{/static/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/IndexStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/PostStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/PerfilStyle.css}" />
+    <script th:src="@{/static/js/HeaderScript.js}"></script>
+    <script th:src="@{/static/js/ModalScript.js}"></script>
+    <script th:src="@{/static/js/SearchScript.js}"></script>
+    <script th:src="@{/static/js/CarouselScript.js}"></script>
+
+</head>
+
+<body>
+    <div th:replace="~{fragments/header/header :: header}"></div>
+
+    <div class="perfil">
+        <div class="perfil-principal">
+            <div
+                th:replace="~{${#authorization.expression('isAuthenticated()') ? 'fragments/sidebar/sidebar-loggedin' : 'fragments/sidebar/sidebar-loggedout'}}">
+            </div>
+        </div>
+        <div class="perfil-right">
+            <div class="container-suporte">
+                <div class="div-suporte">
+                    <!-- <img src="/static/image/logo.png" alt="logo do site"> -->
+                    <span>
+                        <h1>Entre Páginas</h1>
+                        <p>Suporte</p>
+                    </span>
+
+                    <ul>
+                        <li><i class="fa-brands fa-square-whatsapp whatsapp"></i>(24) 98723-7643</li>
+                        <li><i class="fa-solid fa-envelope email"></i>suporte@entrepaginas.com</li>
+                        <li><i class="fa-solid fa-phone phone"></i>(24) 4532-7667</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

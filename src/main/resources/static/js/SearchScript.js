@@ -19,7 +19,7 @@ $(document).ready(function () {
                         $("#suggestions").append("<div><a href='#'> Nada foi encontrado! </a></div>");
                     } else {
                         data.forEach(function (result) {
-                            var perfilUrl = '/perfilVisitante/' + result.nome;
+                            var perfilUrl = '/perfilVisitante/' + result.id;
                             $("#suggestions").append("<div><a href='" + perfilUrl + "'>" + result.nome + "</a></div>");
                         });
                     }
@@ -38,8 +38,7 @@ $(document).ready(function () {
                         $("#suggestions").append("<div><a href='#'> Nada foi encontrado! </a></div>");
                     } else {
                         data.forEach(function (result) {
-                            var perfilUrl = '/perfilVisitante/' + result.title;
-                            $("#suggestions").append("<div><a href='" + perfilUrl + "'>" + result + "</a></div>");
+                            $("#suggestions").append("<div><a href='#'>" + result + "</a></div>");
                         });
                     }
                 }

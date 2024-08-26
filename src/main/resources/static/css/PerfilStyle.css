@@ -291,6 +291,7 @@
     align-items: center;
     justify-content: center;
 }
+
 .livro-title {
     font-size: 14px;
     color: var(--white);
@@ -340,53 +341,93 @@
     color: var(--white);
 }
 
-.community-section h4 {
-    margin-top: 3%;
+.community-menu {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 2px solid var(--azul-logo);
 }
 
-.community-grid {
-    padding: 2% 0;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+.community-menu-li {
+    list-style: none;
+    text-align: center;
+    padding: 2%;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
 }
 
-.community-list {
-    position: relative;
+.active {
+    color: var(--azul-logo);
+}
+
+.community-section {
+    margin: 2%;
+    width: 20%;
+    height: 50%;
+    display: none;
+    margin-bottom: 20px;
+    border: 2px solid var(--azul-logo);
+    padding: 10px;
+    border-radius: 8px;
+    background-color: var(--white);
+}
+
+.section-active {
+    display: inline-block;
 }
 
 .card {
-    border-radius: 2rem;
-    color: var(--black);
-    transform: translateZ(0);
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    text-decoration: none;
+    display: block;
+    background-color: var(--azul-logo);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
 }
 
 .card__img {
     width: 100%;
-    height: 300px;
+    height: 50%;
     object-fit: cover;
-    transform: scale(calc(1 + (var(--hover, 0) * 0.25))) rotate(calc(var(--hover, 0) * -5deg));
-    transition: transform 0.2s;
-    border-radius: 2rem;
+    border-radius: 5px;
 }
 
 .card__footer {
+    width: 100%;
+    height: 35%;
     display: flex;
     align-items: center;
-    padding: 0 1.5rem;
-    position: absolute;
-    bottom: 3px;
-    left: 0;
-    width: 84.6%;
-    height: 30%;
-    border-radius: 0 0 2rem 2rem;
-    background-color: var(--header-background-opacity);
+    justify-content: center;
 }
 
-.card:hover .card__footer {
-    backdrop-filter: blur(16px);
+.card-button {
+    text-decoration: none;
+    color: var(--azul-logo);
+    background-color: var(--light-gray);
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid var(--azul-logo);
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+.card-button:hover {
+    background-color: var(--azul-logo);
+    color: var(--white);
+}
+
+.community-title {
+    font-size: 14px;
+    color: var(--white);
+    text-align: center;
+}
 
 .dados-perfil {
     color: var(--black);
@@ -468,4 +509,70 @@
     border: none;
     box-shadow: inset 0 0 3px rgb(59, 59, 59);
     background-color: var(--vermelho);
+}
+
+.container-suporte {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.div-suporte {
+    width: 70%;
+    height: 30%;
+    margin: auto;
+    display: block;
+    border-radius: 5px;
+    border: 2px solid var(--azul-logo);
+    background-color: var(--azul-claro);
+    text-align: center;
+    position: relative;
+}
+
+.div-suporte h1 {
+    color: var(--azul-logo);
+    font-size: 20px;
+    margin: 2% 1% 0 0;
+}
+
+.div-suporte p {
+    font-size: 12px;
+}
+
+.div-suporte ul {
+    height: 40%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: self-end;
+}
+
+.div-suporte i {
+    font-size: 15px;
+    background-color: var(--azul-claro);
+    position: absolute;
+    top: -12px;
+    padding: 1.2%;
+}
+
+.div-suporte li {
+    list-style: none;
+    font-size: 12px;
+    box-shadow: inset 0 0 3px var(--azul-logo);
+    padding: 1%;
+    position: relative;
+    font-weight: 600;
+}
+
+.whatsapp {
+    color: rgb(62, 194, 62);
+}
+
+.email {
+    color: var(--vermelho);
+}
+
+.phone {
+    color: rgb(174, 85, 212);
 }
