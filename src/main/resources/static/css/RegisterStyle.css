@@ -58,11 +58,11 @@
 .cadastro__right div .div-input input {
     margin: 0 auto;
     width: 90%;
-    height: 300%;
+    height: 350%;
     padding: 0 0 0 2%;
     border-radius: 6px;
     outline: none;
-    border: 2px solid var(--azul-claro);
+    border: 2px solid var(--header-background);
     z-index: 1;
     color: var(--black);
 }
@@ -70,19 +70,19 @@
 .cadastro__right button {
     text-align: center;
     color: var(--black);
-    width: 40%;
-    height: 5%;
     border-radius: 4px;
     font-weight: 700;
     cursor: pointer;
-    border: 1px solid var(--azul-logo);
-    background-color: var(--white);
-    margin: 7% 0 0 30%;
-    transition: 0.5s;
+    background-color: var(--azul-claro);
+    margin: 5% auto 0 auto;
+    width: 100px;
+    padding: 10px 15px;
+    border: none;
+    box-shadow: inset 0 0 4px rgb(59, 59, 59);
+    transition: background-color 0.5s;
 }
 
 .cadastro__right button:hover {
-    border: 1px solid transparent;
     background-color: var(--header-background);
 }
 

@@ -18,12 +18,12 @@
 
     <div class="cadastro">
 
-        <div class="row mt-2">
+        <!-- <div class="row mt-2">
             <div th:if="${param.success}">
                 Registration successful, check your email
             </div>
             <div class="m-4">User registration Form</div>
-        </div>
+        </div> -->
 
         <div class='cadastro__left'>
             <img src="/static/image/logo.png" alt="" />
@@ -37,13 +37,13 @@
             <form th:action="@{/user/register/save}" th:object="${novoUsuarioRequest}" method='post'>
                 <div>
                     <div class="label-erro">
-                        <label for="nome">Nome Completo:</label>
+                        <label for="nome">Nome:</label>
                         <div>
                             <span class="mensagem" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
                         </div>
                     </div>
                     <div class="div-input">
-                        <input type="text" placeholder='Insira seu nome completo' name='nome' th:field="*{nome}" />
+                        <input type="text" placeholder='Insira seu nome' name='nome' th:field="*{nome}" />
                     </div>
                 </div>
 
@@ -89,12 +89,14 @@
                     <div class="label-erro">
                         <label for="confirmarSenha">Confirmar Senha:</label>
                         <div>
-                            <span class="mensagem" th:if="${#fields.hasErrors('confirmarSenha')}" th:errors="*{confirmarSenha}"></span>
+                            <span class="mensagem" th:if="${#fields.hasErrors('confirmarSenha')}"
+                                th:errors="*{confirmarSenha}"></span>
                             <span class="mensagem" th:if="${senhaErrada}" th:text="${senhaErrada}"></span>
                         </div>
                     </div>
                     <div class="div-input">
-                        <input type="password" placeholder='Insira novamente sua senha' name='confirmarSenha' th:field="*{confirmarSenha}" />
+                        <input type="password" placeholder='Insira novamente sua senha' name='confirmarSenha'
+                            th:field="*{confirmarSenha}" />
                     </div>
                 </div>
 

@@ -19,7 +19,7 @@
         <img src="/static/image/logo.png" class='login__logo' alt="Imagem do logo no login" />
 
         <!-- New code for displaying success messages -->
-        <div th:if="${param.reset_success}" class="col-sm-8">
+        <!-- <div th:if="${param.reset_success}" class="col-sm-8">
             <p class="alert alert-info alert-dismissible fade show" role="alert">You have successfully reset your
                 password, please log in here.</p>
         </div>
@@ -31,15 +31,15 @@
 
         <div th:if="${param.valid}" class="col-sm-8">
             <p class="alert alert-info alert-dismissible">Email verified successfully, please log in here.</p>
-        </div>
+        </div> -->
         <!-- End of new code -->
 
         <div class='login__form'>
             <form th:action="@{/login}" method="post">
                 <label htmlFor="login">Login</label>
-                <input type="text" name="username" placeholder='Login' required />
+                <input type="text" name="username" placeholder='Login' />
                 <label htmlFor="senha">Senha</label>
-                <input type="password" name="password" placeholder='Senha' required />
+                <input type="password" name="password" placeholder='Senha'/>
                 <div>
                     <span th:if="${param.error}">Usuário ou Senha inválido</span>
                 </div>
