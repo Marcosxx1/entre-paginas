@@ -1,44 +1,42 @@
 .container {
     width: 70%;
     height: 92%;
+    padding: 1%;
+    box-sizing: border-box;
 }
 
 .div-titulo {
     width: 100%;
-    margin: 2% 0 0 0;
+    margin: 0.4% 0 1% 0;
     padding: 10px 0 0 20px;
     border-radius: 10px 10px 0 0;
     background-color: var(--white);
     box-sizing: border-box;
 }
 
-h5 {
-    font-size: 14px !important;
-}
-
 .tirulo-trocar,
 .tirulo-comunidades {
-    font-size: 20px;
+    font-size: 10px;
     letter-spacing: 4.5px;
 }
 
 .container-comunidades,
 .container-livros {
     width: 100%;
-    margin: 0 auto;
+    margin: 1.2% auto;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: space-around;
     padding: 20px 0;
-    border-radius: 0 0 10px 10px;
-    background-color: var(--white);
+    border-radius: 5px;
+    background-color: var(--button-hover);
+    border: 2px solid var(--azul-logo);    
     box-sizing: border-box;
 }
 
 .book {
-    width: 65%;
-    padding: 5%;
+    width: 50%;
     cursor: pointer;
     height: 200px;
     margin: 0 10px;
@@ -54,8 +52,8 @@ h5 {
     height: 27px;
     border-radius: 50%;
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 2%;
+    right: 2%;
     z-index: 1;
 }
 
@@ -72,6 +70,8 @@ h5 {
     height: 70%;
     opacity: 0.8;
     border-radius: 10px;
+    border: 2px solid var(--azul-claro);
+    box-sizing: border-box;
 }
 
 .book div {
@@ -168,7 +168,8 @@ h5 {
     width: 20%;
     height: 85.6%;
     padding: 1% 2% 2% 2%;
-    background-color: var(--white);
+    background-color: var(--azul-logo);
+    border: 2px solid var(--button-hover);
     box-sizing: border-box;
     border-radius: 10px;
     position: absolute;
@@ -192,7 +193,7 @@ h5 {
 .modalLugar {
     font-size: 8px;
     text-align: center;
-    color: var(--azul-logo);
+    color: var(--azul-claro);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -211,7 +212,7 @@ h5 {
 #modalBookAuthor {
     margin-left: 10px;
     font-weight: 800;
-    color: var(--azul-logo);
+    color: var(--azul-claro);
 }
 
 .descricao {
@@ -238,7 +239,7 @@ h5 {
     left: 0;
     right: 0;
     height: 100px;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, var(--azul-logo) 100%);
     pointer-events: none;
     z-index: 1;
 }

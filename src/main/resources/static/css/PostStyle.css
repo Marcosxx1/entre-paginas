@@ -7,6 +7,10 @@
 
 .div-post {
     width: 100%;
+    margin: 0 0 2% 0;
+    box-shadow: inset 0 0 5px var(--azul-logo);
+    padding: 1%;
+    box-sizing: border-box;
 }
 
 .container-post .post {
@@ -112,6 +116,7 @@
 }
 
 .post-footer {
+    margin: 1% 0 0 0;
     font-size: 12px;
     display: flex;
     align-items: center;
@@ -141,6 +146,11 @@
     margin-right: 10px;
     margin-left: 10px;
     font-size: 12px;
+}
+
+.likeBtn {
+    background-color: transparent;
+    border: none;
 }
 
 .modalIndex {

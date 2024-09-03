@@ -40,36 +40,36 @@
         </div>
         <div class="perfil-right">
             <div class="container">
-                <div class="div-titulo">
-                    <h5 class="tirulo-trocar">Livros para tocar</h5>
-                </div>
+                <!-- <div class="div-titulo">
+                    <h5 class="tirulo-trocar"><i class="fa-solid fa-bullhorn"></i> Anúncio</h5>
+                </div> -->
                 <div class="container-livros">
-                    <div th:if="${books.size() > 0}" th:each="book : ${books}">
-                        <div class="book">
-                            <a class="usuarioTroca"
-                                th:href="@{/perfilVisitante/{nomeUsuario}(nomeUsuario=${book.usuario.nome})}">
-                                <img th:if="${book != null and book.usuario.imagem != null and book.usuario.imagem.trim() != ''}"
-                                    th:src="${book.usuario.imagem}" alt="Imagem do Usuário" />
-                                <img th:if="${book == null or book.usuario.imagem == null or book.usuario.imagem.trim() == ''}"
-                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQMAAADCCAMAAAB6zFdcAAAAS1BMVEX///+hoaGdnZ3ExMTx8fGlpaXNzc2enp7i4uL4+PjIyMj19fWampr5+fn8/PzT09Pr6+u9vb2zs7OsrKzc3NzW1tapqam4uLjh4eFxahFAAAADCUlEQVR4nO3bDW+qMBiG4VKpRSlFwM39/196QBER+ZiDxLw995UtSxw260MpbytTCgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC51Uab+rw6R69zxfa2ihqvleztmkm+XSX3nZoOr9FAF0Qx0936W1p/Web7USRFpmBPmSH5utq+POtX2T+qGWOA+e3a25PBgFk4JX36wKRn8F6ojOoz398LMti5d1ddgYqd02No8tVhZ7oDNSXM9caR5drpgTRGaT3WtG4fEVzojPIXVftViuaE51B8Vgz6P/1Wrg8MnDZ35sTncFedxmYFc2JzuDkbNTeGOY7kaZq5loRnYHadQMhnTu+sK7IplMQnYH3F3fbTzrNneeiTkpX0weIzqB2Lo35Ps6OgtsdVO8mD5CegfKHdGaYq2bSaO8cP2riOOkZzJcFdQXtv+3SnCE9gwW+ngxMV0tOvCfwDOpV1WP3eOoGGngG8dMWuk5Gr52wM/DV86cQdrSiDjkDr3YuelaOzaIhZ6DOwwii0X2GkDOIhwk0U8Lp9biAMvBJv391aVCOfST5/VpRhZNBbJzr7a16ddQjEUS2CDeDzOjI6Oox8Scvk8HUlBBIBl5drmddF/eJPx1PoBkJwykhkAy67VV3bl+4jF4J1wyGNXMgGZy6Huv4+kI+GUF/sNyEkIFXWTU4y8nsUyr1YAktg/6e2m1l5M1sBrYdLK0gMniuB13S33QfD6FSvQ/nQsggHl77+4nbYm+w7FRIGfh6cWiee7j8yJrV58e8KD+Dp8ng98xjSpCfwc+fIohs2TUnPoPpenCB6/otPoPqz8+runvNLD2D8cXh75h2s114BvP14AJ7ud0bZGeQzteDS9pltOwMpheHv3PbWROdQb5YDy4xzTOuUjNonj86rY6g2VmTOw7qDA6Rc067FXT97lx0BvFPsgXB18KGzUnNwO63Uwr9fyajm2e1N1EvtQVmkJlten9nVz3u/CHJblv5hv8RIhYZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIH7B0uwLlAhgDlaAAAAAElFTkSuQmCC"
-                                    alt="Imagem do Usuário" />
-                            </a>
-                            <img th:src="${book.imagens[0].url}" alt="icone da livro" class="bookImage">
-                            <div>
-                                <h3 th:text="${book.nome}"></h3>
-                                <p th:text="${book.usuario.nome}"></p>
-                                <p th:text="${book.cidade}" style="display: none;"></p>
-                                <p th:text="${book.estadoBrasil}" style="display: none;"></p>
-                                <p th:text="${book.descricao}" style="display: none;"></p>
-                                <a class="bookID" th:href="@{/book/trade/{id}(id=${book.id})}"
-                                    style="display: none;"></a>
-                            </div>
+                    <div class="book" th:if="${books.size() > 0}" th:each="book : ${books}">
+                        <!-- <a class="usuarioTroca"
+                            th:href="@{/perfilVisitante/{nomeUsuario}(nomeUsuario=${book.usuario.nome})}">
+                            <img th:if="${book != null and book.usuario.imagem != null and book.usuario.imagem.trim() != ''}"
+                                th:src="${book.usuario.imagem}" alt="Imagem do Usuário" />
+                            <img th:if="${book == null or book.usuario.imagem == null or book.usuario.imagem.trim() == ''}"
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQMAAADCCAMAAAB6zFdcAAAAS1BMVEX///+hoaGdnZ3ExMTx8fGlpaXNzc2enp7i4uL4+PjIyMj19fWampr5+fn8/PzT09Pr6+u9vb2zs7OsrKzc3NzW1tapqam4uLjh4eFxahFAAAADCUlEQVR4nO3bDW+qMBiG4VKpRSlFwM39/196QBER+ZiDxLw995UtSxw260MpbytTCgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC51Uab+rw6R69zxfa2ihqvleztmkm+XSX3nZoOr9FAF0Qx0936W1p/Web7USRFpmBPmSH5utq+POtX2T+qGWOA+e3a25PBgFk4JX36wKRn8F6ojOoz398LMti5d1ddgYqd02No8tVhZ7oDNSXM9caR5drpgTRGaT3WtG4fEVzojPIXVftViuaE51B8Vgz6P/1Wrg8MnDZ35sTncFedxmYFc2JzuDkbNTeGOY7kaZq5loRnYHadQMhnTu+sK7IplMQnYH3F3fbTzrNneeiTkpX0weIzqB2Lo35Ps6OgtsdVO8mD5CegfKHdGaYq2bSaO8cP2riOOkZzJcFdQXtv+3SnCE9gwW+ngxMV0tOvCfwDOpV1WP3eOoGGngG8dMWuk5Gr52wM/DV86cQdrSiDjkDr3YuelaOzaIhZ6DOwwii0X2GkDOIhwk0U8Lp9biAMvBJv391aVCOfST5/VpRhZNBbJzr7a16ddQjEUS2CDeDzOjI6Oox8Scvk8HUlBBIBl5drmddF/eJPx1PoBkJwykhkAy67VV3bl+4jF4J1wyGNXMgGZy6Huv4+kI+GUF/sNyEkIFXWTU4y8nsUyr1YAktg/6e2m1l5M1sBrYdLK0gMniuB13S33QfD6FSvQ/nQsggHl77+4nbYm+w7FRIGfh6cWiee7j8yJrV58e8KD+Dp8ng98xjSpCfwc+fIohs2TUnPoPpenCB6/otPoPqz8+runvNLD2D8cXh75h2s114BvP14AJ7ud0bZGeQzteDS9pltOwMpheHv3PbWROdQb5YDy4xzTOuUjNonj86rY6g2VmTOw7qDA6Rc067FXT97lx0BvFPsgXB18KGzUnNwO63Uwr9fyajm2e1N1EvtQVmkJlten9nVz3u/CHJblv5hv8RIhYZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIH7B0uwLlAhgDlaAAAAAElFTkSuQmCC"
+                                alt="Imagem do Usuário" />
+                        </a> -->
+                        <img th:src="${book.imagens[0].url}" alt="icone da livro" class="bookImage">
+                        <div>
+                            <h3 th:text="${book.nome}"></h3>
+                            <p th:text="${book.usuario.nome}" style="display: none;"></p>
+                            <p th:text="${book.cidade}" style="display: none;"></p>
+                            <p th:text="${book.estadoBrasil}" style="display: none;"></p>
+                            <p th:text="${book.descricao}" style="display: none;"></p>
+                            <a class="bookID" th:href="@{/book/trade/{id}(id=${book.id})}" style="display: none;"></a>
                         </div>
                     </div>
+                    <!-- <div th:if="${books.size() = 0}">
+                        <span>Sem Anuncios no Momento</span>
+                    </div> -->
                 </div>
-                <div class="div-titulo">
-                    <h5 class="tirulo-comunidades">Comunidades</h5>
-                </div>
+                <!-- <div class="div-titulo">
+                    <h5 class="tirulo-comunidades"><i class="fa-solid fa-bullhorn"></i> Comunidades</h5>
+                </div> -->
                 <div class="container-comunidades">
                     <div th:if="${comunidades.size() > 0}" th:each="comunidade : ${comunidades}">
                         <a th:href="@{/community/{id}(id=${comunidade.id})}">
@@ -83,6 +83,10 @@
                             </div>
                         </a>
                     </div>
+
+                    <!-- <div th:if="${comunidades.size() = 0}">
+                        <span>Sem Comunidades no Momento</span>
+                    </div> -->
                 </div>
 
                 <div th:replace="~{fragments/posts/posts :: post}"></div>
@@ -90,7 +94,7 @@
             <div th:if="${book != null}" id="bookModalLivro" class="modalLivro">
                 <div class="modalLivro-content">
                     <div class="div-anunciante">
-                        <p class="anunciante">Anuncio feito por:</p>
+                        <p class="anunciante">Anúncio feito por:</p>
                         <p th:text="${book.usuario != null ? book.usuario.nome : 'N/A'}" id="modalBookAuthor"
                             class="anunciante"></p>
                     </div>
