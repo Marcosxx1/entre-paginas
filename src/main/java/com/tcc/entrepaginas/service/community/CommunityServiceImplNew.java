@@ -195,6 +195,7 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
             model.addAttribute("errors", result.getAllErrors());
             return "CriarComunidade";
         }
+
         var community = communityMapper.toCommunity(novaComunidadeRequest);
 
         List<Membros> membersToSave = memberMapper.toListOfMembers(

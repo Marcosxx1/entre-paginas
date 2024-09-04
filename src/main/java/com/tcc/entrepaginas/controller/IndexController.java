@@ -63,12 +63,12 @@ public class IndexController {
     /*
      * TODO - Atualmente no método acima, caso o banco seja novo estamos mandando
      * objetos não checados (null)
-     * 
+     *
      * @GetMapping("/perfilVisitante/{userName}")
      * public String perfilVisitante(Model model, @PathVariable("userName") String
      * userName) {
      * Optional<Usuario> userOptional = userService.getUserByLogin(userName);
-     * 
+     *
      * if (userOptional.isPresent()) {
      * return indexService.prepareProfileView(model, userOptional.get());
      * } else {
@@ -83,7 +83,7 @@ public class IndexController {
      * </div>
      * <p th:text="${book.imagens != null ? book.imagens[0].nome : 'N/A'}"
      * id="modalBookImageName"></p>
-     * 
+     *
      * Mas não me parece adequado tratar no front a falta de algo na base de dados
      * }
      */

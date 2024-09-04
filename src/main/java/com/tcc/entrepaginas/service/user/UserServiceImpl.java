@@ -9,6 +9,7 @@ import com.tcc.entrepaginas.domain.registration.VerificationToken;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.mapper.user.UserMapper;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
+import com.tcc.entrepaginas.service.member.MemberService;
 import com.tcc.entrepaginas.service.verificationtoken.VerificationTokenService;
 import com.tcc.entrepaginas.utils.imageupload.ImageUtils;
 import com.tcc.entrepaginas.utils.registration.UrlUtils;
@@ -47,6 +48,7 @@ public class UserServiceImpl implements UserService {
     private final UserUtils userUtils;
     private final ApplicationEventPublisher publisher;
     private final VerificationTokenService tokenService;
+    private final MemberService memberService;
 
     private static final Path ROOT = Paths.get("uploads");
 
@@ -119,7 +121,7 @@ public class UserServiceImpl implements UserService {
         if (result.hasErrors()) {
             model.addAttribute("updateUserNameLoginAndEmailRequest", updateUserNameLoginAndEmailRequest);
             model.addAttribute("user", user);
-            return "forward:/infos"; // Assim mantemos os dados para o formulário
+            return "forward:/infos";
         }
 
         Usuario userToBeEdited = userUtils.getUserById(id);
@@ -254,6 +256,11 @@ public class UserServiceImpl implements UserService {
         user.setSenha(senhaCriptografada);
 
         usuarioRepository.save(user);
+    }
+
+    @Override
+    public List<Membros> listMembersByCommunity(String communityId) {
+        return memberService.getMembersByCommunityId(communityId).orElseThrow(() -> new ResourceNotFound("TODO -  SEM USUÁRIOS PARA COMUNIDADE"));
     }
 }
 /*        if (verificationToken.isPresent()) {

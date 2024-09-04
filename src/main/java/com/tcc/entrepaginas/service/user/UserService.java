@@ -5,6 +5,7 @@ import com.tcc.entrepaginas.domain.dto.UpdateUserNameLoginAndEmailRequest;
 import com.tcc.entrepaginas.domain.dto.UserListResponse;
 import com.tcc.entrepaginas.domain.entity.Community;
 import com.tcc.entrepaginas.domain.entity.Livro;
+import com.tcc.entrepaginas.domain.entity.Membros;
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -50,4 +51,6 @@ public interface UserService {
     String verifyEmail(String token);
 
     void updateUserPassword(String id, String senha);
+
+    List<Membros> listMembersByCommunity(String communityId);
 }

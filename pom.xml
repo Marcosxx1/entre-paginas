@@ -120,7 +120,7 @@
 						<phase>compile</phase>
 					</execution>
 				</executions>
-			</plugin> -->
+			</plugin>-->
 		</plugins>
 	</build>
 

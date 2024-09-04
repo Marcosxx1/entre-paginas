@@ -2,11 +2,11 @@ package com.tcc.entrepaginas.service.index;
 
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.mapper.user.UserMapper;
-import com.tcc.entrepaginas.service.post.PostServiceNew;
-import com.tcc.entrepaginas.service.reaction.ReactionServiceNew;
 import com.tcc.entrepaginas.service.book.BookService;
 import com.tcc.entrepaginas.service.comments.CommentsServiceNew;
 import com.tcc.entrepaginas.service.community.CommunityServiceNew;
+import com.tcc.entrepaginas.service.post.PostServiceNew;
+import com.tcc.entrepaginas.service.reaction.ReactionServiceNew;
 import com.tcc.entrepaginas.utils.user.UserUtils;
 import java.security.Principal;
 import lombok.RequiredArgsConstructor;

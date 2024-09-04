@@ -5,6 +5,9 @@ import com.tcc.entrepaginas.repository.MembrosRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class MemberServiceImpl implements MemberService {
@@ -15,4 +18,10 @@ public class MemberServiceImpl implements MemberService {
     public void saveMember(Membros membros) {
         membrosRepository.save(membros);
     }
+
+    @Override
+    public Optional<List<Membros>> getMembersByCommunityId(String communityId) {
+        return membrosRepository.findByCommunityId(communityId);
+    }
+
 }
