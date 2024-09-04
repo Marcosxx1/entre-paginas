@@ -11,5 +11,6 @@ public interface MembrosRepository extends JpaRepository<Membros, String> {
     @Query("SELECT m FROM Membros m WHERE m.community.id = :communityId")
     Optional<List<Membros>> findByCommunityId(String communityId);
 
-    int countByCommunityId(String id);
+    @Query("SELECT COUNT(m) FROM Membros m WHERE m.community.id = :communityId AND COUNT(m) > 1")
+    int countMoreThanOneByCommunityId(String communityId);
 }

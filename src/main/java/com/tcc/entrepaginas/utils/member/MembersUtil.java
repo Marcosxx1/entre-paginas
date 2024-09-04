@@ -1,6 +1,8 @@
 package com.tcc.entrepaginas.utils.member;
 
 import com.tcc.entrepaginas.domain.entity.Membros;
+import com.tcc.entrepaginas.exceptions.MemberSelfRemovalException;
+import com.tcc.entrepaginas.exceptions.SingleMemberRemovalException;
 import com.tcc.entrepaginas.repository.MembrosRepository;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
@@ -21,20 +23,20 @@ public class MembersUtil {
         Objects.requireNonNull(userFromContext, "O ID do usuário não pode ser nulo.");
 
         if (Objects.equals(memberId, userFromContext)) {
-            throw new IllegalArgumentException(
-                    "Você não pode remover a si mesmo da comunidade."); // TODO - PADRONIZAR, CRIAR EXCEPTION CORRETA
+            throw new MemberSelfRemovalException("Você não pode remover a si mesmo da comunidade.");
+
         }
     }
 
     public void validateSingleMemberInCommunity(Membros member) {
         if (isOnlyMemberInCommunity(member)) {
-            throw new IllegalStateException("Você não pode remover o único membro da comunidade.");
+            throw new SingleMemberRemovalException("Você não pode remover o único membro da comunidade.");
         }
     }
 
     public boolean isOnlyMemberInCommunity(Membros member) {
         int memberCount =
-                membrosRepository.countByCommunityId(member.getCommunity().getId());
+                membrosRepository.countMoreThanOneByCommunityId(member.getCommunity().getId());
 
         return memberCount == 1;
     }
