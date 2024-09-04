@@ -1,11 +1,11 @@
 package com.tcc.entrepaginas.service.user;
 
+import com.tcc.entrepaginas.domain.dto.MembersFromCommunityResponse;
 import com.tcc.entrepaginas.domain.dto.NovoUsuarioRequest;
 import com.tcc.entrepaginas.domain.dto.UpdateUserNameLoginAndEmailRequest;
 import com.tcc.entrepaginas.domain.dto.UserListResponse;
 import com.tcc.entrepaginas.domain.entity.Community;
 import com.tcc.entrepaginas.domain.entity.Livro;
-import com.tcc.entrepaginas.domain.entity.Membros;
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -52,5 +52,5 @@ public interface UserService {
 
     void updateUserPassword(String id, String senha);
 
-    List<Membros> listMembersByCommunity(String communityId);
+    List<MembersFromCommunityResponse> listMembersByCommunity(String communityId);
 }

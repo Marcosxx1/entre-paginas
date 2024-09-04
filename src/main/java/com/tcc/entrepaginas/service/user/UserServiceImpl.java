@@ -1,5 +1,6 @@
 package com.tcc.entrepaginas.service.user;
 
+import com.tcc.entrepaginas.domain.dto.MembersFromCommunityResponse;
 import com.tcc.entrepaginas.domain.dto.NovoUsuarioRequest;
 import com.tcc.entrepaginas.domain.dto.UpdateUserNameLoginAndEmailRequest;
 import com.tcc.entrepaginas.domain.dto.UserListResponse;
@@ -7,6 +8,7 @@ import com.tcc.entrepaginas.domain.entity.*;
 import com.tcc.entrepaginas.domain.registration.RegistrationCompleteEvent;
 import com.tcc.entrepaginas.domain.registration.VerificationToken;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
+import com.tcc.entrepaginas.mapper.member.MemberMapper;
 import com.tcc.entrepaginas.mapper.user.UserMapper;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
 import com.tcc.entrepaginas.service.member.MemberService;
@@ -49,6 +51,7 @@ public class UserServiceImpl implements UserService {
     private final ApplicationEventPublisher publisher;
     private final VerificationTokenService tokenService;
     private final MemberService memberService;
+    private final MemberMapper memberMapper;
 
     private static final Path ROOT = Paths.get("uploads");
 
@@ -259,8 +262,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Membros> listMembersByCommunity(String communityId) {
-        return memberService.getMembersByCommunityId(communityId).orElseThrow(() -> new ResourceNotFound("TODO -  SEM USUÁRIOS PARA COMUNIDADE"));
+    public List<MembersFromCommunityResponse> listMembersByCommunity(String communityId) {
+        var members = memberService
+                .getMembersByCommunityId(communityId)
+                .orElseThrow(() -> new ResourceNotFound("TODO -  SEM USUÁRIOS PARA COMUNIDADE"));
+
+        return memberMapper.toListOfMembersFromCommunityResponse(members);
     }
 }
 /*        if (verificationToken.isPresent()) {

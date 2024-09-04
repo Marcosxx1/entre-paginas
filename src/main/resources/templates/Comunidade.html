@@ -54,7 +54,9 @@
                         <p th:text="${#dates.format(community.date, 'dd/MM/yyyy')}"></p>
                         <div>
                             <p th:text="${community.privado == true} ? 'Privada' : ''"></p>
-                            <input type="checkbox" th:checked="${community.privado == true}" disabled>
+                            <label>
+                                <input type="checkbox" th:checked="${community.privado == true}" disabled>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -62,6 +64,7 @@
                     <ul>
                         <li class="li-postagem">Criar Postagem</li>
                         <li class="li-config">Editar Informações</li>
+                        <li class="li-config">Gerenciar membros da comunidade</li>
                      </ul>
                 </div>
             </div>

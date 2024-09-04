@@ -1,12 +1,15 @@
 package com.tcc.entrepaginas.mapper.member;
 
+import com.tcc.entrepaginas.domain.dto.MembersFromCommunityResponse;
 import com.tcc.entrepaginas.domain.entity.Community;
 import com.tcc.entrepaginas.domain.entity.Membros;
 import com.tcc.entrepaginas.domain.entity.RoleCommunity;
 import com.tcc.entrepaginas.domain.entity.Usuario;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.stereotype.Component;
+import java.util.stream.Collectors;
 
 @Component
 public class MemberMapper {
@@ -23,4 +26,43 @@ public class MemberMapper {
 
         return membros;
     }
+
+    public MembersFromCommunityResponse toMemberFromCommunityResponse(Membros membros) {
+
+        return MembersFromCommunityResponse.builder()
+                .memberId(membros.getId())
+                .userId(membros.getUsuario().getId())
+                .communityRole(membros.getRoleCommunity().getPapel())
+                .communityId(membros.getCommunity().getId())
+                .build();
+    }
+
+    public List<MembersFromCommunityResponse> toListOfMembersFromCommunityResponse(List<Membros> membros) {
+        return membros.stream()
+                .map(this::toMemberFromCommunityResponse)
+                .collect(Collectors.toList());
+    }
+
+/*    public List<MembersFromCommunityResponse> toListOfMembersFromCommunityResponse(List<Membros> membros) {
+
+        List<MembersFromCommunityResponse> membersFromCommunityResponse = new ArrayList<>();
+
+        membros.forEach(membro -> {
+            membersFromCommunityResponse.add(toMemberFromCommunityResponse(membro));
+        });
+
+        return membersFromCommunityResponse;
+    }*/
+
+
+
+/*    public List<MembersFromCommunityResponse> toListOfMembersFromCommunityResponse(List<Membros> membros) {
+
+        List<MembersFromCommunityResponse> membersFromCommunityResponse = new ArrayList<>(membros.size());
+
+        membros.forEach(membro -> membersFromCommunityResponse.add(toMemberFromCommunityResponse(membro)));
+
+        return membersFromCommunityResponse;
+    }*/
+
 }

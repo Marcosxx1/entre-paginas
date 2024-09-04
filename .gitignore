@@ -39,3 +39,6 @@ build/
 /icone/
 /post/
 /uploads/
+
+# Ignora env
+*.env

@@ -1,11 +1,10 @@
 package com.tcc.entrepaginas.repository;
 
 import com.tcc.entrepaginas.domain.entity.Membros;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 public interface MembrosRepository extends JpaRepository<Membros, String> {
 
