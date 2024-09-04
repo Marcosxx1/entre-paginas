@@ -5,11 +5,9 @@ import com.tcc.entrepaginas.service.member.MemberService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/members")
@@ -22,11 +20,34 @@ public class MemberController {
     @GetMapping("/list-members/{communityId}")
     @ResponseBody
     public List<MembersFromCommunityResponse> listAllCommunityMembers(@PathVariable("communityId") String communityId) {
+        log.info("Request to list all members of community. Community ID: {}", communityId);
+
+        List<MembersFromCommunityResponse> members = memberService.getMembersByCommunityId(communityId);
+
+        log.info("Successfully retrieved {} members for Community ID: {}", members.size(), communityId);
+        return members;
+    }
+
+    @DeleteMapping("/remove-member/{memberId}")
+    @ResponseBody
+    public void removeMemberFromCommunity(@PathVariable("memberId") String memberId, Authentication authentication) {
+        log.info("Request to remove member from community. Member ID: {}", memberId);
+
+        memberService.removeMemberFromCommunity(memberId, authentication);
+
+        log.info("Successfully removed member. Member ID: {}", memberId);
+    }
+
+    @PutMapping("/update-member-authorities/{memberId}/{newComunnityRole}")
+    @ResponseBody
+    public void updateMemberAuthorities(
+            @PathVariable("memberId") String memberId, @PathVariable("newComunnityRole") String newComunnityRole) {
+
+        log.debug("Request parameters - memberId: {}, newComunnityRole: {}", memberId, newComunnityRole);
+
+        memberService.updateMemberAuthorities(memberId, newComunnityRole);
 
         log.info(
-                "MemberController - GET on /list-members/{communityId}; /list-members/{communityId} called with communityId: {}",
-                communityId);
-
-        return memberService.getMembersByCommunityId(communityId);
+                "Successfully updated member authorities for memberId: {} to new role: {}", memberId, newComunnityRole);
     }
 }
