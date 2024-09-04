@@ -1,4 +1,4 @@
-package com.tcc.entrepaginas.service;
+package com.tcc.entrepaginas.service.user;
 
 import com.tcc.entrepaginas.domain.dto.NovoUsuarioRequest;
 import com.tcc.entrepaginas.domain.dto.UpdateUserNameLoginAndEmailRequest;

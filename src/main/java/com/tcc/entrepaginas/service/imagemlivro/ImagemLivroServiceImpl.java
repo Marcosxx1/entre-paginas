@@ -1,4 +1,4 @@
-package com.tcc.entrepaginas.service;
+package com.tcc.entrepaginas.service.imagemlivro;
 
 import com.tcc.entrepaginas.domain.entity.ImagemLivro;
 import com.tcc.entrepaginas.domain.entity.Livro;

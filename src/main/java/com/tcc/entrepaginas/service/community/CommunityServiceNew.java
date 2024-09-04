@@ -1,4 +1,4 @@
-package com.tcc.entrepaginas.service;
+package com.tcc.entrepaginas.service.community;
 
 import com.tcc.entrepaginas.domain.dto.NovaComunidadeRequest;
 import com.tcc.entrepaginas.domain.dto.UpdateCommunityRequest;

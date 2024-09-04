@@ -2,7 +2,7 @@ package com.tcc.entrepaginas.domain.registration.event.listener;
 
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.domain.registration.RegistrationCompleteEvent;
-import com.tcc.entrepaginas.service.VerificationTokenService;
+import com.tcc.entrepaginas.service.verificationtoken.VerificationTokenService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;

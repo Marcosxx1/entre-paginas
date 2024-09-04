@@ -2,7 +2,7 @@ package com.tcc.entrepaginas.controller;
 
 import com.tcc.entrepaginas.domain.dto.NovaComunidadeRequest;
 import com.tcc.entrepaginas.domain.dto.UpdateCommunityRequest;
-import com.tcc.entrepaginas.service.CommunityServiceNew;
+import com.tcc.entrepaginas.service.community.CommunityServiceNew;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import java.util.List;

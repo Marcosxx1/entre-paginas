@@ -1,4 +1,4 @@
-package com.tcc.entrepaginas.service;
+package com.tcc.entrepaginas.service.book;
 
 import com.tcc.entrepaginas.domain.dto.LivroParaEditarRequest;
 import com.tcc.entrepaginas.domain.dto.NovoLivroRequest;
@@ -9,6 +9,10 @@ import com.tcc.entrepaginas.domain.enums.EstadoBrasil;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.mapper.book.BookMapper;
 import com.tcc.entrepaginas.repository.LivroRepository;
+import com.tcc.entrepaginas.service.enums.EnumConverterService;
+import com.tcc.entrepaginas.service.enums.EnumListingService;
+import com.tcc.entrepaginas.service.imagemlivro.ImagemLivroService;
+import com.tcc.entrepaginas.service.user.UserService;
 import com.tcc.entrepaginas.utils.user.UserUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import java.security.Principal;

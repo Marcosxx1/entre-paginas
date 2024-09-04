@@ -1,4 +1,4 @@
-package com.tcc.entrepaginas.service;
+package com.tcc.entrepaginas.service.book;
 
 import com.tcc.entrepaginas.domain.dto.LivroParaEditarRequest;
 import com.tcc.entrepaginas.domain.dto.NovoLivroRequest;

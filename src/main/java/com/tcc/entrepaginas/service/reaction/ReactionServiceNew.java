@@ -1,4 +1,4 @@
-package com.tcc.entrepaginas.service;
+package com.tcc.entrepaginas.service.reaction;
 
 import com.tcc.entrepaginas.domain.entity.Reaction;
 import java.util.Optional;

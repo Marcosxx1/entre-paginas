@@ -1,7 +1,7 @@
 package com.tcc.entrepaginas.controller;
 
 import com.tcc.entrepaginas.domain.entity.Comments;
-import com.tcc.entrepaginas.service.CommentsServiceNew;
+import com.tcc.entrepaginas.service.comments.CommentsServiceNew;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

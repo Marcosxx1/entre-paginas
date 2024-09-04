@@ -4,7 +4,7 @@ import com.tcc.entrepaginas.domain.dto.NovoUsuarioRequest;
 import com.tcc.entrepaginas.domain.dto.UpdateUserNameLoginAndEmailRequest;
 import com.tcc.entrepaginas.domain.dto.UserListResponse;
 import com.tcc.entrepaginas.domain.entity.Usuario;
-import com.tcc.entrepaginas.service.UserService;
+import com.tcc.entrepaginas.service.user.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import java.util.List;

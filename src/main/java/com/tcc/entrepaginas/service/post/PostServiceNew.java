@@ -1,4 +1,4 @@
-package com.tcc.entrepaginas.service;
+package com.tcc.entrepaginas.service.post;
 
 import com.tcc.entrepaginas.domain.dto.NovoPostRequest;
 import com.tcc.entrepaginas.domain.dto.UpdatePostRequest;

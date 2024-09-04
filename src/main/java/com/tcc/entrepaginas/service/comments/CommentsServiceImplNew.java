@@ -1,10 +1,11 @@
-package com.tcc.entrepaginas.service;
+package com.tcc.entrepaginas.service.comments;
 
 import com.tcc.entrepaginas.domain.entity.Comments;
 import com.tcc.entrepaginas.domain.entity.Post;
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.repository.CommentsRepository;
+import com.tcc.entrepaginas.service.post.PostServiceNew;
 import com.tcc.entrepaginas.utils.user.UserUtils;
 import java.util.List;
 import java.util.Optional;

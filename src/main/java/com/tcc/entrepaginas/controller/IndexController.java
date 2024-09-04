@@ -1,6 +1,6 @@
 package com.tcc.entrepaginas.controller;
 
-import com.tcc.entrepaginas.service.IndexService;
+import com.tcc.entrepaginas.service.index.IndexService;
 import java.security.Principal;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

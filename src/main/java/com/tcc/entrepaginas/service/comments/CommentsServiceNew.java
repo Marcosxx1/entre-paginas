@@ -1,4 +1,4 @@
-package com.tcc.entrepaginas.service;
+package com.tcc.entrepaginas.service.comments;
 
 import com.tcc.entrepaginas.domain.entity.Comments;
 import java.util.List;

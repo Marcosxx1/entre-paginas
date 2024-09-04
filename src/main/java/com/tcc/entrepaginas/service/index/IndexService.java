@@ -1,4 +1,4 @@
-package com.tcc.entrepaginas.service;
+package com.tcc.entrepaginas.service.index;
 
 import java.security.Principal;
 import org.springframework.security.core.Authentication;

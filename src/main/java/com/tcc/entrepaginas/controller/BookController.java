@@ -2,7 +2,7 @@ package com.tcc.entrepaginas.controller;
 
 import com.tcc.entrepaginas.domain.dto.LivroParaEditarRequest;
 import com.tcc.entrepaginas.domain.dto.NovoLivroRequest;
-import com.tcc.entrepaginas.service.BookService;
+import com.tcc.entrepaginas.service.book.BookService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import java.security.Principal;

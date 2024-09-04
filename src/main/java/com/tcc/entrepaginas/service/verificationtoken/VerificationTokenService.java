@@ -1,4 +1,4 @@
-package com.tcc.entrepaginas.service;
+package com.tcc.entrepaginas.service.verificationtoken;
 
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.domain.registration.VerificationToken;

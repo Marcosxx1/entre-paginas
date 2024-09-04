@@ -1,9 +1,11 @@
-package com.tcc.entrepaginas.service;
+package com.tcc.entrepaginas.service.reaction;
 
 import com.tcc.entrepaginas.domain.entity.Post;
 import com.tcc.entrepaginas.domain.entity.Reaction;
 import com.tcc.entrepaginas.repository.ReactionRepository;
 import java.util.Optional;
+
+import com.tcc.entrepaginas.service.post.PostServiceNew;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

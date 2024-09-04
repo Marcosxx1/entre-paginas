@@ -1,4 +1,4 @@
-package com.tcc.entrepaginas.service;
+package com.tcc.entrepaginas.service.community;
 
 import com.tcc.entrepaginas.domain.dto.NovaComunidadeRequest;
 import com.tcc.entrepaginas.domain.dto.UpdateCommunityRequest;
@@ -9,6 +9,8 @@ import com.tcc.entrepaginas.exceptions.CommunityNotFoundException;
 import com.tcc.entrepaginas.mapper.community.CommunityMapper;
 import com.tcc.entrepaginas.mapper.member.MemberMapper;
 import com.tcc.entrepaginas.repository.CommunityRepository;
+import com.tcc.entrepaginas.service.rolecomunity.RoleCommunityService;
+import com.tcc.entrepaginas.service.user.UserService;
 import com.tcc.entrepaginas.utils.PostUtils;
 import com.tcc.entrepaginas.utils.community.CommunityUtils;
 import com.tcc.entrepaginas.utils.user.UserUtils;

@@ -1,4 +1,4 @@
-package com.tcc.entrepaginas.service;
+package com.tcc.entrepaginas.service.user;
 
 import com.tcc.entrepaginas.domain.dto.NovoUsuarioRequest;
 import com.tcc.entrepaginas.domain.dto.UpdateUserNameLoginAndEmailRequest;
@@ -9,6 +9,7 @@ import com.tcc.entrepaginas.domain.registration.VerificationToken;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.mapper.user.UserMapper;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
+import com.tcc.entrepaginas.service.verificationtoken.VerificationTokenService;
 import com.tcc.entrepaginas.utils.imageupload.ImageUtils;
 import com.tcc.entrepaginas.utils.registration.UrlUtils;
 import com.tcc.entrepaginas.utils.user.RegistroDeUsuario;

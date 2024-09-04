@@ -1,4 +1,4 @@
-package com.tcc.entrepaginas.service;
+package com.tcc.entrepaginas.service.enums;
 
 import com.tcc.entrepaginas.domain.enums.Categoria;
 import com.tcc.entrepaginas.domain.enums.Estado;

@@ -1,4 +1,4 @@
-package com.tcc.entrepaginas.service;
+package com.tcc.entrepaginas.service.post;
 
 import com.tcc.entrepaginas.domain.dto.NovoPostRequest;
 import com.tcc.entrepaginas.domain.dto.UpdatePostRequest;
@@ -10,6 +10,8 @@ import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.mapper.post.PostMapper;
 import com.tcc.entrepaginas.repository.ImagemPostRepository;
 import com.tcc.entrepaginas.repository.PostRepository;
+import com.tcc.entrepaginas.service.user.UserService;
+import com.tcc.entrepaginas.service.community.CommunityServiceNew;
 import com.tcc.entrepaginas.utils.imageupload.ImageUtils;
 import com.tcc.entrepaginas.utils.user.UserUtils;
 import jakarta.annotation.PostConstruct;

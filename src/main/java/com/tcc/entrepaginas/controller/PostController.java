@@ -1,9 +1,9 @@
 package com.tcc.entrepaginas.controller;
 
 import com.tcc.entrepaginas.domain.dto.NovoPostRequest;
-import com.tcc.entrepaginas.service.CommentsServiceNew;
-import com.tcc.entrepaginas.service.PostServiceNew;
-import com.tcc.entrepaginas.service.ReactionServiceNew;
+import com.tcc.entrepaginas.service.comments.CommentsServiceNew;
+import com.tcc.entrepaginas.service.post.PostServiceNew;
+import com.tcc.entrepaginas.service.reaction.ReactionServiceNew;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import java.util.Map;
