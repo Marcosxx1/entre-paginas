@@ -12,5 +12,5 @@ public interface LivroRepository extends JpaRepository<Livro, String> {
 
     Optional<List<Livro>> findByUsuario(Usuario usuario);
 
-    List<Livro> findByCidadeAndEstado(String userCidade, EstadoBrasil userEstado);
+    List<Livro> findByCidadeAndEstadoBrasil(String userCidade, EstadoBrasil userEstado);
 }

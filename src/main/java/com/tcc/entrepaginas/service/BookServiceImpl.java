@@ -80,22 +80,22 @@ public class BookServiceImpl implements BookService {
         return "MinhasTrocas";
     }
 
-    /*    @Override
-    public String bookExchange(Model model, String idUsuario, Authentication authentication) {
-        */
-    /*Filtrar livros para troca por região:
-    Configurar o sistema para que os livros exibidos para troca sejam apenas aqueles que estão na mesma região do usuário.
-    */
-    /*
-        model = userUtils.setUserInAttributesIfAuthenticated(model, authentication, idUsuario);
+    // @Override
+    // public String bookExchange(Model model, String idUsuario, Authentication
+    // authentication) {
+    // model = userUtils.setUserInAttributesIfAuthenticated(model, authentication,
+    // idUsuario);
 
-        List<Livro> livrosPorRegiao = listarLivrosPorRegiao(idUsuario); // Adicionar uma section ou algo do tipo talvez?
+    // List<Livro> livrosPorRegiao = listarLivrosPorRegiao(idUsuario); // Adicionar
+    // uma section ou algo do tipo talvez?
 
-        model.addAttribute(
-                "livrosTrocar", listarTrocasPorPessoas(idUsuario)); // Assim podemos ter as trocas ativas do usuário
-        model.addAttribute("livrosTrocar", livrosPorRegiao); // E as trocas por região que for escolhida
-        return "MinhasTrocas";
-    }*/
+    // model.addAttribute(
+    // "livrosTrocar", listarTrocasPorPessoas(idUsuario)); // Assim podemos ter as
+    // trocas ativas do usuário
+    // model.addAttribute("livrosTrocar", livrosPorRegiao); // E as trocas por
+    // região que for escolhida
+    // return "MinhasTrocas";
+    // }
 
     private void salvarLivro(Livro livro, String idUsuario, List<ImagemLivro> imagensLivro) {
 
@@ -180,7 +180,8 @@ public class BookServiceImpl implements BookService {
         model.addAttribute("estadosBrasil", enumListingService.listarTodosEstadosBrasil());
         model.addAttribute("idUsuario", livro.getUsuario().getId());
         // Podemos pegar o ImagemLivroService, pegar as imagens com o ID do livro
-        // No HTML poderiamos fazer um modalzinho com as minuaturas das imagens e editar uma por uma
+        // No HTML poderiamos fazer um modalzinho com as minuaturas das imagens e editar
+        // uma por uma
         // OUU
         // Fazer outra rota para editar as imagens em específico
         return "EditarLivro";
@@ -214,7 +215,7 @@ public class BookServiceImpl implements BookService {
         String userCidade = usuario.getCidade();
         EstadoBrasil userEstado = usuario.getEstadoBrasil();
 
-        return livroRepository.findByCidadeAndEstado(userCidade, userEstado);
+        return livroRepository.findByCidadeAndEstadoBrasil(userCidade, userEstado);
     }
 
     @Override
