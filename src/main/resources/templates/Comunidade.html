@@ -10,12 +10,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" th:href="@{/static/css/style.css}" />
-    <link rel="stylesheet" th:href="@{/static/css/IndexStyle.css}" />
-    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
-    <link rel="stylesheet" th:href="@{/static/css/CommunityStyle.css}" />
-    <link rel="stylesheet" th:href="@{/static/css/PostStyle.css}" />
-    <link rel="stylesheet" th:href="@{/static/css/PerfilStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/IndexStyle.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/CommunityStyle.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/PostStyle.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/PerfilStyle.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/MembersStyle.css}"/>
 
     <script th:src="@{/static/js/HeaderScript.js}"></script>
     <script th:src="@{/static/js/ModalScript.js}"></script>
@@ -25,51 +26,52 @@
 </head>
 
 <body>
-    <div th:replace="~{fragments/header/header :: header}"></div>
+<div th:replace="~{fragments/header/header :: header}"></div>
 
 
-    <div class="perfil">
-        <div class="perfil-principal" style="margin-right: 0;">
-            <div
+<div class="perfil">
+    <div class="perfil-principal" style="margin-right: 0;">
+        <div
                 th:replace="~{${#authorization.expression('isAuthenticated()') ? 'fragments/sidebar/sidebar-loggedin' : 'fragments/sidebar/sidebar-loggedout'}}">
-            </div>
         </div>
-        <div class="perfil-right">
-            <div class="forum-community-perfil">
-                <h1 class="community-title-perfil" th:text="${community.title}"></h1>
+    </div>
+    <div class="perfil-right">
+        <div class="forum-community-perfil">
+            <h1 class="community-title-perfil" th:text="${community.title}"></h1>
 
-                <div class="community-perfil">
-                    <div class="community-icon-perfil">
-                        <img class="icon-img" th:if="${community.icone == null}" src="/static/image/semImagem.png"
-                            alt="Icone da comunidade">
-                        <img class="icon-img" th:if="${community.icone != null}" th:src="${community.icone}"
-                            alt="Icone da comunidade">
-                    </div>
-
-                    <div class="community-content-perfil">
-                        <p th:text="${community.content}"></p>
-                    </div>
-
-                    <div class="community-infos-perfil">
-                        <p th:text="${#dates.format(community.date, 'dd/MM/yyyy')}"></p>
-                        <div>
-                            <p th:text="${community.privado == true} ? 'Privada' : ''"></p>
-                            <label>
-                                <input type="checkbox" th:checked="${community.privado == true}" disabled>
-                            </label>
-                        </div>
-                    </div>
+            <div class="community-perfil">
+                <div class="community-icon-perfil">
+                    <img class="icon-img" th:if="${community.icone == null}" src="/static/image/semImagem.png"
+                         alt="Icone da comunidade">
+                    <img class="icon-img" th:if="${community.icone != null}" th:src="${community.icone}"
+                         alt="Icone da comunidade">
                 </div>
-                <div class="community-menu">
-                    <ul>
-                        <li class="li-postagem">Criar Postagem</li>
-                        <li class="li-config">Editar Informações</li>
-                        <li class="li-config">Gerenciar membros da comunidade</li>
-                     </ul>
+
+                <div class="community-content-perfil">
+                    <p th:text="${community.content}"></p>
+                </div>
+
+                <div class="community-infos-perfil">
+                    <p th:text="${#dates.format(community.date, 'dd/MM/yyyy')}"></p>
+                    <div>
+                        <p th:text="${community.privado == true} ? 'Privada' : ''"></p>
+                        <label>
+                            <input type="checkbox" th:checked="${community.privado == true}" disabled>
+                        </label>
+                    </div>
                 </div>
             </div>
-            <div class="configuracoes" id="configuracoes">
+            <div class="community-menu">
+                <ul>
+                    <li class="li-postagem">Criar Postagem</li>
+                    <li class="li-config">Editar Informações</li>
+                    <li class="li-members">Gerenciar membros da comunidade</li> <!-- Botão para gerenciar membros -->
+                </ul>
+            </div>
 
+            <div id="member-list" style="display: none;"></div> <!-- Oculta inicialmente -->
+
+            <div class="configuracoes" id="configuracoes">
                 <form method='post' encType='multipart/form-data' id="icone">
                     <div>
                         <div>
@@ -78,7 +80,7 @@
                             </label>
                         </div>
                         <input type="hidden" th:value="${community.id}" class="communityId">
-                        <input type="file" id="icone" name="icone" accept="image/*" />
+                        <input type="file" id="icone" name="icone" accept="image/*"/>
                     </div>
                     <button type="submit" class="forms-informacoes_button">
                         Salvar
@@ -88,7 +90,7 @@
                 <form class="custom-form">
                     <label class="form-label">
                         Título:
-                        <input type="text" name="title" class="form-input" required />
+                        <input type="text" name="title" class="form-input" required/>
                     </label>
                     <label class="form-label">
                         Conteúdo:
@@ -96,7 +98,7 @@
                     </label>
                     <label class="form-label">
                         <div class="form-checkbox">
-                            <input class="checkbox" type="checkbox" id="privado" name="privado" th:value="${privado}" />
+                            <input class="checkbox" type="checkbox" id="privado" name="privado" th:value="${privado}"/>
                             <label for="privado">Privado</label>
                         </div>
                     </label>
@@ -113,7 +115,7 @@
             <div class="post-form" th:if="${#authorization.expression('isAuthenticated()')}">
                 <h1 class="form-title">Formulário de Post</h1>
                 <form th:action="@{/posts/create/{communityId}/{userId}(communityId=*{community.id},userId=*{user.id})}"
-                    method="post" enctype="multipart/form-data">
+                      method="post" enctype="multipart/form-data">
 
                     <label class="form-label-post" for="title">Título:</label>
                     <input class="form-input-post" type="text" id="title" name="title" required>
@@ -154,6 +156,8 @@
             const perfilConfigSpan = document.querySelector(".li-config");
             const postagem = document.querySelector(".li-postagem");
             const postagemForm = document.querySelector(".post-form");
+            const memberListDiv = document.getElementById("member-list");
+            const manageMembersBtn = document.querySelector(".li-members");
 
             perfilConfigSpan.addEventListener("click", function () {
                 configuracoesDiv.classList.toggle("visible");
@@ -162,9 +166,37 @@
             postagem.addEventListener("click", function () {
                 postagemForm.classList.toggle("visible");
             });
+
+            manageMembersBtn.addEventListener("click", async function () {
+                if (memberListDiv.style.display === "none") {
+                    // Exibir a lista de membros
+                    memberListDiv.style.display = "block";
+                    const communityId = document.querySelector(".communityId").value;
+                    try {
+                        const response = await fetch(`/members/list-members/${communityId}`);
+                        if (response.ok) {
+                            const members = await response.json();
+                            memberListDiv.innerHTML = '<ul>' +
+                                members.map(member => `
+                        <li>
+                            ID do Membro: ${member.memberId},
+                            ID do Usuário: ${member.userId},
+                            Papel na Comunidade: ${member.communityRole}
+                        </li>`).join('') +
+                                '</ul>';
+                        } else {
+                            console.error('Erro ao buscar membros:', response.statusText);
+                        }
+                    } catch (error) {
+                        console.error('Erro ao buscar membros:', error);
+                    }
+                } else {
+                    // Ocultar a lista de membros
+                    memberListDiv.style.display = "none";
+                }
+            });
         });
     </script>
-
     <script>
         const form = document.getElementById("icone");
         const communityId = document.querySelector(".communityId").value;
@@ -191,7 +223,6 @@
             }
         });
     </script>
-
 </body>
 
 </html>

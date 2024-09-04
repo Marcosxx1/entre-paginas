@@ -1,6 +1,5 @@
 package com.tcc.entrepaginas.service.user;
 
-import com.tcc.entrepaginas.domain.dto.MembersFromCommunityResponse;
 import com.tcc.entrepaginas.domain.dto.NovoUsuarioRequest;
 import com.tcc.entrepaginas.domain.dto.UpdateUserNameLoginAndEmailRequest;
 import com.tcc.entrepaginas.domain.dto.UserListResponse;
@@ -51,6 +50,4 @@ public interface UserService {
     String verifyEmail(String token);
 
     void updateUserPassword(String id, String senha);
-
-    List<MembersFromCommunityResponse> listMembersByCommunity(String communityId);
 }

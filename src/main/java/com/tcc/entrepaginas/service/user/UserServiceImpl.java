@@ -1,6 +1,5 @@
 package com.tcc.entrepaginas.service.user;
 
-import com.tcc.entrepaginas.domain.dto.MembersFromCommunityResponse;
 import com.tcc.entrepaginas.domain.dto.NovoUsuarioRequest;
 import com.tcc.entrepaginas.domain.dto.UpdateUserNameLoginAndEmailRequest;
 import com.tcc.entrepaginas.domain.dto.UserListResponse;
@@ -8,10 +7,8 @@ import com.tcc.entrepaginas.domain.entity.*;
 import com.tcc.entrepaginas.domain.registration.RegistrationCompleteEvent;
 import com.tcc.entrepaginas.domain.registration.VerificationToken;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
-import com.tcc.entrepaginas.mapper.member.MemberMapper;
 import com.tcc.entrepaginas.mapper.user.UserMapper;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
-import com.tcc.entrepaginas.service.member.MemberService;
 import com.tcc.entrepaginas.service.verificationtoken.VerificationTokenService;
 import com.tcc.entrepaginas.utils.imageupload.ImageUtils;
 import com.tcc.entrepaginas.utils.registration.UrlUtils;
@@ -50,8 +47,6 @@ public class UserServiceImpl implements UserService {
     private final UserUtils userUtils;
     private final ApplicationEventPublisher publisher;
     private final VerificationTokenService tokenService;
-    private final MemberService memberService;
-    private final MemberMapper memberMapper;
 
     private static final Path ROOT = Paths.get("uploads");
 
@@ -260,25 +255,4 @@ public class UserServiceImpl implements UserService {
 
         usuarioRepository.save(user);
     }
-
-    @Override
-    public List<MembersFromCommunityResponse> listMembersByCommunity(String communityId) {
-        var members = memberService
-                .getMembersByCommunityId(communityId)
-                .orElseThrow(() -> new ResourceNotFound("TODO -  SEM USUÁRIOS PARA COMUNIDADE"));
-
-        return memberMapper.toListOfMembersFromCommunityResponse(members);
-    }
 }
-/*        if (verificationToken.isPresent()) {
-    Usuario user = verificationToken.get().getUsuario();
-    if (!user.isEnabled()) {
-        user.setEnabled(true);
-        usuarioRepository.save(user);
-        return "Email verificado com sucesso!";
-    } else {
-        return "Email já foi verificado!";
-    }
-} else {
-    return "Token inválido!";
-}*/

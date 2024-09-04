@@ -5,11 +5,10 @@ import com.tcc.entrepaginas.domain.entity.Community;
 import com.tcc.entrepaginas.domain.entity.Membros;
 import com.tcc.entrepaginas.domain.entity.RoleCommunity;
 import com.tcc.entrepaginas.domain.entity.Usuario;
-import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Component;
 
 @Component
 public class MemberMapper {
@@ -38,12 +37,10 @@ public class MemberMapper {
     }
 
     public List<MembersFromCommunityResponse> toListOfMembersFromCommunityResponse(List<Membros> membros) {
-        return membros.stream()
-                .map(this::toMemberFromCommunityResponse)
-                .collect(Collectors.toList());
+        return membros.stream().map(this::toMemberFromCommunityResponse).collect(Collectors.toList());
     }
 
-/*    public List<MembersFromCommunityResponse> toListOfMembersFromCommunityResponse(List<Membros> membros) {
+    /*    public List<MembersFromCommunityResponse> toListOfMembersFromCommunityResponse(List<Membros> membros) {
 
         List<MembersFromCommunityResponse> membersFromCommunityResponse = new ArrayList<>();
 
@@ -54,9 +51,7 @@ public class MemberMapper {
         return membersFromCommunityResponse;
     }*/
 
-
-
-/*    public List<MembersFromCommunityResponse> toListOfMembersFromCommunityResponse(List<Membros> membros) {
+    /*    public List<MembersFromCommunityResponse> toListOfMembersFromCommunityResponse(List<Membros> membros) {
 
         List<MembersFromCommunityResponse> membersFromCommunityResponse = new ArrayList<>(membros.size());
 

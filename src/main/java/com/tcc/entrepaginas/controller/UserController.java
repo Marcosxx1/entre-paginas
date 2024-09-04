@@ -1,6 +1,5 @@
 package com.tcc.entrepaginas.controller;
 
-import com.tcc.entrepaginas.domain.dto.MembersFromCommunityResponse;
 import com.tcc.entrepaginas.domain.dto.NovoUsuarioRequest;
 import com.tcc.entrepaginas.domain.dto.UpdateUserNameLoginAndEmailRequest;
 import com.tcc.entrepaginas.domain.dto.UserListResponse;
@@ -113,14 +112,5 @@ public class UserController {
         log.info("UserController - GET on /user/list; /user/list called with query: {}", query);
 
         return userService.listAllUserBasedOnQuery(query);
-    }
-
-    @GetMapping("/list-members/{communityId}")
-    @ResponseBody
-    public List<MembersFromCommunityResponse> listAllCommunityMembers(@PathVariable("communityId") String communityId) {
-
-        log.info("UserController - GET on /user/list; /user/list called with communityId: {}", communityId);
-
-        return userService.listMembersByCommunity(communityId);
     }
 }
