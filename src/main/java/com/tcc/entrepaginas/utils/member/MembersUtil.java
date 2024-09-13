@@ -24,7 +24,6 @@ public class MembersUtil {
 
         if (Objects.equals(memberId, userFromContext)) {
             throw new MemberSelfRemovalException("Você não pode remover a si mesmo da comunidade.");
-
         }
     }
 
@@ -35,8 +34,8 @@ public class MembersUtil {
     }
 
     public boolean isOnlyMemberInCommunity(Membros member) {
-        int memberCount =
-                membrosRepository.countMoreThanOneByCommunityId(member.getCommunity().getId());
+        int memberCount = membrosRepository.countMoreThanOneByCommunityId(
+                member.getCommunity().getId());
 
         return memberCount == 1;
     }

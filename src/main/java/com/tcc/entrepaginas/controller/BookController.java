@@ -61,6 +61,11 @@ public class BookController {
         return bookService.bookExchange(model, idUsuario, authentication);
     }
 
+    @GetMapping("/axchanges-all-regions")
+    public String tradeBookAllRegions(Model model, Authentication authentication) {
+        return bookService.trocaDeLivroPorRegiao(model, authentication);
+    }
+
     @GetMapping("/prepare-edit/{id}")
     public String editBook(Model model, @PathVariable("id") String idLivro, Authentication authentication) {
 

@@ -4,6 +4,7 @@ import com.tcc.entrepaginas.domain.dto.LivroParaEditarRequest;
 import com.tcc.entrepaginas.domain.dto.NovoLivroRequest;
 import com.tcc.entrepaginas.domain.entity.Livro;
 import com.tcc.entrepaginas.domain.entity.Usuario;
+import com.tcc.entrepaginas.domain.enums.EstadoBrasil;
 import jakarta.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.List;
@@ -32,6 +33,8 @@ public interface BookService {
 
     void apagarLivroPorId(String id);
 
+    String trocaDeLivroPorRegiao(Model model, Authentication authentication);
+
     Livro getRandomLivro();
 
     List<Livro> listAllBooksForUser(Usuario user);
@@ -42,7 +45,7 @@ public interface BookService {
 
     String prepareTradeBookPage(Model model, String idTroca, Authentication authentication, Principal principal);
 
-    List<Livro> listarLivrosPorRegiao(String idUsuario);
+    List<Livro> listarLivrosPorRegiao(String userCidade, EstadoBrasil userEstado);
 
     String listarTodasTrocas(Model model);
 }

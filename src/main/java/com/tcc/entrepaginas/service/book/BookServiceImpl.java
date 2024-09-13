@@ -84,22 +84,19 @@ public class BookServiceImpl implements BookService {
         return "MinhasTrocas";
     }
 
-    // @Override
-    // public String bookExchange(Model model, String idUsuario, Authentication
-    // authentication) {
-    // model = userUtils.setUserInAttributesIfAuthenticated(model, authentication,
-    // idUsuario);
+    @Override
+    public String trocaDeLivroPorRegiao(Model model, Authentication authentication) {
 
-    // List<Livro> livrosPorRegiao = listarLivrosPorRegiao(idUsuario); // Adicionar
-    // uma section ou algo do tipo talvez?
+        var usuario = userUtils.getUsuarioObjectFromAuthentication(authentication);
 
-    // model.addAttribute(
-    // "livrosTrocar", listarTrocasPorPessoas(idUsuario)); // Assim podemos ter as
-    // trocas ativas do usuário
-    // model.addAttribute("livrosTrocar", livrosPorRegiao); // E as trocas por
-    // região que for escolhida
-    // return "MinhasTrocas";
-    // }
+        model = userUtils.setUserInAttributesIfAuthenticated(model, authentication, usuario.getId());
+
+        List<Livro> livrosPorRegiao = listarLivrosPorRegiao(usuario.getCidade(), usuario.getEstadoBrasil());
+
+        model.addAttribute("todosOsLivrosDoUsuario", listarTrocasPorPessoas(usuario.getId()));
+        model.addAttribute("todosOsLivosDaRegiao", livrosPorRegiao);
+        return "MinhasTrocas";
+    }
 
     private void salvarLivro(Livro livro, String idUsuario, List<ImagemLivro> imagensLivro) {
 
@@ -214,12 +211,10 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Livro> listarLivrosPorRegiao(String idUsuario) {
-        Usuario usuario = userUtils.getUserById(idUsuario);
-        String userCidade = usuario.getCidade();
-        EstadoBrasil userEstado = usuario.getEstadoBrasil();
-
-        return livroRepository.findByCidadeAndEstadoBrasil(userCidade, userEstado);
+    public List<Livro> listarLivrosPorRegiao(String userCidade, EstadoBrasil userEstado) {
+        return livroRepository
+                .findByCidadeAndEstadoBrasil(userCidade, userEstado)
+                .orElseThrow(() -> new ResourceNotFound(userCidade));
     }
 
     @Override
