@@ -35,7 +35,7 @@ public interface BookService {
 
     String trocaDeLivroPorRegiao(Model model, Authentication authentication);
 
-    Livro getRandomLivro();
+    Livro getRandomLivro(Authentication authentication);
 
     List<Livro> listAllBooksForUser(Usuario user);
 

@@ -93,7 +93,7 @@
 
                 <div th:replace="~{fragments/posts/posts :: post}"></div>
             </div>
-            <div th:if="${book != null and book.usuario.login != #authentication.name}" id="bookModalLivro" class="modalLivro">
+            <div th:if="${book != null}" id="bookModalLivro" class="modalLivro">
                 <div class="modalLivro-content">
                     <div class="div-anunciante">
                         <p class="anunciante">Anúncio feito por:</p>

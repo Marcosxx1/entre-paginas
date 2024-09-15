@@ -47,7 +47,8 @@ public class UserUtils {
     }
 
     public Usuario getUserById(String userId) {
-        return userRepository.findById(userId).orElseThrow(() -> new ResourceNotFound(userId));
+        return userId.equals("") ? null
+                : userRepository.findById(userId).orElseThrow(() -> new ResourceNotFound(userId));
     }
 
     public Usuario getUserByLogin(String userName) {

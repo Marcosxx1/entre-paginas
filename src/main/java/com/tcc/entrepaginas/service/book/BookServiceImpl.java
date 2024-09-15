@@ -26,6 +26,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -130,10 +131,43 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Livro getRandomLivro() {
+    public Livro getRandomLivro(Authentication authentication) {
         List<Livro> livros = livroRepository.findAll();
-        return livros.isEmpty() ? new Livro() : livros.get(new Random().nextInt(livros.size()));
+
+        Usuario user = userUtils.getUserById(userUtils.getIdUserFromUserDetail(authentication));
+
+        if (user != null) {
+            livros = livros.stream()
+                    .filter(livro -> !livro.getUsuario().getNome().equals(user.getNome()))
+                    .collect(Collectors.toList());
+        }
+
+        if (livros.isEmpty()) {
+            return null;
+        }
+
+        return livros.get(new Random().nextInt(livros.size()));
     }
+
+    // @Override
+    // public Livro getRandomLivro(Authentication authentication) {
+    // List<Livro> livros = livroRepository.findAll();
+
+    // Usuario user =
+    // userUtils.getUserById(userUtils.getIdUserFromUserDetail(authentication));
+
+    // if (!(livros.isEmpty()) && user != null) {
+
+    // livros = livros.stream().filter(livro ->
+    // livro.getUsuario().getNome().equals(user.getNome()))
+    // .collect(Collectors.toList());
+    // } else {
+
+    // new Livro();
+    // }
+
+    // return livros.get(new Random().nextInt(livros.size()));
+    // }
 
     @Override
     public List<Livro> listarRandomLivros(int totalItems, Principal principal, String idTroca) {

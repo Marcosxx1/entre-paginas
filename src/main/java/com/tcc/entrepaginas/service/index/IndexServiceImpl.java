@@ -44,7 +44,7 @@ public class IndexServiceImpl implements IndexService {
         model.addAttribute("comunidades", communityServiceNew.listarRandomCommunities(4, principal));
         model.addAttribute("comments", commentsServiceNew.listarComments(Sort.by(Sort.Direction.ASC, "id")));
         model.addAttribute("qtdReaction", reactionServiceNew.countReaction());
-        model.addAttribute("book", bookService.getRandomLivro());
+        model.addAttribute("book", bookService.getRandomLivro(authentication));
 
         return "/Index";
     }
