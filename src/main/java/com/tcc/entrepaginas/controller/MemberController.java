@@ -50,4 +50,16 @@ public class MemberController {
         log.info(
                 "Successfully updated member authorities for memberId: {} to new role: {}", memberId, newComunnityRole);
     }
+
+    @PostMapping("/addMember")
+    public String addMemberToCommunity(@RequestParam("communityId") String communityId,
+            @RequestParam("userId") String userId) {
+
+        log.info(
+                "Esta chegando aqui: {} to new role: {}", communityId, userId);
+
+        memberService.addMemberToCommunity(communityId, userId);
+
+        return "redirect:/community/" + communityId;
+    }
 }

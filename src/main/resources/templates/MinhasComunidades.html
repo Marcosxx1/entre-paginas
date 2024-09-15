@@ -34,10 +34,12 @@
             <div class="community-section section-active minhas_comunidades" th:if="${adminCommunities.size() > 0}"
                 th:each="community : ${adminCommunities}">
                 <div class="card">
-                    <img class="card__img community-icon" th:if="${community.icone == null}"
+                    <img class="card__img community-icon"
+                        th:if="${community == null and community.icone == null and community.icone.trim() == ''}"
                         src="/static/image/semImagem.png" alt="Icone da comunidade">
-                    <img class="card__img community-icon" th:if="${community.icone != null}" th:src="${community.icone}"
-                        alt="Icone da comunidade">
+                    <img class="card__img community-icon"
+                        th:if="${community != null or community.icone != null or community.icone.trim() != ''}"
+                        th:src="${community.icone}" alt="Icone da comunidade">
                     <div class="card__footer">
                         <span class="community-title" th:text="${community.title}"></span>
                     </div>

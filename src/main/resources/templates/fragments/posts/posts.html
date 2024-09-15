@@ -52,6 +52,8 @@
                     </div>
                 </div>
 
+                <span id="border2"></span>
+
                 <div class="post-content">
                     <p class="title" th:text="${post.title}"></p>
                     <p class="content" th:text="${post.content}"></p>
@@ -60,7 +62,8 @@
                     </div>
                 </div>
 
-                <hr>
+                <span id="border"></span>
+
                 <div class="post-footer">
                     <span class="novo-comentario"><i class="fa-regular fa-comment-dots"></i> comentários</span>
                     <span class="up">
@@ -76,7 +79,11 @@
                 <div>
                     <form method="post">
                         <textarea name="content" id="content" cols="30" rows="10" maxlength="255" required></textarea>
-                        <input type="submit" value="Comentar" name="comentar" id="comentar">
+                        <button class="form-submit-button-post" type="submit">
+                            <span class="submit-button">
+                                Comentar
+                            </span>
+                        </button>
                     </form>
                 </div>
 
@@ -109,7 +116,7 @@
     </div>
 
     <div th:fragment="modalPost" id="myModal" class="modalIndex">
-        <div class="modal-content">
+        <div class="modal-content container">
             <span class="close">&times;</span>
             <div class="post" data-id="123">
             </div>
@@ -140,6 +147,27 @@
                 }
             });
         });
+
+        // $(document).ready(function () {
+        //     // Seleciona o modal
+        //     var modal = $('#myModal');
+
+        //     // Fecha o modal quando o botão de fechar for clicado
+        //     $('.close').on('click', function () {
+        //         modal.hide();
+        //     });
+
+        //     // Fecha o modal ao pressionar a tecla Esc
+        //     $(document).keydown(function (event) {
+        //         if (event.key === "Escape") { // Verifica se a tecla pressionada é Esc
+        //             modal.hide();
+        //         }
+        //     });
+        // });
+
+
+
+
     </script>
 </body>
 

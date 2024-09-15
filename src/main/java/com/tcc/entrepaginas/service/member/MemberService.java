@@ -14,4 +14,6 @@ public interface MemberService {
     void removeMemberFromCommunity(String memberId, Authentication authentication);
 
     void updateMemberAuthorities(String memberId, String newComunnityRole);
+
+    void addMemberToCommunity(String communityId, String userId);
 }

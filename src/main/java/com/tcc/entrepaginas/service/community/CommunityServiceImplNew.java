@@ -91,8 +91,8 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
     public List<Community> buscarComunidades(String query) {
         return communityRepository
                 .findByTitleContainingIgnoreCase(query)
-                .orElseThrow(() ->
-                        new CommunityNotFoundException("Community Not Found", "No communities with query: " + query));
+                .orElseThrow(() -> new CommunityNotFoundException("Community Not Found",
+                        "No communities with query: " + query));
     }
 
     @Override
@@ -173,6 +173,7 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
         model = userUtils.setModelIfAuthenticationExists(authentication, model);
         model.addAttribute("listPost", postUtils.listPostsByCommunity(id));
         model.addAttribute("community", pegarCommunity(id));
+
         return "/Comunidade";
     }
 
