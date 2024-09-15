@@ -13,7 +13,7 @@ public interface IndexService {
 
     String prepareUser(Model model, Authentication authentication);
 
-    String visitOtherUsersFromIndex(Model model, String userName);
+    String visitOtherUsersFromIndex(Model model, String userName, Authentication authentication);
 
     String suporte(Model model, Principal principal, Authentication authentication);
 }

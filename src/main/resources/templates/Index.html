@@ -34,6 +34,8 @@
 
     <div class="perfil">
         <div class="perfil-principal">
+
+
             <div
                 th:replace="~{${#authorization.expression('isAuthenticated()') ? 'fragments/sidebar/sidebar-loggedin' : 'fragments/sidebar/sidebar-loggedout'}}">
             </div>
@@ -74,7 +76,7 @@
                     <div th:if="${comunidades.size() > 0}" th:each="comunidade : ${comunidades}">
                         <a th:href="@{/community/{id}(id=${comunidade.id})}">
                             <div class="comunidade">
-                                <img th:src="${comunidade.icone == null ? '/static/image/semImagem.png' : comunidade.icone}"
+                                <img th:src="${comunidade == null and comunidade.icone == null and comunidade.icone.trim() == '' ? '/static/image/semImagem.png' : comunidade.icone}"
                                     alt="icone da comunidade">
                             </div>
                             <div class="comunidade-verso hide">
@@ -91,12 +93,13 @@
 
                 <div th:replace="~{fragments/posts/posts :: post}"></div>
             </div>
-            <div th:if="${book != null}" id="bookModalLivro" class="modalLivro">
+            <div th:if="${book != null and book.usuario.login != #authentication.name}" id="bookModalLivro" class="modalLivro">
                 <div class="modalLivro-content">
                     <div class="div-anunciante">
                         <p class="anunciante">Anúncio feito por:</p>
-                        <p th:text="${book.usuario != null ? book.usuario.nome : 'N/A'}" id="modalBookAuthor"
-                            class="anunciante"></p>
+                        <a th:href="@{/perfilVisitante/{userName}(userName=${book.usuario.nome})}"
+                            th:text="${book.usuario != null ? book.usuario.nome : 'N/A'}" id="modalBookAuthor"
+                            class="anunciante"></a>
                     </div>
 
                     <div th:if="${book.imagens != null}">

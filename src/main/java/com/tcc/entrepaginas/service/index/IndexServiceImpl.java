@@ -75,14 +75,15 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
-    public String visitOtherUsersFromIndex(Model model, String userName) {
+    public String visitOtherUsersFromIndex(Model model, String userName, Authentication authentication) {
         Usuario user = userUtils.getUserByLogin(userName);
 
         if (user == null) {
             return "redirect:/error/404";
         }
 
-        model.addAttribute("user", user);
+        model = userUtils.setModelIfAuthenticationExists(authentication, model);
+        model.addAttribute("perfilVisitante", user);
         model.addAttribute("books", bookService.listAllBooksForUser(user));
         model.addAttribute("communities", communityServiceNew.listCommunitiesForUser(user));
 

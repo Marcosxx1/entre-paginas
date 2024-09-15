@@ -25,19 +25,43 @@
 </head>
 
 <body>
+
     <div th:replace="~{fragments/header/header :: header}"></div>
 
-    <p th:text="${user.nome}"></p>
-    <p th:text="${user.id}"></p>
-    <p th:text="${user.email}"></p>
+    <div class="perfil">
+        <div class="perfil-principal">
+            <div
+                th:replace="~{${#authorization.expression('isAuthenticated()') ? 'fragments/sidebar/sidebar-loggedin' : 'fragments/sidebar/sidebar-loggedout'}}">
+            </div>
+        </div>
+        <div class="perfil-right">
 
-    <div th:each="livro : ${books}">
-        <p th:text="${livro.nome}"></p>
-    </div>
 
-    <div th:each="comunidade : ${communities}">
-        <p th:text="${comunidade.title}"></p>
+
+            <p>Bem-vindo, <span sec:authentication="name"></span>!</p>
+
+
+            <p th:text="${perfilVisitante.nome}"></p>
+            <p th:text="${perfilVisitante.id}"></p>
+            <p th:text="${perfilVisitante.email}"></p>
+
+            <div th:each="livro : ${books}">
+                <p th:text="${livro.nome}"></p>
+            </div>
+
+            <div th:each="comunidade : ${communities}">
+                <p th:text="${comunidade.title}"></p>
+            </div>
+        </div>
     </div>
+    <span sec:authentication="name" style="display: none;" id="userLogin"></span>
+
+    <div th:replace="~{fragments/posts/posts :: modalPost}"></div>
+
+
+
+
+
     <!-- 
     <span sec:authentication="name" style="display: none;" id="userLogin"></span>
 
