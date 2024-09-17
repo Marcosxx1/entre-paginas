@@ -11,7 +11,7 @@ $(document).ready(function () {
         if (selectedOption === 'usuário') {
             $.ajax({
                 type: "GET",
-                url: "/user/list",
+                url: "/user/user-search-bar/list",
                 data: { query: inputText },
                 success: function (data) {
                     $("#suggestions").empty().show();
