@@ -1,11 +1,9 @@
 package com.tcc.entrepaginas.utils.roleCommunity;
 
-import org.springframework.stereotype.Component;
-
 import com.tcc.entrepaginas.domain.entity.RoleCommunity;
 import com.tcc.entrepaginas.repository.RoleCommunityRepository;
-
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
@@ -19,5 +17,4 @@ public class RoleCommunityUtils {
 
         return roleCommunity;
     }
-
 }

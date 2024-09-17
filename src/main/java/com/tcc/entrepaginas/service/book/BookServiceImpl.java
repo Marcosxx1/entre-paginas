@@ -19,6 +19,7 @@ import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
@@ -26,7 +27,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -155,7 +155,6 @@ public class BookServiceImpl implements BookService {
         livroRepository.delete(livro);
 
         return "redirect:/admin";
-
     }
     // @Override
     // public Livro getRandomLivro(Authentication authentication) {

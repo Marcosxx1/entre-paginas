@@ -52,11 +52,10 @@ public class MemberController {
     }
 
     @PostMapping("/addMember")
-    public String addMemberToCommunity(@RequestParam("communityId") String communityId,
-            @RequestParam("userId") String userId) {
+    public String addMemberToCommunity(
+            @RequestParam("communityId") String communityId, @RequestParam("userId") String userId) {
 
-        log.info(
-                "Esta chegando aqui: {} to new role: {}", communityId, userId);
+        log.info("Esta chegando aqui: {} to new role: {}", communityId, userId);
 
         memberService.addMemberToCommunity(communityId, userId);
 

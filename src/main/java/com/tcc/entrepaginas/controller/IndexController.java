@@ -50,8 +50,8 @@ public class IndexController {
     }
 
     @GetMapping("/perfilVisitante/{userName}")
-    public String perfilVisitante(Model model, @PathVariable("userName") String userName,
-            Authentication authentication) {
+    public String perfilVisitante(
+            Model model, @PathVariable("userName") String userName, Authentication authentication) {
         log.info("IndexController - GET on /perfilVisitante/{}; called to view profile of user", userName);
         return indexService.visitOtherUsersFromIndex(model, userName, authentication);
     }

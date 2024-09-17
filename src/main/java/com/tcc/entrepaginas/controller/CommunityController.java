@@ -83,7 +83,6 @@ public class CommunityController {
         return communityService.listCommunitiesWithOrWithoutSort(query);
     }
 
-
     @GetMapping("/search-bar/list")
     @ResponseBody
     public List<String> listarCommunitySearchBar(@RequestParam(required = false) String query) {
@@ -110,8 +109,8 @@ public class CommunityController {
     }
 
     @GetMapping("/admin/delete/{id}")
-    public String deleteCommunityAdmin(@PathVariable("id") String idComunidade, RedirectAttributes attributes,
-            Model model) {
+    public String deleteCommunityAdmin(
+            @PathVariable("id") String idComunidade, RedirectAttributes attributes, Model model) {
         log.info("CommunityController - GET on /delete/{id}; /delete/{} called", idComunidade);
         return communityService.deleteCommunityAdmin(idComunidade);
     }

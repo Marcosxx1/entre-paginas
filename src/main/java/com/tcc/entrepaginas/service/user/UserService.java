@@ -8,7 +8,6 @@ import com.tcc.entrepaginas.domain.entity.Livro;
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
-
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
@@ -18,42 +17,42 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 public interface UserService {
 
-        String registerAndRedirect(Authentication authentication, Model model);
+    String registerAndRedirect(Authentication authentication, Model model);
 
-        String saveUserFromForm(
-                        NovoUsuarioRequest novoUsuarioRequest,
-                        BindingResult result,
-                        RedirectAttributes attributes,
-                        Model model,
-                        HttpServletRequest request);
+    String saveUserFromForm(
+            NovoUsuarioRequest novoUsuarioRequest,
+            BindingResult result,
+            RedirectAttributes attributes,
+            Model model,
+            HttpServletRequest request);
 
-        String saveUserImage(Authentication authentication, MultipartFile image, HttpServletRequest request);
+    String saveUserImage(Authentication authentication, MultipartFile image, HttpServletRequest request);
 
-        String updateUserNameLoginAndEmail(
-                        Usuario user,
-                        String id,
-                        UpdateUserNameLoginAndEmailRequest updateUserNameLoginAndEmailRequest,
-                        BindingResult result,
-                        RedirectAttributes attributes,
-                        Model model);
+    String updateUserNameLoginAndEmail(
+            Usuario user,
+            String id,
+            UpdateUserNameLoginAndEmailRequest updateUserNameLoginAndEmailRequest,
+            BindingResult result,
+            RedirectAttributes attributes,
+            Model model);
 
-        String deleteUser(String id);
+    String deleteUser(String id);
 
-        List<Community> getUserCommunities(String username);
+    List<Community> getUserCommunities(String username);
 
-        List<UserListResponse> listAllUserBasedOnQuery(String query);
+    List<UserListResponse> listAllUserBasedOnQuery(String query);
 
-        List<Livro> getUserLivros(String username);
+    List<Livro> getUserLivros(String username);
 
-        Usuario getUserByEmail(String email);
+    Usuario getUserByEmail(String email);
 
-        void saveUser(Usuario user);
+    void saveUser(Usuario user);
 
-        String verifyEmail(String token);
+    String verifyEmail(String token);
 
-        void updateUserPassword(String id, String senha);
+    void updateUserPassword(String id, String senha);
 
-        List<Usuario> listUser(Sort sort);
+    List<Usuario> listUser(Sort sort);
 
-        public String deleteUserAdmin(String id);
+    public String deleteUserAdmin(String id);
 }
