@@ -18,7 +18,7 @@ public class RoleCommunityConfig implements CommandLineRunner {
         String[] papeis = {"ADMIN", "MODERATOR", "USER"};
 
         for (String papelString : papeis) {
-            RoleCommunity papel = roleCommunityRepository.findByPapel(papelString);
+            RoleCommunity papel = roleCommunityRepository.findFirstByPapel(papelString);
             if (papel == null) {
                 papel = new RoleCommunity(papelString);
                 roleCommunityRepository.save(papel);

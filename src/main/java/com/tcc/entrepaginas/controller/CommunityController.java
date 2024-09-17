@@ -83,6 +83,14 @@ public class CommunityController {
         return communityService.listCommunitiesWithOrWithoutSort(query);
     }
 
+
+    @GetMapping("/search-bar/list")
+    @ResponseBody
+    public List<String> listarCommunitySearchBar(@RequestParam(required = false) String query) {
+        log.info("CommunityController - GET on /search-bar/list; /search-bar/list called with query: {}", query);
+        return communityService.listCommunitiesWithOrWithoutSort(query);
+    }
+
     @PatchMapping("/{id}")
     public UpdateCommunityRequest updateCommunity(
             @PathVariable String id,

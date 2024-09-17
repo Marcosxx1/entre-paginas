@@ -30,7 +30,7 @@ $(document).ready(function () {
 
             $.ajax({
                 type: "GET",
-                url: "/community/list",
+                url: "/community/search-bar/list",
                 data: { query: inputText },
                 success: function (data) {
                     $("#suggestions").empty().show();
