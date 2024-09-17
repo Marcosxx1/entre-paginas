@@ -187,6 +187,15 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
     }
 
     @Override
+    public String deleteCommunityAdmin(String idComunidade) {
+
+        Community community = pegarCommunity(idComunidade);
+        communityRepository.delete(community);
+
+        return "redirect:/admin";
+    }
+
+    @Override
     @Transactional
     public String salvarComunidade(
             Model model, BindingResult result, NovaComunidadeRequest novaComunidadeRequest, String idUsuario) {

@@ -40,41 +40,73 @@
         <div class="perfil-right">
             <ul class="community-menu">
                 <li class="community-menu-li active minhas_comunidades">Usuários</li>
-                <li class="community-menu-li moderador_comunidades">Comunidades</li>
+                <li class="community-menu-li moderador_comunidades">Livros</li>
+                <li class="community-menu-li participo_comunidades">Comunidades</li>
             </ul>
 
-            <div class="community-section section-active minhas_comunidades" th:each="user : ${users}">
+            <div id="section-user" class="community-section section-active minhas_comunidades">
+                <div th:each="user : ${users}" class="users">
+                    <img th:if="${user != null and user.imagem != null and user.imagem.trim() != ''}"
+                        th:src="${user.imagem}" alt="Usuário ${user.nome}" class="user-img" />
+                    <img th:if="${user == null or user.imagem == null or user.imagem.trim() == ''}"
+                        src="/static/image/semImagem.png" alt="Usuário ${user.nome}" class="user-img" />
+                    <p th:text="${user.login}" class="text-user"></p>
+                    <p th:text="${user.nome}" class="text-user"></p>
 
-                <p th:text="${user.nome}"></p>
 
-                <!-- <div class="card">
-                    <div class="card__footer">
-                        <span class="community-title" th:text="${community.title}"></span>
+                    <div class="membros-button">
+                        <a th:href="@{/user/admin/delete/{id}(id=${user.id})}" class="button-delete membros-button1">
+                            <span class="delete-button">
+                                Deletar
+                            </span>
+                        </a>
+                        <button class="button-delete membros-button2">
+                            <span class="delete-button">
+                                Papel
+                            </span>
+                        </button>
                     </div>
-                    <div>
-                        <a th:href="@{'/community/' + ${community.id}}" class="card-button">Editar</a>
-                    </div>
-                </div> -->
+                </div>
             </div>
 
-            <div class="community-section moderador_comunidades" th:each="book : ${books}">
+            <div id="section-book" class="community-section moderador_comunidades">
+                <div th:each="book : ${books}" class="users">
+                    <img th:if="${book != null and book.imagens[0].url != null and book.imagens[0].url.trim() != ''}"
+                        th:src="${book.imagens[0].url}" alt="book ${book.nome}" class="user-img" />
+                    <img th:if="${book == null or book.imagens[0].url == null or book.imagens[0].url.trim() == ''}"
+                        src="/static/image/semImagem.png" alt="book ${book.nome}" class="user-img" />
+                    <p th:text="${book.nome}" class="text-user"></p>
+                    <p th:text="${book.usuario.nome}" class="text-user"></p>
 
-                <p th:text="${book.nome}"></p>
-
-                <!-- <div class="card">
-                    <img class="card__img community-icon" th:if="${community.icone == null}"
-                        src="/static/image/semImagem.png" alt="Icone da comunidade">
-                    <img class="card__img community-icon" th:if="${community.icone != null}" th:src="${community.icone}"
-                        alt="Icone da comunidade">
-                    <div class="card__footer">
-                        <span class="community-title" th:text="${community.title}"></span>
+                    <div class="membros-button">
+                        <a th:href="@{/book/delete/{id}(id=${book.id})}" class="button-delete membros-button1">
+                            <span class="delete-button">
+                                Deletar
+                            </span>
+                        </a>
                     </div>
-                    <div>
-                        <a th:href="@{'/community/' + ${community.id}}" class="card-button">Editar</a>
-                    </div>
-                </div> -->
+                </div>
             </div>
 
+            <div id="section-communities" class="community-section participo_comunidades">
+                <div th:each="community : ${communities}" class="users">
+                    <img th:if="${community != null and community.icone != null and community.icone.trim() != ''}"
+                        th:src="${community.icone}" alt="Community ${community.title}" class="user-img" />
+                    <img th:if="${community == null or community.icone == null or community.icone.trim() == ''}"
+                        src="/static/image/semImagem.png" alt="Community ${community.title}" class="user-img" />
+                    <p th:text="${community.title}" class="text-user"></p>
+
+
+                    <div class="membros-button">
+                        <a th:href="@{/community/admin/delete/{id}(id=${community.id})}"
+                            class="button-delete membros-button1">
+                            <span class="delete-button">
+                                Deletar
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <script>

@@ -96,8 +96,15 @@ public class CommunityController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deletarLivro(@PathVariable("id") String idComunidade, RedirectAttributes attributes, Model model) {
+    public String deleteCommunity(@PathVariable("id") String idComunidade, RedirectAttributes attributes, Model model) {
         log.info("CommunityController - GET on /delete/{id}; /delete/{} called", idComunidade);
         return communityService.deleteCommunity(idComunidade);
+    }
+
+    @GetMapping("/admin/delete/{id}")
+    public String deleteCommunityAdmin(@PathVariable("id") String idComunidade, RedirectAttributes attributes,
+            Model model) {
+        log.info("CommunityController - GET on /delete/{id}; /delete/{} called", idComunidade);
+        return communityService.deleteCommunityAdmin(idComunidade);
     }
 }

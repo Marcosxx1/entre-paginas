@@ -121,7 +121,7 @@ public class IndexServiceImpl implements IndexService {
             model = userUtils.setModelIfAuthenticationExists(authentication, model);
             model.addAttribute("users", userService.listUser(Sort.by(Sort.Direction.ASC, "id")));
             model.addAttribute("books", bookService.listarLivros(Sort.by(Sort.Direction.ASC, "id")));
-            model.addAttribute("listPost", postServiceNew.listarPost(Sort.by(Sort.Direction.ASC, "id")));
+            model.addAttribute("communities", communityServiceNew.listarCommunities(Sort.by(Sort.Direction.ASC, "id")));
         }
 
         return "TelaAdmin";

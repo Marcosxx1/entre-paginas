@@ -149,6 +149,14 @@ public class BookServiceImpl implements BookService {
         return livros.get(new Random().nextInt(livros.size()));
     }
 
+    @Override
+    public String apagarLivroPorIdAdmin(String id) {
+        Livro livro = buscarLivro(id);
+        livroRepository.delete(livro);
+
+        return "redirect:/admin";
+
+    }
     // @Override
     // public Livro getRandomLivro(Authentication authentication) {
     // List<Livro> livros = livroRepository.findAll();

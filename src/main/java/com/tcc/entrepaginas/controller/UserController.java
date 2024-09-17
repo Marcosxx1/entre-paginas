@@ -96,6 +96,12 @@ public class UserController {
         return userService.deleteUser(id);
     }
 
+    @GetMapping("/admin/delete/{id}")
+    public String deleteUserAdmin(@PathVariable String id) {
+        log.info("UserController - GET on /delete/{}; called to delete user with id: ", id);
+        return userService.deleteUserAdmin(id);
+    }
+
     @PostMapping("/image/{id}")
     public String createImage(
             Authentication authentication, @RequestParam("imagem") MultipartFile image, HttpServletRequest request) {

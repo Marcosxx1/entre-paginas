@@ -4,6 +4,8 @@ import com.tcc.entrepaginas.domain.enums.Categoria;
 import com.tcc.entrepaginas.domain.enums.Estado;
 import com.tcc.entrepaginas.domain.enums.EstadoBrasil;
 import com.tcc.entrepaginas.domain.enums.Tipo;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -44,6 +46,6 @@ public class Livro {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    @OneToMany(mappedBy = "livro")
+    @OneToMany(mappedBy = "livro", cascade = CascadeType.ALL)
     private List<ImagemLivro> imagens;
 }

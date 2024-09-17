@@ -48,4 +48,7 @@ public interface BookService {
     List<Livro> listarLivrosPorRegiao(String userCidade, EstadoBrasil userEstado);
 
     String listarTodasTrocas(Model model);
+
+    String apagarLivroPorIdAdmin(String id);
+
 }

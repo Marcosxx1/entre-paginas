@@ -110,4 +110,10 @@ public class BookController {
 
         return bookService.listarTodasTrocas(model);
     }
+
+    @GetMapping("/delete/{id}")
+    public String deleteBook(@PathVariable String id) {
+        log.info("BookController - GET on /delete/{}; called to delete user with id: ", id);
+        return bookService.apagarLivroPorIdAdmin(id);
+    }
 }

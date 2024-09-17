@@ -146,6 +146,13 @@ public class UserServiceImpl implements UserService {
         return "redirect:/index";
     }
 
+    @Override
+    public String deleteUserAdmin(String id) {
+        usuarioRepository.delete(userUtils.getUserById(id));
+
+        return "redirect:/admin";
+    }
+
     private String wasUserDataChanged(
             UpdateUserNameLoginAndEmailRequest updateUserNameLoginAndEmailRequest,
             RedirectAttributes redirectAttributes,

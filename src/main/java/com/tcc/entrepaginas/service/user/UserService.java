@@ -54,4 +54,6 @@ public interface UserService {
         void updateUserPassword(String id, String senha);
 
         List<Usuario> listUser(Sort sort);
+
+        public String deleteUserAdmin(String id);
 }

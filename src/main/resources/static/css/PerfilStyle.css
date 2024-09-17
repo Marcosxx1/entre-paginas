@@ -367,10 +367,6 @@
     font-weight: 600;
 }
 
-.active {
-    color: var(--azul-logo);
-}
-
 .community-section {
     margin: 2%;
     width: 20%;
@@ -610,4 +606,78 @@
 .delete-button:hover,
 .button-delete:hover {
     background-color: #d32f2f;
+}
+
+#section-user,
+#section-book,
+#section-communities {
+    width: 90%;
+    height: fit-content;
+    margin: 2% 0 0 5.11%;
+    border: none;
+    padding: 2%;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background-color: #60a6c0;
+}
+
+.users {
+    width: 95%;
+    height: 20%;
+    margin: 0 auto 10px auto;
+    padding: 1%;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background-color: var(--white);
+    display: flex;
+}
+
+.user-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.text-user {
+    margin: auto;
+    font-size: 15px;
+}
+
+
+.membros-button {
+    height: 100%;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.membros-button1,
+.membros-button2 {
+    margin-top: 16%;
+    padding: 1% !important;
+    letter-spacing: 1px;
+}
+
+.membros-button1 span,
+.membros-button2 span {
+    font-size: 10px;
+}
+
+.membros-button2 {
+    margin-left: 10px !important;
+    border-color: var(--azul-logo) !important;
+}
+
+.membros-button2 span {
+    background-color: #60a6c0;
+}
+
+.membros-button2:hover,
+.membros-button2 span:hover {
+    background-color: var(--azul-logo) !important;
+}
+
+.active {
+    color: var(--azul-logo);
 }
