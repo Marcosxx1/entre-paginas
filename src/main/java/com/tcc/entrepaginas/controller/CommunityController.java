@@ -1,6 +1,7 @@
 package com.tcc.entrepaginas.controller;
 
 import com.tcc.entrepaginas.domain.dto.NovaComunidadeRequest;
+import com.tcc.entrepaginas.domain.dto.SearchBarResponse;
 import com.tcc.entrepaginas.domain.dto.UpdateCommunityRequest;
 import com.tcc.entrepaginas.service.community.CommunityServiceNew;
 import jakarta.servlet.http.HttpServletRequest;
@@ -85,9 +86,9 @@ public class CommunityController {
 
     @GetMapping("/search-bar/list")
     @ResponseBody
-    public List<String> listarCommunitySearchBar(@RequestParam(required = false) String query) {
+    public List<SearchBarResponse> listarCommunitySearchBar(@RequestParam(required = false) String query) {
         log.info("CommunityController - GET on /search-bar/list; /search-bar/list called with query: {}", query);
-        return communityService.listCommunitiesWithOrWithoutSort(query);
+        return communityService.searchBar(query);
     }
 
     @PatchMapping("/{id}")

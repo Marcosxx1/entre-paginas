@@ -25,8 +25,7 @@ $(document).ready(function () {
                     }
                 }
             });
-        } else if (selectedOption === 'comunidade') {
-            console.log(selectedOption)
+        } if (selectedOption === 'comunidade') {
 
             $.ajax({
                 type: "GET",
@@ -38,7 +37,8 @@ $(document).ready(function () {
                         $("#suggestions").append("<div><a href='#'> Nada foi encontrado! </a></div>");
                     } else {
                         data.forEach(function (result) {
-                            $("#suggestions").append("<div><a href='#'>" + result + "</a></div>");
+                            var communityUrl = '/community/' + result.id;
+                            $("#suggestions").append("<div><a href='" + communityUrl + "'>" + result.title + "</a></div>");
                         });
                     }
                 }

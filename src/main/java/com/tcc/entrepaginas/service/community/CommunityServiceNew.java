@@ -1,6 +1,7 @@
 package com.tcc.entrepaginas.service.community;
 
 import com.tcc.entrepaginas.domain.dto.NovaComunidadeRequest;
+import com.tcc.entrepaginas.domain.dto.SearchBarResponse;
 import com.tcc.entrepaginas.domain.dto.UpdateCommunityRequest;
 import com.tcc.entrepaginas.domain.entity.Community;
 import com.tcc.entrepaginas.domain.entity.Usuario;
@@ -24,6 +25,8 @@ public interface CommunityServiceNew {
     List<Community> listarCommunitiesPorUsuario(String idUsuario, String role);
 
     List<String> listCommunitiesWithOrWithoutSort(String query);
+
+    List<SearchBarResponse> searchBar(String query);
 
     List<Community> buscarComunidades(String query);
 
