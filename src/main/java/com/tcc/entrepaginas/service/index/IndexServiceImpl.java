@@ -7,6 +7,7 @@ import com.tcc.entrepaginas.service.comments.CommentsServiceNew;
 import com.tcc.entrepaginas.service.community.CommunityServiceNew;
 import com.tcc.entrepaginas.service.post.PostServiceNew;
 import com.tcc.entrepaginas.service.reaction.ReactionServiceNew;
+import com.tcc.entrepaginas.service.user.UserService;
 import com.tcc.entrepaginas.utils.user.UserUtils;
 import java.security.Principal;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ public class IndexServiceImpl implements IndexService {
     private final UserUtils userUtils;
     private final UserMapper userMapper;
     private final BookService bookService;
+    private final UserService userService;
     private final PostServiceNew postServiceNew;
     private final CommentsServiceNew commentsServiceNew;
     private final ReactionServiceNew reactionServiceNew;
@@ -104,5 +106,24 @@ public class IndexServiceImpl implements IndexService {
         }
 
         return "Suporte";
+    }
+
+    @Override
+    public String telaAdmin(Model model, Principal principal, Authentication authentication) {
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            Usuario user = userUtils.getUserByLogin(authentication.getName());
+
+            // if (!user.getPapel().equals("ADMIN")) {
+            // return "redirect:/index";
+            // }
+
+            model = userUtils.setModelIfAuthenticationExists(authentication, model);
+            model.addAttribute("users", userService.listUser(Sort.by(Sort.Direction.ASC, "id")));
+            model.addAttribute("books", bookService.listarLivros(Sort.by(Sort.Direction.ASC, "id")));
+            model.addAttribute("listPost", postServiceNew.listarPost(Sort.by(Sort.Direction.ASC, "id")));
+        }
+
+        return "TelaAdmin";
     }
 }

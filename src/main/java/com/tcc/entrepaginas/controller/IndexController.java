@@ -61,6 +61,11 @@ public class IndexController {
         return indexService.suporte(model, principal, authentication);
     }
 
+    @GetMapping("/admin")
+    public String telaAdmin(Model model, Principal principal, Authentication authentication) {
+        return indexService.telaAdmin(model, principal, authentication);
+    }
+
     /*
      * TODO - Atualmente no método acima, caso o banco seja novo estamos mandando
      * objetos não checados (null)

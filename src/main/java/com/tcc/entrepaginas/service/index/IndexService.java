@@ -16,4 +16,6 @@ public interface IndexService {
     String visitOtherUsersFromIndex(Model model, String userName, Authentication authentication);
 
     String suporte(Model model, Principal principal, Authentication authentication);
+
+    String telaAdmin(Model model, Principal principal, Authentication authentication);
 }

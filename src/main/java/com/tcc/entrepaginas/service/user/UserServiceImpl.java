@@ -234,7 +234,8 @@ public class UserServiceImpl implements UserService {
 
         String verificationResult = tokenService.validateToken(verificationToken
                 .get()
-                .getToken()); // TODO - Isso não me parece certo. Talvez usar isso: verificationToken.get().getToken()
+                .getToken()); // TODO - Isso não me parece certo. Talvez usar isso:
+                              // verificationToken.get().getToken()
 
         if (verificationResult.equalsIgnoreCase("invalid")) {
             return "redirect:/error?invalid";
@@ -254,5 +255,10 @@ public class UserServiceImpl implements UserService {
         user.setSenha(senhaCriptografada);
 
         usuarioRepository.save(user);
+    }
+
+    @Override
+    public List<Usuario> listUser(Sort sort) {
+        return usuarioRepository.findAll(sort);
     }
 }
