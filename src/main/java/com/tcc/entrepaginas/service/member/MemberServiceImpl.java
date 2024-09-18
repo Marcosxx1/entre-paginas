@@ -8,6 +8,7 @@ import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.mapper.member.MemberMapper;
 import com.tcc.entrepaginas.repository.MembrosRepository;
+import com.tcc.entrepaginas.service.rolecomunity.RoleCommunityService;
 import com.tcc.entrepaginas.utils.community.CommunityUtils;
 import com.tcc.entrepaginas.utils.member.MembersUtil;
 import com.tcc.entrepaginas.utils.roleCommunity.RoleCommunityUtils;
@@ -27,6 +28,7 @@ public class MemberServiceImpl implements MemberService {
     private final UserUtils userUtils;
     private final CommunityUtils communityUtils;
     private final RoleCommunityUtils roleCommunityUtils;
+    private final RoleCommunityService roleCommunityService;
 
     @Override
     public void saveMember(Membros membros) {
@@ -88,5 +90,10 @@ public class MemberServiceImpl implements MemberService {
 
             membrosRepository.save(membros);
         }
+    }
+
+    @Override
+    public List<RoleCommunity> getAllRoles() {
+        return roleCommunityService.listAllRoles();
     }
 }

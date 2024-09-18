@@ -67,23 +67,31 @@
     color: var(--black);
 }
 
-.cadastro__right button {
-    text-align: center;
-    color: var(--black);
-    border-radius: 4px;
-    font-weight: 700;
-    cursor: pointer;
-    background-color: var(--azul-claro);
+
+.form-submit-button-post {
+    width: fit-content;
     margin: 5% auto 0 auto;
-    width: 100px;
-    padding: 10px 15px;
-    border: none;
-    box-shadow: inset 0 0 4px rgb(59, 59, 59);
-    transition: background-color 0.5s;
+    border: 1px solid var(--azul-logo);
+    padding: 0.25%;
+    background-color: var(--white);
+    border-radius: 5px;
+    transition: background-color 1s;
 }
 
-.cadastro__right button:hover {
-    background-color: var(--header-background);
+.submit-button {
+    background-color: #60a6c0;
+    color: var(--white) !important;
+    padding: 8px 16px;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 5px;
+    font-size: 12px;
+    transition: background-color 0.4s;
+}
+
+.submit-button:hover,
+.form-submit-button-post:hover {
+    background-color: var(--azul-logo);
 }
 
 .cadastro__right p {

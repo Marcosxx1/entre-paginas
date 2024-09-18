@@ -39,11 +39,15 @@
                 <label htmlFor="login">Login</label>
                 <input type="text" name="username" placeholder='Login' />
                 <label htmlFor="senha">Senha</label>
-                <input type="password" name="password" placeholder='Senha'/>
+                <input type="password" name="password" placeholder='Senha' />
                 <div>
                     <span th:if="${param.error}">Usuário ou Senha inválido</span>
                 </div>
-                <button type='submit' name='submit'>Entrar</button>
+                <button class="form-submit-button-post" type="submit">
+                    <span class="submit-button">
+                        Entrar
+                    </span>
+                </button>
             </form>
         </div>
         <div class='login__cadastrar'>

@@ -357,7 +357,7 @@
 .membros {
     width: 95%;
     height: 20%;
-    margin:  0 auto 10px auto;
+    margin: 0 auto 10px auto;
     padding: 1%;
     box-sizing: border-box;
     border-radius: 5px;
@@ -374,6 +374,12 @@
 .membros-nome {
     margin: auto;
     font-size: 15px;
+    text-decoration: none;
+    color: var(--black);
+}
+
+.membros-nome:hover {
+    color: var(--azul-claro);
 }
 
 .membros-papel {
