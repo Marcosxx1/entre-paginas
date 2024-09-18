@@ -115,4 +115,11 @@ public class CommunityController {
         log.info("CommunityController - GET on /delete/{id}; /delete/{} called", idComunidade);
         return communityService.deleteCommunityAdmin(idComunidade);
     }
+
+
+    @GetMapping("/admin/delete/{communityId}/{memberId}")
+    public String deleteUserAdmin(@PathVariable String communityId, @PathVariable String memberId) {
+        log.info("CommunityController - GET on /delete/{}/{}; called to delete member with id: {} from community with id: {}", communityId, memberId, memberId, communityId);
+        return communityService.deleteMemberFromCommunity(communityId, memberId);
+    }
 }

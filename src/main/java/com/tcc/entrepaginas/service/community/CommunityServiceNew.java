@@ -52,5 +52,7 @@ public interface CommunityServiceNew {
 
         String deleteCommunityAdmin(String idComunidade);
 
-        void deleteMemberFromCommunity(String communityId, String memberId);
+        String deleteMemberFromCommunity(String communityId, String memberId);
+
+
 }

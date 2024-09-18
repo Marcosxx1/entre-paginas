@@ -214,9 +214,12 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
         return "redirect:/admin";
     }
 
+
+
     @Override
-    public void deleteMemberFromCommunity(String communityId, String memberId) {
+    public String deleteMemberFromCommunity(String communityId, String memberId) {
      communityRepository.deleteMembroByCommunityIdAndMemberId(communityId, memberId);
+        return "redirect:/community/" + communityId;
     }
 
     @Override

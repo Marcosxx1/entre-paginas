@@ -42,7 +42,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 public class UserServiceImpl implements UserService {
 
     private final UsuarioRepository usuarioRepository;
-    private final CommunityServiceNew communityService;
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
     private final RegistroDeUsuario registroDeUsuario;
@@ -148,12 +147,7 @@ public class UserServiceImpl implements UserService {
         return "redirect:/index";
     }
 
-    @Override
-    public String deleteUserAdmin(String communityId, String memberId) {
-        communityService.deleteMemberFromCommunity(communityId,  memberId);
 
-        return "redirect:/admin";
-    }
 
     private String wasUserDataChanged(
             UpdateUserNameLoginAndEmailRequest updateUserNameLoginAndEmailRequest,
