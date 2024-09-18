@@ -11,7 +11,7 @@ $(document).ready(function () {
         if (selectedOption === 'usuário') {
             $.ajax({
                 type: "GET",
-                url: "/user/list",
+                url: "/user/user-search-bar/list",
                 data: { query: inputText },
                 success: function (data) {
                     $("#suggestions").empty().show();
@@ -19,18 +19,18 @@ $(document).ready(function () {
                         $("#suggestions").append("<div><a href='#'> Nada foi encontrado! </a></div>");
                     } else {
                         data.forEach(function (result) {
-                            var perfilUrl = '/perfilVisitante/' + result.id;
+                            console.log(result)
+                            var perfilUrl = '/perfilVisitante/' + result.login;
                             $("#suggestions").append("<div><a href='" + perfilUrl + "'>" + result.nome + "</a></div>");
                         });
                     }
                 }
             });
-        } else if (selectedOption === 'comunidade') {
-            console.log(selectedOption)
+        } if (selectedOption === 'comunidade') {
 
             $.ajax({
                 type: "GET",
-                url: "/community/list",
+                url: "/community/search-bar/list",
                 data: { query: inputText },
                 success: function (data) {
                     $("#suggestions").empty().show();
@@ -38,7 +38,8 @@ $(document).ready(function () {
                         $("#suggestions").append("<div><a href='#'> Nada foi encontrado! </a></div>");
                     } else {
                         data.forEach(function (result) {
-                            $("#suggestions").append("<div><a href='#'>" + result + "</a></div>");
+                            var communityUrl = '/community/' + result.id;
+                            $("#suggestions").append("<div><a href='" + communityUrl + "'>" + result.title + "</a></div>");
                         });
                     }
                 }

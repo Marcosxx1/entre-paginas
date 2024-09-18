@@ -50,5 +50,4 @@ public interface BookService {
     String listarTodasTrocas(Model model);
 
     String apagarLivroPorIdAdmin(String id);
-
 }

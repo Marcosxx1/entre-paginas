@@ -4,7 +4,6 @@ import com.tcc.entrepaginas.domain.enums.Categoria;
 import com.tcc.entrepaginas.domain.enums.Estado;
 import com.tcc.entrepaginas.domain.enums.EstadoBrasil;
 import com.tcc.entrepaginas.domain.enums.Tipo;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

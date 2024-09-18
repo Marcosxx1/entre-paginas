@@ -1,7 +1,10 @@
 package com.tcc.entrepaginas.controller;
 
 import com.tcc.entrepaginas.domain.dto.MembersFromCommunityResponse;
+import com.tcc.entrepaginas.domain.entity.RoleCommunity;
 import com.tcc.entrepaginas.service.member.MemberService;
+import com.tcc.entrepaginas.service.rolecomunity.RoleCommunityService;
+
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberService memberService;
+    private final RoleCommunityService roleCommunityService;
 
     @GetMapping("/list-members/{communityId}")
     @ResponseBody
@@ -52,14 +56,19 @@ public class MemberController {
     }
 
     @PostMapping("/addMember")
-    public String addMemberToCommunity(@RequestParam("communityId") String communityId,
-            @RequestParam("userId") String userId) {
+    public String addMemberToCommunity(
+            @RequestParam("communityId") String communityId, @RequestParam("userId") String userId) {
 
-        log.info(
-                "Esta chegando aqui: {} to new role: {}", communityId, userId);
+        log.info("Esta chegando aqui: {} to new role: {}", communityId, userId);
 
         memberService.addMemberToCommunity(communityId, userId);
 
         return "redirect:/community/" + communityId;
+    }
+
+    @GetMapping("/roles")
+    @ResponseBody
+    public List<RoleCommunity> getAllRoles() {
+        return memberService.getAllRoles();
     }
 }

@@ -241,10 +241,9 @@ public class UserServiceImpl implements UserService {
             return "redirect:/login?verified";
         }
 
-        String verificationResult = tokenService.validateToken(verificationToken
-                .get()
-                .getToken()); // TODO - Isso não me parece certo. Talvez usar isso:
-                              // verificationToken.get().getToken()
+        String verificationResult = tokenService.validateToken(
+                verificationToken.get().getToken()); // TODO - Isso não me parece certo. Talvez usar isso:
+        // verificationToken.get().getToken()
 
         if (verificationResult.equalsIgnoreCase("invalid")) {
             return "redirect:/error?invalid";

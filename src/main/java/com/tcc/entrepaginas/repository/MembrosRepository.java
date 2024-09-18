@@ -1,7 +1,6 @@
 package com.tcc.entrepaginas.repository;
 
 import com.tcc.entrepaginas.domain.entity.Membros;
-
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

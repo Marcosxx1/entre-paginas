@@ -119,4 +119,13 @@ public class UserController {
 
         return userService.listAllUserBasedOnQuery(query);
     }
+
+    @GetMapping("/user-search-bar/list")
+    @ResponseBody
+    public List<UserListResponse> usersSearchBar(@RequestParam(required = false) String query) {
+
+        log.info("UserController - GET on /user-search-bar/list; /user-search-bar/list called with query: {}", query);
+
+        return userService.listAllUserBasedOnQuery(query);
+    }
 }

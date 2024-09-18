@@ -13,7 +13,8 @@ import org.springframework.data.repository.query.Param;
 
 public interface CommunityRepository extends JpaRepository<Community, String> {
 
-    @Query("""
+    @Query(
+            """
             SELECT com FROM Community com \
             JOIN Membros mem ON com.id = mem.community.id \
             JOIN Usuario usu ON mem.usuario.id = usu.id \

@@ -1,6 +1,7 @@
 package com.tcc.entrepaginas.service.community;
 
 import com.tcc.entrepaginas.domain.dto.NovaComunidadeRequest;
+import com.tcc.entrepaginas.domain.dto.SearchBarResponse;
 import com.tcc.entrepaginas.domain.dto.UpdateCommunityRequest;
 import com.tcc.entrepaginas.domain.entity.Community;
 import com.tcc.entrepaginas.domain.entity.Membros;
@@ -91,8 +92,8 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
     public List<Community> buscarComunidades(String query) {
         return communityRepository
                 .findByTitleContainingIgnoreCase(query)
-                .orElseThrow(() -> new CommunityNotFoundException("Community Not Found",
-                        "No communities with query: " + query));
+                .orElseThrow(() ->
+                        new CommunityNotFoundException("Community Not Found", "No communities with query: " + query));
     }
 
     @Override
@@ -150,6 +151,24 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
         List<String> resultados = new ArrayList<>();
         for (Community community : communities) {
             resultados.add(community.getTitle());
+        }
+
+        return resultados;
+    }
+
+    @Override
+    public List<SearchBarResponse> searchBar(String query) {
+        List<Community> communities;
+
+        if (query != null && !query.isEmpty()) {
+            communities = buscarComunidades(query);
+        } else {
+            communities = listarCommunities(Sort.by(Sort.Direction.ASC, "id"));
+        }
+
+        List<SearchBarResponse> resultados = new ArrayList<>();
+        for (Community community : communities) {
+            resultados.add(new SearchBarResponse(community.getId(), community.getTitle()));
         }
 
         return resultados;

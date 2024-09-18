@@ -1,6 +1,7 @@
 package com.tcc.entrepaginas.service.community;
 
 import com.tcc.entrepaginas.domain.dto.NovaComunidadeRequest;
+import com.tcc.entrepaginas.domain.dto.SearchBarResponse;
 import com.tcc.entrepaginas.domain.dto.UpdateCommunityRequest;
 import com.tcc.entrepaginas.domain.entity.Community;
 import com.tcc.entrepaginas.domain.entity.Usuario;
@@ -15,39 +16,39 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface CommunityServiceNew {
-        List<Community> listarRandomCommunities(int totalItems, Principal principal);
+    List<Community> listarRandomCommunities(int totalItems, Principal principal);
 
-        List<Community> listCommunitiesForUser(Usuario user);
+    List<Community> listCommunitiesForUser(Usuario user);
 
-        List<Community> listarCommunities(Sort sort);
+    List<Community> listarCommunities(Sort sort);
 
-        List<Community> listarCommunitiesPorUsuario(String idUsuario, String role);
+    List<Community> listarCommunitiesPorUsuario(String idUsuario, String role);
 
-        List<String> listCommunitiesWithOrWithoutSort(String query);
+    List<String> listCommunitiesWithOrWithoutSort(String query);
 
-        List<Community> buscarComunidades(String query);
+    List<SearchBarResponse> searchBar(String query);
 
-        Community pegarCommunity(String id);
+    List<Community> buscarComunidades(String query);
 
-        String salvarComunidade(
-                        Model model, BindingResult result, NovaComunidadeRequest novaComunidadeRequest,
-                        String idUsuario);
+    Community pegarCommunity(String id);
 
-        void atualizarComunidade(Community community);
+    String salvarComunidade(
+            Model model, BindingResult result, NovaComunidadeRequest novaComunidadeRequest, String idUsuario);
 
-        String deleteCommunity(String idComunidade);
+    void atualizarComunidade(Community community);
 
-        String beginCommunityCreation(Model model, String idUsuario, Authentication authentication);
+    String deleteCommunity(String idComunidade);
 
-        String allMyCommunities(String idUsuario, Model model, Authentication authentication);
+    String beginCommunityCreation(Model model, String idUsuario, Authentication authentication);
 
-        ResponseEntity<String> changeCommunityIcon(String idComunidade, MultipartFile icone,
-                        HttpServletRequest request);
+    String allMyCommunities(String idUsuario, Model model, Authentication authentication);
 
-        UpdateCommunityRequest updateCommunity(
-                        String id, UpdateCommunityRequest updateCommunityRequest, BindingResult result);
+    ResponseEntity<String> changeCommunityIcon(String idComunidade, MultipartFile icone, HttpServletRequest request);
 
-        String prepareCommunityAndListOfPosts(String id, Model model, Authentication authentication);
+    UpdateCommunityRequest updateCommunity(
+            String id, UpdateCommunityRequest updateCommunityRequest, BindingResult result);
+
+    String prepareCommunityAndListOfPosts(String id, Model model, Authentication authentication);
 
         String deleteCommunityAdmin(String idComunidade);
 

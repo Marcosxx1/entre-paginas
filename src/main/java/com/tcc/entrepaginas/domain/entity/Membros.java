@@ -25,7 +25,7 @@ public class Membros implements Serializable {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    @ManyToOne  
+    @ManyToOne
     @JoinColumn(name = "roleCommunity_id")
     private RoleCommunity roleCommunity;
 

@@ -1,6 +1,7 @@
 package com.tcc.entrepaginas.controller;
 
 import com.tcc.entrepaginas.domain.dto.NovaComunidadeRequest;
+import com.tcc.entrepaginas.domain.dto.SearchBarResponse;
 import com.tcc.entrepaginas.domain.dto.UpdateCommunityRequest;
 import com.tcc.entrepaginas.service.community.CommunityServiceNew;
 import jakarta.servlet.http.HttpServletRequest;
@@ -83,6 +84,13 @@ public class CommunityController {
         return communityService.listCommunitiesWithOrWithoutSort(query);
     }
 
+    @GetMapping("/search-bar/list")
+    @ResponseBody
+    public List<SearchBarResponse> listarCommunitySearchBar(@RequestParam(required = false) String query) {
+        log.info("CommunityController - GET on /search-bar/list; /search-bar/list called with query: {}", query);
+        return communityService.searchBar(query);
+    }
+
     @PatchMapping("/{id}")
     public UpdateCommunityRequest updateCommunity(
             @PathVariable String id,
@@ -102,8 +110,8 @@ public class CommunityController {
     }
 
     @GetMapping("/admin/delete/{id}")
-    public String deleteCommunityAdmin(@PathVariable("id") String idComunidade, RedirectAttributes attributes,
-            Model model) {
+    public String deleteCommunityAdmin(
+            @PathVariable("id") String idComunidade, RedirectAttributes attributes, Model model) {
         log.info("CommunityController - GET on /delete/{id}; /delete/{} called", idComunidade);
         return communityService.deleteCommunityAdmin(idComunidade);
     }

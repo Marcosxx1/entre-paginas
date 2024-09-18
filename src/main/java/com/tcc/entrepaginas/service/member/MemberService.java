@@ -2,6 +2,8 @@ package com.tcc.entrepaginas.service.member;
 
 import com.tcc.entrepaginas.domain.dto.MembersFromCommunityResponse;
 import com.tcc.entrepaginas.domain.entity.Membros;
+import com.tcc.entrepaginas.domain.entity.RoleCommunity;
+
 import java.util.List;
 import org.springframework.security.core.Authentication;
 
@@ -16,4 +18,6 @@ public interface MemberService {
     void updateMemberAuthorities(String memberId, String newComunnityRole);
 
     void addMemberToCommunity(String communityId, String userId);
+
+    public List<RoleCommunity> getAllRoles();
 }

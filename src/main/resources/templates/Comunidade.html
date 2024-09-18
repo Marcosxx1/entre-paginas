@@ -190,24 +190,30 @@
                             src="/static/image/semImagem.png" alt="Usuário ${membros.usuario.nome}"
                             class="membros-img" />
 
-                        <a href="#" th:text="${membros.usuario.nome}" class="membros-nome"></a>
+                        <a th:href="@{/perfilVisitante/{userName}(userName=${membros.usuario.login})}"
+                            th:text="${membros.usuario.nome}" class="membros-nome"></a>
                         <p th:text="${membros.roleCommunity.papel}" class="membros-papel"></p>
 
                         <div th:each="membros2 : ${user.membros}">
                             <div class="membros-button"
                                 th:if="${membros2.community.title == community.title and membros2.roleCommunity.papel != 'USER'}">
-                                <button class="button-delete membros-button1"
+                                <a th:href="@{/user/delete/{id}(id=${membros.usuario.id})}"
+                                    class="button-delete membros-button1"
                                     th:if="${membros.roleCommunity.papel != 'ADMIN'}">
                                     <span class="delete-button">
                                         Deletar
                                     </span>
-                                </button>
-                                <button class="button-delete membros-button2"
+                                </a>
+                                <button id="load-roles-btn" class="button-delete membros-button2"
                                     th:if="${membros.roleCommunity.papel != 'ADMIN'}">
                                     <span class="delete-button">
                                         Papel
                                     </span>
                                 </button>
+
+                                <div id="roles-container">
+                                    <!-- Os dados serão inseridos aqui após o clique -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -358,6 +364,34 @@
                 } catch (error) {
                     console.error(error);
                 }
+            });
+        </script>
+
+        <script type="text/javascript">
+            function fetchRoles() {
+                $.ajax({
+                    url: "http://localhost:9000/members/roles",
+                    type: "GET",
+                    dataType: "json",
+                    cache: false,  // Adiciona esta linha para desativar o cache
+                    success: function (response) {
+                        let rolesContainer = $("#roles-container");
+                        rolesContainer.empty();
+
+                        let rolesList = "<ul>";
+                        $.each(response, function (index, role) {
+                            rolesList += "<li>" + role.papel + "</li>";
+                        });
+                        rolesList += "</ul>";
+
+                        rolesContainer.html(rolesList);
+                    }
+                });
+
+            }
+
+            $("#load-roles-btn").on("click", function () {
+                fetchRoles();
             });
         </script>
 </body>
