@@ -42,10 +42,11 @@ public class MemberController {
         log.info("Successfully removed member. Member ID: {}", memberId);
     }
 
-    @PutMapping("/update-member-authorities/{memberId}/{newComunnityRole}")
+    @PostMapping("/update-member-authorities")
     @ResponseBody
     public void updateMemberAuthorities(
-            @PathVariable("memberId") String memberId, @PathVariable("newComunnityRole") String newComunnityRole) {
+            @RequestParam("memberId") String memberId,
+            @RequestParam("newComunnityRole") String newComunnityRole) {
 
         log.debug("Request parameters - memberId: {}, newComunnityRole: {}", memberId, newComunnityRole);
 

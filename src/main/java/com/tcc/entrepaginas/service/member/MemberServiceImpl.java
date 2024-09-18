@@ -59,12 +59,14 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void updateMemberAuthorities(String memberId, String newComunnityRole) {
+    public String updateMemberAuthorities(String memberId, String newComunnityRole) {
 
         var member = getMemberById(memberId);
 
         member.getRoleCommunity().setPapel(newComunnityRole);
         membrosRepository.save(member);
+
+        return "redrect:/community" + member.getCommunity().getId();
     }
 
     private Membros getMemberById(String memberId) {

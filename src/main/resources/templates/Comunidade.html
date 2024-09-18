@@ -55,7 +55,7 @@
                         <form th:action="@{/members/addMember}" method="post">
                             <input type="hidden" th:value="${user.id}" name="userId" />
                             <input type="hidden" th:value="${community.id}" name="communityId" />
-                            <button type="submit">entrar</button>
+                            <button type="submit" class="entrar">Entrar na Comunidade</button>
                         </form>
 
                         <p th:text="${#dates.format(community.date, 'dd/MM/yyyy')}"></p>
@@ -190,6 +190,7 @@
                             src="/static/image/semImagem.png" alt="Usuário ${membros.usuario.nome}"
                             class="membros-img" />
 
+                        <p th:text="${membros.id}"></p>
                         <a th:href="@{/perfilVisitante/{userName}(userName=${membros.usuario.login})}"
                             th:text="${membros.usuario.nome}" class="membros-nome"></a>
                         <p th:text="${membros.roleCommunity.papel}" class="membros-papel"></p>
@@ -197,7 +198,8 @@
                         <div th:each="membros2 : ${user.membros}">
                             <div class="membros-button"
                                 th:if="${membros2.community.title == community.title and membros2.roleCommunity.papel != 'USER'}">
-                                <a th:href="@{/user/delete/{id}(id=${membros.usuario.id})}"
+
+                                <a th:href="@{/community/admin/delete/{communityId}/{memberId}(communityId=${membros.community.id}, memberId=${membros.id})}"
                                     class="button-delete membros-button1"
                                     th:if="${membros.roleCommunity.papel != 'ADMIN'}">
                                     <span class="delete-button">
@@ -210,9 +212,56 @@
                                         Papel
                                     </span>
                                 </button>
+                                <!-- O Modal -->
+                                <div id="roles-modal" class="modal">
+                                    <div class="modal-content">
+                                        <span class="close-btn">&times;</span>
+                                        <h2>Altere o Papel do usuario na comunidade:</h2>
+                                        <form th:action="@{/members/update-member-authorities}" method="post"
+                                            id="roles-form">
 
-                                <div id="roles-container">
-                                    <!-- Os dados serão inseridos aqui após o clique -->
+                                            <!-- Campo oculto para memberId -->
+                                            <input type="text" name="memberId" th:value="${membros.id}" />
+
+                                            <!-- Campo oculto para newComunnityRole -->
+                                            <input type="text" name="newComunnityRole" id="hiddenRole" />
+
+                                            <label class="form-label">
+                                                <div class="form-checkbox">
+                                                    <input class="checkbox" type="radio" id="admin" name="roles"
+                                                        value="ADMIN" onchange="updateHiddenRole('ADMIN')" />
+                                                    <label for="admin">ADMIN</label>
+                                                </div>
+                                            </label>
+                                            <label class="form-label">
+                                                <div class="form-checkbox">
+                                                    <input class="checkbox" type="radio" id="moderator" name="roles"
+                                                        value="MODERATOR" onchange="updateHiddenRole('MODERATOR')" />
+                                                    <label for="moderator">MODERATOR</label>
+                                                </div>
+                                            </label>
+                                            <label class="form-label">
+                                                <div class="form-checkbox">
+                                                    <input class="checkbox" type="radio" id="user" name="roles"
+                                                        value="USER" onchange="updateHiddenRole('USER')" />
+                                                    <label for="user">USER</label>
+                                                </div>
+                                            </label>
+                                            <button class="form-submit-button-post" type="submit">
+                                                <span class="submit-button">
+                                                    Enviar
+                                                </span>
+                                            </button>
+
+                                            <script>
+                                                function updateHiddenRole(role) {
+                                                    document.getElementById('hiddenRole').value = role;
+                                                }
+                                            </script>
+                                        </form>
+
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -367,32 +416,27 @@
             });
         </script>
 
-        <script type="text/javascript">
-            function fetchRoles() {
-                $.ajax({
-                    url: "http://localhost:9000/members/roles",
-                    type: "GET",
-                    dataType: "json",
-                    cache: false,
-                    success: function (response) {
-                        let rolesContainer = $("#roles-container");
-                        rolesContainer.empty();
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var modal = document.getElementById('roles-modal');
+                var openBtn = document.getElementById('load-roles-btn');
+                var closeBtn = document.getElementsByClassName('close-btn')[0];
 
-                        let rolesList = "<ul>";
-                        $.each(response, function (index, role) {
-                            rolesList += "<li>" + role.papel + "</li>";
-                        });
-                        rolesList += "</ul>";
+                openBtn.onclick = function () {
+                    modal.style.display = 'block';
+                }
 
-                        rolesContainer.html(rolesList);
+                closeBtn.onclick = function () {
+                    modal.style.display = 'none';
+                }
+
+                window.onclick = function (event) {
+                    if (event.target === modal) {
+                        modal.style.display = 'none';
                     }
-                });
-
-            }
-
-            $("#load-roles-btn").on("click", function () {
-                fetchRoles();
+                }
             });
+
         </script>
 </body>
 

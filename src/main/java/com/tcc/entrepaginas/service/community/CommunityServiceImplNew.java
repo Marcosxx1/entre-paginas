@@ -92,8 +92,8 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
     public List<Community> buscarComunidades(String query) {
         return communityRepository
                 .findByTitleContainingIgnoreCase(query)
-                .orElseThrow(() ->
-                        new CommunityNotFoundException("Community Not Found", "No communities with query: " + query));
+                .orElseThrow(() -> new CommunityNotFoundException("Community Not Found",
+                        "No communities with query: " + query));
     }
 
     @Override
@@ -214,11 +214,10 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
         return "redirect:/admin";
     }
 
-
-
     @Override
+    @Transactional
     public String deleteMemberFromCommunity(String communityId, String memberId) {
-     communityRepository.deleteMembroByCommunityIdAndMemberId(communityId, memberId);
+        communityRepository.deleteMembroByCommunityIdAndMemberId(communityId, memberId);
         return "redirect:/community/" + communityId;
     }
 
