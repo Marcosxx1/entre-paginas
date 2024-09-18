@@ -196,6 +196,11 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
     }
 
     @Override
+    public void deleteMemberFromCommunity(String communityId, String memberId) {
+     communityRepository.deleteMembroByCommunityIdAndMemberId(communityId, memberId);
+    }
+
+    @Override
     @Transactional
     public String salvarComunidade(
             Model model, BindingResult result, NovaComunidadeRequest novaComunidadeRequest, String idUsuario) {

@@ -55,5 +55,5 @@ public interface UserService {
 
         List<Usuario> listUser(Sort sort);
 
-        public String deleteUserAdmin(String id);
+         String deleteUserAdmin(String communityId, String memberId);
 }

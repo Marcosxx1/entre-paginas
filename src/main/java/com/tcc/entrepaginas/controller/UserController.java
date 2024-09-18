@@ -96,10 +96,10 @@ public class UserController {
         return userService.deleteUser(id);
     }
 
-    @GetMapping("/admin/delete/{id}")
-    public String deleteUserAdmin(@PathVariable String id) {
-        log.info("UserController - GET on /delete/{}; called to delete user with id: ", id);
-        return userService.deleteUserAdmin(id);
+    @GetMapping("/admin/delete/{communityId}/{memberId}")
+    public String deleteUserAdmin(@PathVariable String communityId, @PathVariable String memberId) {
+        log.info("UserController - GET on /delete/{}/{}; called to delete member with id: {} from community with id: {}", communityId, memberId, memberId, communityId);
+        return userService.deleteUserAdmin(communityId, memberId);
     }
 
     @PostMapping("/image/{id}")

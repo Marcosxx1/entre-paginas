@@ -49,5 +49,7 @@ public interface CommunityServiceNew {
 
         String prepareCommunityAndListOfPosts(String id, Model model, Authentication authentication);
 
-        public String deleteCommunityAdmin(String idComunidade);
+        String deleteCommunityAdmin(String idComunidade);
+
+        void deleteMemberFromCommunity(String communityId, String memberId);
 }

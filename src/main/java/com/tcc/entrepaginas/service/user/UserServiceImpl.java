@@ -9,6 +9,7 @@ import com.tcc.entrepaginas.domain.registration.VerificationToken;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.mapper.user.UserMapper;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
+import com.tcc.entrepaginas.service.community.CommunityServiceNew;
 import com.tcc.entrepaginas.service.verificationtoken.VerificationTokenService;
 import com.tcc.entrepaginas.utils.imageupload.ImageUtils;
 import com.tcc.entrepaginas.utils.registration.UrlUtils;
@@ -41,6 +42,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 public class UserServiceImpl implements UserService {
 
     private final UsuarioRepository usuarioRepository;
+    private final CommunityServiceNew communityService;
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
     private final RegistroDeUsuario registroDeUsuario;
@@ -147,8 +149,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String deleteUserAdmin(String id) {
-        usuarioRepository.delete(userUtils.getUserById(id));
+    public String deleteUserAdmin(String communityId, String memberId) {
+        communityService.deleteMemberFromCommunity(communityId,  memberId);
 
         return "redirect:/admin";
     }
