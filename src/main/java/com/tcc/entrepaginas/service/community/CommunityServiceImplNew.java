@@ -98,6 +98,7 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
     }
 
     @Override
+    @Transactional
     public Community pegarCommunity(String id) {
         return communityRepository
                 .findById(id)
@@ -179,7 +180,7 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
     @Transactional
     public String updateCommunity(
             String id, UpdateCommunityRequest updateCommunityRequest, BindingResult result) {
-        Community community = pegarCommunity(updateCommunityRequest.getId());
+        Community community = pegarCommunity(id);
 
         var communityToUpdate = communityMapper.fromUpdateRequestToCommunity(community, updateCommunityRequest);
 
