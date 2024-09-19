@@ -91,10 +91,10 @@ public class CommunityController {
         return communityService.searchBar(query);
     }
 
-    @PatchMapping("/{id}")
-    public UpdateCommunityRequest updateCommunity(
-            @PathVariable String id,
-            @Valid @RequestBody UpdateCommunityRequest updateCommunityRequest,
+    @PatchMapping("/update")
+    public String updateCommunity(
+            @RequestParam("communityId") String id,
+            @Valid UpdateCommunityRequest updateCommunityRequest,
             BindingResult result) {
         log.info(
                 "CommunityController - PATCH on /{}; called with UpdateCommunityRequest: {}",
@@ -116,10 +116,11 @@ public class CommunityController {
         return communityService.deleteCommunityAdmin(idComunidade);
     }
 
-
     @GetMapping("/admin/delete/{communityId}/{memberId}")
     public String deleteUserAdmin(@PathVariable String communityId, @PathVariable String memberId) {
-        log.info("CommunityController - GET on /delete/{}/{}; called to delete member with id: {} from community with id: {}", communityId, memberId, memberId, communityId);
+        log.info(
+                "CommunityController - GET on /delete/{}/{}; called to delete member with id: {} from community with id: {}",
+                communityId, memberId, memberId, communityId);
         return communityService.deleteMemberFromCommunity(communityId, memberId);
     }
 }

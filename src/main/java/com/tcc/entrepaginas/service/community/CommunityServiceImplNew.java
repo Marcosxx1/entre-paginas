@@ -28,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Service
 @RequiredArgsConstructor
@@ -175,7 +176,7 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
     }
 
     @Override
-    public UpdateCommunityRequest updateCommunity(
+    public String updateCommunity(
             String id, UpdateCommunityRequest updateCommunityRequest, BindingResult result) {
         Community community = pegarCommunity(updateCommunityRequest.getId());
 
@@ -183,15 +184,18 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
 
         communityRepository.save(communityToUpdate);
 
-        return updateCommunityRequest;
+        return "redirect:/community/" + community.getId();
     }
 
     @Override
     public String prepareCommunityAndListOfPosts(String id, Model model, Authentication authentication) {
 
+        UpdateCommunityRequest updateCommunityRequest = new UpdateCommunityRequest();
+
         model = userUtils.setModelIfAuthenticationExists(authentication, model);
         model.addAttribute("listPost", postUtils.listPostsByCommunity(id));
         model.addAttribute("community", pegarCommunity(id));
+        model.addAttribute("updateCommunityRequest", updateCommunityRequest);
 
         return "/Comunidade";
     }

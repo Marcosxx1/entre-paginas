@@ -93,26 +93,50 @@
                         </button>
                     </form>
 
-                    <form class="custom-form">
+                    <!-- <form th:action="@{/community/update/{id}(id=${community.id})}"
+                        th:object="${updateCommunityRequest}" class="custom-form" method="post">
                         <div>
                             <label class="form-label" for="title">Título:</label>
-                            <input type="text" name="title" id="title" class="form-input" required />
+                            <input type="text" name="title" id="title" class="form-input" th:value="${community.title}"
+                                th:field="*{title}" required />
                         </div>
                         <div>
                             <label class="form-label" for="content">Conteúdo:</label>
-                            <textarea name="content" id="content" class="form-input" required></textarea>
+                            <textarea name="content" id="content" class="form-input" th:field="*{content}" required>
+
+                            </textarea>
                         </div>
-                        <!-- <label class="form-label">
+
+                         <label class="form-label">
                             <div class="form-checkbox">
                                 <input class="checkbox" type="checkbox" id="privado" name="privado"
                                     th:value="${privado}" />
                                 <label for="privado">Privado</label>
                             </div>
-                        </label> -->
+                        </label>
                         <button class="form-submit-button-post" type="submit">
-                            <span class="submit-button">
-                                Salvar
-                            </span>
+                            <span class="submit-button">Salvar</span>
+                        </button>
+                    </form> -->
+
+                    <form class="custom-form" th:action="@{/comunity/update}" th:method="post">
+                        <input type="hidden" name="_method" value="patch" />
+
+                        <input type="text" th:value="${community.id}" name="communityId" id="communityId">
+
+                        <div>
+                            <label class="form-label" for="title">Título:</label>
+                            <input type="text" name="title" id="title" class="form-input"
+                                th:value="${updateCommunityRequest.title}" required />
+                        </div>
+                        <div>
+                            <label class="form-label" for="content">Conteúdo:</label>
+                            <textarea name="content" id="content" class="form-input"
+                                th:value="${updateCommunityRequest.content}" required></textarea>
+                        </div>
+
+                        <button class="form-submit-button-post" type="submit">
+                            <span class="submit-button">Salvar</span>
                         </button>
                     </form>
 
@@ -190,83 +214,77 @@
                             src="/static/image/semImagem.png" alt="Usuário ${membros.usuario.nome}"
                             class="membros-img" />
 
-                        <p th:text="${membros.id}"></p>
                         <a th:href="@{/perfilVisitante/{userName}(userName=${membros.usuario.login})}"
                             th:text="${membros.usuario.nome}" class="membros-nome"></a>
                         <p th:text="${membros.roleCommunity.papel}" class="membros-papel"></p>
 
-                        <div th:each="membros2 : ${user.membros}">
-                            <div class="membros-button"
-                                th:if="${membros2.community.title == community.title and membros2.roleCommunity.papel != 'USER'}">
+                        <div class="membros-button">
 
-                                <a th:href="@{/community/admin/delete/{communityId}/{memberId}(communityId=${membros.community.id}, memberId=${membros.id})}"
-                                    class="button-delete membros-button1"
-                                    th:if="${membros.roleCommunity.papel != 'ADMIN'}">
-                                    <span class="delete-button">
-                                        Deletar
-                                    </span>
-                                </a>
-                                <button id="load-roles-btn" class="button-delete membros-button2"
-                                    th:if="${membros.roleCommunity.papel != 'ADMIN'}">
-                                    <span class="delete-button">
-                                        Papel
-                                    </span>
-                                </button>
-                                <!-- O Modal -->
-                                <div id="roles-modal" class="modal">
-                                    <div class="modal-content">
-                                        <span class="close-btn">&times;</span>
-                                        <h2>Altere o Papel do usuario na comunidade:</h2>
-                                        <form th:action="@{/members/update-member-authorities}" method="post"
-                                            id="roles-form">
+                            <a th:href="@{/community/admin/delete/{communityId}/{memberId}(communityId=${membros.community.id}, memberId=${membros.id})}"
+                                class="button-delete membros-button1" th:if="${membros.roleCommunity.papel != 'ADMIN'}">
+                                <span class="delete-button">
+                                    Deletar
+                                </span>
+                            </a>
+                            <button class="button-delete membros-button2 load-roles-btn"
+                                th:if="${membros.roleCommunity.papel != 'ADMIN'}">
+                                <span class="delete-button">
+                                    Papel
+                                </span>
+                            </button>
+                            <!-- O Modal -->
+                            <div class="roles-modal modal">
+                                <div class="modal-content">
+                                    <span class="close-btn">&times;</span>
+                                    <h2>Altere o Papel do usuario na comunidade:</h2>
+                                    <form th:action="@{/members/update-member-authorities}" method="post"
+                                        id="roles-form">
+                                        <!-- Campo oculto para memberId -->
+                                        <input type="text" name="memberId" th:value="${membros.id}" />
 
-                                            <!-- Campo oculto para memberId -->
-                                            <input type="text" name="memberId" th:value="${membros.id}" />
+                                        <!-- Campo oculto para newCommunityRole -->
+                                        <input type="text" name="newCommunityRole" id="hiddenRole" />
 
-                                            <!-- Campo oculto para newComunnityRole -->
-                                            <input type="text" name="newComunnityRole" id="hiddenRole" />
+                                        <label class="form-label">
+                                            <div class="form-checkbox">
+                                                <input class="checkbox" type="radio" id="admin" name="roles"
+                                                    value="ADMIN" onchange="updateHiddenRole('ADMIN')" />
+                                                <label for="admin">ADMIN</label>
+                                            </div>
+                                        </label>
+                                        <label class="form-label">
+                                            <div class="form-checkbox">
+                                                <input class="checkbox" type="radio" id="moderator" name="roles"
+                                                    value="MODERATOR" onchange="updateHiddenRole('MODERATOR')" />
+                                                <label for="moderator">MODERATOR</label>
+                                            </div>
+                                        </label>
+                                        <label class="form-label">
+                                            <div class="form-checkbox">
+                                                <input class="checkbox" type="radio" id="user" name="roles" value="USER"
+                                                    onchange="updateHiddenRole('USER')" />
+                                                <label for="user">USER</label>
+                                            </div>
+                                        </label>
+                                        <button class="form-submit-button-post" type="submit">
+                                            <span class="submit-button">
+                                                Enviar
+                                            </span>
+                                        </button>
 
-                                            <label class="form-label">
-                                                <div class="form-checkbox">
-                                                    <input class="checkbox" type="radio" id="admin" name="roles"
-                                                        value="ADMIN" onchange="updateHiddenRole('ADMIN')" />
-                                                    <label for="admin">ADMIN</label>
-                                                </div>
-                                            </label>
-                                            <label class="form-label">
-                                                <div class="form-checkbox">
-                                                    <input class="checkbox" type="radio" id="moderator" name="roles"
-                                                        value="MODERATOR" onchange="updateHiddenRole('MODERATOR')" />
-                                                    <label for="moderator">MODERATOR</label>
-                                                </div>
-                                            </label>
-                                            <label class="form-label">
-                                                <div class="form-checkbox">
-                                                    <input class="checkbox" type="radio" id="user" name="roles"
-                                                        value="USER" onchange="updateHiddenRole('USER')" />
-                                                    <label for="user">USER</label>
-                                                </div>
-                                            </label>
-                                            <button class="form-submit-button-post" type="submit">
-                                                <span class="submit-button">
-                                                    Enviar
-                                                </span>
-                                            </button>
-
-                                            <script>
-                                                function updateHiddenRole(role) {
-                                                    document.getElementById('hiddenRole').value = role;
-                                                }
-                                            </script>
-                                        </form>
-
-
-                                    </div>
+                                        <script>
+                                            function updateHiddenRole(role) {
+                                                document.getElementById('hiddenRole').value = role;
+                                            }
+                                        </script>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
 
@@ -390,7 +408,38 @@
             });
         </script>
         <script>
-            const form = document.getElementById("icone");
+            document.addEventListener('DOMContentLoaded', function () {
+                var modals = document.querySelectorAll('.roles-modal');
+                var openBtns = document.querySelectorAll('.load-roles-btn');
+                var closeBtns = document.querySelectorAll('.close-btn');
+
+                openBtns.forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        var modal = this.closest('.membros-button').querySelector('.roles-modal');
+                        modal.style.display = 'block';
+                    });
+                });
+
+                closeBtns.forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        var modal = this.closest('.roles-modal');
+                        modal.style.display = 'none';
+                    });
+                });
+
+                window.addEventListener('click', function (event) {
+                    modals.forEach(function (modal) {
+                        if (event.target === modal) {
+                            modal.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+        </script>
+
+        <!-- <script>
+            const form = document.getElementById("icone"); // Make sure an element with id="icone" exists
             const communityId = document.querySelector(".communityId").value;
 
             form.addEventListener("submit", async (event) => {
@@ -399,7 +448,7 @@
                 const formData = new FormData(form);
 
                 try {
-                    const response = await fetch(`/community/icone/${communityId}`, {
+                    const response = await fetch(/community/icone / ${ communityId }, {
                         method: "POST",
                         body: formData
                     });
@@ -414,30 +463,7 @@
                     console.error(error);
                 }
             });
-        </script>
-
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                var modal = document.getElementById('roles-modal');
-                var openBtn = document.getElementById('load-roles-btn');
-                var closeBtn = document.getElementsByClassName('close-btn')[0];
-
-                openBtn.onclick = function () {
-                    modal.style.display = 'block';
-                }
-
-                closeBtn.onclick = function () {
-                    modal.style.display = 'none';
-                }
-
-                window.onclick = function (event) {
-                    if (event.target === modal) {
-                        modal.style.display = 'none';
-                    }
-                }
-            });
-
-        </script>
+        </script> -->
 </body>
 
 </html>
