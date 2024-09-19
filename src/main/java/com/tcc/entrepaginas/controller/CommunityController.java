@@ -69,7 +69,7 @@ public class CommunityController {
     }
 
     @PostMapping("/icone/{id}")
-    public ResponseEntity<String> createIcone(
+    public String createIcone(
             @PathVariable("id") String idComunidade, @RequestParam MultipartFile icone, HttpServletRequest request) {
         log.info(
                 "CommunityController - POST on /icone/{id}; /icone/{} called with MultipartFile: {}",

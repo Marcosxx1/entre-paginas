@@ -80,7 +80,8 @@
                 </div>
 
                 <div class="configuracoes" id="configuracoes">
-                    <form class="custom-form" method='post' encType='multipart/form-data' id="icone">
+                    <form class="custom-form" th:action="@{/community/icone/{id}(id=${community.id})}" method="post"
+                          enctype="multipart/form-data" id="icone">
                         <div id="div-icone">
                             <label class="form-label" for="title">Icone:</label>
                             <input type="hidden" th:value="${community.id}" class="communityId">
@@ -92,6 +93,7 @@
                             </span>
                         </button>
                     </form>
+
 
                     <!-- <form th:action="@{/community/update/{id}(id=${community.id})}"
                         th:object="${updateCommunityRequest}" class="custom-form" method="post">

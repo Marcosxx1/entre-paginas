@@ -98,7 +98,6 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
     }
 
     @Override
-    @Transactional
     public Community pegarCommunity(String id) {
         return communityRepository
                 .findById(id)
@@ -131,14 +130,14 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
     }
 
     @Override
-    public ResponseEntity<String> changeCommunityIcon(
+    public String changeCommunityIcon(
             String idComunidade, MultipartFile icone, HttpServletRequest request) {
 
         Community community = pegarCommunity(idComunidade);
         community.setIcone(communityUtils.createIconUrl(icone, request));
         atualizarComunidade(community);
 
-        return ResponseEntity.ok("Success");
+        return "redirect:/community/" + community.getId();
     }
 
     @Override

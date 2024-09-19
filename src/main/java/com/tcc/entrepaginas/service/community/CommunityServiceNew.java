@@ -45,7 +45,7 @@ public interface CommunityServiceNew {
 
         String allMyCommunities(String idUsuario, Model model, Authentication authentication);
 
-        ResponseEntity<String> changeCommunityIcon(String idComunidade, MultipartFile icone,
+         String changeCommunityIcon(String idComunidade, MultipartFile icone,
                         HttpServletRequest request);
 
         String updateCommunity(
