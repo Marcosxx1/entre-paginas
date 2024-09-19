@@ -16,6 +16,8 @@ import com.tcc.entrepaginas.utils.PostUtils;
 import com.tcc.entrepaginas.utils.community.CommunityUtils;
 import com.tcc.entrepaginas.utils.user.UserUtils;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
+
 import java.security.Principal;
 import java.util.*;
 import lombok.RequiredArgsConstructor;
@@ -24,11 +26,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Service
 @RequiredArgsConstructor
@@ -176,6 +176,7 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
     }
 
     @Override
+    @Transactional
     public String updateCommunity(
             String id, UpdateCommunityRequest updateCommunityRequest, BindingResult result) {
         Community community = pegarCommunity(updateCommunityRequest.getId());

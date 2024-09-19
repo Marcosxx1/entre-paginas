@@ -17,10 +17,8 @@ public class CommunityMapper {
     }
 
     public Community fromUpdateRequestToCommunity(Community community, UpdateCommunityRequest updateCommunityRequest) {
-        return Community.builder()
-                .title(updateCommunityRequest.getTitle())
-                .content(updateCommunityRequest.getContent())
-                .privado(updateCommunityRequest.getPrivado())
-                .build();
+        community.setTitle(updateCommunityRequest.getTitle());
+        community.setContent(updateCommunityRequest.getContent());
+        return community;
     }
 }

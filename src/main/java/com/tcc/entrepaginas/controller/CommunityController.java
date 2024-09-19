@@ -91,11 +91,13 @@ public class CommunityController {
         return communityService.searchBar(query);
     }
 
-    @PatchMapping("/update")
+    @PostMapping("/update")
     public String updateCommunity(
             @RequestParam("communityId") String id,
-            @Valid UpdateCommunityRequest updateCommunityRequest,
+            @Valid @ModelAttribute UpdateCommunityRequest updateCommunityRequest,
             BindingResult result) {
+
+        System.out.println("*************************************************************" + id);
         log.info(
                 "CommunityController - PATCH on /{}; called with UpdateCommunityRequest: {}",
                 id,

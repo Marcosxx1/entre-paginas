@@ -119,8 +119,8 @@
                         </button>
                     </form> -->
 
-                    <form class="custom-form" th:action="@{/comunity/update}" th:method="post">
-                        <input type="hidden" name="_method" value="patch" />
+                    <form class="form-container" th:action="@{/community/update}" method="post"
+                        enctype="multipart/form-data">
 
                         <input type="text" th:value="${community.id}" name="communityId" id="communityId">
 
@@ -129,10 +129,11 @@
                             <input type="text" name="title" id="title" class="form-input"
                                 th:value="${updateCommunityRequest.title}" required />
                         </div>
+
                         <div>
                             <label class="form-label" for="content">Conteúdo:</label>
-                            <textarea name="content" id="content" class="form-input"
-                                th:value="${updateCommunityRequest.content}" required></textarea>
+                            <input type="text" name="content" id="content" class="form-input" rows="4" maxlength="500"
+                                th:text="${updateCommunityRequest.content}" required>
                         </div>
 
                         <button class="form-submit-button-post" type="submit">
