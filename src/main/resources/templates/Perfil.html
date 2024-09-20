@@ -38,85 +38,48 @@
         <div class="perfil-right">
             <div class="profile-container">
                 <div class="profile-header">
-                    <img src="https://via.placeholder.com/150" alt="Foto de perfil" class="profile-image">
+                    <img class="profile-image"
+                        th:if="${perfilVisitante != null and perfilVisitante.imagem != null and perfilVisitante.imagem.trim() != ''}"
+                        th:src="${perfilVisitante.imagem}" alt="Imagem do Usuário" />
+                    <img class="profile-image"
+                        th:if="${perfilVisitante == null or perfilVisitante.imagem == null or perfilVisitante.imagem.trim() == ''}"
+                        src="src\main\resources\static\image\semImagem.png" alt="Imagem do Usuário" />
                     <h1 class="username" th:text="${perfilVisitante.nome}"></h1>
                 </div>
 
                 <div class="profile-details">
                     <ul class="profile-info">
                         <li><strong>Email:</strong> <span th:text="${perfilVisitante.email}"></span></li>
-                        <li><strong>Localização:</strong> <span th:text="${perfilVisitante.cidade}"></span></li>
-                        <li><strong>Website:</strong> <a href="#">meusite.com</a></li>
-                    </ul>
-                </div>
-
-                <div class="profile-social">
-                    <h2>Conecte-se comigo:</h2>
-                    <ul>
-                        <li><a href="#">Twitter</a></li>
-                        <li><a href="#">LinkedIn</a></li>
-                        <li><a href="#">GitHub</a></li>
+                        <li><strong>Localização:</strong> <span th:text="${perfilVisitante.cidade}"></span>, <span
+                                th:text="${perfilVisitante.estadoBrasil}"></span></li>
                     </ul>
                 </div>
             </div>
-
-            <!-- 
-            <p>Bem-vindo, <span sec:authentication="name"></span>!</p>
-
-
-            <p th:text="${perfilVisitante.nome}"></p>
-            <p th:text="${perfilVisitante.id}"></p>
-            <p th:text="${perfilVisitante.email}"></p>
-
-            <div th:each="livro : ${books}">
-                <p th:text="${livro.nome}"></p>
-            </div>
-
-            <div th:each="comunidade : ${communities}">
-                <p th:text="${comunidade.title}"></p>
-            </div>
-        </div>
-    </div>
-    <span sec:authentication="name" style="display: none;" id="userLogin"></span>
-
-    <div th:replace="~{fragments/posts/posts :: modalPost}"></div>
-
-
- -->
-
-
-            <!-- 
-    <span sec:authentication="name" style="display: none;" id="userLogin"></span>
-
-    <div class="perfil">
-        <div class="perfil-principal">
-            <div th:replace="~{fragments/menu/menu :: menu}"></div>
-        </div>
-        <div class="perfil-right">
-            <h5>Livros para tocar</h5>
-            <div class="container-livros">
-                <div th:if="${books.size() > 0}" th:each="book : ${books}">
-                    <div class="book">
-                        <img th:src="${book.imagens[0].url}" alt="icone da livro" style="width: 100px;">
-                        <div>
-                            <h5 th:text="${book.nome}"></h5>
-                            <div>
-                                <p th:text="${book.cidade}"></p>
-                                <p>-</p>
-                                <p th:text="${book.estadoBrasil}"></p>
-                            </div>
-                            <p th:text="${book.descricao}"></p>
-                        </div>
-                    </div>
+            <ul class="community-menu">
+                <li class="community-menu-li active minhas_comunidades">Comunidades</li>
+                <li class="community-menu-li moderador_comunidades">Trocas</li>
+            </ul>
+            <div id="section-communities" class="community-section section-active minhas_comunidades margin">
+                <div th:each="community : ${communities}" class="users">
+                    <img th:if="${community != null and community.icone != null and community.icone.trim() != ''}"
+                        th:src="${community.icone}" alt="Community ${community.title}" class="user-img" />
+                    <img th:if="${community == null or community.icone == null or community.icone.trim() == ''}"
+                        src="/static/image/semImagem.png" alt="Community ${community.title}" class="user-img" />
+                    <a th:href="@{'/community/' + ${community.id}}" th:text="${community.title}" class="text-user joquebebe">
+                    </a>
                 </div>
             </div>
-            <div th:replace="~{fragments/posts/posts :: post}"></div>
-        </div>
-    </div> -->
 
-            <div th:replace="~{fragments/posts/posts :: modalPost}"></div>
-
-
+            <div id="section-book" class="community-section moderador_comunidades margin">
+                <div th:each="book : ${books}" class="users">
+                    <img th:if="${book != null and book.imagens[0].url != null and book.imagens[0].url.trim() != ''}"
+                        th:src="${book.imagens[0].url}" alt="book ${book.nome}" class="user-img" />
+                    <img th:if="${book == null or book.imagens[0].url == null or book.imagens[0].url.trim() == ''}"
+                        src="/static/image/semImagem.png" alt="book ${book.nome}" class="user-img" />
+                    <p th:text="${book.nome}" class="text-user"></p>
+                    <p th:text="${book.usuario.nome}" class="text-user"></p>
+                </div>
+            </div>
             <script>
                 $(document).ready(function () {
                     // Function to load cities based on selected estadoBrasil
@@ -144,7 +107,24 @@
                     }
                 });
             </script>
+            <script>
+                $(document).ready(function () {
+                    $('.community-menu-li').click(function () {
+                        // Remove a classe 'section-active' de todas as seções
+                        $('.community-section').removeClass('section-active');
 
+                        // Remove a classe 'active' de todos os itens do menu
+                        $('.community-menu-li').removeClass('active');
+
+                        // Adiciona a classe 'section-active' à seção correspondente
+                        var classToActivate = $(this).attr('class').split(' ')[1];
+                        $('.' + classToActivate).addClass('section-active');
+
+                        // Adiciona a classe 'active' ao item do menu clicado
+                        $(this).addClass('active');
+                    });
+                });
+            </script>
 </body>
 
 </html>

@@ -37,9 +37,8 @@ public class UserMapper {
                 existingUser.setEmail(updateUserNameLoginAndEmailRequest.getEmail());
                 existingUser.setLogin(updateUserNameLoginAndEmailRequest.getLogin());
                 existingUser.setCidade(updateUserNameLoginAndEmailRequest.getCidade());
-                existingUser.setEstadoBrasil(updateUserNameLoginAndEmailRequest.getEstadosBrasil());
-                // existingUser.setEstadoBrasil(
-                // EstadoBrasil.valueOf(updateUserNameLoginAndEmailRequest.getEstadosBrasil()));
+                existingUser.setEstadoBrasil(
+                                EstadoBrasil.valueOf(updateUserNameLoginAndEmailRequest.getEstadoBrasil()));
         }
 
         public UpdateUserNameLoginAndEmailRequest toUpdateUserNameLoginAndEmailRequest(Authentication authentication) {

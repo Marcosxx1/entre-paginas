@@ -31,5 +31,5 @@ public class UpdateUserNameLoginAndEmailRequest {
 
     private String cidade;
 
-    private EstadoBrasil estadosBrasil;
+    private String estadoBrasil;
 }

@@ -2,9 +2,10 @@
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 350px;
+    width: 80%;
     padding: 20px;
     text-align: center;
+    margin: 0 auto 20px auto;
 }
 
 .profile-header {
@@ -13,8 +14,8 @@
 
 .profile-image {
     border-radius: 50%;
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     object-fit: cover;
 }
 
@@ -78,4 +79,17 @@
 
 .profile-social a:hover {
     text-decoration: underline;
+}
+
+.margin {
+    margin-bottom: 20px !important;
+}
+
+.joquebebe {
+    text-decoration: none;
+    color: var(--black);
+}
+
+.joquebebe:hover {
+    color: var(--azul-logo);
 }

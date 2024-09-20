@@ -4,6 +4,7 @@ import com.tcc.entrepaginas.domain.dto.NovoUsuarioRequest;
 import com.tcc.entrepaginas.domain.dto.UpdateUserNameLoginAndEmailRequest;
 import com.tcc.entrepaginas.domain.dto.UserListResponse;
 import com.tcc.entrepaginas.domain.entity.*;
+import com.tcc.entrepaginas.domain.enums.EstadoBrasil;
 import com.tcc.entrepaginas.domain.registration.RegistrationCompleteEvent;
 import com.tcc.entrepaginas.domain.registration.VerificationToken;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
@@ -127,13 +128,16 @@ public class UserServiceImpl implements UserService {
 
         Usuario userToBeEdited = userUtils.getUserById(id);
 
-        String redirectUrl = wasUserDataChanged(updateUserNameLoginAndEmailRequest, attributes, userToBeEdited);
+        // String redirectUrl = wasUserDataChanged(updateUserNameLoginAndEmailRequest,
+        // attributes, userToBeEdited);
 
-        if (redirectUrl != null) {
-            return redirectUrl;
-        }
+        // if (redirectUrl != null) {
+        // return redirectUrl;
+        // }
 
         userMapper.toUpdateUsuario(userToBeEdited, updateUserNameLoginAndEmailRequest);
+
+        System.out.println("*********************************************" + userToBeEdited.getCidade());
 
         usuarioRepository.save(userToBeEdited);
         attributes.addFlashAttribute("message", "User updated successfully!");
@@ -149,22 +153,29 @@ public class UserServiceImpl implements UserService {
         return "redirect:/index";
     }
 
-    private String wasUserDataChanged(
-            UpdateUserNameLoginAndEmailRequest updateUserNameLoginAndEmailRequest,
-            RedirectAttributes redirectAttributes,
-            Usuario userToBeEdited) {
+    // private String wasUserDataChanged(
+    // UpdateUserNameLoginAndEmailRequest updateUserNameLoginAndEmailRequest,
+    // RedirectAttributes redirectAttributes,
+    // Usuario userToBeEdited) {
 
-        boolean dataChanged = !userToBeEdited.getNome().equals(updateUserNameLoginAndEmailRequest.getNome())
-                || !userToBeEdited.getEmail().equals(updateUserNameLoginAndEmailRequest.getEmail())
-                || !userToBeEdited.getLogin().equals(updateUserNameLoginAndEmailRequest.getLogin());
+    // boolean dataChanged =
+    // !userToBeEdited.getNome().equals(updateUserNameLoginAndEmailRequest.getNome())
+    // ||
+    // !userToBeEdited.getEmail().equals(updateUserNameLoginAndEmailRequest.getEmail())
+    // ||
+    // !userToBeEdited.getLogin().equals(updateUserNameLoginAndEmailRequest.getLogin())
+    // ||
+    // !userToBeEdited.getCidade().equals(updateUserNameLoginAndEmailRequest.getCidade())
+    // || !userToBeEdited.getEstadoBrasil()
+    // .equals(EstadoBrasil.valueOf(updateUserNameLoginAndEmailRequest.getEstadoBrasil()));
 
-        if (!dataChanged) {
-            redirectAttributes.addFlashAttribute("message", "No changes were made.");
-            return "redirect:/infos";
-        }
+    // if (!dataChanged) {
+    // redirectAttributes.addFlashAttribute("message", "No changes were made.");
+    // return "redirect:/infos";
+    // }
 
-        return null;
-    }
+    // return null;
+    // }
 
     @Override
     public List<Community> getUserCommunities(String username) {
