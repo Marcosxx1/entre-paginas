@@ -35,7 +35,7 @@
                         </a>
 
                         <div class="infos-post">
-                            <a href="">
+                            <a th:href="@{/perfilVisitante/{userName}(userName=${post.usuario.login})}">
                                 <p class="usuario-nome"
                                     th:text="${post.usuario != null ? post.usuario.nome : 'Unknown User'}"></p>
                             </a>

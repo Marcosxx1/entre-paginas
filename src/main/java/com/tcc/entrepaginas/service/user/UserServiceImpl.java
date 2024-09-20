@@ -10,6 +10,7 @@ import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.mapper.user.UserMapper;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
 import com.tcc.entrepaginas.service.community.CommunityServiceNew;
+import com.tcc.entrepaginas.service.enums.EnumListingService;
 import com.tcc.entrepaginas.service.verificationtoken.VerificationTokenService;
 import com.tcc.entrepaginas.utils.imageupload.ImageUtils;
 import com.tcc.entrepaginas.utils.registration.UrlUtils;
@@ -120,6 +121,7 @@ public class UserServiceImpl implements UserService {
         if (result.hasErrors()) {
             model.addAttribute("updateUserNameLoginAndEmailRequest", updateUserNameLoginAndEmailRequest);
             model.addAttribute("user", user);
+
             return "forward:/infos";
         }
 
@@ -146,8 +148,6 @@ public class UserServiceImpl implements UserService {
 
         return "redirect:/index";
     }
-
-
 
     private String wasUserDataChanged(
             UpdateUserNameLoginAndEmailRequest updateUserNameLoginAndEmailRequest,

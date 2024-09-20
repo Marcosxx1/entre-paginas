@@ -36,7 +36,7 @@
                 <div class="card">
                     <img class="card__img community-icon"
                         th:if="${community == null and community.icone == null and community.icone.trim() == ''}"
-                        src="/static/image/semImagem.png" alt="Icone da comunidade">
+                        src="src\main\resources\static\image\semImagem.png" alt="Icone da comunidade">
                     <img class="card__img community-icon"
                         th:if="${community != null or community.icone != null or community.icone.trim() != ''}"
                         th:src="${community.icone}" alt="Icone da comunidade">

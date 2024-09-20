@@ -5,6 +5,7 @@ import com.tcc.entrepaginas.mapper.user.UserMapper;
 import com.tcc.entrepaginas.service.book.BookService;
 import com.tcc.entrepaginas.service.comments.CommentsServiceNew;
 import com.tcc.entrepaginas.service.community.CommunityServiceNew;
+import com.tcc.entrepaginas.service.enums.EnumListingService;
 import com.tcc.entrepaginas.service.post.PostServiceNew;
 import com.tcc.entrepaginas.service.reaction.ReactionServiceNew;
 import com.tcc.entrepaginas.service.user.UserService;
@@ -28,6 +29,7 @@ public class IndexServiceImpl implements IndexService {
     private final CommentsServiceNew commentsServiceNew;
     private final ReactionServiceNew reactionServiceNew;
     private final CommunityServiceNew communityServiceNew;
+    private final EnumListingService enumListingService;
 
     @Override
     public String redirecctToIndexOrLoginBasedOnAuth(Authentication authentication) {
@@ -73,6 +75,8 @@ public class IndexServiceImpl implements IndexService {
 
         model = userUtils.setModelIfAuthenticationExists(authentication, model);
         model.addAttribute("updateUserNameLoginAndEmailRequest", updateUserNameLoginAndEmailRequest);
+        model.addAttribute("estadosBrasil", enumListingService.listarTodosEstadosBrasil());
+
         return "InformacoesUsuario";
     }
 

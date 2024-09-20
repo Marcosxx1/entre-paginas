@@ -81,7 +81,7 @@
 
                 <div class="configuracoes" id="configuracoes">
                     <form class="custom-form" th:action="@{/community/icone/{id}(id=${community.id})}" method="post"
-                          enctype="multipart/form-data" id="icone">
+                        enctype="multipart/form-data" id="icone">
                         <div id="div-icone">
                             <label class="form-label" for="title">Icone:</label>
                             <input type="hidden" th:value="${community.id}" class="communityId">
@@ -220,67 +220,69 @@
                         <a th:href="@{/perfilVisitante/{userName}(userName=${membros.usuario.login})}"
                             th:text="${membros.usuario.nome}" class="membros-nome"></a>
                         <p th:text="${membros.roleCommunity.papel}" class="membros-papel"></p>
+                        <div th:each="membros2 : ${user.membros}">
+                            <div class="membros-button"
+                                th:if="${membros2.community.title == community.title and membros2.roleCommunity.papel != 'USER'}">
+                                <a th:href="@{/community/admin/delete/{communityId}/{memberId}(communityId=${membros.community.id}, memberId=${membros.id})}"
+                                    class="button-delete membros-button1"
+                                    th:if="${membros.roleCommunity.papel != 'ADMIN'}">
+                                    <span class="delete-button">
+                                        Deletar
+                                    </span>
+                                </a>
+                                <button class="button-delete membros-button2 load-roles-btn"
+                                    th:if="${membros.roleCommunity.papel != 'ADMIN'}">
+                                    <span class="delete-button">
+                                        Papel
+                                    </span>
+                                </button>
+                                <!-- O Modal -->
+                                <div class="roles-modal modal">
+                                    <div class="modal-content">
+                                        <span class="close-btn">&times;</span>
+                                        <h2>Altere o Papel do usuario na comunidade:</h2>
+                                        <form th:action="@{/members/update-member-authorities}" method="post"
+                                            id="roles-form">
+                                            <!-- Campo oculto para memberId -->
+                                            <input type="text" name="memberId" th:value="${membros.id}" />
 
-                        <div class="membros-button">
+                                            <!-- Campo oculto para newCommunityRole -->
+                                            <input type="text" name="newCommunityRole" id="hiddenRole" />
 
-                            <a th:href="@{/community/admin/delete/{communityId}/{memberId}(communityId=${membros.community.id}, memberId=${membros.id})}"
-                                class="button-delete membros-button1" th:if="${membros.roleCommunity.papel != 'ADMIN'}">
-                                <span class="delete-button">
-                                    Deletar
-                                </span>
-                            </a>
-                            <button class="button-delete membros-button2 load-roles-btn"
-                                th:if="${membros.roleCommunity.papel != 'ADMIN'}">
-                                <span class="delete-button">
-                                    Papel
-                                </span>
-                            </button>
-                            <!-- O Modal -->
-                            <div class="roles-modal modal">
-                                <div class="modal-content">
-                                    <span class="close-btn">&times;</span>
-                                    <h2>Altere o Papel do usuario na comunidade:</h2>
-                                    <form th:action="@{/members/update-member-authorities}" method="post"
-                                        id="roles-form">
-                                        <!-- Campo oculto para memberId -->
-                                        <input type="text" name="memberId" th:value="${membros.id}" />
+                                            <label class="form-label">
+                                                <div class="form-checkbox">
+                                                    <input class="checkbox" type="radio" id="admin" name="roles"
+                                                        value="ADMIN" onchange="updateHiddenRole('ADMIN')" />
+                                                    <label for="admin">ADMIN</label>
+                                                </div>
+                                            </label>
+                                            <label class="form-label">
+                                                <div class="form-checkbox">
+                                                    <input class="checkbox" type="radio" id="moderator" name="roles"
+                                                        value="MODERATOR" onchange="updateHiddenRole('MODERATOR')" />
+                                                    <label for="moderator">MODERATOR</label>
+                                                </div>
+                                            </label>
+                                            <label class="form-label">
+                                                <div class="form-checkbox">
+                                                    <input class="checkbox" type="radio" id="user" name="roles"
+                                                        value="USER" onchange="updateHiddenRole('USER')" />
+                                                    <label for="user">USER</label>
+                                                </div>
+                                            </label>
+                                            <button class="form-submit-button-post" type="submit">
+                                                <span class="submit-button">
+                                                    Enviar
+                                                </span>
+                                            </button>
 
-                                        <!-- Campo oculto para newCommunityRole -->
-                                        <input type="text" name="newCommunityRole" id="hiddenRole" />
-
-                                        <label class="form-label">
-                                            <div class="form-checkbox">
-                                                <input class="checkbox" type="radio" id="admin" name="roles"
-                                                    value="ADMIN" onchange="updateHiddenRole('ADMIN')" />
-                                                <label for="admin">ADMIN</label>
-                                            </div>
-                                        </label>
-                                        <label class="form-label">
-                                            <div class="form-checkbox">
-                                                <input class="checkbox" type="radio" id="moderator" name="roles"
-                                                    value="MODERATOR" onchange="updateHiddenRole('MODERATOR')" />
-                                                <label for="moderator">MODERATOR</label>
-                                            </div>
-                                        </label>
-                                        <label class="form-label">
-                                            <div class="form-checkbox">
-                                                <input class="checkbox" type="radio" id="user" name="roles" value="USER"
-                                                    onchange="updateHiddenRole('USER')" />
-                                                <label for="user">USER</label>
-                                            </div>
-                                        </label>
-                                        <button class="form-submit-button-post" type="submit">
-                                            <span class="submit-button">
-                                                Enviar
-                                            </span>
-                                        </button>
-
-                                        <script>
-                                            function updateHiddenRole(role) {
-                                                document.getElementById('hiddenRole').value = role;
-                                            }
-                                        </script>
-                                    </form>
+                                            <script>
+                                                function updateHiddenRole(role) {
+                                                    document.getElementById('hiddenRole').value = role;
+                                                }
+                                            </script>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>

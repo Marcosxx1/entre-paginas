@@ -16,6 +16,7 @@
     <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
     <link rel="stylesheet" th:href="@{/static/css/PerfilStyle.css}" />
     <link rel="stylesheet" th:href="@{/static/css/PostStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/VisitorStyle.css}" />
 
     <script th:src="@{/static/js/HeaderScript.js}"></script>
     <script th:src="@{/static/js/ModalScript.js}"></script>
@@ -35,9 +36,31 @@
             </div>
         </div>
         <div class="perfil-right">
+            <div class="profile-container">
+                <div class="profile-header">
+                    <img src="https://via.placeholder.com/150" alt="Foto de perfil" class="profile-image">
+                    <h1 class="username" th:text="${perfilVisitante.nome}"></h1>
+                </div>
 
+                <div class="profile-details">
+                    <ul class="profile-info">
+                        <li><strong>Email:</strong> <span th:text="${perfilVisitante.email}"></span></li>
+                        <li><strong>Localização:</strong> <span th:text="${perfilVisitante.cidade}"></span></li>
+                        <li><strong>Website:</strong> <a href="#">meusite.com</a></li>
+                    </ul>
+                </div>
 
+                <div class="profile-social">
+                    <h2>Conecte-se comigo:</h2>
+                    <ul>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                        <li><a href="#">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
 
+            <!-- 
             <p>Bem-vindo, <span sec:authentication="name"></span>!</p>
 
 
@@ -59,10 +82,10 @@
     <div th:replace="~{fragments/posts/posts :: modalPost}"></div>
 
 
+ -->
 
 
-
-    <!-- 
+            <!-- 
     <span sec:authentication="name" style="display: none;" id="userLogin"></span>
 
     <div class="perfil">
@@ -91,7 +114,36 @@
         </div>
     </div> -->
 
-    <div th:replace="~{fragments/posts/posts :: modalPost}"></div>
+            <div th:replace="~{fragments/posts/posts :: modalPost}"></div>
+
+
+            <script>
+                $(document).ready(function () {
+                    // Function to load cities based on selected estadoBrasil
+                    $('#estadoBrasil').change(function () {
+                        var estadoSelecionado = $(this).val();
+                        $.ajax({
+                            url: 'https://servicodados.ibge.gov.br/api/v1/localidades/estados/' + estadoSelecionado + '/municipios',
+                            type: 'GET',
+                            success: function (data) {
+                                $('#cidade').empty(); // Limpa as opções anteriores
+                                $.each(data, function (index, cidade) {
+                                    $('#cidade').append('<option value="' + cidade.nome + '">' + cidade.nome + '</option>');
+                                });
+                            },
+                            error: function (error) {
+                                console.log('Erro ao carregar cidades:', error);
+                            }
+                        });
+                    });
+
+                    // Load cities if a estadoBrasil is already selected
+                    var selectedEstadoBrasil = $('#estadoBrasil').val();
+                    if (selectedEstadoBrasil) {
+                        $('#estadoBrasil').trigger('change');
+                    }
+                });
+            </script>
 
 </body>
 

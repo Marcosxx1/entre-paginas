@@ -1,5 +1,7 @@
 package com.tcc.entrepaginas.domain.dto;
 
+import com.tcc.entrepaginas.domain.enums.EstadoBrasil;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -26,4 +28,8 @@ public class UpdateUserNameLoginAndEmailRequest {
     @NotBlank(message = "Login é obrigatório")
     @Size(max = 50, message = "Login não pode ter mais de 50 caracteres")
     private String login;
+
+    private String cidade;
+
+    private EstadoBrasil estadosBrasil;
 }

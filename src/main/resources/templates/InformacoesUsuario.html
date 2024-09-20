@@ -76,6 +76,20 @@
                             <span class="form-error" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="estadoBrasil">Estados do Brasil:</label>
+                        <select class="form-input" id="estadoBrasil" name="estadoBrasil" required>
+                            <option value="" disabled selected hidden>Selecione um estado</option>
+                            <option th:each="estadoBrasil : ${estadosBrasil}" th:value="${estadoBrasil}"
+                                th:text="${estadoBrasil}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <label class="form-label" for="cidade">Cidade</label>
+                    <select class="form-input" id="cidade" name="cidade" required>
+                        <option value="" disabled selected hidden>Escolha um estado para ver as cidades.</option>
+                    </select>
                 </div>
                 <button class="form-submit-button-post" type="submit">
                     <span class="submit-button">
@@ -127,6 +141,30 @@
 
         </div>
     </div>
+
+
+    <script>
+
+        $(document).ready(function () {
+            $('#estadoBrasil').change(function () {
+                var estadoSelecionado = $(this).val();
+                $.ajax({
+                    url: 'https://servicodados.ibge.gov.br/api/v1/localidades/estados/' + estadoSelecionado + '/municipios',
+                    type: 'GET',
+                    success: function (data) {
+                        $('#cidade').empty(); // Limpa as opções anteriores
+                        $.each(data, function (index, cidade) {
+                            $('#cidade').append('<option value="' + cidade.nome + '">' + cidade.nome + '</option>');
+                        });
+                    },
+                    error: function (error) {
+                        console.log('Erro ao carregar cidades:', error);
+                    }
+                });
+            });
+
+        });
+    </script>
 </body>
 
 </html>

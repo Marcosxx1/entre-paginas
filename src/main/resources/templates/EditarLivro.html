@@ -56,7 +56,7 @@
                     <label class="form-label" for="estadoBrasil">Estados do Brasil:</label>
                     <select class="form-input" id="estadoBrasil" name="estadoBrasil" required>
                         <option value="" disabled selected hidden>Selecione um estado</option>
-                        <option th:each="estadoBrasil : ${estadosBrasil}" th:value="${estadoBrasil}" th:text="${estadoBrasil}" th:selected="${estadoBrasil == livro.estadoBrasil}"></option>
+                        <option th:each="estadoBrasil : ${estadosBrasil}" th:value="${estadoBrasil}" th:text="${estadoBrasil}"></option>
                     </select>
 
                     <label class="form-label" for="categoria">Categoria:</label>
