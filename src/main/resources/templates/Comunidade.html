@@ -124,7 +124,7 @@
                     <form class="form-container" th:action="@{/community/update}" method="post"
                         enctype="multipart/form-data">
 
-                        <input type="text" th:value="${community.id}" name="communityId" id="communityId">
+                        <input type="hidden" th:value="${community.id}" name="communityId" id="communityId">
 
                         <div>
                             <label class="form-label" for="title">Título:</label>
@@ -135,7 +135,7 @@
                         <div>
                             <label class="form-label" for="content">Conteúdo:</label>
                             <input type="text" name="content" id="content" class="form-input" rows="4" maxlength="500"
-                                th:text="${updateCommunityRequest.content}" required>
+                                th:value="${updateCommunityRequest.content}" required>
                         </div>
 
                         <button class="form-submit-button-post" type="submit">
@@ -204,8 +204,6 @@
                 <div class="post-community visible">
                     <div th:replace="~{fragments/posts/posts :: post}"></div>
                     <span sec:authentication="name" style="display: none;" id="userLogin"></span>
-
-                    <div th:replace="~{fragments/posts/posts :: modalPost}"></div>
                 </div>
 
                 <div class="membros-comunidade">
@@ -238,7 +236,7 @@
                                 </button>
                                 <!-- O Modal -->
                                 <div class="roles-modal modal">
-                                    <div class="modal-content">
+                                    <div class="modal-content-papel">
                                         <span class="close-btn">&times;</span>
                                         <h2>Altere o Papel do usuario na comunidade:</h2>
                                         <form th:action="@{/members/update-member-authorities}" method="post"
@@ -292,6 +290,36 @@
 
             </div>
         </div>
+        <div th:replace="~{fragments/posts/posts :: modalPost}"></div>
+
+        <script>
+            $(document).ready(function () {
+                $('.likeBtn').on('click', function () {
+                    let postId = $(this).siblings('input').val();
+
+                    $.ajax({
+                        url: `/posts/likes/${postId}`,
+                        type: 'POST',
+                        data: { action: 'like' },
+                        success: function (response) {
+                            $('#likesCount').text(response);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            if (jqXHR.status === 401) {
+                                alert('You must be logged in to vote.');
+                            } else if (jqXHR.status === 409) {
+                                alert('You have already voted on this post.');
+                            } else {
+                                console.error('Error: ', textStatus, errorThrown);
+                                alert('An error occurred while processing your request.');
+                            }
+                        }
+                    });
+
+                });
+            });
+        </script>
+
 
         <script>
             document.addEventListener("DOMContentLoaded", function () {

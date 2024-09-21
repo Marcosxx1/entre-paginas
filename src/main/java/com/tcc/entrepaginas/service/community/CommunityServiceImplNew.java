@@ -1,34 +1,41 @@
 package com.tcc.entrepaginas.service.community;
 
-import com.tcc.entrepaginas.domain.dto.NovaComunidadeRequest;
-import com.tcc.entrepaginas.domain.dto.SearchBarResponse;
-import com.tcc.entrepaginas.domain.dto.UpdateCommunityRequest;
-import com.tcc.entrepaginas.domain.entity.Community;
-import com.tcc.entrepaginas.domain.entity.Membros;
-import com.tcc.entrepaginas.domain.entity.Usuario;
-import com.tcc.entrepaginas.exceptions.CommunityNotFoundException;
-import com.tcc.entrepaginas.mapper.community.CommunityMapper;
-import com.tcc.entrepaginas.mapper.member.MemberMapper;
-import com.tcc.entrepaginas.repository.CommunityRepository;
-import com.tcc.entrepaginas.service.rolecomunity.RoleCommunityService;
-import com.tcc.entrepaginas.service.user.UserService;
-import com.tcc.entrepaginas.utils.PostUtils;
-import com.tcc.entrepaginas.utils.community.CommunityUtils;
-import com.tcc.entrepaginas.utils.user.UserUtils;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.transaction.Transactional;
-
 import java.security.Principal;
-import java.util.*;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.data.domain.Sort;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.tcc.entrepaginas.domain.dto.NovaComunidadeRequest;
+import com.tcc.entrepaginas.domain.dto.SearchBarResponse;
+import com.tcc.entrepaginas.domain.dto.UpdateCommunityRequest;
+import com.tcc.entrepaginas.domain.entity.Community;
+import com.tcc.entrepaginas.domain.entity.Membros;
+import com.tcc.entrepaginas.domain.entity.Post;
+import com.tcc.entrepaginas.domain.entity.Usuario;
+import com.tcc.entrepaginas.exceptions.CommunityNotFoundException;
+import com.tcc.entrepaginas.mapper.community.CommunityMapper;
+import com.tcc.entrepaginas.mapper.member.MemberMapper;
+import com.tcc.entrepaginas.repository.CommunityRepository;
+import com.tcc.entrepaginas.repository.ReactionRepository;
+import com.tcc.entrepaginas.service.rolecomunity.RoleCommunityService;
+import com.tcc.entrepaginas.service.user.UserService;
+import com.tcc.entrepaginas.utils.PostUtils;
+import com.tcc.entrepaginas.utils.community.CommunityUtils;
+import com.tcc.entrepaginas.utils.user.UserUtils;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
@@ -37,7 +44,7 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
 
     private final RoleCommunityService roleCommunityService;
     private final CommunityRepository communityRepository;
-
+    private final ReactionRepository reactionRepository;
     private final CommunityMapper communityMapper;
     private final CommunityUtils communityUtils;
     private final PostUtils postUtils;
@@ -191,12 +198,25 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
     @Override
     public String prepareCommunityAndListOfPosts(String id, Model model, Authentication authentication) {
 
-        UpdateCommunityRequest updateCommunityRequest = new UpdateCommunityRequest();
+        var comunidade = pegarCommunity(id);
+
+
+        UpdateCommunityRequest updateCommunityRequest = UpdateCommunityRequest.builder()
+                .title(comunidade.getTitle())
+                .content(comunidade.getContent())
+                .build();
 
         model = userUtils.setModelIfAuthenticationExists(authentication, model);
         model.addAttribute("listPost", postUtils.listPostsByCommunity(id));
         model.addAttribute("community", pegarCommunity(id));
         model.addAttribute("updateCommunityRequest", updateCommunityRequest);
+        
+        Map<String, Integer> reaction = new HashMap<>();
+        for (Post post : comunidade.getPost()) {
+            reaction.put(post.getId(), reactionRepository.countByReacao(post.getId(), "like"));
+        }
+
+        model.addAttribute("qtdReaction", reaction);
 
         return "/Comunidade";
     }

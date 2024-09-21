@@ -1,7 +1,10 @@
 package com.tcc.entrepaginas.service.index;
 
+import com.tcc.entrepaginas.domain.entity.Community;
+import com.tcc.entrepaginas.domain.entity.Post;
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.mapper.user.UserMapper;
+import com.tcc.entrepaginas.repository.ReactionRepository;
 import com.tcc.entrepaginas.service.book.BookService;
 import com.tcc.entrepaginas.service.comments.CommentsServiceNew;
 import com.tcc.entrepaginas.service.community.CommunityServiceNew;
@@ -11,6 +14,9 @@ import com.tcc.entrepaginas.service.reaction.ReactionServiceNew;
 import com.tcc.entrepaginas.service.user.UserService;
 import com.tcc.entrepaginas.utils.user.UserUtils;
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
@@ -27,9 +33,9 @@ public class IndexServiceImpl implements IndexService {
     private final UserService userService;
     private final PostServiceNew postServiceNew;
     private final CommentsServiceNew commentsServiceNew;
-    private final ReactionServiceNew reactionServiceNew;
     private final CommunityServiceNew communityServiceNew;
     private final EnumListingService enumListingService;
+    private final ReactionRepository reactionRepository;
 
     @Override
     public String redirecctToIndexOrLoginBasedOnAuth(Authentication authentication) {
@@ -47,7 +53,15 @@ public class IndexServiceImpl implements IndexService {
         model.addAttribute("listPost", postServiceNew.listarPost(Sort.by(Sort.Direction.DESC, "date")));
         model.addAttribute("comunidades", communityServiceNew.listarRandomCommunities(4, principal));
         model.addAttribute("comments", commentsServiceNew.listarComments(Sort.by(Sort.Direction.ASC, "id")));
-        model.addAttribute("qtdReaction", reactionServiceNew.countReaction());
+        Map<String, Integer> reaction = new HashMap<>();
+
+        for (Community comunidade : communityServiceNew.listarCommunities(Sort.by(Sort.Direction.ASC, "id"))) {
+            for (Post post : comunidade.getPost()) {
+                reaction.put(post.getId(), reactionRepository.countByReacao(post.getId(), "like"));
+            }
+        }
+
+        model.addAttribute("qtdReaction", reaction);
         model.addAttribute("book", bookService.getRandomLivro(authentication));
 
         return "/Index";
@@ -62,7 +76,6 @@ public class IndexServiceImpl implements IndexService {
             model.addAttribute("listPost", postServiceNew.listAllPostsInACommunity(username));
             model.addAttribute("books", bookService.listarRandomLivros(10, principal, null));
             model.addAttribute("comments", commentsServiceNew.listarComments(Sort.by(Sort.Direction.ASC, "id")));
-            model.addAttribute("qtdReaction", reactionServiceNew.countReaction());
         }
 
         return "/Perfil";
@@ -106,7 +119,6 @@ public class IndexServiceImpl implements IndexService {
             model.addAttribute("listPost", postServiceNew.listAllPostsInACommunity(username));
             model.addAttribute("books", bookService.listarRandomLivros(10, principal, null));
             model.addAttribute("comments", commentsServiceNew.listarComments(Sort.by(Sort.Direction.ASC, "id")));
-            model.addAttribute("qtdReaction", reactionServiceNew.countReaction());
         }
 
         return "Suporte";

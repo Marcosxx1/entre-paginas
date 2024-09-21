@@ -70,7 +70,7 @@
                         <div>
                             <button class="likeBtn"><i class="fa-solid fa-caret-up"
                                     style="color: #85c1f1;"></i></button>
-                            <p id="likesCount" th:text="${qtdReaction}"></p>
+                            <p id="likesCount"  th:text="${qtdReaction.get(post.id) != null ? qtdReaction.get(post.id) : 0}"></p>
                             <input type="hidden" th:value="${post.id}">
                         </div>
                     </span>

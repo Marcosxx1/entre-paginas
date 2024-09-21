@@ -18,12 +18,9 @@ public class ReactionServiceImplNew implements ReactionServiceNew {
     private final ReactionRepository reactionRepository;
     private final PostServiceNew postServiceNew;
 
-    public int countReaction() {
-        int likesCount = reactionRepository.countByReacao("like");
-        int dislikesCount = reactionRepository.countByReacao("dislike");
-
-        return likesCount - dislikesCount;
-    }
+    // public int countReaction() {
+    // return reactionRepository.countByReacao("like");
+    // }
 
     @Override
     public ResponseEntity<?> reacaoPost(String idPost, String reacao, Authentication authentication) {
@@ -33,8 +30,7 @@ public class ReactionServiceImplNew implements ReactionServiceNew {
 
         Post post = postServiceNew.buscarPost(idPost);
 
-        Optional<Reaction> existingReaction =
-                usuarioJaVotou(idPost, post.getUsuario().getId());
+        Optional<Reaction> existingReaction = usuarioJaVotou(idPost, post.getUsuario().getId());
 
         if (existingReaction.isPresent()) {
             reactionRepository.delete(existingReaction.get());
@@ -47,7 +43,7 @@ public class ReactionServiceImplNew implements ReactionServiceNew {
             reactionRepository.save(newReaction);
         }
 
-        int newLikeCount = this.countReaction();
+        int newLikeCount = reactionRepository.countByPostIdAndReacao(idPost, reacao);
         return ResponseEntity.ok(newLikeCount);
     }
 

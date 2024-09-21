@@ -97,7 +97,6 @@ public class CommunityController {
             @Valid @ModelAttribute UpdateCommunityRequest updateCommunityRequest,
             BindingResult result) {
 
-        System.out.println("*************************************************************" + id);
         log.info(
                 "CommunityController - PATCH on /{}; called with UpdateCommunityRequest: {}",
                 id,

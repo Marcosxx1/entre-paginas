@@ -5,10 +5,17 @@ import com.tcc.entrepaginas.domain.entity.Reaction;
 import com.tcc.entrepaginas.domain.entity.Usuario;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface ReactionRepository extends JpaRepository<Reaction, String> {
 
-    int countByReacao(String string);
+    @Query("""
+            SELECT COUNT(*) FROM reaction rec \
+            WHERE rec.post.id ILIKE :id \
+            AND rec.reacao = :reacao\
+            """)
+    int countByReacao(@Param("id") String id, @Param("reacao") String reacao);
 
     int countByPostIdAndReacao(String postId, String reacao);
 
