@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 public interface ReactionRepository extends JpaRepository<Reaction, String> {
 
     @Query("""
-            SELECT COUNT(*) FROM reaction rec \
+            SELECT COUNT(*) FROM Reaction rec \
             WHERE rec.post.id ILIKE :id \
             AND rec.reacao = :reacao\
             """)

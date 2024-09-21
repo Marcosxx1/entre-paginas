@@ -134,14 +134,15 @@
     <script>
         $(document).ready(function () {
             $('.likeBtn').on('click', function () {
-                let postId = $(this).siblings('input').val();
+                let postId = $(this).siblings('input').val(); // Obtém o ID do post
+                let likesCountSpan = $(this).siblings('.likesCount'); // Obtém o contador de likes do post correspondente
 
                 $.ajax({
                     url: `/posts/likes/${postId}`,
                     type: 'POST',
                     data: { action: 'like' },
                     success: function (response) {
-                        $('#likesCount').text(response);
+                        likesCountSpan.text(response); // Atualiza o contador de likes do post correto
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         if (jqXHR.status === 401) {
@@ -154,9 +155,9 @@
                         }
                     }
                 });
-
             });
         });
+
     </script>
 
 
