@@ -237,11 +237,7 @@ public class BookServiceImpl implements BookService {
         model.addAttribute("tipos", enumListingService.listarTodosTipos());
         model.addAttribute("estadosBrasil", enumListingService.listarTodosEstadosBrasil());
         model.addAttribute("idUsuario", livro.getUsuario().getId());
-        // Podemos pegar o ImagemLivroService, pegar as imagens com o ID do livro
-        // No HTML poderiamos fazer um modalzinho com as minuaturas das imagens e editar
-        // uma por uma
-        // OUU
-        // Fazer outra rota para editar as imagens em específico
+
         return "EditarLivro";
     }
 
