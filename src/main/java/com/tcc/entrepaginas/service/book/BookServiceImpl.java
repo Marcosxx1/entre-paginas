@@ -85,8 +85,26 @@ public class BookServiceImpl implements BookService {
         return "MinhasTrocas";
     }
 
+    // @Override
+    // public String trocaDeLivroPorRegiao(Model model, Authentication
+    // authentication) {
+
+    // var usuario = userUtils.getUsuarioObjectFromAuthentication(authentication);
+
+    // model = userUtils.setUserInAttributesIfAuthenticated(model, authentication,
+    // usuario.getId());
+
+    // List<Livro> livrosPorRegiao = listarLivrosPorRegiao(usuario.getCidade(),
+    // usuario.getEstadoBrasil());
+
+    // model.addAttribute("todosOsLivrosDoUsuario",
+    // listarTrocasPorPessoas(usuario.getId()));
+    // model.addAttribute("todosOsLivosDaRegiao", livrosPorRegiao);
+    // return "MinhasTrocas";
+    // }
+
     @Override
-    public String trocaDeLivroPorRegiao(Model model, Authentication authentication) {
+    public List<Livro> trocaDeLivroPorRegiao(Model model, Authentication authentication) {
 
         var usuario = userUtils.getUsuarioObjectFromAuthentication(authentication);
 
@@ -94,9 +112,7 @@ public class BookServiceImpl implements BookService {
 
         List<Livro> livrosPorRegiao = listarLivrosPorRegiao(usuario.getCidade(), usuario.getEstadoBrasil());
 
-        model.addAttribute("todosOsLivrosDoUsuario", listarTrocasPorPessoas(usuario.getId()));
-        model.addAttribute("todosOsLivosDaRegiao", livrosPorRegiao);
-        return "MinhasTrocas";
+        return livrosPorRegiao;
     }
 
     private void salvarLivro(Livro livro, String idUsuario, List<ImagemLivro> imagensLivro) {
@@ -259,11 +275,18 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public String listarTodasTrocas(Model model) {
+    public List<Livro> listarTodasTrocas(Authentication authentication) {
 
-        List<Livro> livrosTrocar = livroRepository.findAll();
-        model.addAttribute("livrosTrocar", livrosTrocar);
+        List<Livro> livros = listarLivros(Sort.by(Sort.Direction.ASC, "id"));
 
-        return "AllExchanges";
+        Usuario user = userUtils.getUserById(userUtils.getIdUserFromUserDetail(authentication));
+
+        if (user != null) {
+            livros = livros.stream()
+                    .filter(livro -> !livro.getUsuario().getNome().equals(user.getNome()))
+                    .collect(Collectors.toList());
+        }
+
+        return livros;
     }
 }

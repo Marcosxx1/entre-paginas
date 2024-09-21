@@ -1,0 +1,137 @@
+.container-filter {
+    margin: 2%;
+}
+
+.filter {
+    background-color: var(--azul-logo);
+    border-radius: 5px;
+}
+
+#livrosDaRegiao,
+#todosOsLivros {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.livro-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px;
+    width: 300px;
+    height: 270px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: auto;
+}
+
+.livro-card:hover {
+    transform: scale(1.05);
+}
+
+.livro-info {
+    list-style: none;
+    padding: 0;
+}
+
+.livro-info li {
+    margin-bottom: 8px;
+}
+
+.livro-nome {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #333;
+}
+
+.livro-localizacao {
+    font-size: 12px;
+    color: #777;
+}
+
+.livro-estado,
+.livro-tipo,
+.livro-categoria {
+    font-size: 12px;
+    color: #555;
+}
+
+.livro-usuario a {
+    font-size: 1em;
+    color: var(--header-background);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.livro-usuario a:hover {
+    color: var(--azul-logo);
+}
+
+.livro-button-container {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.livro-button {
+    background-color: var(--azul-logo);
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.livro-button:hover {
+    color: var(--black);
+    background-color: #74d1f049;
+}
+
+.livro-imagem img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.livro-grid li.livro-localizacao,
+.livro-grid li.livro-estado,
+.livro-grid li.livro-tipo,
+.livro-grid li.livro-categoria {
+    margin: 3% auto 0 auto;
+    max-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.livro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.livro-grid li {
+    margin-bottom: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.livro-grid li:nth-child(1),
+.livro-grid li:nth-child(2) {
+    grid-column: 1;
+}
+
+.livro-grid li:nth-child(3),
+.livro-grid li:nth-child(4),
+.livro-grid li:nth-child(5) {
+    grid-column: 2;
+}

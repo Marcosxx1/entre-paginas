@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -64,6 +65,11 @@ public class IndexController {
     @GetMapping("/admin")
     public String telaAdmin(Model model, Principal principal, Authentication authentication) {
         return indexService.telaAdmin(model, principal, authentication);
+    }
+
+    @GetMapping("/filter")
+    public String getMethodName(Model model, Principal principal, Authentication authentication) {
+        return indexService.filter(model, principal, authentication);
     }
 
     /*

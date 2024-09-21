@@ -130,4 +130,16 @@ public class IndexServiceImpl implements IndexService {
 
         return "TelaAdmin";
     }
+
+    @Override
+    public String filter(Model model, Principal principal, Authentication authentication) {
+        if (authentication != null && authentication.isAuthenticated()) {
+            Usuario user = userUtils.getUserByLogin(authentication.getName());
+
+            userUtils.setModelIfAuthenticationExists(authentication, model);
+            model.addAttribute("LivosDaRegiao", bookService.trocaDeLivroPorRegiao(model, authentication));
+            model.addAttribute("todosOsLivros", bookService.listarTodasTrocas(authentication));
+        }
+        return "Filter";
+    }
 }

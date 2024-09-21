@@ -33,7 +33,7 @@ public interface BookService {
 
     void apagarLivroPorId(String id);
 
-    String trocaDeLivroPorRegiao(Model model, Authentication authentication);
+    List<Livro> trocaDeLivroPorRegiao(Model model, Authentication authentication);
 
     Livro getRandomLivro(Authentication authentication);
 
@@ -47,7 +47,7 @@ public interface BookService {
 
     List<Livro> listarLivrosPorRegiao(String userCidade, EstadoBrasil userEstado);
 
-    String listarTodasTrocas(Model model);
+    List<Livro> listarTodasTrocas(Authentication authentication);
 
     String apagarLivroPorIdAdmin(String id);
 }

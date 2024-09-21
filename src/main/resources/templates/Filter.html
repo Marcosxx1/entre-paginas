@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre Paginas</title>
+    <link rel="icon" th:href="@{/static/image/Favicon.png}" type="image/x-icon">
+
+    <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+
+    <link rel="stylesheet" th:href="@{/static/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/IndexStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/PostStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/PerfilStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/FilterStyle.css}" />
+    <script th:src="@{/static/js/HeaderScript.js}"></script>
+    <script th:src="@{/static/js/ModalScript.js}"></script>
+    <script th:src="@{/static/js/SearchScript.js}"></script>
+    <script th:src="@{/static/js/CarouselScript.js}"></script>
+
+</head>
+
+<body>
+
+    <div th:replace="~{fragments/header/header :: header}"></div>
+
+    <div class="perfil">
+        <div class="perfil-principal">
+            <div
+                th:replace="~{${#authorization.expression('isAuthenticated()') ? 'fragments/sidebar/sidebar-loggedin' : 'fragments/sidebar/sidebar-loggedout'}}">
+            </div>
+        </div>
+        <div class="perfil-right">
+            <div class="container-filter">
+                <div class="form-checkbox">
+                    <input class="checkbox" checked type="checkbox" id="privado" name="privado" th:value="${privado}" />
+                    <label for="privado" th:text="${user.cidade} + ',' + ${user.estadoBrasil}"></label>
+                </div>
+                <div class="filter">
+                    <div id="livrosDaRegiao">
+                        <div th:each="livros : ${LivosDaRegiao}" class="livro-card">
+                            <ul class="livro-info">
+                                <li class="livro-imagem">
+                                    <img th:src="@{${livros.imagens[0].url}}" alt="Imagem do Livro" />
+                                </li>
+                                <li class="livro-nome" th:text="${livros.nome}"></li>
+                                <div class="livro-grid">
+                                    <li class="livro-localizacao"
+                                        th:text="${livros.cidade} + ',' + ${livros.estadoBrasil}">
+                                    </li>
+                                    <li class="livro-estado" th:text="${livros.estado}"></li>
+                                    <li class="livro-tipo" th:text="${#strings.replace(livros.tipo, '_', ' ')}"></li>
+                                    <li class="livro-categoria"
+                                        th:text="${#strings.replace(livros.categoria, '_', ' ')}">
+                                    </li>
+                                </div>
+                                <li class="livro-usuario">
+                                    <a th:href="@{ /perfilVisitante/{userName}(userName=${livros.usuario.login})}"
+                                        th:text="${livros.usuario.nome}"></a>
+                                </li>
+                            </ul>
+
+                            <button class="form-submit-button-post" type="submit">
+                                <a th:href="@{/book/trade/{id}(id=${livros.id})}" class="submit-button">
+                                    Ver Livro
+                                </a>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="todosOsLivros">
+                        <div th:each="livros : ${todosOsLivros}" class="livro-card">
+                            <ul class="livro-info">
+                                <li class="livro-imagem">
+                                    <img th:src="@{${livros.imagens[0].url}}" alt="Imagem do Livro" />
+                                </li>
+                                <li class="livro-nome" th:text="${livros.nome}"></li>
+                                <div class="livro-grid">
+                                    <li class="livro-localizacao"
+                                        th:text="${livros.cidade} + ',' + ${livros.estadoBrasil}">
+                                    </li>
+                                    <li class="livro-estado" th:text="${livros.estado}"></li>
+                                    <li class="livro-tipo" th:text="${#strings.replace(livros.tipo, '_', ' ')}"></li>
+                                    <li class="livro-categoria"
+                                        th:text="${#strings.replace(livros.categoria, '_', ' ')}">
+                                    </li>
+                                </div>
+                                <li class="livro-usuario">
+                                    <a th:href="@{ /perfilVisitante/{userName}(userName=${livros.usuario.login})}"
+                                        th:text="${livros.usuario.nome}"></a>
+                                </li>
+                            </ul>
+                            <button class="form-submit-button-post" type="submit">
+                                <a th:href="@{/book/trade/{id}(id=${livros.id})}" class="submit-button">
+                                    Ver Livro
+                                </a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // Função para atualizar a visibilidade das divs baseado na checkbox
+            function updateVisibility() {
+                if ($('#privado').is(':checked')) {
+                    $('#livrosDaRegiao').show();
+                    $('#todosOsLivros').hide();
+                } else {
+                    $('#livrosDaRegiao').hide();
+                    $('#todosOsLivros').show();
+                }
+            }
+
+            // Atualiza a visibilidade na inicialização da página
+            updateVisibility();
+
+            // Detecta mudanças na checkbox
+            $('#privado').change(function () {
+                updateVisibility();
+            });
+        });
+    </script>
+
+</body>
+
+</html>

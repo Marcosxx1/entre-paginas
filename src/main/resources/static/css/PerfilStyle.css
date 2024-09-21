@@ -20,9 +20,10 @@
 }
 
 .perfil-principal__div {
-    width: 100% !important;
-    height: 30% !important;
+    width: 90% !important;
+    height: 21% !important;
     display: flex;
+    margin: auto;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;

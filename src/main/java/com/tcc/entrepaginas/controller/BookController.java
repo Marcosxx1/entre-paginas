@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/book")
@@ -61,10 +63,11 @@ public class BookController {
         return bookService.bookExchange(model, idUsuario, authentication);
     }
 
-    @GetMapping("/axchanges-all-regions")
-    public String tradeBookAllRegions(Model model, Authentication authentication) {
-        return bookService.trocaDeLivroPorRegiao(model, authentication);
-    }
+    // @GetMapping("/exchanges-all-regions")
+    // public String tradeBookAllRegions(Model model, Authentication authentication)
+    // {
+    // return bookService.trocaDeLivroPorRegiao(model, authentication);
+    // }
 
     @GetMapping("/prepare-edit/{id}")
     public String editBook(Model model, @PathVariable("id") String idLivro, Authentication authentication) {
@@ -102,18 +105,19 @@ public class BookController {
         return bookService.prepareTradeBookPage(model, idTroca, authentication, principal);
     }
 
-    @GetMapping("/all-exchanges")
-    public String viewAllExchanges(Model model, Authentication authentication) {
-        log.info(
-                "BookController - GET on /all-exchanges; called by user: {}",
-                authentication != null ? authentication.getName() : "Anonymous");
+    // @GetMapping("/all-exchanges")
+    // public String viewAllExchanges(Model model, Authentication authentication) {
+    // log.info(
+    // "BookController - GET on /all-exchanges; called by user: {}",
+    // authentication != null ? authentication.getName() : "Anonymous");
 
-        return bookService.listarTodasTrocas(model);
-    }
+    // return bookService.listarTodasTrocas(model);
+    // }
 
     @GetMapping("/delete/{id}")
     public String deleteBook(@PathVariable String id) {
         log.info("BookController - GET on /delete/{}; called to delete user with id: ", id);
         return bookService.apagarLivroPorIdAdmin(id);
     }
+
 }
