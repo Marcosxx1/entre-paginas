@@ -491,8 +491,17 @@
     margin: 20px 0 0 5%;
 }
 
-.form-group {
+.form-group  {
     margin-bottom: 15px;
+}
+
+.email-input{
+    width: 213%;
+     margin-bottom: 16px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    color: var(--black);
+    outline: none;
 }
 
 .delete {
@@ -578,6 +587,7 @@
 .email {
     color: var(--vermelho);
 }
+
 
 .phone {
     color: rgb(174, 85, 212);

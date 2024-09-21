@@ -49,9 +49,7 @@
                 </button>
             </form>
 
-            <form th:action="@{/user/edit/{id}(id=${user.id})}" th:object="${updateUserNameLoginAndEmailRequest}"
-                method="post" class="form-container">
-
+            <form th:action="@{/user/edit/{id}(id=${user.id})}" th:object="${updateUserNameLoginAndEmailRequest}" method="post" class="form-container">
                 <h3>Informações</h3>
 
                 <div class="form-content">
@@ -62,7 +60,7 @@
                             <span class="form-error" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group email-input">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" id="email" name="email" th:field="*{email}" class="form-input" />
                             <span class="form-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
@@ -76,31 +74,25 @@
                             <span class="form-error" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="estadoBrasil">Estados do Brasil:</label>
-                        <select class="form-input" id="estadoBrasil" name="estadoBrasil" required>
-                            <option value="" disabled selected hidden>Selecione um estado</option>
-                            <option th:each="estadoBrasil : ${estadosBrasil}" th:value="${estadoBrasil}"
-                                th:text="${estadoBrasil}">
-                            </option>
-                        </select>
-                    </div>
+                </div>
 
-                    <label class="form-label" for="cidade">Cidade</label>
-                    <select class="form-input" id="cidade" name="cidade" required>
-                        <option value="" disabled selected hidden>Escolha um estado para ver as cidades.</option>
+                <div class="form-group">
+                    <label for="estadoBrasil">Estados do Brasil:</label>
+                    <select class="form-input" id="estadoBrasil" name="estadoBrasil" required>
+                        <option value="" disabled selected hidden>Selecione um estado</option>
+                        <option th:each="estadoBrasil : ${estadosBrasil}" th:value="${estadoBrasil}" th:text="${estadoBrasil}"></option>
                     </select>
                 </div>
+
+                <label class="form-label" for="cidade">Cidade</label>
+                <select class="form-input" id="cidade" name="cidade" required>
+                    <option value="" disabled selected hidden>Escolha um estado para ver as cidades.</option>
+                </select>
+
                 <button class="form-submit-button-post" type="submit">
-                    <span class="submit-button">
-                        Enviar
-                    </span>
+                    <span class="submit-button">Enviar</span>
                 </button>
             </form>
-
-            <!--
-                Aqui vamos fazer uma rota para cada:
-        -->
             <form th:action="@{/user/edit-password/{id}(id=${user.id})}" th:object="${user}" method="post"
                 class="form-container">
 
