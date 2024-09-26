@@ -10,13 +10,11 @@ import com.tcc.entrepaginas.service.comments.CommentsServiceNew;
 import com.tcc.entrepaginas.service.community.CommunityServiceNew;
 import com.tcc.entrepaginas.service.enums.EnumListingService;
 import com.tcc.entrepaginas.service.post.PostServiceNew;
-import com.tcc.entrepaginas.service.reaction.ReactionServiceNew;
 import com.tcc.entrepaginas.service.user.UserService;
 import com.tcc.entrepaginas.utils.user.UserUtils;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;

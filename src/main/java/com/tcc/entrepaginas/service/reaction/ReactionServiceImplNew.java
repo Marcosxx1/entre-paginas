@@ -30,7 +30,8 @@ public class ReactionServiceImplNew implements ReactionServiceNew {
 
         Post post = postServiceNew.buscarPost(idPost);
 
-        Optional<Reaction> existingReaction = usuarioJaVotou(idPost, post.getUsuario().getId());
+        Optional<Reaction> existingReaction =
+                usuarioJaVotou(idPost, post.getUsuario().getId());
 
         if (existingReaction.isPresent()) {
             reactionRepository.delete(existingReaction.get());

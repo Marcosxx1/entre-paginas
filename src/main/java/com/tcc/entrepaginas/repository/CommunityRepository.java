@@ -1,9 +1,6 @@
 package com.tcc.entrepaginas.repository;
 
 import com.tcc.entrepaginas.domain.entity.Community;
-import com.tcc.entrepaginas.domain.entity.Membros;
-import com.tcc.entrepaginas.domain.entity.Usuario;
-
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -31,6 +28,6 @@ public interface CommunityRepository extends JpaRepository<Community, String> {
 
     @Modifying
     @Query("DELETE FROM Membros m WHERE m.community.id = :communityId AND m.id = :memberId")
-    void deleteMembroByCommunityIdAndMemberId(@Param("communityId") String communityId, @Param("memberId") String memberId);
-
+    void deleteMembroByCommunityIdAndMemberId(
+            @Param("communityId") String communityId, @Param("memberId") String memberId);
 }

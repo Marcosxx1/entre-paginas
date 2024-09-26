@@ -1,8 +1,7 @@
 package com.tcc.entrepaginas.service.rolecomunity;
 
-import java.util.List;
-
 import com.tcc.entrepaginas.domain.entity.RoleCommunity;
+import java.util.List;
 
 public interface RoleCommunityService {
 

@@ -3,7 +3,6 @@ package com.tcc.entrepaginas.service.member;
 import com.tcc.entrepaginas.domain.dto.MembersFromCommunityResponse;
 import com.tcc.entrepaginas.domain.entity.Membros;
 import com.tcc.entrepaginas.domain.entity.RoleCommunity;
-
 import java.util.List;
 import org.springframework.security.core.Authentication;
 

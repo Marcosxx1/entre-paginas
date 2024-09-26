@@ -4,7 +4,6 @@ import com.tcc.entrepaginas.domain.dto.MembersFromCommunityResponse;
 import com.tcc.entrepaginas.domain.entity.RoleCommunity;
 import com.tcc.entrepaginas.service.member.MemberService;
 import com.tcc.entrepaginas.service.rolecomunity.RoleCommunityService;
-
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -45,8 +44,7 @@ public class MemberController {
     @PostMapping("/update-member-authorities")
     @ResponseBody
     public void updateMemberAuthorities(
-            @RequestParam("memberId") String memberId,
-            @RequestParam("newComunnityRole") String newComunnityRole) {
+            @RequestParam("memberId") String memberId, @RequestParam("newComunnityRole") String newComunnityRole) {
 
         log.debug("Request parameters - memberId: {}, newComunnityRole: {}", memberId, newComunnityRole);
 

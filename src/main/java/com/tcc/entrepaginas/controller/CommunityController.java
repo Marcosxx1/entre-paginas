@@ -9,7 +9,6 @@ import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,12 +50,14 @@ public class CommunityController {
             @PathVariable("id") String idUsuario,
             @Valid NovaComunidadeRequest novaComunidadeRequest,
             BindingResult result,
-            Model model) {
+            Model model,
+            @RequestParam("image") MultipartFile image,
+            HttpServletRequest request) {
         log.info(
                 "CommunityController - POST on /create/save/{id}; /create/save/{} called with NovaComunidadeRequest: {}",
                 idUsuario,
                 novaComunidadeRequest);
-        return communityService.salvarComunidade(model, result, novaComunidadeRequest, idUsuario);
+        return communityService.salvarComunidade(model, result, novaComunidadeRequest, idUsuario, image, request);
     }
 
     @GetMapping("/mycommunities/{id}")
@@ -121,7 +122,10 @@ public class CommunityController {
     public String deleteUserAdmin(@PathVariable String communityId, @PathVariable String memberId) {
         log.info(
                 "CommunityController - GET on /delete/{}/{}; called to delete member with id: {} from community with id: {}",
-                communityId, memberId, memberId, communityId);
+                communityId,
+                memberId,
+                memberId,
+                communityId);
         return communityService.deleteMemberFromCommunity(communityId, memberId);
     }
 }

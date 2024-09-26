@@ -1,7 +1,5 @@
 package com.tcc.entrepaginas.domain.dto;
 
-import com.tcc.entrepaginas.domain.enums.EstadoBrasil;
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

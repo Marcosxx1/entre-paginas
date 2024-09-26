@@ -1,19 +1,5 @@
 package com.tcc.entrepaginas.service.community;
 
-import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.data.domain.Sort;
-import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.tcc.entrepaginas.domain.dto.NovaComunidadeRequest;
 import com.tcc.entrepaginas.domain.dto.SearchBarResponse;
 import com.tcc.entrepaginas.domain.dto.UpdateCommunityRequest;
@@ -31,11 +17,22 @@ import com.tcc.entrepaginas.service.user.UserService;
 import com.tcc.entrepaginas.utils.PostUtils;
 import com.tcc.entrepaginas.utils.community.CommunityUtils;
 import com.tcc.entrepaginas.utils.user.UserUtils;
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -100,8 +97,8 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
     public List<Community> buscarComunidades(String query) {
         return communityRepository
                 .findByTitleContainingIgnoreCase(query)
-                .orElseThrow(() -> new CommunityNotFoundException("Community Not Found",
-                        "No communities with query: " + query));
+                .orElseThrow(() ->
+                        new CommunityNotFoundException("Community Not Found", "No communities with query: " + query));
     }
 
     @Override
@@ -137,8 +134,7 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
     }
 
     @Override
-    public String changeCommunityIcon(
-            String idComunidade, MultipartFile icone, HttpServletRequest request) {
+    public String changeCommunityIcon(String idComunidade, MultipartFile icone, HttpServletRequest request) {
 
         Community community = pegarCommunity(idComunidade);
         community.setIcone(communityUtils.createIconUrl(icone, request));
@@ -184,8 +180,7 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
 
     @Override
     @Transactional
-    public String updateCommunity(
-            String id, UpdateCommunityRequest updateCommunityRequest, BindingResult result) {
+    public String updateCommunity(String id, UpdateCommunityRequest updateCommunityRequest, BindingResult result) {
         Community community = pegarCommunity(id);
 
         var communityToUpdate = communityMapper.fromUpdateRequestToCommunity(community, updateCommunityRequest);
@@ -200,7 +195,6 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
 
         var comunidade = pegarCommunity(id);
 
-
         UpdateCommunityRequest updateCommunityRequest = UpdateCommunityRequest.builder()
                 .title(comunidade.getTitle())
                 .content(comunidade.getContent())
@@ -210,7 +204,7 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
         model.addAttribute("listPost", postUtils.listPostsByCommunity(id));
         model.addAttribute("community", pegarCommunity(id));
         model.addAttribute("updateCommunityRequest", updateCommunityRequest);
-        
+
         Map<String, Integer> reaction = new HashMap<>();
         for (Post post : comunidade.getPost()) {
             reaction.put(post.getId(), reactionRepository.countByReacao(post.getId(), "like"));
@@ -249,7 +243,12 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
     @Override
     @Transactional
     public String salvarComunidade(
-            Model model, BindingResult result, NovaComunidadeRequest novaComunidadeRequest, String idUsuario) {
+            Model model,
+            BindingResult result,
+            NovaComunidadeRequest novaComunidadeRequest,
+            String idUsuario,
+            MultipartFile image,
+            HttpServletRequest request) {
 
         if (result.hasErrors()) {
             model.addAttribute("novaComunidadeRequest", novaComunidadeRequest);
@@ -263,6 +262,7 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
                 userUtils.getUserById(idUsuario), roleCommunityService.findCommunityByUserRole("ADMIN"), community);
 
         community.setMembros(membersToSave);
+        community.setIcone(communityUtils.createIconUrl(image, request));
 
         communityRepository.save(community);
 

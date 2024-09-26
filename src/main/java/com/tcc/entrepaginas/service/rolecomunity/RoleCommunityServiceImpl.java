@@ -1,13 +1,10 @@
 package com.tcc.entrepaginas.service.rolecomunity;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import com.tcc.entrepaginas.domain.entity.RoleCommunity;
 import com.tcc.entrepaginas.repository.RoleCommunityRepository;
-
+import java.util.List;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
