@@ -4,39 +4,41 @@
 
 .troca-images {
     width: 70%;
-    margin-right: 5%;
     margin-top: 20px;
 }
 
 .troca-info {
-    width: 100%;
+    width: 80%;
     padding: 2%;
-    margin: 2.7% auto 0 auto;
+    margin: 2% 0;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     gap: 10px;
-    background-color: var(--white);
+    background-color: var(--azul-logo);
     border-radius: 10px;
     align-items: center;
 }
 
 .troca-title-div {
     grid-column: span 2;
+    color: var(--white);
 }
 
 .image-container {
-    width: 100%;
+    width: 84%;
     display: flex;
     padding: 2%;
     margin-right: 20px;
     border-radius: 10px;
-    background-color: var(--white);
+    background-color: var(--azul-claro);
+    box-sizing: border-box;
+    
 }
 
 .troca-image {
-    min-width: 80%;
-    height: 500px;
+    min-width: 79%;
+    height: 350px;
     border-radius: 10px;
     object-fit: cover;
 }
@@ -73,7 +75,8 @@
     text-align: justify;
     font-size: 12px;
     margin: 0 0 10px 0;
-    color: var(--azul-logo);
+    color: var(--black);
+    font-weight: 600;
 }
 
 .troca-title {
@@ -84,7 +87,8 @@
 .troca-info-item {
     margin: 0 0 10px 4px;
     font-size: 12px;
-    color: var(--azul-logo);
+    color: var(--black);
+    font-weight: 600;
 }
 
 .user-email,

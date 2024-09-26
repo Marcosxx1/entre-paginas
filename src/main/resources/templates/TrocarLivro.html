@@ -67,17 +67,17 @@
                             </option>
                         </select>
 
+                        <label class="form-label" for="cidade">Cidade</label>
+                        <select class="form-input" id="cidade" name="cidade" required>
+                            <option value="" disabled selected hidden>Escolha um estado para ver as cidades.</option>
+                        </select>
+
                         <label class="form-label" for="categoria">Categoria:</label>
                         <select class="form-input" id="categoria" name="categoria" required>
                             <option value="" disabled selected hidden>Selecione uma categoria</option>
                             <option th:each="categoria : ${categorias}" th:value="${categoria}"
                                 th:text="${#strings.replace(categoria, '_', ' ')}">
                             </option>
-                        </select>
-
-                        <label class="form-label" for="cidade">Cidade</label>
-                        <select class="form-input" id="cidade" name="cidade" required>
-                            <option value="" disabled selected hidden>Escolha um estado para ver as cidades.</option>
                         </select>
 
                         <label class="form-label" for="imagens">Imagens:</label>

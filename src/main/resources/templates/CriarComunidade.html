@@ -27,8 +27,10 @@
         <div class="perfil-right">
             <div>
                 <form th:action="@{/community/create/save/{id}(id=${idUsuario})}" th:object="${community}" method='post'
-                    id="community-form" class="form-container">
+                    id="community-form" class="form-container" enctype="multipart/form-data">
                     <h3>Formulário da Comunidade</h3>
+                    
+                    <input type="file" id="imagem" name="imagem" accept="image/*,.gif" class="form-imagem-input" />
 
                     <div class="form-content">
                         <div class="form-left">

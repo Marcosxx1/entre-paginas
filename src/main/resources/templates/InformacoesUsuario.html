@@ -49,7 +49,8 @@
                 </button>
             </form>
 
-            <form th:action="@{/user/edit/{id}(id=${user.id})}" th:object="${updateUserNameLoginAndEmailRequest}" method="post" class="form-container">
+            <form th:action="@{/user/edit/{id}(id=${user.id})}" th:object="${updateUserNameLoginAndEmailRequest}"
+                method="post" class="form-container">
                 <h3>Informações</h3>
 
                 <div class="form-content">
@@ -79,8 +80,8 @@
                 <div class="form-group">
                     <label for="estadoBrasil">Estados do Brasil:</label>
                     <select class="form-input" id="estadoBrasil" name="estadoBrasil" required>
-                        <option value="" disabled selected hidden>Selecione um estado</option>
-                        <option th:each="estadoBrasil : ${estadosBrasil}" th:value="${estadoBrasil}" th:text="${estadoBrasil}"></option>
+                        <option th:each="estadoBrasil : ${estadosBrasil}" th:value="${estadoBrasil}"
+                            th:text="${estadoBrasil}"></option>
                     </select>
                 </div>
 
