@@ -53,16 +53,15 @@
                                     <img th:src="@{${livros.imagens[0].url}}" alt="Imagem do Livro" />
                                 </li>
                                 <li class="livro-nome" th:text="${livros.nome}"></li>
-                                <div class="livro-grid">
+                                <div class="livro-info-grid">
                                     <li class="livro-localizacao"
-                                        th:text="${livros.cidade} + ',' + ${livros.estadoBrasil}">
-                                    </li>
+                                        th:text="${livros.cidade} + ',' + ${livros.estadoBrasil}"></li>
                                     <li class="livro-estado" th:text="${livros.estado}"></li>
                                     <li class="livro-tipo" th:text="${#strings.replace(livros.tipo, '_', ' ')}"></li>
                                     <li class="livro-categoria"
-                                        th:text="${#strings.replace(livros.categoria, '_', ' ')}">
-                                    </li>
+                                        th:text="${#strings.replace(livros.categoria, '_', ' ')}"></li>
                                 </div>
+
                                 <li class="livro-usuario">
                                     <a th:href="@{ /perfilVisitante/{userName}(userName=${livros.usuario.login})}"
                                         th:text="${livros.usuario.nome}"></a>
@@ -70,7 +69,7 @@
                             </ul>
 
                             <button class="form-submit-button-post" type="submit">
-                                <a th:href="@{/book/trade/{id}(id=${livros.id})}" class="submit-button">
+                                <a th:href="@{/book/trade/{id}(id=${livros.id})}" class="submit-button livro-button">
                                     Ver Livro
                                 </a>
                             </button>
@@ -84,7 +83,7 @@
                                     <img th:src="@{${livros.imagens[0].url}}" alt="Imagem do Livro" />
                                 </li>
                                 <li class="livro-nome" th:text="${livros.nome}"></li>
-                                <div class="livro-grid">
+                                <div class="livro-info-grid">
                                     <li class="livro-localizacao"
                                         th:text="${livros.cidade} + ',' + ${livros.estadoBrasil}">
                                     </li>

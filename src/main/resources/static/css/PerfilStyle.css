@@ -194,7 +194,7 @@
     padding: 8px;
     margin-bottom: 16px;
     box-sizing: border-box;
-    border: 2px solid var(--header-background);
+    border: 2px solid var(--azul-claro);
     border-radius: 3px;
     color: var(--black);
     outline: none;

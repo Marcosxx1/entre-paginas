@@ -12,7 +12,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    padding: 20px;
+    padding: 2%;
 }
 
 .livro-card {
@@ -21,13 +21,14 @@
     border-radius: 8px;
     padding: 15px;
     margin: 10px;
-    width: 300px;
-    height: 270px;
+    width: 100%;
+    /* Ajuste da largura do cartão para horizontal */
+    height: 10%;
+    /* Altura ajustada para formato horizontal */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    overflow: auto;
+    align-items: center;
+    transition: transform 0.3s ease;
 }
 
 .livro-card:hover {
@@ -35,30 +36,45 @@
 }
 
 .livro-info {
+    width: 70%;
     list-style: none;
     padding: 0;
+    margin-left: 15px;
+    /* Espaço entre imagem e informações */
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 
-.livro-info li {
-    margin-bottom: 8px;
+.livro-imagem {
+    flex-shrink: 0;
+}
+
+.livro-imagem img {
+    width: 40px;
+    /* Tamanho maior da imagem */
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ddd;
 }
 
 .livro-nome {
-    font-size: 0.9em;
+    font-size: 1.1em;
     font-weight: bold;
     color: #333;
+    white-space: nowrap;       /* Impede o texto de quebrar em várias linhas */
+    overflow: hidden;          /* Oculta o texto que ultrapassa o limite */
+    text-overflow: ellipsis;   /* Adiciona os "..." quando o texto for muito longo */
+    max-width: 200px;          /* Ajuste o tamanho máximo conforme necessário */
 }
 
-.livro-localizacao {
-    font-size: 12px;
-    color: #777;
-}
-
+.livro-localizacao,
 .livro-estado,
 .livro-tipo,
 .livro-categoria {
-    font-size: 12px;
-    color: #555;
+    font-size: 0.9em;
+    color: #777;
 }
 
 .livro-usuario a {
@@ -73,65 +89,32 @@
 }
 
 .livro-button-container {
-    text-align: center;
-    margin-top: 15px;
+    margin-left: auto;
+    /* Botão alinhado à direita */
 }
 
 .livro-button {
     background-color: var(--azul-logo);
-    color: white;
-    padding: 10px 15px;
-    text-decoration: none;
+    color: #fff;
+    padding: 10px 20px;
     border-radius: 5px;
-    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
     transition: background-color 0.3s ease;
 }
 
-.livro-button:hover {
-    color: var(--black);
-    background-color: #74d1f049;
-}
-
-.livro-imagem img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 5px;
-}
-
-.livro-grid li.livro-localizacao,
-.livro-grid li.livro-estado,
-.livro-grid li.livro-tipo,
-.livro-grid li.livro-categoria {
-    margin: 3% auto 0 auto;
-    max-height: 20px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.livro-grid {
+.livro-info-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    grid-template-columns: 1fr 1fr; /* Duas colunas de tamanho igual */
+    gap: 10px; /* Espaço entre os itens */
+    margin-top: 10px; /* Espaço entre a grid e o conteúdo acima */
 }
 
-.livro-grid li {
-    margin-bottom: 10px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+.livro-info-grid li {
+    font-size: 0.9em;
+    color: #555;
 }
 
-.livro-grid li:nth-child(1),
-.livro-grid li:nth-child(2) {
-    grid-column: 1;
-}
-
-.livro-grid li:nth-child(3),
-.livro-grid li:nth-child(4),
-.livro-grid li:nth-child(5) {
-    grid-column: 2;
+.livro-info-grid li:nth-child(even) {
+    text-align: right; /* Itens pares alinhados à direita */
 }
