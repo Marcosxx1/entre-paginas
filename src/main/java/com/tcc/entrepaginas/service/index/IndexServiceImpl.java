@@ -51,6 +51,8 @@ public class IndexServiceImpl implements IndexService {
         model.addAttribute("listPost", postServiceNew.listarPost(Sort.by(Sort.Direction.DESC, "date")));
         model.addAttribute("comunidades", communityServiceNew.listarRandomCommunities(4, principal));
         model.addAttribute("comments", commentsServiceNew.listarComments(Sort.by(Sort.Direction.ASC, "id")));
+        model.addAttribute("isAuthenticated", authentication != null && authentication.isAuthenticated());
+
         Map<String, Integer> reaction = new HashMap<>();
 
         for (Community comunidade : communityServiceNew.listarCommunities(Sort.by(Sort.Direction.ASC, "id"))) {
