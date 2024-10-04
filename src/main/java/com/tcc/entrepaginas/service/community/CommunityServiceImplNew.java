@@ -26,6 +26,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
@@ -206,10 +208,10 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
         model.addAttribute("listPost", postUtils.listPostsByCommunity(id));
         model.addAttribute("community", pegarCommunity(id));
         model.addAttribute("updateCommunityRequest", updateCommunityRequest);
-        boolean isMember = isUserMember(userUtils.getIdUserFromUserDetail(authentication), id);
-        model.addAttribute("isMember", isMember);
+        var isMember = isUserMember(userUtils.getIdUserFromUserDetail(authentication), id);
+        model.addAttribute("isMember", isMember.isPresent());
+        model.addAttribute("membro", isMember.get());
 
-        
         Map<String, Integer> reaction = new HashMap<>();
         for (Post post : comunidade.getPost()) {
             reaction.put(post.getId(), reactionRepository.countByReacao(post.getId(), "like"));
@@ -220,9 +222,8 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
         return "/Comunidade";
     }
 
-    public boolean isUserMember(String userId, String communityId) {
-
-        return memberRepository.findByCommunityAndUsuario(userId, communityId).isPresent();
+    public Optional<Membros> isUserMember(String userId, String communityId) {
+        return memberRepository.findByCommunityAndUsuario(userId, communityId);
     }
 
     @Override
