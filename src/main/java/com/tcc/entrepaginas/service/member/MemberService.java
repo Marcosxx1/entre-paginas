@@ -5,6 +5,7 @@ import com.tcc.entrepaginas.domain.entity.Membros;
 import com.tcc.entrepaginas.domain.entity.RoleCommunity;
 import java.util.List;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 public interface MemberService {
 
@@ -16,7 +17,7 @@ public interface MemberService {
 
     String updateMemberAuthorities(String memberId, String newComunnityRole);
 
-    void addMemberToCommunity(String communityId, String userId);
+    void addMemberToCommunity(String communityId, String userId, RedirectAttributes redirectAttributes);
 
     public List<RoleCommunity> getAllRoles();
 }

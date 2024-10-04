@@ -52,11 +52,21 @@
                     </div>
 
                     <div class="community-infos-perfil">
-                        <form th:action="@{/members/addMember}" method="post">
+                        <form th:action="@{/members/addMember}" method="post" th:if="${!isMember}">
                             <input type="hidden" th:value="${user.id}" name="userId" />
                             <input type="hidden" th:value="${community.id}" name="communityId" />
                             <button type="submit" class="entrar">Entrar na Comunidade</button>
                         </form>
+
+                        <form th:action="@{/members/quitCommunity}" method="post" th:if="${!isMember}">
+                            <input type="hidden" th:value="${user.id}" name="userId" />
+                            <input type="hidden" th:value="${community.id}" name="communityId" />
+                            <button type="submit" class="entrar">Sair</button>
+                        </form>
+
+                        <div th:if="${message}" class="alert alert-success" id="successMessage">
+                            <p th:text="${message}"></p>
+                        </div>
 
                         <p th:text="${#dates.format(community.date, 'dd/MM/yyyy')}"></p>
                         <!-- <div>
@@ -320,6 +330,18 @@
             });
 
         </script>
+
+        <script>
+            window.onload = function () {
+                var messageDiv = document.getElementById("successMessage");
+                if (messageDiv) {
+                    setTimeout(function () {
+                        messageDiv.style.display = 'none';
+                    }, 20000);
+                }
+            };
+        </script>
+
 
 
         <script>

@@ -17,6 +17,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Service
 @AllArgsConstructor
@@ -76,7 +77,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void addMemberToCommunity(String communityId, String userId) {
+    public void addMemberToCommunity(String communityId, String userId, RedirectAttributes redirectAttributes) {
 
         if (!membrosRepository.findByCommunityAndUsuario(userId, communityId).isPresent()) {
             Usuario user = userUtils.getUserById(userId);
@@ -91,6 +92,8 @@ public class MemberServiceImpl implements MemberService {
                     .build();
 
             membrosRepository.save(membros);
+
+            redirectAttributes.addFlashAttribute("message", "Você entrou com sucesso!");
         }
     }
 

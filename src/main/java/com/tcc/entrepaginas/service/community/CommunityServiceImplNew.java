@@ -11,6 +11,7 @@ import com.tcc.entrepaginas.exceptions.CommunityNotFoundException;
 import com.tcc.entrepaginas.mapper.community.CommunityMapper;
 import com.tcc.entrepaginas.mapper.member.MemberMapper;
 import com.tcc.entrepaginas.repository.CommunityRepository;
+import com.tcc.entrepaginas.repository.MembrosRepository;
 import com.tcc.entrepaginas.repository.ReactionRepository;
 import com.tcc.entrepaginas.service.rolecomunity.RoleCommunityService;
 import com.tcc.entrepaginas.service.user.UserService;
@@ -43,6 +44,7 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
     private final CommunityRepository communityRepository;
     private final ReactionRepository reactionRepository;
     private final CommunityMapper communityMapper;
+    private final MembrosRepository memberRepository;
     private final CommunityUtils communityUtils;
     private final PostUtils postUtils;
     private final UserService userService;
@@ -97,8 +99,8 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
     public List<Community> buscarComunidades(String query) {
         return communityRepository
                 .findByTitleContainingIgnoreCase(query)
-                .orElseThrow(() ->
-                        new CommunityNotFoundException("Community Not Found", "No communities with query: " + query));
+                .orElseThrow(() -> new CommunityNotFoundException("Community Not Found",
+                        "No communities with query: " + query));
     }
 
     @Override
@@ -204,7 +206,10 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
         model.addAttribute("listPost", postUtils.listPostsByCommunity(id));
         model.addAttribute("community", pegarCommunity(id));
         model.addAttribute("updateCommunityRequest", updateCommunityRequest);
+        boolean isMember = isUserMember(userUtils.getIdUserFromUserDetail(authentication), id);
+        model.addAttribute("isMember", isMember);
 
+        
         Map<String, Integer> reaction = new HashMap<>();
         for (Post post : comunidade.getPost()) {
             reaction.put(post.getId(), reactionRepository.countByReacao(post.getId(), "like"));
@@ -213,6 +218,11 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
         model.addAttribute("qtdReaction", reaction);
 
         return "/Comunidade";
+    }
+
+    public boolean isUserMember(String userId, String communityId) {
+
+        return memberRepository.findByCommunityAndUsuario(userId, communityId).isPresent();
     }
 
     @Override
