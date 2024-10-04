@@ -4,11 +4,13 @@ import com.tcc.entrepaginas.domain.dto.NovoUsuarioRequest;
 import com.tcc.entrepaginas.domain.dto.UpdateUserNameLoginAndEmailRequest;
 import com.tcc.entrepaginas.domain.dto.UserListResponse;
 import com.tcc.entrepaginas.domain.entity.*;
+import com.tcc.entrepaginas.domain.enums.EstadoBrasil;
 import com.tcc.entrepaginas.domain.registration.RegistrationCompleteEvent;
 import com.tcc.entrepaginas.domain.registration.VerificationToken;
 import com.tcc.entrepaginas.exceptions.ResourceNotFound;
 import com.tcc.entrepaginas.mapper.user.UserMapper;
 import com.tcc.entrepaginas.repository.UsuarioRepository;
+import com.tcc.entrepaginas.service.enums.EnumListingService;
 import com.tcc.entrepaginas.service.verificationtoken.VerificationTokenService;
 import com.tcc.entrepaginas.utils.imageupload.ImageUtils;
 import com.tcc.entrepaginas.utils.registration.UrlUtils;
@@ -47,6 +49,7 @@ public class UserServiceImpl implements UserService {
     private final UserUtils userUtils;
     private final ApplicationEventPublisher publisher;
     private final VerificationTokenService tokenService;
+    private final EnumListingService enumListingService;
 
     private static final Path ROOT = Paths.get("uploads");
 
@@ -62,6 +65,8 @@ public class UserServiceImpl implements UserService {
         }
         model.addAttribute("usuario", new Usuario());
         model.addAttribute("novoUsuarioRequest", new NovoUsuarioRequest());
+        model.addAttribute("estadosBrasil", enumListingService.listarTodosEstadosBrasil());
+
         return "CadastrarUsuario";
     }
 
@@ -80,6 +85,8 @@ public class UserServiceImpl implements UserService {
         }
 
         Usuario usuario = userMapper.toUsuario(novoUsuarioRequest, passwordEncoder);
+        usuario.setCidade(novoUsuarioRequest.getCidade());
+        usuario.setEstadoBrasil(EstadoBrasil.valueOf(novoUsuarioRequest.getEstadoBrasil()));
         usuarioRepository.save(usuario);
 
         publisher.publishEvent(new RegistrationCompleteEvent(usuario, UrlUtils.getApplicationUrl(request)));

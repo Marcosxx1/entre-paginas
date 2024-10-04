@@ -34,4 +34,8 @@ public class NovoUsuarioRequest {
     @NotBlank(message = "Confirmação de senha é obrigatória")
     @Size(min = 8, message = "Confirmação de senha deve ter pelo menos 8 caracteres")
     private String confirmarSenha;
+
+    private String estadoBrasil;
+
+    private String cidade;
 }
