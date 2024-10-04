@@ -210,7 +210,10 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
         model.addAttribute("updateCommunityRequest", updateCommunityRequest);
         var isMember = isUserMember(userUtils.getIdUserFromUserDetail(authentication), id);
         model.addAttribute("isMember", isMember.isPresent());
-        model.addAttribute("membro", isMember.get());
+
+        if (isMember.isPresent()) {
+            model.addAttribute("membro", isMember.get());
+        }
 
         Map<String, Integer> reaction = new HashMap<>();
         for (Post post : comunidade.getPost()) {

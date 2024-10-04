@@ -68,9 +68,9 @@
                     <span class="novo-comentario"><i class="fa-regular fa-comment-dots"></i> comentários</span>
                     <span class="up">
                         <div>
-                            <button class="likeBtn"><i class="fa-solid fa-caret-up"
-                                    style="color: #85c1f1;"></i></button>
-                            <p class="likesCount"  th:text="${qtdReaction.get(post.id) != null ? qtdReaction.get(post.id) : 0}"></p>
+                            <button class="likeBtn"><i class="fa-solid fa-heart" style="color: #85c1f1;"></i></button>
+                            <p class="likesCount"
+                                th:text="${qtdReaction.get(post.id) != null ? qtdReaction.get(post.id) : 0}"></p>
                             <input type="hidden" th:value="${post.id}">
                         </div>
                     </span>

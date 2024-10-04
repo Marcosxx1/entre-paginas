@@ -39,7 +39,7 @@
 
 .perfil-principal__div-image {
     width: 50% !important;
-    height: 50% !important;
+    height: 70% !important;
     background-color: var(--gray);
     display: flex;
     border-radius: 50%;

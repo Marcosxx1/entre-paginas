@@ -57,7 +57,6 @@
                             <input type="hidden" th:value="${community.id}" name="communityId" />
                             <button type="submit" class="entrar">Entrar na Comunidade</button>
                         </form>
-                        <p th:text="${membro.id}"></p>
 
                         <form
                             th:action="@{/community/admin/delete/{communityId}/{memberId}(communityId=${community.id}, memberId=${membro.id})}"
@@ -338,12 +337,10 @@
                 if (messageDiv) {
                     setTimeout(function () {
                         messageDiv.style.display = 'none';
-                    }, 20000);
+                    }, 5000);
                 }
             };
         </script>
-
-
 
         <script>
             document.addEventListener("DOMContentLoaded", function () {
