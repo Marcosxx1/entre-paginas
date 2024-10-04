@@ -52,11 +52,15 @@
                     </div>
 
                     <div class="community-infos-perfil">
-                        <form th:action="@{/members/addMember}" method="post" th:if="${!isMember}">
+                        <form th:action="@{/members/addMember}" method="post" th:if="${!isMember} and ${user != null}">
                             <input type="hidden" th:value="${user.id}" name="userId" />
                             <input type="hidden" th:value="${community.id}" name="communityId" />
                             <button type="submit" class="entrar">Entrar na Comunidade</button>
                         </form>
+
+                         <div th:if="${user == null}">
+                            <p>Você deve logar para entrar na comunidade <a href="/login">Login</a></p>
+                        </div>
 
                         <form
                             th:action="@{/community/admin/delete/{communityId}/{memberId}(communityId=${community.id}, memberId=${membro.id})}"

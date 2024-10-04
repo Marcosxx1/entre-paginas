@@ -196,26 +196,29 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
 
     @Override
     public String prepareCommunityAndListOfPosts(String id, Model model, Authentication authentication) {
-
         var comunidade = pegarCommunity(id);
-
         UpdateCommunityRequest updateCommunityRequest = UpdateCommunityRequest.builder()
                 .title(comunidade.getTitle())
                 .content(comunidade.getContent())
                 .build();
 
-        model = userUtils.setModelIfAuthenticationExists(authentication, model);
+         model = userUtils.setModelIfAuthenticationExists(authentication, model);
         model.addAttribute("listPost", postUtils.listPostsByCommunity(id));
-        model.addAttribute("community", pegarCommunity(id));
+        model.addAttribute("community", comunidade);
         model.addAttribute("updateCommunityRequest", updateCommunityRequest);
-        var isMember = isUserMember(userUtils.getIdUserFromUserDetail(authentication), id);
-        model.addAttribute("isMember", isMember.isPresent());
 
-        if (isMember.isPresent()) {
-            model.addAttribute("membro", isMember.get());
+         boolean isMember = false;
+        if (authentication != null && authentication.isAuthenticated()) {
+             var userId = userUtils.getIdUserFromUserDetail(authentication);
+            isMember = isUserMember(userId, id).isPresent();
+
+            if (isMember) {
+                model.addAttribute("membro", isUserMember(userId, id).get());
+            }
         }
+        model.addAttribute("isMember", isMember);
 
-        Map<String, Integer> reaction = new HashMap<>();
+         Map<String, Integer> reaction = new HashMap<>();
         for (Post post : comunidade.getPost()) {
             reaction.put(post.getId(), reactionRepository.countByReacao(post.getId(), "like"));
         }
