@@ -7,56 +7,61 @@
     <title>Entre Paginas</title>
     <link rel="icon" th:href="@{/static/image/Favicon.png}" type="image/x-icon">
 
-    <link rel="stylesheet" th:href="@{/static/css/style.css}" />
-    <link rel="stylesheet" th:href="@{/static/css/LoginStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/LoginStyle.css}"/>
 
 </head>
 
 <body>
 
-    <div class="login">
+<div class="login">
 
-        <img src="/static/image/logo.png" class='login__logo' alt="Imagem do logo no login" />
+    <img src="/static/image/logo.png" class='login__logo' alt="Imagem do logo no login"/>
 
-        <!-- New code for displaying success messages -->
-        <!-- <div th:if="${param.reset_success}" class="col-sm-8">
-            <p class="alert alert-info alert-dismissible fade show" role="alert">You have successfully reset your
-                password, please log in here.</p>
-        </div>
+    <div th:if="${param.verified}" class="successMessage">
+        <p class="alert">E-mail verificado com sucesso!</p>
+    </div>
 
-        <div th:if="${param.verified}" class="col-sm-8">
-            <p class="alert alert-info alert-dismissible fade show" role="alert">This account has already been verified,
-                please log in here.</p>
-        </div>
+    <div th:if="${param.valid}" class="successMessage">
+        <p class="alert">E-mail verificado com sucesso!</p>
+    </div>
 
-        <div th:if="${param.valid}" class="col-sm-8">
-            <p class="alert alert-info alert-dismissible">Email verified successfully, please log in here.</p>
-        </div> -->
-        <!-- End of new code -->
-
-        <div class='login__form'>
-            <form th:action="@{/login}" method="post">
-                <label htmlFor="login">Login</label>
-                <input type="text" name="username" placeholder='Login' />
-                <label htmlFor="senha">Senha</label>
-                <input type="password" name="password" placeholder='Senha' />
-                <div>
-                    <span th:if="${param.error}">Usuário ou Senha inválido</span>
-                </div>
-                <button class="form-submit-button-post" type="submit">
+    <div class='login__form'>
+        <form th:action="@{/login}" method="post">
+            <label htmlFor="login">Login</label>
+            <input type="text" name="username" placeholder='Login'/>
+            <label htmlFor="senha">Senha</label>
+            <input type="password" name="password" placeholder='Senha'/>
+            <div>
+                <span th:if="${param.error}">Usuário ou Senha inválido</span>
+            </div>
+            <button class="form-submit-button-post" type="submit">
                     <span class="submit-button">
                         Entrar
                     </span>
-                </button>
-            </form>
-        </div>
-        <div class='login__cadastrar'>
-            <p>Ainda não tem conta?</p>
-
-
-            <a th:href="@{/user/register}">Cadastre-se</a>
-        </div>
+            </button>
+        </form>
     </div>
+    <div class='login__cadastrar'>
+        <p>Ainda não tem conta?</p>
+
+
+        <a th:href="@{/user/register}">Cadastre-se</a>
+    </div>
+</div>
+
+<script>
+    window.onload = function () {
+        var messageDiv = document.getElementsByClassName("successMessage")[0];
+        if (messageDiv) {
+            setTimeout(function () {
+                messageDiv.style.display = 'none';
+            }, 5000);
+        }
+    };
+</script>
+
+</script>
 
 </body>
 

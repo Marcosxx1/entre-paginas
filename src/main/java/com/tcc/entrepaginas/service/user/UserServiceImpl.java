@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
 
         publisher.publishEvent(new RegistrationCompleteEvent(usuario, UrlUtils.getApplicationUrl(request)));
 
-        attributes.addFlashAttribute("mensagem", "Cadastro efetuado com sucesso!");
+        attributes.addFlashAttribute("mensagem", "Confirme o e-mail, para prosseguir!");
         return "redirect:/user/register?success";
     }
 
