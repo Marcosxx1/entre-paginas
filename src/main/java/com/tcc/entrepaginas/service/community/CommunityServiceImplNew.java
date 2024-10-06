@@ -202,14 +202,14 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
                 .content(comunidade.getContent())
                 .build();
 
-         model = userUtils.setModelIfAuthenticationExists(authentication, model);
+        model = userUtils.setModelIfAuthenticationExists(authentication, model);
         model.addAttribute("listPost", postUtils.listPostsByCommunity(id));
         model.addAttribute("community", comunidade);
         model.addAttribute("updateCommunityRequest", updateCommunityRequest);
 
-         boolean isMember = false;
+        boolean isMember = false;
         if (authentication != null && authentication.isAuthenticated()) {
-             var userId = userUtils.getIdUserFromUserDetail(authentication);
+            var userId = userUtils.getIdUserFromUserDetail(authentication);
             isMember = isUserMember(userId, id).isPresent();
 
             if (isMember) {
@@ -218,7 +218,7 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
         }
         model.addAttribute("isMember", isMember);
 
-         Map<String, Integer> reaction = new HashMap<>();
+        Map<String, Integer> reaction = new HashMap<>();
         for (Post post : comunidade.getPost()) {
             reaction.put(post.getId(), reactionRepository.countByReacao(post.getId(), "like"));
         }

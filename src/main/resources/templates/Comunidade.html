@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 
 <head>
     <meta charset="UTF-8">
@@ -52,27 +53,36 @@
                     </div>
 
                     <div class="community-infos-perfil">
-                        <form th:action="@{/members/addMember}" method="post" th:if="${!isMember} and ${user != null}">
-                            <input type="hidden" th:value="${user.id}" name="userId" />
-                            <input type="hidden" th:value="${community.id}" name="communityId" />
-                            <button type="submit" class="entrar">Entrar na Comunidade</button>
-                        </form>
-
-                         <div th:if="${user == null}">
-                            <p>Você deve logar para entrar na comunidade <a href="/login">Login</a></p>
-                        </div>
-
-                        <form
-                            th:action="@{/community/admin/delete/{communityId}/{memberId}(communityId=${community.id}, memberId=${membro.id})}"
-                            method="get" th:if="${isMember}">
-                            <button type="submit" class="entrar">Sair</button>
-                        </form>
+                        <p th:text="${#dates.format(community.date, 'dd/MM/yyyy')}"></p>
 
                         <div th:if="${message}" class="alert alert-success" id="successMessage">
                             <p th:text="${message}"></p>
                         </div>
 
-                        <p th:text="${#dates.format(community.date, 'dd/MM/yyyy')}"></p>
+                        <sec:authorize access="isAuthenticated()">
+                            <form th:action="@{/members/addMember}" method="post" th:if="${!isMember}">
+                                <input type="hidden" th:value="${user.id}" name="userId" />
+                                <input type="hidden" th:value="${community.id}" name="communityId" />
+                                <button class="form-submit-button-post" type="submit">
+                                    <span class="submit-button">Entrar na Comunidade</span>
+                                </button>
+                            </form>
+                        </sec:authorize>
+
+                        <sec:authorize access="isAuthenticated()">
+                            <div th:each="membros2 : ${user.membros}">
+                                <form
+                                    th:if="${membros2.community.title == community.title and membros2.roleCommunity.papel != 'ADMIN'}"
+                                    th:action="@{/community/admin/delete/{communityId}/{memberId}(communityId=${community.id}, memberId=${membros2.id})}"
+                                    method="get">
+                                    <button class="form-submit-button-post" type="submit">
+                                        <span class="submit-button">Sair</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </sec:authorize>
+
+
                         <!-- <div>
                             <p th:text="${community.privado == true} ? 'Privada' : ''"></p>
                             <label>
@@ -86,7 +96,12 @@
                 <div class="community-menu">
                     <ul>
                         <li class="li-postagem">Criar Postagem</li>
-                        <li class="li-config">Editar Informações</li>
+                        <div th:each="membros2 : ${user.membros}">
+                            <li th:if="${membros2.community.title == community.title and membros2.roleCommunity.papel == 'ADMIN'}"
+                                class="li-config">Editar Informações</li>
+                            <li th:if="${membros2.community.title == community.title and membros2.roleCommunity.papel != 'ADMIN'}"
+                                class="li-config" style="display: none;"></li>
+                        </div>
                         <li class="li-members">Membros</li>
                         <li class="li-posts">Posts</li>
                         <li class="li-sobre">Sobre</li>
