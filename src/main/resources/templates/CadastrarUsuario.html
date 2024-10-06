@@ -12,167 +12,176 @@
 
     <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" type="text/css"
-          href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+          href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <link rel="stylesheet" th:href="@{/static/css/style.css}" />
-    <link rel="stylesheet" th:href="@{/static/css/RegisterStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/RegisterStyle.css}"/>
 
 </head>
 
 <body>
 
-    <div class="cadastro">
+<div class="cadastro">
 
-        <!-- <div class="row mt-2">
-            <div th:if="${param.success}">
-                Registration successful, check your email
-            </div>
-            <div class="m-4">User registration Form</div>
-        </div> -->
-
-        <div class='cadastro__left'>
-            <img src="/static/image/logo.png" alt="" />
-        </div>
-        <div class='cadastro__right'>
-            <h1>Crie uma nova conta</h1>
-            <div class="cadastro__right-informativo">
-                <p class="cadastro__right-informativo--p">Junte-se à nossa Comunidade Literária</p>
-                <p class="cadastro__right-informativo--p">Cadastre-se hoje e embarque na nossa jornada.</p>
-            </div>
-            <form th:action="@{/user/register/save}" th:object="${novoUsuarioRequest}" method='post'>
-                 <div>
-                    <div class="label-erro">
-                        <label for="nome">Nome:</label>
-                        <div>
-                            <span class="mensagem" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
-                        </div>
-                    </div>
-                    <div class="div-input">
-                        <input type="text" placeholder='Insira seu nome' name='nome' th:field="*{nome}" />
-                    </div>
-                </div>
-
-                 <div>
-                    <div class="label-erro">
-                        <label for="login">Login:</label>
-                        <div>
-                            <span class="mensagem" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span>
-                            <span class="mensagem" th:if="${loginExiste}" th:text="${loginExiste}"></span>
-                        </div>
-                    </div>
-                    <div class="div-input">
-                        <input type="text" placeholder='Insira seu login' name='login' th:field="*{login}" />
-                    </div>
-                </div>
-
-                 <div>
-                    <div class="label-erro">
-                        <label for="email">E-mail:</label>
-                        <div>
-                            <span class="mensagem" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-                            <span class="mensagem" th:if="${emailExiste}" th:text="${emailExiste}"></span>
-                        </div>
-                    </div>
-                    <div class="div-input">
-                        <input type="email" placeholder='Insira seu E-mail' name='email' th:field="*{email}" />
-                    </div>
-                </div>
-
-                 <div>
-                    <div class="label-erro">
-                        <label for="senha">Senha:</label>
-                        <div>
-                            <span class="mensagem" th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></span>
-                        </div>
-                    </div>
-                    <div class="div-input">
-                        <input type="password" placeholder='Insira sua senha' name='senha' th:field="*{senha}" />
-                    </div>
-                </div>
-
-                 <div>
-                    <div class="label-erro">
-                        <label for="confirmarSenha">Confirmar Senha:</label>
-                        <div>
-                            <span class="mensagem" th:if="${#fields.hasErrors('confirmarSenha')}" th:errors="*{confirmarSenha}"></span>
-                            <span class="mensagem" th:if="${senhaErrada}" th:text="${senhaErrada}"></span>
-                        </div>
-                    </div>
-                    <div class="div-input">
-                        <input type="password" placeholder='Insira novamente sua senha' name='confirmarSenha' th:field="*{confirmarSenha}" />
-                    </div>
-                </div>
-
-                <!-- Estado do Brasil -->
-                <div class="label-erro">
-                    <label for="estadoBrasil">Estado do Brasil:</label>
-                    <select class="form-input" id="estadoBrasil" name="estadoBrasil" th:field="*{estadoBrasil}" required>
-                        <option value="" disabled selected hidden>Selecione um estado</option>
-                        <option th:each="estadoBrasil : ${estadosBrasil}" th:value="${estadoBrasil}" th:text="${estadoBrasil}"></option>
-                    </select>
-                </div>
-
-                <!-- Cidade -->
-                <div class="label-erro">
-                    <label for="cidade">Cidade:</label>
-                    <select class="form-input" id="cidade" name="cidade" th:field="*{cidade}" required>
-                        <option value="" disabled selected hidden>Escolha um estado para ver as cidades.</option>
-                     </select>
-                </div>
-
-                 <!--<div>
-                    <div class="label-erro">
-                        <label for="estadoBrasil">Estado do Brasil:</label>
-                        <select class="div-input" id="estadoBrasil" name="estadoBrasil" th:field="*{estadoBrasil}" required>
-                            <option value="" disabled selected hidden>Selecione um estado</option>
-                            <option th:each="estadoBrasil : ${estadosBrasil}" th:value="${estadoBrasil}" th:text="${estadoBrasil}"></option>
-                        </select>
-                    </div>
-                </div>
-
-                 <div>
-                    <div class="label-erro">
-                        <label for="cidade">Cidade:</label>
-                        <select class="div-input" id="cidade" name="cidade" th:field="*{cidade}" required>
-                            <option value="" disabled selected hidden>Escolha um estado para ver as cidades.</option>
-                        </select>
-                    </div>
-                </div>-->
-
-                 <button class="form-submit-button-post" type="submit">
-                    <span class="submit-button">Criar Conta</span>
-                </button>
-
-                <p>Já possui uma conta? <a th:href="@{/login}">Faça login</a></p>
-            </form>
-        </div>
+    <div th:if="${param.success}" class="successMessage">
+        <p class="alert">Registrado com sucesso, olhe o seu e-mail!</p>
     </div>
 
-    <script>
+    <div class='cadastro__left'>
+        <img src="/static/image/logo.png" alt=""/>
+    </div>
+    <div class='cadastro__right'>
+        <h1>Crie uma nova conta</h1>
+        <div class="cadastro__right-informativo">
+            <p class="cadastro__right-informativo--p">Junte-se à nossa Comunidade Literária</p>
+            <p class="cadastro__right-informativo--p">Cadastre-se hoje e embarque na nossa jornada.</p>
+        </div>
+        <form th:action="@{/user/register/save}" th:object="${novoUsuarioRequest}" method='post'>
+            <div>
+                <div class="label-erro">
+                    <label for="nome">Nome:</label>
+                    <div>
+                        <span class="mensagem" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+                    </div>
+                </div>
+                <div class="div-input">
+                    <input type="text" placeholder='Insira seu nome' name='nome' th:field="*{nome}"/>
+                </div>
+            </div>
 
-        $(document).ready(function () {
-            $('#estadoBrasil').change(function () {
-                var estadoSelecionado = $(this).val();
-                $.ajax({
-                    url: 'https://servicodados.ibge.gov.br/api/v1/localidades/estados/' + estadoSelecionado + '/municipios',
-                    type: 'GET',
-                    success: function (data) {
-                        $('#cidade').empty();
-                        $.each(data, function (index, cidade) {
-                            $('#cidade').append('<option value="' + cidade.nome + '">' + cidade.nome + '</option>');
-                        });
-                    },
-                    error: function (error) {
-                        console.log('Erro ao carregar cidades:', error);
-                    }
-                });
+            <div>
+                <div class="label-erro">
+                    <label for="login">Login:</label>
+                    <div>
+                        <span class="mensagem" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span>
+                        <span class="mensagem" th:if="${loginExiste}" th:text="${loginExiste}"></span>
+                    </div>
+                </div>
+                <div class="div-input">
+                    <input type="text" placeholder='Insira seu login' name='login' th:field="*{login}"/>
+                </div>
+            </div>
+
+            <div>
+                <div class="label-erro">
+                    <label for="email">E-mail:</label>
+                    <div>
+                        <span class="mensagem" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                        <span class="mensagem" th:if="${emailExiste}" th:text="${emailExiste}"></span>
+                    </div>
+                </div>
+                <div class="div-input">
+                    <input type="email" placeholder='Insira seu E-mail' name='email' th:field="*{email}"/>
+                </div>
+            </div>
+
+            <div>
+                <div class="label-erro">
+                    <label for="senha">Senha:</label>
+                    <div>
+                        <span class="mensagem" th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></span>
+                    </div>
+                </div>
+                <div class="div-input">
+                    <input type="password" placeholder='Insira sua senha' name='senha' th:field="*{senha}"/>
+                </div>
+            </div>
+
+            <div>
+                <div class="label-erro">
+                    <label for="confirmarSenha">Confirmar Senha:</label>
+                    <div>
+                        <span class="mensagem" th:if="${#fields.hasErrors('confirmarSenha')}"
+                              th:errors="*{confirmarSenha}"></span>
+                        <span class="mensagem" th:if="${senhaErrada}" th:text="${senhaErrada}"></span>
+                    </div>
+                </div>
+                <div class="div-input">
+                    <input type="password" placeholder='Insira novamente sua senha' name='confirmarSenha'
+                           th:field="*{confirmarSenha}"/>
+                </div>
+            </div>
+
+            <!-- Estado do Brasil -->
+            <div class="label-erro">
+                <label for="estadoBrasil">Estado do Brasil:</label>
+                <select class="form-input" id="estadoBrasil" name="estadoBrasil" th:field="*{estadoBrasil}" required>
+                    <option value="" disabled selected hidden>Selecione um estado</option>
+                    <option th:each="estadoBrasil : ${estadosBrasil}" th:value="${estadoBrasil}"
+                            th:text="${estadoBrasil}"></option>
+                </select>
+            </div>
+
+            <!-- Cidade -->
+            <div class="label-erro">
+                <label for="cidade">Cidade:</label>
+                <select class="form-input" id="cidade" name="cidade" th:field="*{cidade}" required>
+                    <option value="" disabled selected hidden>Escolha um estado para ver as cidades.</option>
+                </select>
+            </div>
+
+            <!--<div>
+               <div class="label-erro">
+                   <label for="estadoBrasil">Estado do Brasil:</label>
+                   <select class="div-input" id="estadoBrasil" name="estadoBrasil" th:field="*{estadoBrasil}" required>
+                       <option value="" disabled selected hidden>Selecione um estado</option>
+                       <option th:each="estadoBrasil : ${estadosBrasil}" th:value="${estadoBrasil}" th:text="${estadoBrasil}"></option>
+                   </select>
+               </div>
+           </div>
+
+            <div>
+               <div class="label-erro">
+                   <label for="cidade">Cidade:</label>
+                   <select class="div-input" id="cidade" name="cidade" th:field="*{cidade}" required>
+                       <option value="" disabled selected hidden>Escolha um estado para ver as cidades.</option>
+                   </select>
+               </div>
+           </div>-->
+
+            <button class="form-submit-button-post" type="submit">
+                <span class="submit-button">Criar Conta</span>
+            </button>
+
+            <p>Já possui uma conta? <a th:href="@{/login}">Faça login</a></p>
+        </form>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $('#estadoBrasil').change(function () {
+            var estadoSelecionado = $(this).val();
+            $.ajax({
+                url: 'https://servicodados.ibge.gov.br/api/v1/localidades/estados/' + estadoSelecionado + '/municipios',
+                type: 'GET',
+                success: function (data) {
+                    $('#cidade').empty();
+                    $.each(data, function (index, cidade) {
+                        $('#cidade').append('<option value="' + cidade.nome + '">' + cidade.nome + '</option>');
+                    });
+                },
+                error: function (error) {
+                    console.log('Erro ao carregar cidades:', error);
+                }
             });
-
         });
-    </script>
 
+    });
+</script>
+<script>
+    window.onload = function () {
+        var messageDiv = document.getElementsByClassName("successMessage")[0];
+        if (messageDiv) {
+            setTimeout(function () {
+                messageDiv.style.display = 'none';
+            }, 5000);
+        }
+    };
+</script>
 </body>
 
 </html>
