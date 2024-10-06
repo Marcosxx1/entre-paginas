@@ -104,23 +104,28 @@
                 </div>
             </div>
 
-            <!-- Estado do Brasil -->
-            <div class="label-erro">
-                <label for="estadoBrasil">Estado do Brasil:</label>
-                <select class="form-input" id="estadoBrasil" name="estadoBrasil" th:field="*{estadoBrasil}" required>
-                    <option value="" disabled selected hidden>Selecione um estado</option>
-                    <option th:each="estadoBrasil : ${estadosBrasil}" th:value="${estadoBrasil}"
-                            th:text="${estadoBrasil}"></option>
-                </select>
+            <div class="form-row">
+                <!-- Estado do Brasil -->
+                <div class="label-erro label-bob">
+                    <label for="estadoBrasil">Estado do Brasil:</label>
+                    <select class="form-input" id="estadoBrasil" name="estadoBrasil" th:field="*{estadoBrasil}"
+                            required>
+                        <option value="" disabled selected hidden>Selecione um estado</option>
+                        <option th:each="estadoBrasil : ${estadosBrasil}" th:value="${estadoBrasil}"
+                                th:text="${estadoBrasil}">
+                        </option>
+                    </select>
+                </div>
+
+                <!-- Cidade -->
+                <div class="label-erro label-bob">
+                    <label for="cidade">Cidade:</label>
+                    <select class="form-input" id="cidade" name="cidade" th:field="*{cidade}" required>
+                        <option value="" disabled selected hidden>Escolha um estado para ver as cidades.</option>
+                    </select>
+                </div>
             </div>
 
-            <!-- Cidade -->
-            <div class="label-erro">
-                <label for="cidade">Cidade:</label>
-                <select class="form-input" id="cidade" name="cidade" th:field="*{cidade}" required>
-                    <option value="" disabled selected hidden>Escolha um estado para ver as cidades.</option>
-                </select>
-            </div>
 
             <!--<div>
                <div class="label-erro">
