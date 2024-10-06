@@ -11,6 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
+import java.util.ArrayList;
+
 @Slf4j
 @Component
 @AllArgsConstructor
@@ -35,7 +37,14 @@ public class UserUtils {
             return model.addAttribute("user", getUserById(getIdUserFromUserDetail(authentication)));
         }
 
-        return model;
+        Usuario user = new Usuario();
+
+        if (user.getMembros() == null) {
+            user.setMembros(new ArrayList<>());
+            user.setId(null);
+        }
+
+        return model.addAttribute("user", user);
     }
 
     public Model setUserInAttributesIfAuthenticated(Model model, Authentication authentication, String username) {
