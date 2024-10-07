@@ -12,202 +12,211 @@
 
     <script>
         (function (t, a, l, k, j, s) {
-            s = a.createElement('script'); s.async = 1; s.src = 'https://cdn.talkjs.com/talk.js'; a.head.appendChild(s)
-                ; k = t.Promise; t.Talk = {
-                    v: 3, ready: {
-                        then: function (f) {
-                            if (k) return new k(function (r, e) { l.push([f, r, e]) }); l
-                                .push([f])
-                        }, catch: function () { return k && new k() }, c: l
-                    }
-                };
+            s = a.createElement('script');
+            s.async = 1;
+            s.src = 'https://cdn.talkjs.com/talk.js';
+            a.head.appendChild(s);
+            k = t.Promise;
+            t.Talk = {
+                v: 3, ready: {
+                    then: function (f) {
+                        if (k) return new k(function (r, e) {
+                            l.push([f, r, e])
+                        });
+                        l
+                            .push([f])
+                    }, catch: function () {
+                        return k && new k()
+                    }, c: l
+                }
+            };
         })(window, document, []);
     </script>
 
-    <link rel="stylesheet" th:href="@{/static/css/style.css}" />
-    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
-    <link rel="stylesheet" th:href="@{/static/css/ExchangeStyle.css}" />
-    <link rel="stylesheet" th:href="@{/static/css/PerfilStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/ExchangeStyle.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/PerfilStyle.css}"/>
 
     <script th:src="@{/static/js/HeaderScript.js}"></script>
     <script th:src="@{/static/js/SearchScript.js}"></script>
 </head>
 
 <body>
-    <div th:replace="~{fragments/header/header :: header}"></div>
+<div th:replace="~{fragments/header/header :: header}"></div>
 
-    <div class="perfil">
-        <div class="perfil-principal">
-            <div
+<div class="perfil">
+    <div class="perfil-principal">
+        <div
                 th:replace="~{${#authorization.expression('isAuthenticated()') ? 'fragments/sidebar/sidebar-loggedin' : 'fragments/sidebar/sidebar-loggedout'}}">
-            </div>
         </div>
-        <div class="perfil-right">
-            <div class="container">
-                <div class="troca-details">
-                    <div class="troca-images">
-                        <div class="image-container">
-                            <img id="mainImage" th:src="${troca.imagens[0].url}" alt="" class="troca-image">
+    </div>
+    <div class="perfil-right">
+        <div class="container">
+            <div class="troca-details">
+                <div class="troca-images">
+                    <div class="image-container">
+                        <img id="mainImage" th:src="${troca.imagens[0].url}" alt="" class="troca-image">
 
-                            <div class="imagens-troca">
-                                <img onclick="changeMainImage(this.src, this)"
-                                    th:each="imagem, status : ${troca.imagens}" class="imagens" th:src="${imagem.nome}"
-                                    alt="" th:class="${status.index == 0} ? 'imagens selected-image' : 'imagens'">
+                        <div class="imagens-troca">
+                            <img onclick="changeMainImage(this.src, this)"
+                                 th:each="imagem, status : ${troca.imagens}" class="imagens" th:src="${imagem.nome}"
+                                 alt="" th:class="${status.index == 0} ? 'imagens selected-image' : 'imagens'">
+                        </div>
+                    </div>
+                    <div class="troca-info">
+                        <div class="troca-title-div">
+                            <p th:text="${troca.nome}" class="troca-title"></p>
+                            <div class="rest-info">
+                                <span style="width: 141,4px; margin-right: 4px;">Descrição do livro:</span>
+                                <p th:text="${troca.descricao}" class="troca-description"></p>
                             </div>
                         </div>
-                        <div class="troca-info">
-                            <div class="troca-title-div">
-                                <p th:text="${troca.nome}" class="troca-title"></p>
-                                <div class="rest-info">
-                                    <span style="width: 141,4px; margin-right: 4px;">Descrição do livro:</span>
-                                    <p th:text="${troca.descricao}" class="troca-description"></p>
-                                </div>
-                            </div>
 
-                            <div>
-                                <div class="rest-info">
-                                    <span>Categoria:</span>
-                                    <p th:text="${#strings.replace(troca.categoria, '_', ' ')}" class="troca-info-item">
-                                    </p>
-                                </div>
-                                <div class="rest-info">
-                                    <span>Região:</span>
-                                    <p th:text="${troca.cidade} + ' - ' +  ${troca.estadoBrasil}"
-                                        class="troca-info-item">
-                                    </p>
-                                </div>
+                        <div>
+                            <div class="rest-info">
+                                <span>Categoria:</span>
+                                <p th:text="${#strings.replace(troca.categoria, '_', ' ')}" class="troca-info-item">
+                                </p>
                             </div>
+                            <div class="rest-info">
+                                <span>Região:</span>
+                                <p th:text="${troca.cidade} + ' - ' +  ${troca.estadoBrasil}"
+                                   class="troca-info-item">
+                                </p>
+                            </div>
+                        </div>
 
-                            <div>
-                                <div class="rest-info">
-                                    <span>Estado:</span>
-                                    <p th:text="${#strings.replace(troca.estado, '_', ' ')}" class="troca-info-item">
-                                    </p>
-                                </div>
-                                <div class="rest-info">
-                                    <span>Tipo:</span>
-                                    <p th:text="${#strings.replace(troca.tipo, '_', ' ')}" class="troca-info-item"></p>
-                                </div>
+                        <div>
+                            <div class="rest-info">
+                                <span>Estado:</span>
+                                <p th:text="${#strings.replace(troca.estado, '_', ' ')}" class="troca-info-item">
+                                </p>
+                            </div>
+                            <div class="rest-info">
+                                <span>Tipo:</span>
+                                <p th:text="${#strings.replace(troca.tipo, '_', ' ')}" class="troca-info-item"></p>
                             </div>
                         </div>
                     </div>
-                    <div class="troca-user">
-                        <a href="#">
-                            <div class="user-info">
-                                <img th:src="${troca.usuario.imagem == null ? '/static/image/semImagem.png' : troca.usuario.imagem}"
-                                    alt="" class="user-image">
-                                <div>
-                                    <h4 th:text="${troca.usuario.login}" class="user-login"></h4>
-                                    <p th:text="${troca.usuario.email}" class="user-email"></p>
-                                </div>
+                </div>
+                <div class="troca-user">
+                    <a href="#">
+                        <div class="user-info">
+                            <img th:src="${troca.usuario.imagem == null ? '/static/image/semImagem.png' : troca.usuario.imagem}"
+                                 alt="" class="user-image">
+                            <div>
+                                <h4 th:text="${troca.usuario.login}" class="user-login"></h4>
+                                <p th:text="${troca.usuario.email}" class="user-email"></p>
                             </div>
-                        </a>
-                        <div class="troca-carousel">
-                            <div th:if="${books.size() > 0}" th:each="book : ${books}">
-                                <a th:href="@{/book/trade/{id}(id=${book.id})}">
-                                    <div class="book">
-                                        <img th:src="${book.imagens[0].url}" alt="icone da livro">
+                        </div>
+                    </a>
+                    <div class="troca-carousel">
+                        <div th:if="${books.size() > 0}" th:each="book : ${books}">
+                            <a th:href="@{/book/trade/{id}(id=${book.id})}">
+                                <div class="book">
+                                    <img th:src="${book.imagens[0].url}" alt="icone da livro">
+                                    <div>
+                                        <h5 th:text="${book.nome}"></h5>
                                         <div>
-                                            <h5 th:text="${book.nome}"></h5>
-                                            <div>
-                                                <p th:text="${book.cidade}"></p>
-                                                <p>-</p>
-                                                <p th:text="${book.estadoBrasil}"></p>
-                                            </div>
+                                            <p th:text="${book.cidade}"></p>
+                                            <p>-</p>
+                                            <p th:text="${book.estadoBrasil}"></p>
                                         </div>
                                     </div>
-                                </a>
-                            </div>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
-                <div style="display: none;" th:if="${#authorization.expression('isAuthenticated()')}">
-                    <input type="hidden" id="userDonoId" th:value="${troca.usuario.id}" />
-                    <input type="hidden" id="userDonoNome" th:value="${troca.usuario.login}" />
-                    <input type="hidden" id="userDonoImage"
-                        th:value="${troca.usuario.imagem == null ? '/static/image/semImagem.png' : troca.usuario.imagem}" />
+            </div>
+            <div style="display: none;" th:if="${#authorization.expression('isAuthenticated()')}">
+                <input type="hidden" id="userDonoId" th:value="${troca.usuario.id}"/>
+                <input type="hidden" id="userDonoNome" th:value="${troca.usuario.login}"/>
+                <input type="hidden" id="userDonoImage"
+                       th:value="${troca.usuario.imagem == null ? '/static/image/semImagem.png' : troca.usuario.imagem}"/>
 
-                    <input type="hidden" id="userId" th:value="${user.id}" />
-                    <input type="hidden" id="userName" th:value="${user.nome}" />
-                    <input type="hidden" id="userImage"
-                        th:value="${user.imagem == null ? '/static/image/semImagem.png' : user.imagem}" />
-                </div>
+                <input type="hidden" id="userId" th:value="${user.id}"/>
+                <input type="hidden" id="userName" th:value="${user.nome}"/>
+                <input type="hidden" id="userImage"
+                       th:value="${user.imagem == null ? '/static/image/semImagem.png' : user.imagem}"/>
             </div>
         </div>
     </div>
+</div>
 
-    <div id="talkjs-container"></div>
+<div id="talkjs-container"></div>
 
-    <script>
-        function changeMainImage(newSrc, clickedImage) {
-            document.getElementById('mainImage').src = newSrc;
+<script>
+    function changeMainImage(newSrc, clickedImage) {
+        document.getElementById('mainImage').src = newSrc;
 
-            // Remove a classe 'selected-image' de todas as imagens
-            let images = document.querySelectorAll('.imagens');
-            images.forEach(img => {
-                img.classList.remove('selected-image');
-            });
-
-            // Adiciona a classe 'selected-image' à imagem clicada
-            clickedImage.classList.add('selected-image');
-        }
-    </script>
-
-    <script th:if="${#authorization.expression('isAuthenticated()')}">
-        function startChat(user1Id, user1Name, user1image, user2Id, user2Name, user2Image) {
-            Talk.ready.then(function () {
-                var me = new Talk.User({
-                    id: user2Id,
-                    name: user2Name,
-                    photoUrl: user2Image,
-                });
-
-                var other = new Talk.User({
-                    id: user1Id,
-                    name: user1Name,
-                    photoUrl: user1image,
-                });
-
-                console.log(me);
-                console.log(other);
-
-                var session = new Talk.Session({
-                    appId: 'takLxssJ',
-                    me: me
-                });
-
-                var conversation = session.getOrCreateConversation(Talk.oneOnOneId(me, other));
-
-                conversation.setParticipant(me);
-                conversation.setParticipant(other);
-                const popup = session.createPopup();
-                popup.select(conversation);
-                popup.mount({ show: false });
-
-                const button = document.getElementById('btn-getInTouch');
-                button.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    popup.show();
-                });
-
-                var inbox = session.createInbox();
-                inbox.select(conversation);
-                inbox.mount(document.getElementById("talkjs-container"));
-            });
-        }
-
-        $(document).ready(function () {
-            var userDonoId = $('#userDonoId').val();
-            var userDonoNome = $('#userDonoNome').val();
-            var userDonoImage = $('#userDonoImage').val();
-
-            var userId = $('#userId').val();
-            var userName = $('#userName').val();
-            var userImage = $('#userImage').val();
-
-            startChat(userDonoId, userDonoNome, userDonoImage, userId, userName, userImage);
+         let images = document.querySelectorAll('.imagens');
+        images.forEach(img => {
+            img.classList.remove('selected-image');
         });
-    </script>
+
+         clickedImage.classList.add('selected-image');
+    }
+</script>
+
+<script th:if="${#authorization.expression('isAuthenticated()')}">
+    function startChat(user1Id, user1Name, user1image, user2Id, user2Name, user2Image) {
+        Talk.ready.then(function () {
+            const me = new Talk.User({
+                id: user2Id,
+                name: user2Name,
+                photoUrl: user2Image,
+                role: "default"
+            });
+
+            const other = new Talk.User({
+                id: user1Id,
+                name: user1Name,
+                photoUrl: user1image,
+                role: "default"
+            });
+
+            console.log(me);
+            console.log(other);
+
+            const session = new Talk.Session({
+                appId: 'tU6KX4gP',
+                me: me,
+            });
+
+            var conversation = session.getOrCreateConversation(Talk.oneOnOneId(me, other));
+
+            conversation.setParticipant(me);
+            conversation.setParticipant(other);
+            const popup = session.createPopup();
+            popup.select(conversation);
+            popup.mount({show: false});
+
+            const button = document.getElementById('btn-getInTouch');
+            button.addEventListener('click', (event) => {
+                event.preventDefault();
+                popup.show();
+            });
+
+            var inbox = session.createInbox();
+            inbox.select(conversation);
+            inbox.mount(document.getElementById("talkjs-container"));
+        });
+    }
+
+    $(document).ready(function () {
+        var userDonoId = $('#userDonoId').val();
+        var userDonoNome = $('#userDonoNome').val();
+        var userDonoImage = $('#userDonoImage').val();
+
+        var userId = $('#userId').val();
+        var userName = $('#userName').val();
+        var userImage = $('#userImage').val();
+
+        startChat(userDonoId, userDonoNome, userDonoImage, userId, userName, userImage);
+    });
+</script>
 
 </body>
 
