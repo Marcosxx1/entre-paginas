@@ -1,12 +1,16 @@
 package com.tcc.entrepaginas.domain.entity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ExemploMap {
     public static void main(String[] args) {
         // Cria um HashMap para armazenar o nome como chave e a idade como valor
         Map<String, Integer> pessoas = new HashMap<>();
+        //Map<String, Integer> pessoas = new HashMap<>(); change this to a list
+        List<String> pessoas2 = new ArrayList<>();
 
         // Adiciona alguns pares chave-valor ao mapa
         pessoas.put("Alice", 30);
