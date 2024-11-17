@@ -41,17 +41,16 @@ public class UserMapper {
     }
 
     public UpdateUserNameLoginAndEmailRequest toUpdateUserNameLoginAndEmailRequest(Authentication authentication) {
+
+        Usuario usuario = userUtils.getUserById(userUtils.getIdUserFromUserDetail(authentication));
+
         return UpdateUserNameLoginAndEmailRequest.builder()
                 .id(userUtils.getIdUserFromUserDetail(authentication))
-                .nome(userUtils
-                        .getUserById(userUtils.getIdUserFromUserDetail(authentication))
-                        .getNome())
-                .email(userUtils
-                        .getUserById(userUtils.getIdUserFromUserDetail(authentication))
-                        .getEmail())
-                .login(userUtils
-                        .getUserById(userUtils.getIdUserFromUserDetail(authentication))
-                        .getLogin())
+                .nome(usuario.getNome())
+                .email(usuario.getEmail())
+                .login(usuario.getLogin())
+                .estadoBrasil(usuario.getEstadoBrasil().name())
+                .cidade(usuario.getCidade())
                 .build();
     }
 }

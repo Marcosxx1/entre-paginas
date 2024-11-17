@@ -101,7 +101,7 @@
                     </div>
                 </div>
                 <div class="troca-user">
-                    <a href="#">
+                    <a th:href="@{/perfilVisitante/{userName}(userName=${troca.usuario.login})}">
                         <div class="user-info">
                             <img th:src="${troca.usuario.imagem == null ? '/static/image/semImagem.png' : troca.usuario.imagem}"
                                  alt="" class="user-image">

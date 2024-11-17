@@ -10,9 +10,11 @@ import com.tcc.entrepaginas.domain.entity.Usuario;
 import com.tcc.entrepaginas.exceptions.CommunityNotFoundException;
 import com.tcc.entrepaginas.mapper.community.CommunityMapper;
 import com.tcc.entrepaginas.mapper.member.MemberMapper;
+import com.tcc.entrepaginas.repository.CommentsRepository;
 import com.tcc.entrepaginas.repository.CommunityRepository;
 import com.tcc.entrepaginas.repository.MembrosRepository;
 import com.tcc.entrepaginas.repository.ReactionRepository;
+import com.tcc.entrepaginas.service.comments.CommentsServiceNew;
 import com.tcc.entrepaginas.service.rolecomunity.RoleCommunityService;
 import com.tcc.entrepaginas.service.user.UserService;
 import com.tcc.entrepaginas.utils.PostUtils;
@@ -44,6 +46,7 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
 
     private final RoleCommunityService roleCommunityService;
     private final CommunityRepository communityRepository;
+    private final CommentsRepository commentsRepository;
     private final ReactionRepository reactionRepository;
     private final CommunityMapper communityMapper;
     private final MembrosRepository memberRepository;
@@ -206,6 +209,8 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
         model.addAttribute("listPost", postUtils.listPostsByCommunity(id));
         model.addAttribute("community", comunidade);
         model.addAttribute("updateCommunityRequest", updateCommunityRequest);
+        model.addAttribute("isAuthenticated", authentication != null && authentication.isAuthenticated());
+        model.addAttribute("comments", commentsRepository.findAll(Sort.by(Sort.Direction.ASC, "id")));
 
         boolean isMember = false;
         if (authentication != null && authentication.isAuthenticated()) {

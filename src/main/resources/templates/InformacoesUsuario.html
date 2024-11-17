@@ -80,8 +80,11 @@
                 <div class="form-group">
                     <label for="estadoBrasil">Estados do Brasil:</label>
                     <select class="form-input" id="estadoBrasil" name="estadoBrasil" required>
-                        <option th:each="estadoBrasil : ${estadosBrasil}" th:value="${estadoBrasil}"
-                            th:text="${estadoBrasil}"></option>
+                        <option th:each="estadoBrasil : ${estadosBrasil}"
+                                th:value="${estadoBrasil}"
+                                th:text="${estadoBrasil}"
+                                th:selected="${estadoBrasil == updateUserNameLoginAndEmailRequest.estadoBrasil}">
+                        </option>
                     </select>
                 </div>
 
@@ -94,7 +97,7 @@
                     <span class="submit-button">Enviar</span>
                 </button>
             </form>
-            <form th:action="@{/user/edit-password/{id}(id=${user.id})}" th:object="${user}" method="post"
+            <form th:action="@{/infos}" th:object="${user}"
                 class="form-container">
 
                 <h3>Trocar senha</h3>
@@ -121,17 +124,6 @@
                     </span>
                 </button>
             </form>
-
-            <form th:action="@{/user/delete/{id}(id=${user.id})}" method="get" class="form-container">
-
-                <button class="button-delete">
-                    <span class="delete-button">
-                        Deletar Comunidade
-                    </span>
-                </button>
-            </form>
-
-
         </div>
     </div>
 
@@ -156,6 +148,11 @@
                 });
             });
 
+        // Load cities if a estadoBrasil is already selected
+            var selectedEstadoBrasil = $('#estadoBrasil').val();
+            if (selectedEstadoBrasil) {
+                $('#estadoBrasil').trigger('change');
+            }
         });
     </script>
 </body>
