@@ -1,0 +1,120 @@
+.container-filter {
+    margin: 2%;
+}
+
+.filter {
+    background-color: var(--azul-logo);
+    border-radius: 5px;
+}
+
+#livrosDaRegiao,
+#todosOsLivros {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 2%;
+}
+
+.livro-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px;
+    width: 100%;
+    /* Ajuste da largura do cartão para horizontal */
+    height: 10%;
+    /* Altura ajustada para formato horizontal */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.livro-card:hover {
+    transform: scale(1.05);
+}
+
+.livro-info {
+    width: 70%;
+    list-style: none;
+    padding: 0;
+    margin-left: 15px;
+    /* Espaço entre imagem e informações */
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.livro-imagem {
+    flex-shrink: 0;
+}
+
+.livro-imagem img {
+    width: 40px;
+    /* Tamanho maior da imagem */
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+}
+
+.livro-nome {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #333;
+    white-space: nowrap;       /* Impede o texto de quebrar em várias linhas */
+    overflow: hidden;          /* Oculta o texto que ultrapassa o limite */
+    text-overflow: ellipsis;   /* Adiciona os "..." quando o texto for muito longo */
+    max-width: 200px;          /* Ajuste o tamanho máximo conforme necessário */
+}
+
+.livro-localizacao,
+.livro-estado,
+.livro-tipo,
+.livro-categoria {
+    font-size: 0.9em;
+    color: #777;
+}
+
+.livro-usuario a {
+    font-size: 1em;
+    color: var(--header-background);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.livro-usuario a:hover {
+    color: var(--azul-logo);
+}
+
+.livro-button-container {
+    margin-left: auto;
+    /* Botão alinhado à direita */
+}
+
+.livro-button {
+    background-color: var(--azul-logo);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.livro-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Duas colunas de tamanho igual */
+    gap: 10px; /* Espaço entre os itens */
+    margin-top: 10px; /* Espaço entre a grid e o conteúdo acima */
+}
+
+.livro-info-grid li {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.livro-info-grid li:nth-child(even) {
+    text-align: right; /* Itens pares alinhados à direita */
+}

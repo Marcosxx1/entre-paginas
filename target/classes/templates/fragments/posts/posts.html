@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre Paginas</title>
+    <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+
+    <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/4Zd6Tk9CXn4aD5GtsX5EwO/u1T1m1fWPt3IMsJ"
+            crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<div th:fragment="post" class="container-post">
+    <div th:each="post : ${listPost}" class="div-post">
+        <div class="post" data-id="${post.id}">
+            <span th:text="${post.id}" id="idPost" style="display: none;"></span>
+            <div class="post-header">
+                <div class="usuario">
+                    <a href="">
+                        <img class="icone" th:if="${post.usuario != null && post.usuario.imagem == null}"
+                             src="/static/image/semImagem.png" alt="Icone do usuario">
+                        <img class="icone" th:if="${post.usuario != null && post.usuario.imagem != null}"
+                             th:src="${post.usuario.imagem}" alt="Icone do usuario">
+                    </a>
+
+                    <div class="infos-post">
+                        <a th:href="@{/perfilVisitante/{userName}(userName=${post.usuario.login})}">
+                            <p class="usuario-nome"
+                               th:text="${post.usuario != null ? post.usuario.nome : 'Unknown User'}"></p>
+                        </a>
+
+                        <div class="post-infos">
+                            <p>Enviou em:</p>
+                            <a th:href="@{'/community/' + ${post.community.id}}" class="community">
+                                <p th:text="${post.community.title}"></p>
+                            </a>
+                            <p class="post-date">-</p>
+                            <p class="post-date" th:text="${#dates.format(post.date, 'dd/MM/yyyy HH:mm')}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <span id="border2"></span>
+
+            <div class="post-content">
+                <p class="title" th:text="${post.title}"></p>
+                <p class="content" th:text="${post.content}"></p>
+                <div th:block th:if="${post.image != null}">
+                    <img class="content-img" th:src="${post.image.url}" alt="Imagem do post">
+                </div>
+            </div>
+
+            <span id="border"></span>
+
+            <div class="post-footer" th:attr="data-authenticated=${isAuthenticated}" th:if="${user.id != null}">
+                <span class="novo-comentario"><i class="fa-regular fa-comment-dots"></i> comentários</span>
+                <span class="up">
+                        <div>
+                            <button class="likeBtn"><i class="fa-solid fa-heart" style="color: #85c1f1;"></i></button>
+                            <p class="likesCount"
+                               th:text="${qtdReaction.get(post.id) != null ? qtdReaction.get(post.id) : 0}"></p>
+                            <input type="hidden" th:value="${post.id}">
+                        </div>
+                    </span>
+            </div>
+
+            <div>
+                <form method="post" th:action="@{/comments/create/save/{postId}(postId=${post.id})}"
+                      class="comment-form">
+                    <textarea name="content" id="content" cols="30" rows="10" maxlength="255" required></textarea>
+                    <button class="form-submit-button-post" type="submit">
+                        <span class="submit-button">Comentar</span>
+                    </button>
+                </form>
+            </div>
+
+            <div th:each="comment : ${comments}" class="comments">
+                <div th:if="${post.id == comment.post.id}" class="comentarios">
+                    <p th:text="${comment.content}" class="content"></p>
+
+                    <div class="usuario-comments">
+                        <a th:href="@{/perfilVisitante/{userName}(userName=${post.usuario.login})}">
+                            <img class="icone" th:if="${comment.usuario != null && comment.usuario.imagem == null}"
+                                 src="/static/image/semImagem.png" alt="Icone do usuario">
+                            <img class="icone" th:if="${comment.usuario != null && comment.usuario.imagem != null}"
+                                 th:src="${comment.usuario.imagem}" alt="Icone do usuario">
+                        </a>
+
+                        <div class="infos-post">
+                            <a th:href="@{/perfilVisitante/{userName}(userName=${post.usuario.login})}">
+                                <p class="usuario-nome"
+                                   th:text="${comment.usuario != null ? comment.usuario.nome : 'Unknown User'}">
+                                </p>
+                            </a>
+                        </div>
+                        <h5 th:text="${#dates.format(comment.date, 'dd/MM/yyyy HH:mm')}"></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="modalPost" id="myModal" class="modalIndex">
+    <div class="modal-content container">
+        <span class="close">&times;</span>
+        <div class="post" data-id="123">
+        </div>
+    </div>
+</div>
+
+<script>
+    /*$(document).ready(function () {
+        $('.editBtn').on('click', function () {
+            var commentId = $(this).data('comment-id');
+            var commentContent = $(this).closest('.comentarios').find('.content').text();
+            var newContent = prompt('Edit your comment:', commentContent);
+
+            if (newContent !== null) {
+                $.ajax({
+                    url: `/posts/edit/${commentId}`,
+                    type: 'PUT',
+                    data: JSON.stringify({content: newContent}),
+                    contentType: 'application/json',
+                    success: function (response) {
+                        location.reload();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error('Error: ', textStatus, errorThrown);
+                        alert('An error occurred while processing your request.');
+                    }
+                });
+            }
+        });
+    });*/
+</script>
+
+
+</script>
+</body>
+
+</html>
