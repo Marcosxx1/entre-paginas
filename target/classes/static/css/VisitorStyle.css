@@ -1,0 +1,95 @@
+.profile-container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    padding: 20px;
+    text-align: center;
+    margin: 0 auto 20px auto;
+}
+
+.profile-header {
+    margin-bottom: 20px;
+}
+
+.profile-image {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.username {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.user-bio {
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+}
+
+.profile-details {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.profile-info {
+    list-style: none;
+    font-size: 14px;
+}
+
+.profile-info li {
+    margin-bottom: 10px;
+}
+
+.profile-info a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.profile-info a:hover {
+    text-decoration: underline;
+}
+
+.profile-social {
+    text-align: left;
+}
+
+.profile-social h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.profile-social ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.profile-social li {
+    margin-bottom: 10px;
+}
+
+.profile-social a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.profile-social a:hover {
+    text-decoration: underline;
+}
+
+.margin {
+    margin-bottom: 20px !important;
+}
+
+.joquebebe {
+    text-decoration: none;
+    color: var(--black);
+}
+
+.joquebebe:hover {
+    color: var(--azul-logo);
+}

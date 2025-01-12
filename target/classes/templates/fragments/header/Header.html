@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre Paginas</title>
+</head>
+
+<body>
+    <header th:fragment="header" class="header-menu">
+        <div class="header-menu__logo">
+            <div class="header-menu__logo-container">
+                <a th:href="@{/index}">
+                    <img src="/static/image/logo.png" alt="logo do site">
+                </a>
+            </div>
+            <a th:href="@{/index}">Entre Páginas</a>
+        </div>
+
+        <div class="search">
+            <div class="custom-select">
+                <div class="select-box">
+                    <span class="selected-option">Comunidade</span>
+                    <ul class="options">
+                        <li data-value="comunidade">Comunidade</li>
+                        <li data-value="usuário">Usuário</li>
+                    </ul>
+                </div>
+            </div>
+            <label for="searchInput"></label><input type="text" id="searchInput" placeholder="Pesquise por comunidade"
+                spellcheck="false" required class="search_input" />
+
+            <div id="suggestions" class="search_suggestions"></div>
+
+        </div>
+
+        <a th:if="${#authorization.expression('isAuthenticated()') and user.papel.papelNome == 'ADMIN'}"
+           th:href="@{/admin}" class="admin">
+            <i class="fa-solid fa-person-breastfeeding"></i>
+        </a>
+    </header>
+
+</body>
+
+</html>

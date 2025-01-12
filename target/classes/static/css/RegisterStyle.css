@@ -1,0 +1,191 @@
+.cadastro {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cadastro__left {
+    width: 40%;
+    height: 90%;
+    border-radius: 6px 0 0 6px;
+    background-color: var(--azul-claro);
+    box-shadow: 1px 1px 4px #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cadastro__left img {
+    width: 90%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.cadastro__right {
+    width: 50%;
+    height: 90%;
+    border-radius: 0 6px 6px 0;
+    box-shadow: 1px 1px 4px #ccc;
+}
+
+.cadastro__right h1 {
+    text-align: center;
+    font-size: 20px;
+    color: var(--black);
+    margin: 2% 0 3% 0;
+}
+
+.cadastro__right form {
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+    width: 100%;
+    height: 100%;
+}
+
+.cadastro__right div {
+    width: 100%;
+    height: 12%;
+}
+
+.cadastro__right div .div-input {
+    width: 100%;
+    display: flex;
+}
+
+.cadastro__right div .div-input input {
+    margin: 0 auto;
+    width: 90%;
+    height: 350%;
+    padding: 0 0 0 2%;
+    border-radius: 6px;
+    outline: none;
+    border: 2px solid var(--header-background);
+    z-index: 1;
+    color: var(--black);
+}
+
+
+.form-submit-button-post {
+    width: fit-content;
+    margin: 5% auto 0 auto;
+    border: 1px solid var(--azul-logo);
+    padding: 0.25%;
+    background-color: var(--white);
+    border-radius: 5px;
+    transition: background-color 1s;
+    margin-top: 1% !important;
+    margin-bottom: 0 !important;
+}
+
+.submit-button {
+    background-color: #60a6c0;
+    color: var(--white) !important;
+    padding: 8px 16px;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 5px;
+    font-size: 12px;
+    transition: background-color 0.4s;
+}
+
+.submit-button:hover,
+.form-submit-button-post:hover {
+    background-color: var(--azul-logo);
+}
+
+.cadastro__right p {
+    font-size: 12px;
+    text-align: end;
+    padding: 0.3% 2% 0 0;
+}
+
+.cadastro__right a {
+    text-decoration: none;
+    color: var(--azul-logo);
+    font-weight: 700;
+    transition: 0.5s;
+}
+
+.cadastro__right-informativo {
+    height: 30px !important;
+}
+
+.cadastro__right-informativo--p {
+    padding: 0 !important;
+    text-align: center !important;
+    color: var(--button-left-right-hover);
+}
+
+.label-erro {
+    margin: 2% 0 3% 5%;
+    display: flex;
+    letter-spacing: 2px;
+    font-weight: 500;
+}
+
+.label-erro label {
+    width: 50%;
+    margin-right: 5%;
+}
+
+.mensagem {
+    color: var(--vermelho);
+    margin-bottom: 2%;
+}
+
+.alert {
+    background: var(--white);
+    border: 2px solid var(--azul-logo);
+    position: absolute;
+    top: 50px;
+    left: 510px;
+    border-radius: 5px;
+    padding: 2%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-row {
+    display: flex;
+    gap: 5px;
+    justify-content: space-around;
+    margin: 1% 0 0 0;
+    padding: 0 2.5%;
+    box-sizing: border-box;
+}
+
+.form-row .label-erro {
+    flex: 1; /* As divs de label-erro vão ocupar espaço proporcionalmente */
+    min-width: 100px; /* Tamanho mínimo para cada coluna */
+}
+
+.form-row select.form-input {
+    width: 100%; /* Faz o select ocupar a largura completa da coluna */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.label-bob {
+    display: flex;
+    flex-direction: column;
+    margin: 2% 0 1% 0;
+}
+
+.label-bob select {
+    height: 30px;
+    padding: 5px !important;
+    font-size: 10px !important;
+    outline: none;
+    border: 2px solid var(--header-background) !important;
+}
+
+.label-bob option {
+    height: 20px;
+    font-size: 10px;
+}

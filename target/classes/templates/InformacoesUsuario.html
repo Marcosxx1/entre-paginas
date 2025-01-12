@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre Paginas</title>
+    <link rel="icon" th:href="@{/static/image/Favicon.png}" type="image/x-icon">
+
+    <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+
+    <link rel="stylesheet" th:href="@{/static/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/IndexStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/PerfilStyle.css}" />
+    <script th:src="@{/static/js/HeaderScript.js}"></script>
+    <script th:src="@{/static/js/SearchScript.js}"></script>
+</head>
+
+<body>
+    <div th:replace="~{fragments/header/header :: header}"></div>
+
+    <div class="perfil">
+        <div class="perfil-principal">
+            <div th:replace="~{fragments/sidebar/sidebar-loggedin}"></div>
+        </div>
+
+        <div class="perfil-right">
+            <form class="form-container" th:action="@{/user/image/{id}(id=${user.id})}" method="post"
+                enctype="multipart/form-data">
+
+                <h3>Imagem</h3>
+
+                <div class="form-imagem-group">
+                    <label for="imagem" class="form-label">Foto de Perfil</label>
+                    <input type="file" id="imagem" name="imagem" accept="image/*,.gif" class="form-imagem-input" />
+                </div>
+
+                <button class="form-submit-button-post" type="submit">
+                    <span class="submit-button">
+                        Enviar
+                    </span>
+                </button>
+            </form>
+
+            <form th:action="@{/user/edit/{id}(id=${user.id})}" th:object="${updateUserNameLoginAndEmailRequest}"
+                method="post" class="form-container">
+                <h3>Informações</h3>
+
+                <div class="form-content">
+                    <div class="form-left">
+                        <div class="form-group">
+                            <label for="nome" class="form-label">Nome</label>
+                            <input type="text" id="nome" name="nome" th:field="*{nome}" class="form-input" />
+                            <span class="form-error" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+                        </div>
+
+                        <div class="form-group email-input">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" name="email" th:field="*{email}" class="form-input" />
+                            <span class="form-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-right">
+                        <div class="form-group">
+                            <label for="login" class="form-label">Login</label>
+                            <input type="text" id="login" name="login" th:field="*{login}" class="form-input" />
+                            <span class="form-error" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="estadoBrasil">Estados do Brasil:</label>
+                    <select class="form-input" id="estadoBrasil" name="estadoBrasil" required>
+                        <option th:each="estadoBrasil : ${estadosBrasil}"
+                                th:value="${estadoBrasil}"
+                                th:text="${estadoBrasil}"
+                                th:selected="${estadoBrasil == updateUserNameLoginAndEmailRequest.estadoBrasil}">
+                        </option>
+                    </select>
+                </div>
+
+                <label class="form-label" for="cidade">Cidade</label>
+                <select class="form-input" id="cidade" name="cidade" required>
+                    <option value="" disabled selected hidden>Escolha um estado para ver as cidades.</option>
+                </select>
+
+                <button class="form-submit-button-post" type="submit">
+                    <span class="submit-button">Enviar</span>
+                </button>
+            </form>
+            <form th:action="@{/infos}" th:object="${user}"
+                class="form-container">
+
+                <h3>Trocar senha</h3>
+
+                <div class="form-content">
+                    <div class="form-left">
+                        <div class="form-novaSenha-group">
+                            <label for="senha" class="form-label">Senha</label>
+                            <input type="password" id="senha" name="senha" th:field="${user.senha}"
+                                class="form-input" />
+                        </div>
+                    </div>
+
+                    <div class="form-right">
+                        <div class="form-novaSenha-group">
+                            <label for="confirmarSenha" class="form-label">Confirmar Senha</label>
+                            <input type="password" id="confirmarSenha" name="confirmarSenha" class="form-input" />
+                        </div>
+                    </div>
+                </div>
+                <button class="form-submit-button-post" type="submit">
+                    <span class="submit-button">
+                        Enviar
+                    </span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+
+        $(document).ready(function () {
+            $('#estadoBrasil').change(function () {
+                var estadoSelecionado = $(this).val();
+                $.ajax({
+                    url: 'https://servicodados.ibge.gov.br/api/v1/localidades/estados/' + estadoSelecionado + '/municipios',
+                    type: 'GET',
+                    success: function (data) {
+                        $('#cidade').empty(); // Limpa as opções anteriores
+                        $.each(data, function (index, cidade) {
+                            $('#cidade').append('<option value="' + cidade.nome + '">' + cidade.nome + '</option>');
+                        });
+                    },
+                    error: function (error) {
+                        console.log('Erro ao carregar cidades:', error);
+                    }
+                });
+            });
+
+        // Load cities if a estadoBrasil is already selected
+            var selectedEstadoBrasil = $('#estadoBrasil').val();
+            if (selectedEstadoBrasil) {
+                $('#estadoBrasil').trigger('change');
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+.edit-button {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--azul-logo);
+    color: var(--white);
+    border: none;
+    padding: 5px 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.edit-button i {
+    margin-right: 5px;
+}
+
+.edit-button:hover {
+    background-color: var(--header-background-opacity);
+    color: var(--white);
+}
