@@ -12,5 +12,17 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  app:
+    build: .  # Diz ao Docker Compose para usar o Dockerfile na raiz
+    container_name: entrepaginas_app
+    depends_on:
+      - db
+    ports:
+      - "9000:9000"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/EntrePaginasDB
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+
 volumes:
   postgres_data:

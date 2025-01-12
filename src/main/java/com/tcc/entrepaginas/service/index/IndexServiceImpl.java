@@ -64,7 +64,7 @@ public class IndexServiceImpl implements IndexService {
         model.addAttribute("qtdReaction", reaction);
         model.addAttribute("book", bookService.getRandomLivro(authentication));
 
-        return "/Index";
+        return "Index";
     }
 
     @Override

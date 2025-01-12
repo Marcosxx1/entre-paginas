@@ -1,0 +1,28 @@
+/* Styles for the members list */
+#member-list {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+#member-list ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#member-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+#member-list li:last-child {
+    border-bottom: none;
+}
+
+#member-list li:hover {
+    background-color: #e0e0e0;
+}

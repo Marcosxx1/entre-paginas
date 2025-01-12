@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre Paginas</title>
+    <link rel="icon" th:href="@{/static/image/Favicon.png}" type="image/x-icon">
+
+    <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/static/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/IndexStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/PerfilStyle.css}" />
+    <script th:src="@{/static/js/HeaderScript.js}"></script>
+    <script th:src="@{/static/js/SearchScript.js}"></script>
+</head>
+
+<body>
+    <div th:replace="~{fragments/header/header :: header}"></div>
+    <div class="perfil">
+        <div class="perfil-principal">
+            <div th:replace="~{fragments/sidebar/sidebar-loggedin}"></div>
+        </div>
+        <div class="perfil-right">
+            <div>
+                <form th:action="@{/community/create/save/{id}(id=${idUsuario})}" th:object="${community}" method='post'
+                    id="community-form" class="form-container" enctype="multipart/form-data">
+                    <h3>Formulário da Comunidade</h3>
+                    
+                    <input type="file" id="image" name="image" accept="image/*,.gif" class="form-imagem-input" />
+
+                    <div class="form-content">
+                        <div class="form-left">
+                            <label class="form-label" for="title">Título:</label>
+                            <input class="form-input" type="text" id="title" name="title" required
+                                th:field="*{title}" />
+                        </div>
+
+                        <div class="form-right">
+                            <label class="form-label" for="content">Conteúdo:</label>
+                            <textarea class="form-input" id="content" name="content" required
+                                th:field="*{content}"></textarea>
+                        </div>
+                    </div>
+                    <!--                    <div class="form-checkbox">
+                        <input class="checkbox" type="checkbox" id="privado" name="privado" th:value="${privado}" />
+                        <label for="privado">Privado</label>
+                    </div>-->
+                    <button class="form-submit-button-post" type="submit">
+                        <span class="submit-button">
+                            Salvar
+                        </span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -24,6 +24,10 @@ public class IndexController {
                 authentication != null ? authentication.getName() : "Anonymous");
         return indexService.redirecctToIndexOrLoginBasedOnAuth(authentication);
     }
+    @GetMapping("/")
+    public String redirectToIndex() {
+        return "redirect:/index";
+    }
 
     @GetMapping("/index")
     public String index(Model model, Principal principal, Authentication authentication) {

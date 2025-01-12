@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre Paginas</title>
+    <link rel="icon" th:href="@{/static/image/Favicon.png}" type="image/x-icon">
+
+    <script src="https://kit.fontawesome.com/949dcd6b8d.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+
+    <link rel="stylesheet" th:href="@{/static/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/IndexStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/HeaderStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/PostStyle.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/PerfilStyle.css}" />
+    <script th:src="@{/static/js/HeaderScript.js}"></script>
+    <script th:src="@{/static/js/ModalScript.js}"></script>
+    <script th:src="@{/static/js/SearchScript.js}"></script>
+    <script th:src="@{/static/js/CarouselScript.js}"></script>
+
+</head>
+
+<body>
+
+    <div th:replace="~{fragments/header/header :: header}"></div>
+
+    <div class="perfil">
+        <div class="perfil-principal">
+
+
+            <div
+                th:replace="~{${#authorization.expression('isAuthenticated()') ? 'fragments/sidebar/sidebar-loggedin' : 'fragments/sidebar/sidebar-loggedout'}}">
+            </div>
+        </div>
+        <div class="perfil-right">
+            <div class="container">
+                <!-- <div class="div-titulo">
+                    <h5 class="tirulo-trocar"><i class="fa-solid fa-bullhorn"></i> Anúncio</h5>
+                </div> -->
+                <div class="container-livros">
+                    <div class="book" th:if="${books.size() > 0}" th:each="book : ${books}">
+                        <!-- <a class="usuarioTroca"
+                            th:href="@{/perfilVisitante/{nomeUsuario}(nomeUsuario=${book.usuario.nome})}">
+                            <img th:if="${book != null and book.usuario.imagem != null and book.usuario.imagem.trim() != ''}"
+                                th:src="${book.usuario.imagem}" alt="Imagem do Usuário" />
+                            <img th:if="${book == null or book.usuario.imagem == null or book.usuario.imagem.trim() == ''}"
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQMAAADCCAMAAAB6zFdcAAAAS1BMVEX///+hoaGdnZ3ExMTx8fGlpaXNzc2enp7i4uL4+PjIyMj19fWampr5+fn8/PzT09Pr6+u9vb2zs7OsrKzc3NzW1tapqam4uLjh4eFxahFAAAADCUlEQVR4nO3bDW+qMBiG4VKpRSlFwM39/196QBER+ZiDxLw995UtSxw260MpbytTCgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC51Uab+rw6R69zxfa2ihqvleztmkm+XSX3nZoOr9FAF0Qx0936W1p/Web7USRFpmBPmSH5utq+POtX2T+qGWOA+e3a25PBgFk4JX36wKRn8F6ojOoz398LMti5d1ddgYqd02No8tVhZ7oDNSXM9caR5drpgTRGaT3WtG4fEVzojPIXVftViuaE51B8Vgz6P/1Wrg8MnDZ35sTncFedxmYFc2JzuDkbNTeGOY7kaZq5loRnYHadQMhnTu+sK7IplMQnYH3F3fbTzrNneeiTkpX0weIzqB2Lo35Ps6OgtsdVO8mD5CegfKHdGaYq2bSaO8cP2riOOkZzJcFdQXtv+3SnCE9gwW+ngxMV0tOvCfwDOpV1WP3eOoGGngG8dMWuk5Gr52wM/DV86cQdrSiDjkDr3YuelaOzaIhZ6DOwwii0X2GkDOIhwk0U8Lp9biAMvBJv391aVCOfST5/VpRhZNBbJzr7a16ddQjEUS2CDeDzOjI6Oox8Scvk8HUlBBIBl5drmddF/eJPx1PoBkJwykhkAy67VV3bl+4jF4J1wyGNXMgGZy6Huv4+kI+GUF/sNyEkIFXWTU4y8nsUyr1YAktg/6e2m1l5M1sBrYdLK0gMniuB13S33QfD6FSvQ/nQsggHl77+4nbYm+w7FRIGfh6cWiee7j8yJrV58e8KD+Dp8ng98xjSpCfwc+fIohs2TUnPoPpenCB6/otPoPqz8+runvNLD2D8cXh75h2s114BvP14AJ7ud0bZGeQzteDS9pltOwMpheHv3PbWROdQb5YDy4xzTOuUjNonj86rY6g2VmTOw7qDA6Rc067FXT97lx0BvFPsgXB18KGzUnNwO63Uwr9fyajm2e1N1EvtQVmkJlten9nVz3u/CHJblv5hv8RIhYZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIH7B0uwLlAhgDlaAAAAAElFTkSuQmCC"
+                                alt="Imagem do Usuário" />
+                        </a> -->
+                        <img th:src="${book.imagens[0].url}" alt="icone da livro" class="bookImage">
+                        <div>
+                            <h3 th:text="${book.nome}"></h3>
+                            <p th:text="${book.usuario.nome}" style="display: none;"></p>
+                            <p th:text="${book.cidade}" style="display: none;"></p>
+                            <p th:text="${book.estadoBrasil}" style="display: none;"></p>
+                            <p th:text="${book.descricao}" style="display: none;"></p>
+                            <a class="bookID" th:href="@{/book/trade/{id}(id=${book.id})}" style="display: none;"></a>
+                        </div>
+                    </div>
+                    <!-- <div th:if="${books.size() = 0}">
+                        <span>Sem Anuncios no Momento</span>
+                    </div> -->
+                </div>
+                <!-- <div class="div-titulo">
+                    <h5 class="tirulo-comunidades"><i class="fa-solid fa-bullhorn"></i> Comunidades</h5>
+                </div> -->
+                <div class="container-comunidades">
+                    <div th:if="${comunidades.size() > 0}" th:each="comunidade : ${comunidades}">
+                        <a th:href="@{/community/{id}(id=${comunidade.id})}">
+                            <div class="comunidade">
+                                <img th:src="${comunidade == null and comunidade.icone == null and comunidade.icone.trim() == '' ? '/static/image/semImagem.png' : comunidade.icone}"
+                                    alt="icone da comunidade">
+                            </div>
+                            <div class="comunidade-verso hide">
+                                <h2 th:text="${comunidade.title}"></h2>
+                                <h2>membros: 1</h2>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- <div th:if="${comunidades.size() = 0}">
+                        <span>Sem Comunidades no Momento</span>
+                    </div> -->
+                </div>
+
+                <div th:replace="~{fragments/posts/posts :: post}"></div>
+            </div>
+            <div th:if="${book != null}" id="bookModalLivro" class="modalLivro">
+                <div class="modalLivro-content">
+                    <div class="div-anunciante">
+                        <p class="anunciante">Anúncio feito por:</p>
+                        <a th:href="@{/perfilVisitante/{userName}(userName=${book.usuario.nome})}"
+                            th:text="${book.usuario != null ? book.usuario.nome : 'N/A'}" id="modalBookAuthor"
+                            class="anunciante"></a>
+                    </div>
+
+                    <div th:if="${book.imagens != null}">
+                        <img th:src="${book.imagens[0].url}" alt="icone da livro" id="modalBookImage" />
+                    </div>
+                    <!--
+                                    <p th:text="${book.imagens != null ? book.imagens[0].url : 'N/A'}" id="modalBookImageName"></p>
+                -->
+
+                    <div>
+                        <h3 th:text="${book.nome}" id="modalBookTitle"></h3>
+                        <div class="modalLugar">
+                            <p th:text="${book.cidade}" id="modalBookCidade"></p>
+                            -
+                            <p th:text="${book.estadoBrasil}" id="modalBookEstado"></p>
+                        </div>
+                        <div class="modalBookDescricaoDiv">
+                            <p class="descricao">Descrição: </p>
+                            <p th:text="${book.descricao}" id="modalBookDescricao"></p>
+                        </div>
+                    </div>
+
+                    <a th:href="@{/book/trade/{id}(id=${book.id})}" id="modalBookLink">Solicitar Troca</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span sec:authentication="name" style="display: none;" id="userLogin"></span>
+
+    <div th:replace="~{fragments/posts/posts :: modalPost}"></div>
+
+    <script>
+        $(document).ready(function () {
+            $('.likeBtn').on('click', function () {
+                let postId = $(this).siblings('input').val(); // Obtém o ID do post
+                let likesCountSpan = $(this).siblings('.likesCount'); // Obtém o contador de likes do post correspondente
+
+                $.ajax({
+                    url: `/posts/likes/${postId}`,
+                    type: 'POST',
+                    data: { action: 'like' },
+                    success: function (response) {
+                        likesCountSpan.text(response); // Atualiza o contador de likes do post correto
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        if (jqXHR.status === 401) {
+                            alert('You must be logged in to vote.');
+                        } else if (jqXHR.status === 409) {
+                            alert('You have already voted on this post.');
+                        } else {
+                            console.error('Error: ', textStatus, errorThrown);
+                            alert('An error occurred while processing your request.');
+                        }
+                    }
+                });
+            });
+        });
+
+    </script>
+
+
+
+
+    <script>
+        $(document).ready(function () {
+            $('.book').on('click', function () {
+                var title = $(this).find('h3').text();
+                var author = $(this).find('p:eq(0)').text();
+                var image = $(this).find('.bookImage').attr('src');
+                var cidade = $(this).find('p:eq(1)').text();
+                var estado = $(this).find('p:eq(2)').text();
+                var descricao = $(this).find('p:eq(3)').text();
+                var link = $(this).find('.bookID').attr('href');
+
+                $('#modalBookTitle').text(title);
+                $('#modalBookAuthor').text(author);
+                $('#modalBookCidade').text(cidade);
+                $('#modalBookEstado').text(estado);
+                $('#modalBookDescricao').text(descricao);
+                $('#modalBookImage').attr('src', image);
+                $('#modalBookLink').attr('href', link);
+
+                $('#bookModalLivro').css('display', 'block');
+            });
+        });
+    </script>
+</body>
+
+</html>

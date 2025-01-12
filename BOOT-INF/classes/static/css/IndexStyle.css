@@ -1,0 +1,269 @@
+.container {
+    width: 70%;
+    height: 100%;
+    padding: 1%;
+    box-sizing: border-box;
+}
+
+.div-titulo {
+    width: 100%;
+    margin: 0.4% 0 1% 0;
+    padding: 10px 0 0 20px;
+    border-radius: 10px 10px 0 0;
+    background-color: var(--white);
+    box-sizing: border-box;
+}
+
+.tirulo-trocar,
+.tirulo-comunidades {
+    font-size: 10px;
+    letter-spacing: 4.5px;
+}
+
+.container-comunidades,
+.container-livros {
+    width: 100%;
+    margin: 1.2% auto;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 20px 0;
+    border-radius: 5px;
+    background-color: var(--button-hover);
+    border: 2px solid var(--azul-logo);
+    box-sizing: border-box;
+}
+
+.book {
+    width: 50%;
+    cursor: pointer;
+    height: 200px;
+    margin: 0 10px;
+    color: var(--black);
+    background-color: var(--white);
+    border: 1px solid var(--button-hover);
+    border-radius: 10px;
+    position: relative;
+}
+
+.usuarioTroca {
+    display: block;
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    z-index: 1;
+}
+
+.usuarioTroca img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+}
+
+.book img {
+    object-fit: cover;
+    width: 100%;
+    height: 70%;
+    opacity: 0.8;
+    border-radius: 10px 10px 0 0;
+    border: 2px solid var(--azul-claro);
+    box-sizing: border-box;
+}
+
+.book div {
+    width: 100%;
+    height: 30%;
+    padding: 10px;
+    box-sizing: border-box;
+    color: var(--black);
+    border-radius: 0 0 10px 10px;
+}
+
+.container-livros a {
+    text-decoration: none;
+}
+
+.book div h3 {
+    font-size: 10px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.book div div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 0 0 0;
+    height: 30%;
+    margin-top: 3px;
+    border-radius: 10px;
+    border: 1px solid var(--vermelho);
+    transition: background-color 1s;
+}
+
+.book:hover div div {
+    background-color: var(--vermelho);
+    color: var(--white);
+}
+
+.book div div p {
+    font-size: 8px;
+}
+
+.book div p {
+    font-size: 12px;
+    margin-bottom: 5px;
+    text-align: justify;
+}
+
+.container-comunidades a {
+    text-decoration: none;
+}
+
+.container-comunidades .comunidade {
+    display: block;
+    width: 120px;
+    height: 120px;
+    margin: 5% 0;
+    border-radius: 50%;
+}
+
+.container-comunidades .comunidade img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.container-comunidades .comunidade-verso {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--black);
+    width: 120px;
+    height: 120px;
+    margin: 5% 0;
+    padding: auto;
+    border-radius: 50%;
+    border: 1px solid var(--gray);
+    box-sizing: border-box;
+}
+
+.comunidade-verso {
+    background-color: var(--white);
+}
+
+.container-comunidades .comunidade-verso h2 {
+    font-size: 12px;
+    text-align: center;
+    margin: 0;
+}
+
+.hide {
+    display: none !important;
+}
+
+.modalLivro {
+    width: 20%;
+    height: 85.6%;
+    padding: 1% 2% 2% 2%;
+    background-color: var(--azul-logo);
+    border: 2px solid var(--button-hover);
+    box-sizing: border-box;
+    border-radius: 10px;
+    position: absolute;
+    top: 72px;
+    right: 42px;
+}
+
+#modalBookImage {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+#modalBookTitle {
+    text-align: center;
+    font-size: 12px;
+    margin: 5%;
+}
+
+.modalLugar {
+    font-size: 8px;
+    text-align: center;
+    color: var(--azul-claro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.div-anunciante {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.anunciante {
+    font-size: 10px;
+    color: var(--black);
+    cursor: pointer;
+}
+
+#modalBookAuthor {
+    margin-left: 10px;
+    font-weight: 800;
+    color: var(--azul-claro);
+}
+
+.descricao {
+    margin: 5% 0 5% 0;
+    font-size: 12px;
+}
+
+.modalBookDescricaoDiv {
+    width: 100%;
+    height: 100px;
+    margin: 0 0 45px 0;
+}
+
+#modalBookDescricao {
+    position: relative;
+    font-size: 11px;
+    text-align: justify;
+}
+
+#modalBookDescricao::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, var(--azul-logo) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+#modalBookLink {
+    display: block;
+    color: var(--black);
+    width: 133.7px;
+    border-radius: 4px;
+    font-weight: 700;
+    cursor: pointer;
+    background-color: var(--azul-logo);
+    margin: 10% auto;
+    padding: 10px;
+    transition: 0.5s;
+    text-decoration: none;
+}
+
+#modalBookLink:hover {
+    background-color: var(--button-hover);
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre Paginas</title>
+</head>
+
+<body>
+    <div th:fragment="sideBar">
+        <div class="perfil-principal__left">
+            <ul class="perfil-principal__left-menu">
+                <a th:href="@{/login}">
+                    <li>
+                        <i class="fa-solid fa-user-pen"></i>
+                        Login
+                    </li>
+                </a>
+                <a th:href="@{/user/register}">
+                    <li>
+                        <i class="fa-solid fa-heart"></i>
+                        Cadastrar
+                    </li>
+                </a>
+                <a th:href="@{/suporte}">
+                    <li>
+                        <i class="fa-regular fa-circle-question"></i>
+                        Suporte
+                    </li>
+                </a>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>
