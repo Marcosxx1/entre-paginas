@@ -4,6 +4,10 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+# compilação
+META-INF/
+BOOT-INF/
+
 application.yml
 
 ### STS ###
