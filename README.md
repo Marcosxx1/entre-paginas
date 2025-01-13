@@ -1,4 +1,8 @@
 # Entre-Páginas
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/0293fc5d-dda4-4d2a-9650-23004236a890" alt="logo" />
+  <p><i>Idealização da logo: <a href="https://github.com/LuizFNeto20">LuizFNeto20</a></i></p>
+</div>
 
 ## Requisitos
 
