@@ -43,6 +43,13 @@ A implementação do backend ficou a cargo de Luiz e de mim, utilizando o **Thym
    ```bash
    docker-compose up --build
    ```
+   
+6. **Crie "App Password"**
+   Em nossa aplicação estamos utilizando do Google
+Basta renomear` application_example.yml` para `application.yml` e adicionar suas credenciais.
+Se lembre que é "App Passwords" e não login e senha do Google
+![image](https://github.com/user-attachments/assets/02d2ec9d-a7c4-4349-bcd2-75f617cd171d)
+
 
 ## Resumo
 
