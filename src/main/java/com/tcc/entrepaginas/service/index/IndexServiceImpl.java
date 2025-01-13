@@ -40,7 +40,7 @@ public class IndexServiceImpl implements IndexService {
         if (authentication != null && authentication.isAuthenticated()) {
             return "redirect:/index";
         }
-        return "/Login";
+        return "Login"; // Antes: /Login, depois: Login  .
     }
 
     @Override
@@ -78,7 +78,7 @@ public class IndexServiceImpl implements IndexService {
             model.addAttribute("comments", commentsServiceNew.listarComments(Sort.by(Sort.Direction.ASC, "id")));
         }
 
-        return "/Perfil";
+        return "Perfil";
     }
 
     @Override
@@ -106,7 +106,7 @@ public class IndexServiceImpl implements IndexService {
         model.addAttribute("books", bookService.listAllBooksForUser(user));
         model.addAttribute("communities", communityServiceNew.listCommunitiesForUser(user));
 
-        return "/Perfil";
+        return "Perfil";
     }
 
     @Override

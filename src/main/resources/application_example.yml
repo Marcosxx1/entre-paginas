@@ -1,0 +1,28 @@
+# RENOMEIE ESTE ARQUIVO PARA application.yml
+server:
+  port: 9000
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/EntrePaginasDB
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+  mvc:
+    static-path-pattern: /static/**
+  web:
+    resources:
+      static-locations: classpath:/static/
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: epaginas242@gmail.com
+    password: XXXXXXXXXXXXXXXXX # Adicione seu "App Password" Aqui etamos usando do Google
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true

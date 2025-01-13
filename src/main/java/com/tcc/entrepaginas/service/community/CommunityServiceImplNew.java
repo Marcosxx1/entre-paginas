@@ -123,7 +123,7 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
         model.addAttribute("community", new Community());
         model.addAttribute("idUsuario", idUsuario);
 
-        return "/CriarComunidade";
+        return "CriarComunidade";
     }
 
     @Override
@@ -137,7 +137,7 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
         model.addAttribute("moderatorCommunities", moderatorCommunities);
         model.addAttribute("userCommunities", userCommunities);
 
-        return "/MinhasComunidades";
+        return "MinhasComunidades";
     }
 
     @Override
@@ -230,7 +230,7 @@ public class CommunityServiceImplNew implements CommunityServiceNew {
 
         model.addAttribute("qtdReaction", reaction);
 
-        return "/Comunidade";
+        return "Comunidade";
     }
 
     public Optional<Membros> isUserMember(String userId, String communityId) {
