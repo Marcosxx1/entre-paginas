@@ -50,6 +50,7 @@ Basta renomear` application_example.yml` para `application.yml` e adicionar suas
 Se lembre que é "App Passwords" e não login e senha do Google
 ![image](https://github.com/user-attachments/assets/02d2ec9d-a7c4-4349-bcd2-75f617cd171d)
 
+7. A aplicação estará disponível em http://localhost:9000
 
 ## Resumo
 
