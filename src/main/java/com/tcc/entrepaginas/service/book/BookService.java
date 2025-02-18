@@ -41,7 +41,7 @@ public interface BookService {
 
     String prepareBookToEdit(Model model, String idLivro, Authentication authentication);
 
-    String saveEditedBook(String idLivro, LivroParaEditarRequest livroParaEditarRequest, HttpServletRequest request);
+    String saveEditedBook(String idLivro, LivroParaEditarRequest livroParaEditarRequest, HttpServletRequest request, Authentication authentication);
 
     String prepareTradeBookPage(Model model, String idTroca, Authentication authentication, Principal principal);
 

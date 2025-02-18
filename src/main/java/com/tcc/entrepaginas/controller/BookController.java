@@ -53,7 +53,10 @@ public class BookController {
     }
 
     @GetMapping("/exchanges/{id}")
-    public String tradeBook(Model model, @PathVariable("id") String idUsuario, Authentication authentication) {
+    public String tradeBook(
+            Model model,
+            @PathVariable("id") String idUsuario,
+            Authentication authentication) {
 
         log.info(
                 "BookController - GET on /exchanges/{id};  /exchanges/{}, called by user: {}",
@@ -84,14 +87,15 @@ public class BookController {
     public String createLivro(
             @PathVariable("id") String idLivro,
             @Valid LivroParaEditarRequest livroParaEditarRequest,
-            HttpServletRequest request) {
+            HttpServletRequest request,
+            Authentication authentication) {
 
         log.info(
                 "BookController - POST on /edit/save/{id}; /edit/save/{}, called with LivroParaEditarRequest: {}",
                 idLivro,
                 livroParaEditarRequest);
 
-        return bookService.saveEditedBook(idLivro, livroParaEditarRequest, request);
+        return bookService.saveEditedBook(idLivro, livroParaEditarRequest, request, authentication);
     }
 
     @GetMapping("/trade/{id}")

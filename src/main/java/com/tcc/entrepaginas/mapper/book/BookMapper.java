@@ -2,8 +2,11 @@ package com.tcc.entrepaginas.mapper.book;
 
 import com.tcc.entrepaginas.domain.dto.LivroParaEditarRequest;
 import com.tcc.entrepaginas.domain.dto.NovoLivroRequest;
+import com.tcc.entrepaginas.domain.entity.ImagemLivro;
 import com.tcc.entrepaginas.domain.entity.Livro;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class BookMapper {
@@ -20,7 +23,7 @@ public class BookMapper {
                 .build();
     }
 
-    public Livro toLivroFromLivroParaEditarRequest(Livro livro, LivroParaEditarRequest livroParaEditarRequest) {
+    public Livro toLivroFromLivroParaEditarRequest(Livro livro, LivroParaEditarRequest livroParaEditarRequest, List<ImagemLivro>livros)  {
         livro.setNome(livroParaEditarRequest.getNome());
         livro.setDescricao(livroParaEditarRequest.getDescricao());
         livro.setCidade(livroParaEditarRequest.getCidade());
@@ -28,6 +31,7 @@ public class BookMapper {
         livro.setEstado(livroParaEditarRequest.getEstado());
         livro.setTipo(livroParaEditarRequest.getTipo());
         livro.setCategoria(livroParaEditarRequest.getCategoria());
+        livro.setImagens(livros);
         return livro;
     }
 }

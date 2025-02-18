@@ -243,9 +243,18 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public String saveEditedBook(
-            String idLivro, LivroParaEditarRequest livroParaEditarRequest, HttpServletRequest request) {
+            String idLivro, LivroParaEditarRequest livroParaEditarRequest, HttpServletRequest request, Authentication authentication) {
+
         Livro livro = buscarLivro(idLivro);
-        livro = bookMapper.toLivroFromLivroParaEditarRequest(livro, livroParaEditarRequest);
+
+        List<ImagemLivro> imagensLivro = imagemLivroService.processImagens(livroParaEditarRequest.getImagens(), livro, request);
+
+
+        livro = bookMapper.toLivroFromLivroParaEditarRequest(livro, livroParaEditarRequest,  imagensLivro);
+
+        Usuario usuario = userUtils.getUsuarioObjectFromAuthentication(authentication);
+        livro.setUsuario(usuario);
+
         livroRepository.save(livro);
         return "redirect:/book/exchanges/" + livro.getUsuario().getId();
     }
